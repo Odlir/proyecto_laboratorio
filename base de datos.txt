@@ -1,0 +1,28 @@
+PERSONA
+id
+nombre
+apellido materno
+apellido paterno
+empresa_id FK
+rol_id FK
+insert_user_id / comment->'Quien hizo el insert'
+edit_user_id 
+estado char(1)
+
+EMPRESA // TRILCE 
+Id
+Codigo (nullable)
+razon Social / string
+contacto
+email
+telefono
+insert_user_id
+edit_user_id
+estado char1
+
+EMPRESA_SUCURSAL // TRILCE SALAMANCA - TRILCE LA MOLINA
+id
+nombre
+estado char(1)
+empresa_id
+

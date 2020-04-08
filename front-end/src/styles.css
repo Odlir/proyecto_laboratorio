@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.ng-invalid:not(form)
+{
+  border-left: 5px solid red;
+}
+
+.ng-valid:not(form)
+{
+  border-left: 5px solid green;
+}
+
+*{
+  color: #5f5f5f;
+}
+

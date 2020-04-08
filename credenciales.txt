@@ -1,0 +1,5 @@
+laravel queus funciones asyncronas
+
+credenciales
+user/ D42693147
+password / Edelpozo09
