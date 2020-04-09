@@ -27,5 +27,7 @@ Route::group([
     Route::post('me', 'AuthController@me');
 
     Route::resource('users','UserController');
+    Route::resource('roles','RolController');
+    Route::resource('personas','PersonaController');
 
 });

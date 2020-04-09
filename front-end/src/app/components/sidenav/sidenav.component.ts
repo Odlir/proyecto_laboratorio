@@ -1,4 +1,3 @@
-import { AuthService } from './../../Services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,13 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit {
-  public loggedIn: boolean;
-  constructor(
-    private Auth: AuthService
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.Auth.authStatus.subscribe(value => this.loggedIn = value);
+  }
+
+  public onOpen() {
+    console.log('open');
+  }
+
+  public onClose() {
+    console.log('close');
+  }
+
+  public onChangeVisibility(event) {
+    console.log('change visibility', event);
   }
 
 }

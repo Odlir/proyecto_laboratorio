@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { ConstantsService } from './../common/constants.service';
 import { Injectable } from '@angular/core';
 
@@ -13,17 +14,18 @@ export class TokenService {
     signup: this.apiUrl + 'signup'
   };
 
-  constructor() {};
+  constructor(private http: HttpClient) {};
 
-  handle(token)
+  handle(token, id)
   {
-    this.set(token);
+    this.set(token, id);
     console.log(this.isValid());
   }
 
-  set(token)
+  set(token, id)
   {
-    localStorage.setItem('token',token);
+    localStorage.setItem('token', token);
+    localStorage.setItem('id', id);
   }
 
   get()
@@ -31,9 +33,15 @@ export class TokenService {
     return localStorage.getItem('token');
   }
 
+  me()
+  {
+    return localStorage.getItem('id');
+  }
+
   remove()
   {
     localStorage.removeItem('token');
+    localStorage.removeItem('id');
   }
 
   isValid()
@@ -65,4 +73,5 @@ export class TokenService {
   {
     return this.isValid();
   }
+
 }

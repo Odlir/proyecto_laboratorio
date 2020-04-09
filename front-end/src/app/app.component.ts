@@ -1,4 +1,3 @@
-import { ApiBackRequestService } from './Services/api-back-request.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,11 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit{
   title = 'front-end';
 
-  constructor() {
+  constructor() { }
 
-  }
-
-  ngOnInit() {
+  ngOnInit(): void {
 
   }
 

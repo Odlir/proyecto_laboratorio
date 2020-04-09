@@ -16,12 +16,11 @@ class CreatePersonasTable extends Migration
         Schema::create('personas', function (Blueprint $table) {
             $table->id();
             $table->string('nombres');
-            $table->string('apellido_materno');
+            $table->string('apellido_materno')->nullable();
             $table->string('apellido_paterno');
+            $table->string('sexo');
             $table->char('estado',1)->comment('0-Inactivo/1-Activo')->default(1);
-
-            $table->unsignedBigInteger('empresa_id');
-            $table->foreign('empresa_id')->references('id')->on('empresas');
+            $table->string('email')->nullable();
 
             $table->unsignedBigInteger('rol_id');
             $table->foreign('rol_id')->references('id')->on('roles');

@@ -2,7 +2,7 @@ import { ConstantsService } from './../common/constants.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { TokenService } from './token.service';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -33,7 +33,7 @@ export class ApiBackRequestService {
         // if (error.status === 500 /*|| error.status === 403*/) {
         //     me.router.navigate(['/logout']);
         // }
-        return Observable.throw(error || 'Server error');
+        return throwError(error || 'Server error');
       }));
   }
 
@@ -46,7 +46,7 @@ export class ApiBackRequestService {
           // if (error.status === 500) {
           //     me.router.navigate(['/logout']);
           // }
-          return Observable.throw(error || 'Server error');
+          return throwError(error || 'Server error');
       }));
   }
 
@@ -57,7 +57,7 @@ export class ApiBackRequestService {
               // if (error.status === 401) {
               //     me.router.navigate(['/logout']);
               // }
-            return Observable.throw(error || 'Server error')
+            return throwError(error || 'Server error')
         }));
   }
 
@@ -68,7 +68,7 @@ export class ApiBackRequestService {
               // if (error.status === 401) {
               //     me.router.navigate(['/logout']);
               // }
-            return Observable.throw(error || 'Server error')
+            return throwError(error || 'Server error')
         }));
   }
 }

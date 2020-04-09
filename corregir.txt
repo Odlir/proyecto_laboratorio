@@ -1,0 +1,5 @@
+falta cambiar el boton regresar en el crud de personas porque se va al dashboard
+
+me falta arreglar el diseño del registrar persona porque aun no tengo el menu
+
+

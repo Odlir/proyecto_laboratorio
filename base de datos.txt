@@ -3,7 +3,8 @@ id
 nombre
 apellido materno
 apellido paterno
-empresa_id FK
+sexo / se necesita para el reporte
+email nullable
 rol_id FK
 insert_user_id / comment->'Quien hizo el insert'
 edit_user_id 
@@ -25,4 +26,10 @@ id
 nombre
 estado char(1)
 empresa_id
+
+
+ENCUESTA_ALUMNO
+encuesta_id FK
+persona_id FK/ OSEA EL ALUMNO
+empresa_id FK 
 

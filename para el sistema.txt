@@ -1,56 +1,38 @@
-PERSONAS
--------------------
-id nombre apellidos sexo(se necesita para el reporte)
-poner campo correo y que no sea requerido
+CRUDS
+todos los crud seran sin modales
 
-hay que validar para se guarde sin tilde y todo en mayuscula
-
-EMPRESAS
------
-id 
-nombre
-
-
+--------------
 ENCUESTAS: Es el mantenimiento de las preguntas
 Hay 2 encuestas: intereses / temperamentos
 
-Hacer crud para las preguntas / por ahora todas las preguntas
+por ahora no se necesita crud para las preguntas, todas las preguntas
 defrente a la base de datos
+
+-----------------------------
 
 PROGRAMACION DE ENCUESTAS: Es para programar las encuestas
 para el colegio
 
-En la tabla programacion de encuestas
-solo tener fecha de inicio y fin
+En la tabla programacion de encuestas solo tener fecha de inicio y fin
 
-categoria de encuestas solo habra
-interes y temperamentos
-
-periodo
+categoria de encuestas solo habra interes y temperamentos
 
 lo mas importante es la fecha de inicio y la fecha de fin
 
-validar para que la encuesta sea hasta fin de año
+validar para que la encuesta sea hasta fin de año, osea para en el input date
+al registrar la fecha de inicio, en la fecha de fin se ponga hasta el final.
 
 luego de programar la encuesta
 se debe subir el excel con las personas
 
-------------------------
+hacer que al programar una encuesta, las 3 encuestas se generen en uno solo
 
-hacer que al programar una encuesta
-hacer que las 3 encuestas se generen en uno solo
-
-///EN LAS ENCUESTAS CAMBIAR LOS SELECTS POR RADIO BUTTONS 
-EN LA ESCUESTA DE INTERESES
+EN LAS ENCUESTA DE INTERESES CAMBIAR LOS SELECTS POR RADIO BUTTONS 
 
 TODAS LAS PREGUNTAS EN UNA SOLA HOJA, NO PONER BOTONES PARA IR A LA SIGUIENTE SECCION
 
-NO PONEMOS LA BARRA PERO SI HAY QUE VALIDAR QUE SE RESPONDAN TODAS LAS PREGUNTAS
+NO PONEMOS LA BARRA DE CARGA PERO SI HAY QUE VALIDAR QUE SE RESPONDAN TODAS LAS PREGUNTAS
 
-///////////
 que suba el excel y que salga un mensaje de exito
 
-
-
-///////////////
-la formula se debe usar del .net debe ser igual
+la formula para los reportes se debe usar del .net debe ser igual

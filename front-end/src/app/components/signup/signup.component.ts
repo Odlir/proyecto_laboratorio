@@ -40,7 +40,7 @@ export class SignupComponent implements OnInit {
 
   handleResponse(data)
   {
-    this.Token.handle(data.access_token);
+    this.Token.handle(data.access_token, data.user);
     this.router.navigateByUrl('/dashboard');
   }
 

@@ -1,4 +1,3 @@
-import { ApiBackRequestService } from './../../Services/api-back-request.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,13 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonasComponent implements OnInit {
 
-  constructor(private api: ApiBackRequestService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.api.get('users').subscribe(
-      data => console.log(data),
-      error => console.log(error)
-    );
+
   }
 
 }

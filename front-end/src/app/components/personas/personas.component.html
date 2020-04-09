@@ -1,11 +1,11 @@
-<div class="px-5 example-container mat-elevation-z8">
+<div class="px-5">
   <br>
-  <h3>MANTENIMIENTO DE PERSONAS</h3>
-  <div class="col-12 text-right">
-    <button class="btn btn-success mx-1">IMPORTAR PERSONAS</button>
-    <button class="btn btn-success mx-1">CREAR PERSONA</button>
+  <div class="row">
+    <fa-icon [icon]="['fas', 'user-friends']"></fa-icon><h5>MANTENIMIENTO DE PERSONAS</h5>
   </div>
-
-  <h4>LISTADO DE PERSONAS</h4>
+  <div class="col-12 text-right">
+    <button class="btn btn-secondary mx-1">IMPORTAR PERSONAS</button>
+    <button class="btn btn-secondary mx-1" [routerLink]="['/persona']" >CREAR PERSONA</button>
+  </div>
 
 </div>
