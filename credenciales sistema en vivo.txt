@@ -1,5 +1,7 @@
 laravel queus funciones asyncronas
 
+http://talentoslinux.eastus2.cloudapp.azure.com/login
+
 credenciales
 user/ D42693147
 password / Edelpozo09

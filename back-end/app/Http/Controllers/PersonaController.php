@@ -55,7 +55,13 @@ class PersonaController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Persona::with('insert')
+        ->with('edit')
+        ->where('rol_id','2')
+        ->where('id',$id)
+        ->first();
+
+        return response()->json($data, 200);
     }
 
     /**
@@ -78,7 +84,13 @@ class PersonaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data= $request->all();
+
+        $registro= Persona::find($id);
+        $registro->update($data);
+        $registro->save();
+
+        return response()->json($registro, 200);
     }
 
     /**
