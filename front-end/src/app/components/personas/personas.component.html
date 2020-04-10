@@ -5,8 +5,15 @@
   </div>
   <div class="col-12 text-right">
     <button class="btn btn-secondary">IMPORTAR PERSONAS</button>
-    <button class="btn btn-secondary" [routerLink]="['/persona']" >CREAR PERSONA</button>
+    <button class="btn btn-secondary" [routerLink]="['/crud-persona']" >CREAR PERSONA</button>
   </div>
+
+  <input
+        type="text"
+        style="padding:8px;margin:15px auto;width:30%;"
+        placeholder="Buscar por el nombre de la persona"
+        (keyup)="updateFilter($event)"
+      />
 
   <div class="mt-5">
     <ngx-datatable
@@ -15,10 +22,9 @@
         [loadingIndicator]="loadingIndicator"
         [columnMode]="ColumnMode.force"
         [headerHeight]="40"
-        [summaryRow]="true"
         [summaryPosition]="'bottom'"
         [footerHeight]="40"
-        [limit]="10"
+        [limit]="20"
         rowHeight="auto"
         [reorderable]="reorderable"
       >
@@ -47,12 +53,13 @@
          {{ value }}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Id" >
+      <ngx-datatable-column name="Id">
+        <ng-template let-column="column" ngx-datatable-header-template> Acciones </ng-template>
         <ng-template let-value="value" ngx-datatable-cell-template>
           <div class="row justify-content-center">
-            <button class="btn border"><fa-icon [icon]="['fas', 'eye']"></fa-icon></button>
-            <button class="btn border" [routerLink]="['/persona/']" [queryParams]="{id:value}"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button>
-            <button class="btn border"><fa-icon [icon]="['fas', 'trash']"></fa-icon></button>
+            <button class="btn border" [routerLink]="['/detalle-persona/']" [queryParams]="{id:value}"><fa-icon [icon]="['fas', 'eye']"></fa-icon></button>
+            <button class="btn border" [routerLink]="['/crud-persona/']" [queryParams]="{id:value}"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button>
+            <button class="btn border" (click)="eliminar(value)" ><fa-icon [icon]="['fas', 'trash']"></fa-icon></button>
           </div>
         </ng-template>
       </ngx-datatable-column>

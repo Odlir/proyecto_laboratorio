@@ -71,6 +71,7 @@ export class CrudComponent implements OnInit {
 
   async editar()
   { this.form.edit_user_id = this.user.me();
+
     await this.api.put('personas', this.id , this.form).toPromise().then(
       (data) => {this.cerrar('Datos Actualizados Correctamente')}
     );
@@ -88,7 +89,7 @@ export class CrudComponent implements OnInit {
         popup: 'animated fadeOutUp faster'
       }
     });
-    this.router.navigateByUrl('/dashboard');
+    this.router.navigateByUrl('/personas');
   }
 
 }

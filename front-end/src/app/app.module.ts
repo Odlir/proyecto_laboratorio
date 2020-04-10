@@ -27,10 +27,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { HttpClientModule } from '@angular/common/http';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PersonasComponent } from './components/personas/personas.component';
 import { CrudComponent } from './components/personas/crud/crud.component';
+import { DetalleComponent } from './components/personas/detalle/detalle.component';
 
 
 @NgModule({
@@ -39,10 +39,10 @@ import { CrudComponent } from './components/personas/crud/crud.component';
     NavbarComponent,
     LoginComponent,
     SignupComponent,
-    SidenavComponent,
     DashboardComponent,
     PersonasComponent,
-    CrudComponent
+    CrudComponent,
+    DetalleComponent
   ],
   imports: [
     AppRoutingModule,

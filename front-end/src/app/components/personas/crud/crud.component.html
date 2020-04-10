@@ -4,7 +4,7 @@
     <fa-icon [icon]="['fas', 'user-friends']"></fa-icon><h5>MANTENIMIENTO DE PERSONAS</h5>
   </div>
 
-  <div class="widget clearfix">
+  <div class="widget clearfix mt-5">
     <div class="whead clearfix">
       <p>CREAR PERSONA</p>
     </div>
@@ -57,13 +57,13 @@
           <div class="form-group row">
             <div class="col-12">
               <button type="submit" class="btn btn-danger">GUARDAR</button>
-              <a routerLink="/dashboard" class="btn btn-info">REGRESAR A LA LISTA</a>
+              <a routerLink="/personas" class="btn btn-info">REGRESAR A LA LISTA</a>
             </div>
           </div>
         </form>
       </div>
-      <div class="col-5 p-0 widget clearfix" *ngIf="id" >
-        <div class="whead clearfix">
+      <div class="col-5 p-0 widget clearfix mt-4" *ngIf="id" >
+        <div class="whead clearfix text-center">
           <p>Auditoría</p>
         </div>
         <div class="row auditoria">

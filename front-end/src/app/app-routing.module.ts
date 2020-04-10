@@ -1,3 +1,5 @@
+import { PersonasComponent } from './components/personas/personas.component';
+import { DetalleComponent } from './components/personas/detalle/detalle.component';
 import { CrudComponent } from './components/personas/crud/crud.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AfterLoginService } from './Services/after-login.service';
@@ -24,8 +26,18 @@ const routes: Routes = [
     canActivate: [AfterLoginService]
   },
   {
-    path: 'persona',
+    path: 'personas',
+    component: PersonasComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'crud-persona',
     component: CrudComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'detalle-persona',
+    component: DetalleComponent,
     canActivate: [AfterLoginService]
   }
 ];
