@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\MyTrait;
+use Illuminate\Support\Carbon;
 
 class Persona extends Model
 {
@@ -20,6 +21,8 @@ class Persona extends Model
         'insert_user_id',
         'edit_user_id'
     ];
+
+    // protected $dates = ['created_at','updated_at'];
 
     protected $casts = [
         'created_at' => 'datetime:d/m/y - H:i',

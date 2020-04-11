@@ -12,11 +12,22 @@ class PersonaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Persona::where('estado','1')
-        ->where('rol_id','2')
-        ->get();
+        if($request->input('nombre')!=null)
+        {
+            $valor=$request->input('nombre');
+            $data = Persona::where('estado','1')
+            ->where('rol_id','2')
+            ->where("nombres", "LIKE", "%$valor%")
+            ->get();
+        }
+        else
+        {
+            $data = Persona::where('estado','1')
+            ->where('rol_id','2')
+            ->get();
+        }
 
         return response()->json($data, 200);
     }
@@ -101,6 +112,10 @@ class PersonaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $registro = Persona::find($id);
+        $registro->estado='0';
+        $registro->save();
+
+        return response()->json($registro, 200);
     }
 }

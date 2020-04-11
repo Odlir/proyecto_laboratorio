@@ -1,7 +1,7 @@
-falta poner el sidebar
+falta poner el menu
 
-falta cambiar el boton regresar en el crud de personas porque se va al dashboard
 
+corregir lo que el back end devuelve los timestamps incorrectos
 
 
 

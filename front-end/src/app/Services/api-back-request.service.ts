@@ -73,9 +73,9 @@ export class ApiBackRequestService {
         }));
   }
 
-  delete(url: string): Observable<any> {
+  delete(url: string, urlParams: HttpParams): Observable<any> {
       // const me = this;
-      return this.http.delete(this.constants.apiUrl + url, { headers: this.getHeaders()})
+      return this.http.delete(this.constants.apiUrl + url + '/' + urlParams, { headers: this.getHeaders()})
       .pipe(catchError(function(error: any) {
               // if (error.status === 401) {
               //     me.router.navigate(['/logout']);

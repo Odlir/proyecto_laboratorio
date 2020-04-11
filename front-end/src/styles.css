@@ -1,11 +1,10 @@
 @import '~bootstrap/dist/css/bootstrap.css';
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~animate.css/animate.min';
+
 @import '~@swimlane/ngx-datatable/index.css';
 @import '~@swimlane/ngx-datatable/themes/material.css';
 @import '~@swimlane/ngx-datatable/assets/icons.css';
-@import url('https://cdn.jsdelivr.net/gh/SidebarJS/sidebarjs@master/demo/demo.css');
-
 
 * {
 	margin: 0;
@@ -40,15 +39,14 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .widget {
-	background: #f7f7f7;
-	border: 1px solid #cdcdcd;
-	border-radius: 3px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	box-shadow: 0 2px 2px -2px #ccc;
-	margin-top: 35px;
-	position: relative;
-	height: 100%;
+  background: #f7f7f7;
+  border: 1px solid #cdcdcd;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  box-shadow: 0 2px 2px -2px #ccc;
+  position: relative;
+  height: 100%;
 }
 
 .widget .whead {
@@ -71,10 +69,9 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .widget .whead p {
-	float: left;
-	display: block;
-	padding: 8px 14px 7px 14px;
-	font-weight: bold;
+  display: block;
+  padding: 8px 14px 7px 14px;
+  font-weight: bold;
 }
 
 .ngx-datatable .datatable-header {
@@ -105,4 +102,34 @@ button {
 	height: 100%;
 	width: 100%;
 	margin: 0;
+}
+
+.h-20
+{
+	height:20%!important;
+}
+
+.ngx-datatable.bootstrap .datatable-footer {
+	background: #424242;
+	color: #ededed!important;
+	margin-top: -1px;
+}
+
+.ngx-datatable.bootstrap .datatable-footer .datatable-pager a {
+	height: 22px;
+	min-width: 24px;
+	line-height: 22px;
+	padding: 0;
+	border-radius: 3px;
+	margin: 0 3px;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: bottom;
+	color: #ededed;
+}
+
+.ngx-datatable.bootstrap .datatable-footer .page-count {
+	line-height: 50px;
+	height: 50px;
+	padding: 0 1.2rem;
 }
