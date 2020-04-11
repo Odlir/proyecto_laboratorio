@@ -1,6 +1,6 @@
-import {TokenService} from './../../Services/token.service';
+import {TokenService} from '../../Services/token/token.service';
 import {Router} from '@angular/router';
-import {AuthService} from './../../Services/auth.service';
+import {AuthService} from '../../Services/token/auth.service';
 import {Component, OnInit} from '@angular/core';
 import {SharedVarService} from '../../Services/shared/shared-var.service';
 

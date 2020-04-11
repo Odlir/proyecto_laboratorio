@@ -1,4 +1,4 @@
-import { ConstantsService } from './../common/constants.service';
+import { ConstantsService } from '../../common/constants.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 

@@ -1,7 +1,7 @@
-import { JarwisService } from './../../Services/jarwis.service';
+import { JarwisService } from '../../Services/token/jarwis.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenService } from './../../Services/token.service';
+import { TokenService } from '../../Services/token/token.service';
 
 @Component({
   selector: 'app-signup',

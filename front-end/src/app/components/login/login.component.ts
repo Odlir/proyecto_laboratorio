@@ -1,7 +1,7 @@
-import { AuthService } from './../../Services/auth.service';
+import { AuthService } from '../../Services/token/auth.service';
 import { Router } from '@angular/router';
-import { TokenService } from './../../Services/token.service';
-import { JarwisService } from './../../Services/jarwis.service';
+import { TokenService } from '../../Services/token/token.service';
+import { JarwisService } from '../../Services/token/jarwis.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

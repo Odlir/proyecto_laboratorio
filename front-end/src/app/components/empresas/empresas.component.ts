@@ -4,11 +4,12 @@ import { ColumnMode } from '@swimlane/ngx-datatable';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-personas',
-  templateUrl: './personas.component.html',
-  styleUrls: ['./personas.component.css']
+  selector: 'app-empresas',
+  templateUrl: './empresas.component.html',
+  styleUrls: ['./empresas.component.css']
 })
-export class PersonasComponent implements OnInit {
+export class EmpresasComponent implements OnInit {
+
   rows = [];
   loadingIndicator = true;
   reorderable = true;
@@ -25,7 +26,7 @@ export class PersonasComponent implements OnInit {
 
   async fetch()
   {
-    await this.api.get('personas').toPromise().then(
+    await this.api.get('empresas').toPromise().then(
       (data) => {this.handle(data)}
     );
   }
@@ -46,20 +47,18 @@ export class PersonasComponent implements OnInit {
       confirmButtonText: 'Confirmar'
     }).then(async (result) => {
       if (result.value) {
-        await this.api.delete('personas', id).toPromise().then(
+        await this.api.delete('empresas', id).toPromise().then(
           (data) => {this.fetch()}
         );
       }
     })
   }
 
-  async updateFilter(event) {
+	async updateFilter(event) {
     const val = event.target.value;
 
-    await this.api.get('personas?search=' + val).toPromise().then(
+    await this.api.get('empresas?search=' + val).toPromise().then(
       (data) => {this.handle(data)}
     );
   }
-
 }
-

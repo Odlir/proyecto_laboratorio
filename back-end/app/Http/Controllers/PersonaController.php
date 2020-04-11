@@ -14,12 +14,16 @@ class PersonaController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->input('nombre')!=null)
+        if($request->input('search')!=null)
         {
-            $valor=$request->input('nombre');
+            $searchValue=$request->input('search');
             $data = Persona::where('estado','1')
             ->where('rol_id','2')
-            ->where("nombres", "LIKE", "%$valor%")
+            ->where("nombres", "LIKE", "%$searchValue%")
+            ->orWhere('apellido_materno', "LIKE", "%$searchValue%")
+            ->orWhere('apellido_paterno', "LIKE", "%$searchValue%")
+            ->orWhere('sexo', "LIKE", "%$searchValue%")
+            ->orWhere('email', "LIKE", "%$searchValue%")
             ->get();
         }
         else
