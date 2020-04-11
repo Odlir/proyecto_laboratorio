@@ -1,26 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {SharedVarService} from '../../Services/shared/shared-var.service';
 
 @Component({
-  selector: 'app-sidenav',
-  templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.css']
+	selector: 'app-sidenav',
+	templateUrl: './sidenav.component.html',
+	styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit {
-  constructor() { }
 
-  ngOnInit(): void {
-  }
+	public isExpanded: boolean;
 
-  public onOpen() {
-    console.log('open');
-  }
+	constructor(private sharedService: SharedVarService) {
+	}
 
-  public onClose() {
-    console.log('close');
-  }
+	ngOnInit(): void {
+		this.sharedService.getValue().subscribe( value => {
+			this.isExpanded = value;
+		});
+	}
 
-  public onChangeVisibility(event) {
-    console.log('change visibility', event);
-  }
+	public onOpen() {
+		console.log('open');
+	}
+
+	public onClose() {
+		console.log('close');
+	}
+
+	public onChangeVisibility(event) {
+		console.log('change visibility', event);
+	}
 
 }

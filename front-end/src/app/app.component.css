@@ -1,0 +1,23 @@
+.body-wrapper{
+	display: flex;
+	flex-direction: row;
+}
+
+.page-content-wrapper {
+	flex-grow: 1;
+}
+
+.sidebar-wrapper {
+	flex-basis: 12%;
+	flex-shrink: 0;
+}
+
+.encuesta-container {
+	background: #eee;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}

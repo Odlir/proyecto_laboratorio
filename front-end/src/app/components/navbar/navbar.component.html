@@ -1,7 +1,15 @@
-<nav class="navbar navbar-light bg-danger">
-  <a class="navbar-brand text-white">Sistema de Encuestas</a>
-  <div>
-    <a class="navbar-brand text-white" [routerLink]="['/login']" *ngIf="!loggedIn">Login</a>
-    <a class="navbar-brand text-white" href="#" (click)="logout($event)" *ngIf="loggedIn">Cerrar Sesión</a>
-  </div>
-</nav>
+<mat-toolbar color="accent">
+	<mat-toolbar-row>
+		<div class="menu-icon">
+			<button mat-icon-button (click)="expanded(isExpanded)">
+				<mat-icon>{{ !isExpanded ? 'menu_open' : 'menu' }}</mat-icon>
+			</button>
+			<h1 class="example-app-name">Sistema de Encuestas</h1>
+		</div>
+		<span class="example-spacer"></span>
+		<div class="example-icon">
+			<a class="navbar-brand text-dark" [routerLink]="['/login']" *ngIf="!loggedIn">Login</a>
+			<a class="navbar-brand text-dark" href="#" (click)="logout($event)" *ngIf="loggedIn">Cerrar Sesión</a>
+		</div>
+	</mat-toolbar-row>
+</mat-toolbar>

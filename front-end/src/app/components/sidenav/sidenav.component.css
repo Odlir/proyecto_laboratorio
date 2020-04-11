@@ -1,0 +1,24 @@
+.parent {
+	padding: 0 0.5em 0 0.5em !important;
+}
+
+.parent a {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding: 0 0.5em 0 0.5em !important;
+}
+
+.parent div {
+	display: flex;
+	justify-content: center;
+}
+
+.parent a span {
+	padding-left: 1em;
+}
+
+.active {
+	background-color: blue;
+}

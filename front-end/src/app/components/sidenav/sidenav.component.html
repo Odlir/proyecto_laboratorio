@@ -1,9 +1,21 @@
-<header>
-	<div class="icon hamburger-icon" sidebarjsToggle></div>
-	<h1>Angular SidebarJS</h1>
-</header>
-<sidebarjs-element (open)="onOpen()" (close)="onClose()" (changeVisibility)="onChangeVisibility($event)">
-
-	<a class="img large-img github" href="https://github.com/SidebarJS/ng-sidebarjs" target="blank"></a>
-
-</sidebarjs-element>
+<mat-nav-list>
+	<div>
+		Logo
+	</div>
+	<a class="parent" mat-list-item routerLinkActive="active" routerLink="dashboard">
+		<mat-icon mat-list-icon>account_circle</mat-icon>
+		<span class="full-width" *ngIf="isExpanded">Personas</span>
+	</a>
+	<a class="parent" mat-list-item routerLinkActive="active" routerLink="home">
+		<mat-icon mat-list-icon>location_city</mat-icon>
+		<span class="full-width" *ngIf="isExpanded">Empresas</span>
+	</a>
+	<a class="parent" mat-list-item routerLinkActive="active" routerLink="encuesta">
+		<mat-icon mat-list-icon>personal_video</mat-icon>
+		<span class="full-width" *ngIf="isExpanded">Encuestas</span>
+	</a>
+	<a class="parent" mat-list-item routerLinkActive="active" routerLink="logout">
+		<mat-icon mat-list-icon>settings_power</mat-icon>
+		<span class="full-width" *ngIf="isExpanded">Logout</span>
+	</a>
+</mat-nav-list>
