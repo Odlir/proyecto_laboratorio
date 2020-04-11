@@ -1,14 +1,14 @@
 <mat-toolbar color="accent">
 	<mat-toolbar-row>
 		<div class="menu-icon">
-			<button mat-icon-button (click)="expanded(isExpanded)">
+			<button mat-icon-button (click)="expanded(isExpanded)" *ngIf="showButton" >
 				<mat-icon>{{ !isExpanded ? 'menu_open' : 'menu' }}</mat-icon>
 			</button>
 			<h1 class="example-app-name">Sistema de Encuestas</h1>
 		</div>
 		<span class="example-spacer"></span>
 		<div class="example-icon">
-			<a class="navbar-brand text-dark" [routerLink]="['/login']" *ngIf="!loggedIn">Login</a>
+			<!-- <a class="navbar-brand text-dark" [routerLink]="['/login']" *ngIf="!loggedIn">Login</a> -->
 			<a class="navbar-brand text-dark" href="#" (click)="logout($event)" *ngIf="loggedIn">Cerrar Sesión</a>
 		</div>
 	</mat-toolbar-row>

@@ -1,3 +1,5 @@
+import { SidenavComponent } from './../sidenav/sidenav.component';
+import { SharedVarService } from './../../Services/shared/shared-var.service';
 import { AuthService } from '../../Services/token/auth.service';
 import { Router } from '@angular/router';
 import { TokenService } from '../../Services/token/token.service';
@@ -22,7 +24,8 @@ export class LoginComponent implements OnInit {
     private Jarwis: JarwisService,
     private Token: TokenService,
     private router: Router,
-    private Auth: AuthService
+		private Auth: AuthService,
+		private menu: SharedVarService
     ) { }
 
   onSubmit()
@@ -36,8 +39,10 @@ export class LoginComponent implements OnInit {
   handleResponse(data)
   {
     this.Token.handle(data.access_token, data.user);
-    this.Auth.changeAuthStatus(true);
-    this.router.navigateByUrl('/dashboard');
+		this.Auth.changeAuthStatus(true);
+		this.router.navigateByUrl('/dashboard');
+		this.menu.sendShowMenu(); //ESTO LO USO PARA COMUNICARME CON EL COMPONENTE MENU Y MOSTRARLO
+		this.menu.sendShowButton();	//ESTO LO USO PARA COMUNICARME CON EL COMPONENTE NAVBAR Y MOSTRAR EL BOTON
   }
 
   handleError(error)
