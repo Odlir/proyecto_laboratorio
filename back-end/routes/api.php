@@ -29,5 +29,6 @@ Route::group([
     Route::resource('users','UserController');
     Route::resource('roles','RolController');
     Route::resource('personas','PersonaController');
+    Route::resource('empresas','EmpresaController');
 
 });

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Persona;
+use App\Empresa;
 
-class PersonaController extends Controller
+class EmpresaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,19 +17,18 @@ class PersonaController extends Controller
         if($request->input('search')!=null)
         {
             $searchValue=$request->input('search');
-            $data = Persona::where('estado','1')
+            $data = Empresa::where('estado','1')
             ->where('rol_id','2')
-            ->where("nombres", "LIKE", "%$searchValue%")
-            ->orWhere('apellido_materno', "LIKE", "%$searchValue%")
-            ->orWhere('apellido_paterno', "LIKE", "%$searchValue%")
-            ->orWhere('sexo', "LIKE", "%$searchValue%")
+            ->where("codigo", "LIKE", "%$searchValue%")
+            ->orWhere('razon_social', "LIKE", "%$searchValue%")
+            ->orWhere('contacto', "LIKE", "%$searchValue%")
             ->orWhere('email', "LIKE", "%$searchValue%")
+            ->orWhere('telefono', "LIKE", "%$searchValue%")
             ->get();
         }
         else
         {
-            $data = Persona::where('estado','1')
-            ->where('rol_id','2')
+            $data = Empresa::where('estado','1')
             ->get();
         }
 
@@ -54,12 +53,7 @@ class PersonaController extends Controller
      */
     public function store(Request $request)
     {
-        $data= $request->all();
-        $data['rol_id']=2;
-
-        $registro= Persona::create($data);
-
-        return response()->json($registro, 200);
+        //
     }
 
     /**
@@ -70,13 +64,7 @@ class PersonaController extends Controller
      */
     public function show($id)
     {
-        $data = Persona::with('insert')
-        ->with('edit')
-        ->where('rol_id','2')
-        ->where('id',$id)
-        ->first();
-
-        return response()->json($data, 200);
+        //
     }
 
     /**
@@ -99,13 +87,7 @@ class PersonaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data= $request->all();
-
-        $registro= Persona::find($id);
-        $registro->update($data);
-        $registro->save();
-
-        return response()->json($registro, 200);
+        //
     }
 
     /**
@@ -116,10 +98,6 @@ class PersonaController extends Controller
      */
     public function destroy($id)
     {
-        $registro = Persona::find($id);
-        $registro->estado='0';
-        $registro->save();
-
-        return response()->json($registro, 200);
+        //
     }
 }

@@ -1,0 +1,103 @@
+<div class="px-5">
+	<br>
+	<div class="row">
+	  <fa-icon [icon]="['fas', 'user-friends']"></fa-icon><h5>MANTENIMIENTO DE PERSONAS</h5>
+	</div>
+
+	<div class="widget clearfix mt-5">
+	  <div class="whead clearfix">
+		<p>CREAR PERSONA</p>
+	  </div>
+	  <div class="row">
+		<div class="col-7">
+		  <form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
+			<div class="form-group row my-3">
+			  <label class="col-sm-4 col-form-label w-100">Apellido Paterno <span class="text-danger">*</span></label>
+			  <div class="col-sm-8">
+				<input type="text" name="apepaterno" class="form-control" [(ngModel)]="form.apellido_paterno" required>
+			  </div>
+			  <hr>
+			</div>
+
+			<div class="form-group row my-3">
+			  <label class="col-sm-4 col-form-label w-100">Apellido Materno</label>
+			  <div class="col-sm-8">
+				<input type="text" name="apematerno" class="form-control" [(ngModel)]="form.apellido_materno">
+			  </div>
+			  <hr>
+			</div>
+
+			<div class="form-group row my-3">
+			  <label class="col-sm-4 col-form-label w-100">Nombres <span class="text-danger">*</span></label>
+			  <div class="col-sm-8">
+				<input type="text" name="nombres" class="form-control" [(ngModel)]="form.nombres" required>
+			  </div>
+			  <hr>
+			</div>
+
+			<div class="form-group row my-3">
+			  <label class="col-sm-4 col-form-label w-100">Sexo <span class="text-danger">*</span></label>
+			  <div class="col-sm-8">
+				<select name="sexo" id="" class="form-control" [(ngModel)]="form.sexo" required>
+				  <option value="FEMENINO">FEMENINO</option>
+				  <option value="MASCULINO">MASCULINO</option>
+				</select>
+			  </div>
+			  <hr>
+			</div>
+
+			<div class="form-group row my-3">
+			  <label class="col-sm-4 col-form-label w-100">Correo Personal</label>
+			  <div class="col-sm-8">
+				<input type="email" name="email" class="form-control" [(ngModel)]="form.email">
+			  </div>
+			  <hr>
+			</div>
+
+			<div class="form-group row">
+			  <div class="col-12">
+				<button type="submit" class="btn btn-danger">GUARDAR</button>
+				<a routerLink="/personas" class="btn btn-info">REGRESAR A LA LISTA</a>
+			  </div>
+			</div>
+		  </form>
+		</div>
+		<div class="col-5 p-0 widget clearfix mt-4" *ngIf="id" >
+		  <div class="whead clearfix text-center">
+			<p>Auditoría</p>
+		  </div>
+		  <div class="row auditoria">
+			<div class="col-6 border px-0">
+			  <div class="col-12 border-bottom py-3">
+				Creado por
+			  </div>
+			  <div class="col-12 border-bottom py-3">
+				Creado el
+			  </div>
+			  <div class="col-12 border-bottom py-3">
+				Modificado por
+			  </div>
+			  <div class="col-12 py-3">
+				Última modificacion
+			  </div>
+			</div>
+			<div class="col-6 border px-0">
+			  <div class="col-12 border-bottom py-3">
+				{{form.insert.name }}
+			  </div>
+			  <div class="col-12 border-bottom py-3">
+				{{form.created_at }}
+			  </div>
+			  <div class="col-12 border-bottom py-3 h-25">
+				<span *ngIf="form.edit" >{{form.edit.name }}</span>
+			  </div>
+			  <div class="col-12 py-3 h-25">
+				<span *ngIf="form.edit" >{{form.updated_at}}</span>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </div>
+

@@ -1,18 +1,17 @@
 import { HttpParams } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TokenService } from './../../../Services/token.service';
+import { TokenService } from '../../../Services/token/token.service';
 import { ApiBackRequestService } from './../../../Services/api-back-request.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-crud',
-  templateUrl: './crud.component.html',
-  styleUrls: ['./crud.component.css']
+  selector: 'app-crud-empresa',
+  templateUrl: './crud-empresa.component.html',
+  styleUrls: ['./crud-empresa.component.css']
 })
-export class CrudComponent implements OnInit {
-
-  public form = {
+export class CrudEmpresaComponent implements OnInit {
+	public form = {
     nombres: null,
     apellido_materno: null,
     apellido_paterno: null,
@@ -93,3 +92,4 @@ export class CrudComponent implements OnInit {
   }
 
 }
+

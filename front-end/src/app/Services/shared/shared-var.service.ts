@@ -1,5 +1,6 @@
+import { TokenService } from './../token/token.service';
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -7,8 +8,9 @@ import {BehaviorSubject, Observable} from 'rxjs';
 export class SharedVarService {
 
 	private isExpanded: BehaviorSubject<boolean>;
+	private subject = new Subject<any>();
 
-	constructor() {
+	constructor(private token: TokenService) {
 		this.isExpanded = new BehaviorSubject<boolean>(true);
 	}
 
@@ -19,4 +21,21 @@ export class SharedVarService {
 		this.isExpanded.next(newValue);
 	}
 
+	sendShowMenu()
+	{
+		this.subject.next();
+	}
+
+	getShowMenu(): Observable<any>{
+		return this.subject.asObservable();
+	}
+
+	sendShowButton()
+	{
+		this.subject.next();
+	}
+
+	getShowButton(): Observable<any>{
+		return this.subject.asObservable();
+	}
 }

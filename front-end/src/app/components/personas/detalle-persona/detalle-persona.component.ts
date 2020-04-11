@@ -4,11 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-detalle',
-  templateUrl: './detalle.component.html',
-  styleUrls: ['./detalle.component.css']
+  selector: 'app-detalle-persona',
+  templateUrl: './detalle-persona.component.html',
+  styleUrls: ['./detalle-persona.component.css']
 })
-export class DetalleComponent implements OnInit {
+export class DetallePersonaComponent implements OnInit {
 
   public form = {
     id: null,

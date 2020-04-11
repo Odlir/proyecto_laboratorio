@@ -1,21 +1,19 @@
-<mat-nav-list>
+
+<mat-nav-list *ngIf="showMenu" class="d-block w-100">
 	<div>
 		Logo
 	</div>
-	<a class="parent" mat-list-item routerLinkActive="active" routerLink="dashboard">
-		<mat-icon mat-list-icon>account_circle</mat-icon>
+	<a class="parent" mat-list-item routerLinkActive="active" routerLink="personas">
+		<fa-icon [icon]="['fas', 'user-friends']"></fa-icon>
 		<span class="full-width" *ngIf="isExpanded">Personas</span>
 	</a>
-	<a class="parent" mat-list-item routerLinkActive="active" routerLink="home">
-		<mat-icon mat-list-icon>location_city</mat-icon>
+	<a class="parent" mat-list-item routerLinkActive="active" routerLink="empresas">
+		<fa-icon [icon]="['fas', 'city']"></fa-icon>
 		<span class="full-width" *ngIf="isExpanded">Empresas</span>
 	</a>
 	<a class="parent" mat-list-item routerLinkActive="active" routerLink="encuesta">
 		<mat-icon mat-list-icon>personal_video</mat-icon>
 		<span class="full-width" *ngIf="isExpanded">Encuestas</span>
 	</a>
-	<a class="parent" mat-list-item routerLinkActive="active" routerLink="logout">
-		<mat-icon mat-list-icon>settings_power</mat-icon>
-		<span class="full-width" *ngIf="isExpanded">Logout</span>
-	</a>
 </mat-nav-list>
+

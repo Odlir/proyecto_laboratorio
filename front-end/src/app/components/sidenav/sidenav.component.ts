@@ -1,5 +1,7 @@
+import { TokenService } from './../../Services/token/token.service';
 import {Component, OnInit} from '@angular/core';
 import {SharedVarService} from '../../Services/shared/shared-var.service';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-sidenav',
@@ -8,27 +10,35 @@ import {SharedVarService} from '../../Services/shared/shared-var.service';
 })
 export class SidenavComponent implements OnInit {
 
-	public isExpanded: boolean;
+	public login: Subscription;
 
-	constructor(private sharedService: SharedVarService) {
+	public isExpanded: boolean;
+	public showMenu: boolean;
+
+	constructor(private sharedService: SharedVarService, private token: TokenService) {
+		this.login = this.sharedService.getShowMenu().subscribe(()=>{
+			this.showMenu = this.show();
+		})
 	}
 
 	ngOnInit(): void {
 		this.sharedService.getValue().subscribe( value => {
 			this.isExpanded = value;
 		});
+
+		this.showMenu = this.show();
 	}
 
-	public onOpen() {
-		console.log('open');
-	}
-
-	public onClose() {
-		console.log('close');
-	}
-
-	public onChangeVisibility(event) {
-		console.log('change visibility', event);
+	show()
+	{
+		if (this.token.loggedIn())
+		{
+		  return true;
+		}
+		else
+		{
+		  return false;
+		}
 	}
 
 }

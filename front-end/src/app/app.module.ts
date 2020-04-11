@@ -13,10 +13,6 @@ import {AppMaterialModule} from './app-material/app-material.module';
 /* LIBRERIAS */
 import {AppLibreriasModule} from './app-librerias/app-librerias.module';
 
-/* SIDEBAR */
-import {SidebarjsModule} from 'ng-sidebarjs';
-
-
 /* */
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
@@ -28,10 +24,12 @@ import {SignupComponent} from './components/signup/signup.component';
 import {HttpClientModule} from '@angular/common/http';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {PersonasComponent} from './components/personas/personas.component';
-import {CrudComponent} from './components/personas/crud/crud.component';
-import {DetalleComponent} from './components/personas/detalle/detalle.component';
+import {EmpresasComponent} from './components/empresas/empresas.component';
+import {CrudPersonaComponent} from './components/personas/crud-persona/crud-persona.component';
+import {DetalleEmpresaComponent} from './components/empresas/detalle-empresa/detalle-empresa.component';
+import {CrudEmpresaComponent} from './components/empresas/crud-empresa/crud-empresa.component';
+import {DetallePersonaComponent} from './components/personas/detalle-persona/detalle-persona.component';
 import {SidenavComponent} from './components/sidenav/sidenav.component';
-
 
 @NgModule({
 	declarations: [
@@ -41,9 +39,12 @@ import {SidenavComponent} from './components/sidenav/sidenav.component';
 		SignupComponent,
 		DashboardComponent,
 		PersonasComponent,
-		CrudComponent,
-		DetalleComponent,
-		SidenavComponent
+		SidenavComponent,
+		EmpresasComponent,
+		CrudPersonaComponent,
+		DetalleEmpresaComponent,
+		CrudEmpresaComponent,
+		DetallePersonaComponent,
 	],
 	imports: [
 		AppRoutingModule,
@@ -51,8 +52,7 @@ import {SidenavComponent} from './components/sidenav/sidenav.component';
 		CommonModule,
 		FontAwesomeModule,
 		AppMaterialModule,
-		AppLibreriasModule,
-		SidebarjsModule.forRoot()
+		AppLibreriasModule
 	],
 	providers: [ConstantsService],
 	bootstrap: [AppComponent]

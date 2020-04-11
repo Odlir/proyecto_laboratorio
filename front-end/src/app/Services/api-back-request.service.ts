@@ -1,7 +1,7 @@
 import { ConstantsService } from './../common/constants.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { TokenService } from './token.service';
+import { TokenService } from './token/token.service';
 import { Observable, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 

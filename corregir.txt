@@ -1,8 +1,9 @@
-falta poner el menu
-
-
 corregir lo que el back end devuelve los timestamps incorrectos
 
+poner un boton modal en el registrar empresa para añadir las sucursales,
+ponerle un listado
+
+en el editar tambien ponerle ese boton
 
 
 
