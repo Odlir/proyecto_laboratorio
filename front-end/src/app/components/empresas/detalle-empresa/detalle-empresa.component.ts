@@ -55,8 +55,8 @@ export class DetalleEmpresaComponent implements OnInit {
       confirmButtonText: 'Confirmar'
     }).then(async (result) => {
       if (result.value) {
-        await this.api.delete('personas', id).toPromise().then(
-          (data) => {this.router.navigateByUrl('/personas');}
+        await this.api.delete('empresas', id).toPromise().then(
+          (data) => {this.router.navigateByUrl('/empresas');}
         );
       }
     })

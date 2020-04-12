@@ -32,4 +32,5 @@ Route::group([
     Route::resource('empresas','EmpresaController');
     Route::resource('paises','PaisController');
     Route::resource('ciudades','CiudadController');
+    Route::resource('empresa_sucursal','EmpresaSucursalController');
 });

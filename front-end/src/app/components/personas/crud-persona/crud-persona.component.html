@@ -1,12 +1,15 @@
 <div class="px-5">
 	<br>
 	<div class="row">
-	  <fa-icon [icon]="['fas', 'user-friends']"></fa-icon><h5>MANTENIMIENTO DE PERSONAS</h5>
+	  <fa-icon [icon]="['fas', 'user-friends']"></fa-icon><h5>MANTENIMIENTO DE PERSONAS  <span *ngIf="id" >: {{ form.nombres }} {{ form.apellido_paterno }} {{ form.apellido_materno }}</span></h5>
 	</div>
 
 	<div class="widget clearfix mt-5">
 	  <div class="whead clearfix">
-		<p>CREAR PERSONA</p>
+		<p><span *ngIf="id;else templateName" >EDITAR </span>PERSONA</p>
+		<ng-template #templateName>
+			CREAR
+		</ng-template>
 	  </div>
 	  <div class="row">
 		<div class="col-7">

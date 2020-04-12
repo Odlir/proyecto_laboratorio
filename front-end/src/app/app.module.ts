@@ -28,10 +28,11 @@ import {CrudPersonaComponent} from './components/personas/crud-persona/crud-pers
 import {DetalleEmpresaComponent} from './components/empresas/detalle-empresa/detalle-empresa.component';
 import {CrudEmpresaComponent} from './components/empresas/crud-empresa/crud-empresa.component';
 import {DetallePersonaComponent} from './components/personas/detalle-persona/detalle-persona.component';
-import {ModalSucursalComponent} from './components/empresas/modal-sucursal/modal-sucursal.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {BsModalService} from 'ngx-bootstrap/modal';
+import { CrudSucursalComponent } from './components/empresas/crud-sucursal/crud-sucursal.component';
+import { DetalleSucursalComponent } from './components/empresas/detalle-sucursal/detalle-sucursal.component';
 
 @NgModule({
 	declarations: [
@@ -47,7 +48,8 @@ import {BsModalService} from 'ngx-bootstrap/modal';
 		DetalleEmpresaComponent,
 		CrudEmpresaComponent,
 		DetallePersonaComponent,
-		ModalSucursalComponent,
+		CrudSucursalComponent,
+		DetalleSucursalComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -59,7 +61,6 @@ import {BsModalService} from 'ngx-bootstrap/modal';
 		NgbModule,
 		TooltipModule.forRoot()
 	],
-	entryComponents: [ModalSucursalComponent],
   providers: [ConstantsService, BsModalService],
   bootstrap: [AppComponent]
 })

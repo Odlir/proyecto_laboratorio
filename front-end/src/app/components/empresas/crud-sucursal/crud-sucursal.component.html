@@ -1,0 +1,109 @@
+<div class="px-5">
+	<br>
+	<div class="row">
+		<fa-icon [icon]="['fas', 'city']"></fa-icon><h5>MANTENIMIENTO DE EMPRESAS : {{ empresa.razon_social }}</h5>
+	</div>
+
+	<div class="widget clearfix mt-5">
+	  <div class="whead clearfix">
+		<p><span *ngIf="id;else templateName" >EDITAR </span>SUCURSAL<span *ngIf="id" > : {{ form.nombre }}</span></p>
+		<ng-template #templateName>
+			CREAR
+		</ng-template>
+	  </div>
+	  <div class="row">
+		<div class="col-7">
+			<form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
+				<div class="modal-body">
+					<div class="form-group row my-3">
+						<label class="col-sm-4 col-form-label w-100">Codigo <span class="text-danger">*</span></label>
+						<div class="col-sm-8">
+							<input type="text" name="codigo" class="form-control" [(ngModel)]="form.codigo" required>
+						</div>
+					</div>
+
+					<div class="form-group row my-3">
+						<label class="col-sm-4 col-form-label w-100">Nombre <span class="text-danger">*</span></label>
+						<div class="col-sm-8">
+							<input type="text" name="nombre" class="form-control" [(ngModel)]="form.nombre" required>
+						</div>
+					</div>
+
+					<div class="form-group row my-3">
+						<label class="col-sm-4 col-form-label w-100">Dirección <span class="text-danger">*</span></label>
+						<div class="col-sm-8">
+							<input type="text" name="direccion" class="form-control" [(ngModel)]="form.direccion" required>
+						</div>
+					</div>
+
+					<div class="form-group row my-3">
+						<label class="col-sm-4 col-form-label w-100">Teléfono <span class="text-danger">*</span></label>
+						<div class="col-sm-8">
+							<input type="number" name="telefono" class="form-control" [(ngModel)]="form.telefono" required>
+						</div>
+					</div>
+
+					<div class="form-group row my-3">
+						<label class="col-sm-4 col-form-label w-100">País <span class="text-danger">*</span></label>
+						<div class="col-sm-8">
+							<select name="pais" class="form-control" [(ngModel)]="form.pais_id" required (change)="getCiudades(this.form.pais_id)">
+								<option [value]="item.id" *ngFor="let item of paises">{{item.name}}</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group row my-3" *ngIf="form.pais_id!=null" >
+						<label class="col-sm-4 col-form-label w-100">Ciudad <span class="text-danger">*</span></label>
+						<div class="col-sm-8">
+							<select name="ciudad" class="form-control" [(ngModel)]="form.ciudad_id" required>
+								<option [value]="item.id" *ngFor="let item of ciudades" >{{item.name}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-danger">GUARDAR</button>
+					<a (click)="returnCrud()" class="btn btn-info text-white">REGRESAR A LA LISTA</a>
+				</div>
+			</form>
+		</div>
+		<div class="col-5 p-0 widget clearfix mt-4" *ngIf="id" >
+		  <div class="whead clearfix text-center">
+			<p>Auditoría</p>
+		  </div>
+		  <div class="row auditoria">
+			<div class="col-6 border px-0">
+			  <div class="col-12 border-bottom py-3">
+				Creado por
+			  </div>
+			  <div class="col-12 border-bottom py-3">
+				Creado el
+			  </div>
+			  <div class="col-12 border-bottom py-3">
+				Modificado por
+			  </div>
+			  <div class="col-12 py-3">
+				Última modificacion
+			  </div>
+			</div>
+			<div class="col-6 border px-0">
+			  <div class="col-12 border-bottom py-3">
+				{{form.insert.name }}
+			  </div>
+			  <div class="col-12 border-bottom py-3">
+				{{form.created_at }}
+			  </div>
+			  <div class="col-12 border-bottom py-3 h-25">
+				<span *ngIf="form.edit" >{{form.edit.name }}</span>
+			  </div>
+			  <div class="col-12 py-3 h-25">
+				<span *ngIf="form.edit" >{{form.updated_at}}</span>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </div>
+

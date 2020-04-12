@@ -1,10 +1,10 @@
 <div class="px-5">
 	<br>
 	<div class="row">
-	  <fa-icon [icon]="['fas', 'user-friends']"></fa-icon><h5>MANTENIMIENTO DE PERSONAS</h5>
+		<fa-icon [icon]="['fas', 'city']"></fa-icon><h5>MANTENIMIENTO DE EMPRESAS : {{ form.razon_social }}</h5>
 	</div>
 
-	<!-- <div class="widget clearfix mt-5">
+	<div class="widget clearfix mt-5">
 	  <div class="whead clearfix">
 		<p>DETALLE DE LA EMPRESA</p>
 	  </div>
@@ -24,36 +24,36 @@
 			<div class="row auditoria">
 			  <div class="col-6 border px-0">
 				<div class="col-12 border-bottom py-3">
-				  Apellido Paterno
+				  Código
 				</div>
 				<div class="col-12 border-bottom py-3">
-				  Apellido Materno
+				  Razón Social
 				</div>
 				<div class="col-12 border-bottom py-3">
-				  Nombres
+				  Contacto
 				</div>
 				<div class="col-12 border-bottom py-3">
-				  Sexo
+				  Correo Contacto
 				</div>
 				<div class="col-12 py-3">
-				  Correo Personal
+				  Teléfono
 				</div>
 			  </div>
 			  <div class="col-6 border px-0">
 				<div class="col-12 border-bottom py-3">
-				  {{form.apellido_paterno}}
+				  {{form.codigo}}
 				</div>
 				<div class="col-12 border-bottom py-3 h-20">
-				  {{form.apellido_materno}}
+				  {{form.razon_social}}
 				</div>
 				<div class="col-12 border-bottom py-3">
-				  {{form.nombres}}
+				  {{form.contacto}}
 				</div>
 				<div class="col-12 border-bottom py-3">
-				  {{form.sexo}}
+				  {{form.email}}
 				</div>
 				<div class="col-12 py-3 h-20">
-				  {{form.email}}
+				  {{form.telefono}}
 				</div>
 			  </div>
 			</div>
@@ -97,7 +97,7 @@
 		  </div>
 		</div>
 	  </div>
-	</div> -->
+	</div>
 	<div class="row mt-3">
 	  <button class="btn btn-info" [routerLink]="['/empresas/']">REGRESAR A LA LISTA</button>
 	  <button class="btn btn-danger" [routerLink]="['/crud-empresa/']" [queryParams]="{id:this.form.id}">EDITAR</button>

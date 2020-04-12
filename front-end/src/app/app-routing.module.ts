@@ -1,3 +1,5 @@
+import { DetalleSucursalComponent } from './components/empresas/detalle-sucursal/detalle-sucursal.component';
+import { CrudSucursalComponent } from './components/empresas/crud-sucursal/crud-sucursal.component';
 import { DetallePersonaComponent } from './components/personas/detalle-persona/detalle-persona.component';
 import { CrudPersonaComponent } from './components/personas/crud-persona/crud-persona.component';
 import { DetalleEmpresaComponent } from './components/empresas/detalle-empresa/detalle-empresa.component';
@@ -56,6 +58,16 @@ const routes: Routes = [
 	{
     path: 'detalle-empresa',
     component: DetalleEmpresaComponent,
+    canActivate: [AfterLoginService]
+	},
+	{
+    path: 'crud-sucursal',
+    component: CrudSucursalComponent,
+    canActivate: [AfterLoginService]
+	},
+	{
+    path: 'detalle-sucursal',
+    component: DetalleSucursalComponent,
     canActivate: [AfterLoginService]
 	}
 ];

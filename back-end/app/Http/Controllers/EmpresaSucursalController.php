@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Empresa;
 use App\EmpresaSucursal;
 
-class EmpresaController extends Controller
+class EmpresaSucursalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,20 +14,13 @@ class EmpresaController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->input('search')!=null)
+        if($request->input('id')!=null) //LO USO PARA EL BUSCADOR EN EL CRUD DE SUCURSALES
         {
             $searchValue=$request->input('search');
-            $data = Empresa::where('estado','1')
+            $data = EmpresaSucursal::where('estado','1')
+            ->where('empresa_id',$request->input('id'))
             ->where("codigo", "LIKE", "%$searchValue%")
-            ->orWhere('razon_social', "LIKE", "%$searchValue%")
-            ->orWhere('contacto', "LIKE", "%$searchValue%")
-            ->orWhere('email', "LIKE", "%$searchValue%")
-            ->orWhere('telefono', "LIKE", "%$searchValue%")
-            ->get();
-        }
-        else
-        {
-            $data = Empresa::where('estado','1')
+            ->orWhere('nombre', "LIKE", "%$searchValue%")
             ->get();
         }
 
@@ -55,9 +47,13 @@ class EmpresaController extends Controller
     {
         $data= $request->all();
 
-        $registro= Empresa::create($data);
+        EmpresaSucursal::create($data);
 
-        return response()->json($registro, 200);
+        $sucursales= EmpresaSucursal::where("empresa_id",$request->input('id'))
+        ->where('estado','1')
+        ->get();
+
+        return response()->json($sucursales, 200);
     }
 
     /**
@@ -68,11 +64,10 @@ class EmpresaController extends Controller
      */
     public function show($id)
     {
-        $data = Empresa::with('insert')
+        $data = EmpresaSucursal::with('insert')
         ->with('edit')
-        ->with(['sucursales' => function ($query) {
-            $query->where('estado', '1');
-        }])
+        ->with('pais')
+        ->with('ciudad')
         ->where('id',$id)
         ->first();
 
@@ -101,9 +96,16 @@ class EmpresaController extends Controller
     {
         $data= $request->all();
 
-        $registro = Empresa::find($id);
+        $registro = EmpresaSucursal::find($id);
         $registro->update($data);
         $registro->save();
+
+        // $registro->sucursales()->delete();
+
+        // foreach($data['sucursales'] as $item)
+        // {
+        //     EmpresaSucursal::create(array_merge($item, ['empresa_id'=>$registro->id]));
+        // }
 
         return response()->json($registro, 200);
     }
@@ -116,18 +118,14 @@ class EmpresaController extends Controller
      */
     public function destroy($id)
     {
-        $registro = Empresa::find($id);
+        $registro = EmpresaSucursal::find($id);
         $registro->estado='0';
         $registro->save();
 
-        $sucursales = EmpresaSucursal::where('empresa_id',$id)->get();
+        $sucursales= EmpresaSucursal::where("empresa_id",$registro->empresa_id)
+        ->where('estado','1')
+        ->get();
 
-        foreach($sucursales as $s)
-        {
-            $s->estado='0';
-            $s->save();
-        }
-
-        return response()->json($registro, 200);
+        return response()->json($sucursales, 200);
     }
 }
