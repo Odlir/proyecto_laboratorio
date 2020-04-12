@@ -7,10 +7,10 @@
 	  <button class="btn btn-secondary" [routerLink]="['/crud-empresa']" >CREAR EMPRESA</button>
 	</div>
 
-	<!-- <input
+	<input
         type="text"
         style="padding:8px;margin:15px auto;width:30%;"
-        placeholder="Buscar por Nombres/Apellidos/Sexo/Correo"
+        placeholder="Buscar por Codigo/Razón Social/Contacto/Correo/Teléfono"
         (keyup)="updateFilter($event)"
       />
 
@@ -28,19 +28,19 @@
 		  [reorderable]="reorderable"
 		>
 
-		<ngx-datatable-column name="Apellidos">
+		<ngx-datatable-column name="Código" prop="codigo">
 		  <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 		  <ng-template let-value="value" ngx-datatable-cell-template>
 		   {{ value }}
 		  </ng-template>
 		</ngx-datatable-column>
-		<ngx-datatable-column name="Nombres">
+		<ngx-datatable-column name="Razón Social" prop="razon_social">
 		  <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 		  <ng-template let-value="value" ngx-datatable-cell-template>
 		   {{ value }}
 		  </ng-template>
 		</ngx-datatable-column>
-		<ngx-datatable-column name="Sexo">
+		<ngx-datatable-column name="Contacto">
 		  <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 		  <ng-template let-value="value" ngx-datatable-cell-template>
 		   {{ value }}
@@ -52,17 +52,23 @@
 		   {{ value }}
 		  </ng-template>
 		</ngx-datatable-column>
+		<ngx-datatable-column name="Teléfono" prop="telefono">
+			<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+			<ng-template let-value="value" ngx-datatable-cell-template>
+			 {{ value }}
+			</ng-template>
+		  </ngx-datatable-column>
 		<ngx-datatable-column name="Id">
 		  <ng-template let-column="column" ngx-datatable-header-template> Acciones </ng-template>
 		  <ng-template let-value="value" ngx-datatable-cell-template>
 			<div class="row justify-content-center">
-			  <button class="btn border" [routerLink]="['/detalle-persona/']" [queryParams]="{id:value}"><fa-icon [icon]="['fas', 'eye']"></fa-icon></button>
-			  <button class="btn border" [routerLink]="['/crud-persona/']" [queryParams]="{id:value}"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button>
+			  <button class="btn border" [routerLink]="['/detalle-empresa/']" [queryParams]="{id:value}"><fa-icon [icon]="['fas', 'eye']"></fa-icon></button>
+			  <button class="btn border" [routerLink]="['/crud-empresa/']" [queryParams]="{id:value}"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button>
 			  <button class="btn border" (click)="eliminar(value)" ><fa-icon [icon]="['fas', 'trash']"></fa-icon></button>
 			</div>
 		  </ng-template>
 		</ngx-datatable-column>
 	  </ngx-datatable>
-	</div> -->
+	</div>
 
   </div>

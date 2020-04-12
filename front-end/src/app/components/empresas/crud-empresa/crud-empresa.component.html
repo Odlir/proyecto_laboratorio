@@ -4,60 +4,89 @@
 		<fa-icon [icon]="['fas', 'city']"></fa-icon><h5>MANTENIMIENTO DE EMPRESAS</h5>
 	</div>
 
+	<div class="form-group row text-right">
+		<div class="col-12">
+			<button type="submit" class="btn btn-success" (click)="openSucursal()">AÑADIR SUCURSALES</button>
+		</div>
+	</div>
+
 	<div class="widget clearfix mt-5">
 	  <div class="whead clearfix">
 		<p>CREAR EMPRESA</p>
 	  </div>
-	  <!-- <div class="row">
+	  <div class="row">
 		<div class="col-7">
 		  <form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
 			<div class="form-group row my-3">
-			  <label class="col-sm-4 col-form-label w-100">Apellido Paterno <span class="text-danger">*</span></label>
+			  <label class="col-sm-4 col-form-label w-100">Código <span class="text-danger">*</span></label>
 			  <div class="col-sm-8">
-				<input type="text" name="apepaterno" class="form-control" [(ngModel)]="form.apellido_paterno" required>
+				<input type="text" name="codigo" class="form-control" [(ngModel)]="form.codigo" required>
 			  </div>
 			  <hr>
 			</div>
 
 			<div class="form-group row my-3">
-			  <label class="col-sm-4 col-form-label w-100">Apellido Materno</label>
+			  <label class="col-sm-4 col-form-label w-100">Razón Social <span class="text-danger">*</span></label>
 			  <div class="col-sm-8">
-				<input type="text" name="apematerno" class="form-control" [(ngModel)]="form.apellido_materno">
+				<input type="text" name="razonsocial" class="form-control" [(ngModel)]="form.razon_social" required>
 			  </div>
 			  <hr>
 			</div>
 
 			<div class="form-group row my-3">
-			  <label class="col-sm-4 col-form-label w-100">Nombres <span class="text-danger">*</span></label>
+				<label class="col-sm-4 col-form-label w-100">Contacto <span class="text-danger">*</span></label>
+				<div class="col-sm-8">
+					<input type="text" name="contacto" class="form-control" [(ngModel)]="form.contacto" required>
+				</div>
+				<hr>
+			</div>
+
+			<div class="form-group row my-3">
+				<label class="col-sm-4 col-form-label w-100">Teléfono <span class="text-danger">*</span></label>
+				<div class="col-sm-8">
+					<input type="number" name="telefono" class="form-control" [(ngModel)]="form.telefono" required>
+				</div>
+				<hr>
+			</div>
+
+			<div class="form-group row my-3">
+			  <label class="col-sm-4 col-form-label w-100">Correo Contacto <span class="text-danger">*</span></label>
 			  <div class="col-sm-8">
-				<input type="text" name="nombres" class="form-control" [(ngModel)]="form.nombres" required>
+				<input type="email" name="correo" class="form-control" [(ngModel)]="form.email" required>
 			  </div>
 			  <hr>
 			</div>
 
-			<div class="form-group row my-3">
-			  <label class="col-sm-4 col-form-label w-100">Sexo <span class="text-danger">*</span></label>
-			  <div class="col-sm-8">
-				<select name="sexo" id="" class="form-control" [(ngModel)]="form.sexo" required>
-				  <option value="FEMENINO">FEMENINO</option>
-				  <option value="MASCULINO">MASCULINO</option>
-				</select>
-			  </div>
-			  <hr>
-			</div>
+			<div class="col-12 my-4" *ngIf="form.sucursales.length!=0" >
+				<table class="table text-center">
+					<thead class="thead-dark">
+						<tr>
+							<th colspan="2">SUCURSALES</th>
+						</tr>
+						<tr>
+							<th>Nombre</th>
+							<th>Accion</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of form.sucursales; index as i">
+							<td>
+								{{item.nombre}}
+							</td>
+							<td>
+								<button class="btn" type="button" (click)="eliminarSucursal(i)" data-toggle="tooltip" data-placement="top" title="Eliminar"><fa-icon class="text-danger" [icon]="['fas', 'window-close']"></fa-icon></button>
+							</td>
+						</tr>
+					</tbody>
 
-			<div class="form-group row my-3">
-			  <label class="col-sm-4 col-form-label w-100">Correo Personal</label>
-			  <div class="col-sm-8">
-				<input type="email" name="email" class="form-control" [(ngModel)]="form.email">
-			  </div>
-			  <hr>
+
+				</table>
 			</div>
 
 			<div class="form-group row">
 			  <div class="col-12">
 				<button type="submit" class="btn btn-danger">GUARDAR</button>
-				<a routerLink="/personas" class="btn btn-info">REGRESAR A LA LISTA</a>
+				<a routerLink="/empresas" class="btn btn-info">REGRESAR A LA LISTA</a>
 			  </div>
 			</div>
 		  </form>
@@ -97,8 +126,16 @@
 			</div>
 		  </div>
 		</div>
-	  </div> -->
+	  </div>
 	</div>
+	<!-- <mat-tab-group>
+		<mat-tab label="CREAR EMPRESA">
+
+		</mat-tab>
+		<mat-tab label="SUCURSALES">
+
+		</mat-tab>
+	</mat-tab-group> -->
   </div>
 
 

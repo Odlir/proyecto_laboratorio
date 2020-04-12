@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Empresa;
+use App\EmpresaSucursal;
 
 class EmpresaController extends Controller
 {
@@ -18,7 +19,6 @@ class EmpresaController extends Controller
         {
             $searchValue=$request->input('search');
             $data = Empresa::where('estado','1')
-            ->where('rol_id','2')
             ->where("codigo", "LIKE", "%$searchValue%")
             ->orWhere('razon_social', "LIKE", "%$searchValue%")
             ->orWhere('contacto', "LIKE", "%$searchValue%")
@@ -53,7 +53,16 @@ class EmpresaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data= $request->all();
+
+        $registro= Empresa::create($data);
+
+        foreach($data['sucursales'] as $item)
+        {
+            EmpresaSucursal::create(array_merge($item, ['empresa_id'=>$registro->id]));
+        }
+
+        return response()->json($registro, 200);
     }
 
     /**
@@ -64,7 +73,15 @@ class EmpresaController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Empresa::with('insert')
+        ->with('edit')
+        ->with(["sucursales" => function($q){
+            $q->where('estado', '1');
+        }])
+        ->where('id',$id)
+        ->first();
+
+        return response()->json($data, 200);
     }
 
     /**
@@ -87,7 +104,20 @@ class EmpresaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data= $request->all();
+
+        $registro = Empresa::find($id);
+        $registro->update($data);
+        $registro->save();
+
+        $registro->sucursales()->delete();
+
+        foreach($data['sucursales'] as $item)
+        {
+            EmpresaSucursal::create(array_merge($item, ['empresa_id'=>$registro->id]));
+        }
+
+        return response()->json($registro, 200);
     }
 
     /**
@@ -98,6 +128,18 @@ class EmpresaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $registro = Empresa::find($id);
+        $registro->estado='0';
+        $registro->save();
+
+        $sucursales = EmpresaSucursal::where('empresa_id',$id)->get();
+
+        foreach($sucursales as $s)
+        {
+            $s->estado='0';
+            $s->save();
+        }
+
+        return response()->json($registro, 200);
     }
 }

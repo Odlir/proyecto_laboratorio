@@ -15,9 +15,6 @@ import { AppMaterialModule } from './app-material/app-material.module';
 /* LIBRERIAS */
 import { AppLibreriasModule } from './app-librerias/app-librerias.module';
 
-/* SIDEBAR */
-import { SidebarjsModule } from 'ng-sidebarjs';
-
 
 /* */
 import { NgModule } from '@angular/core';
@@ -35,7 +32,10 @@ import { CrudPersonaComponent } from './components/personas/crud-persona/crud-pe
 import { DetalleEmpresaComponent } from './components/empresas/detalle-empresa/detalle-empresa.component';
 import { CrudEmpresaComponent } from './components/empresas/crud-empresa/crud-empresa.component';
 import { DetallePersonaComponent } from './components/personas/detalle-persona/detalle-persona.component';
-
+import { ModalSucursalComponent } from './components/empresas/modal-sucursal/modal-sucursal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -51,6 +51,7 @@ import { DetallePersonaComponent } from './components/personas/detalle-persona/d
 		DetalleEmpresaComponent,
 		CrudEmpresaComponent,
 		DetallePersonaComponent,
+		ModalSucursalComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -59,9 +60,11 @@ import { DetallePersonaComponent } from './components/personas/detalle-persona/d
     FontAwesomeModule,
     AppMaterialModule,
     AppLibreriasModule,
-    SidebarjsModule.forRoot()
-  ],
-  providers: [ConstantsService],
+		NgbModule,
+		TooltipModule.forRoot()
+	],
+	entryComponents: [ModalSucursalComponent],
+  providers: [ConstantsService, BsModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

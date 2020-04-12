@@ -15,9 +15,9 @@ class CreateEmpresasTable extends Migration
     {
         Schema::create('empresas', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo')->nullable();
-            $table->string('razon_social',300)->nullable();
-            $table->string('contacto')->nullable();
+            $table->string('codigo');
+            $table->string('razon_social',300);
+            $table->string('contacto');
             $table->string('email');
             $table->string('telefono');
             $table->char('estado',1)->comment('0-Inactivo/1-Activo')->default(1);

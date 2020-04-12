@@ -1,3 +1,4 @@
+import { MatTabsModule } from '@angular/material/tabs';
 import {BrowserModule} from '@angular/platform-browser';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTableModule} from '@angular/material/table';
@@ -11,7 +12,7 @@ import {FormsModule} from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
-
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
 	declarations: [],
 	imports: [
@@ -26,7 +27,9 @@ import {MatListModule} from '@angular/material/list';
 		FormsModule,
 		MatToolbarModule,
 		MatIconModule,
-		MatListModule
+		MatListModule,
+		MatDialogModule,
+		MatTabsModule
 	],
 	exports: [
 		MatFormFieldModule,
@@ -40,7 +43,9 @@ import {MatListModule} from '@angular/material/list';
 		FormsModule,
 		MatToolbarModule,
 		MatIconModule,
-		MatListModule
+		MatListModule,
+		MatDialogModule,
+		MatTabsModule
 	]
 })
 export class AppMaterialModule {

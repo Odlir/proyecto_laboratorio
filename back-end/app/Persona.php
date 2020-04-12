@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\MyTrait;
-use Illuminate\Support\Carbon;
 
 class Persona extends Model
 {

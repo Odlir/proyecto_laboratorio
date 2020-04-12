@@ -1,1 +1,108 @@
-<p>detalle-empresa works!</p>
+<div class="px-5">
+	<br>
+	<div class="row">
+	  <fa-icon [icon]="['fas', 'user-friends']"></fa-icon><h5>MANTENIMIENTO DE PERSONAS</h5>
+	</div>
+
+	<!-- <div class="widget clearfix mt-5">
+	  <div class="whead clearfix">
+		<p>DETALLE DE LA EMPRESA</p>
+	  </div>
+	  <div class="row px-4 mt-4 mb-2">
+		<div class="col-7 pr-2">
+		  <div class="widget clearfix">
+			<div class="whead clearfix">
+			  <div class="row">
+				<div class="col-6 border text-center">
+				   <p>Campo</p>
+				</div>
+				<div class="col-6 border text-center">
+				   <p>Dato</p>
+				</div>
+			  </div>
+			</div>
+			<div class="row auditoria">
+			  <div class="col-6 border px-0">
+				<div class="col-12 border-bottom py-3">
+				  Apellido Paterno
+				</div>
+				<div class="col-12 border-bottom py-3">
+				  Apellido Materno
+				</div>
+				<div class="col-12 border-bottom py-3">
+				  Nombres
+				</div>
+				<div class="col-12 border-bottom py-3">
+				  Sexo
+				</div>
+				<div class="col-12 py-3">
+				  Correo Personal
+				</div>
+			  </div>
+			  <div class="col-6 border px-0">
+				<div class="col-12 border-bottom py-3">
+				  {{form.apellido_paterno}}
+				</div>
+				<div class="col-12 border-bottom py-3 h-20">
+				  {{form.apellido_materno}}
+				</div>
+				<div class="col-12 border-bottom py-3">
+				  {{form.nombres}}
+				</div>
+				<div class="col-12 border-bottom py-3">
+				  {{form.sexo}}
+				</div>
+				<div class="col-12 py-3 h-20">
+				  {{form.email}}
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<div class="col-5 pl-2">
+		  <div class="widget clearfix h-auto">
+			<div class="whead clearfix text-center">
+			  <p>Auditoría</p>
+			</div>
+			<div class="row auditoria">
+			  <div class="col-6 border px-0">
+				<div class="col-12 border-bottom py-3">
+				  Creado por
+				</div>
+				<div class="col-12 border-bottom py-3">
+				  Creado el
+				</div>
+				<div class="col-12 border-bottom py-3">
+				  Modificado por
+				</div>
+				<div class="col-12 py-3">
+				  Última modificacion
+				</div>
+			  </div>
+			  <div class="col-6 border px-0">
+				<div class="col-12 border-bottom py-3">
+				  {{form.insert.name }}
+				</div>
+				<div class="col-12 border-bottom py-3">
+				  {{form.created_at }}
+				</div>
+				<div class="col-12 border-bottom py-3 h-25">
+				  <span *ngIf="form.edit" >{{form.edit.name }}</span>
+				</div>
+				<div class="col-12 py-3 h-25">
+				  <span *ngIf="form.edit" >{{form.updated_at}}</span>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div> -->
+	<div class="row mt-3">
+	  <button class="btn btn-info" [routerLink]="['/empresas/']">REGRESAR A LA LISTA</button>
+	  <button class="btn btn-danger" [routerLink]="['/crud-empresa/']" [queryParams]="{id:this.form.id}">EDITAR</button>
+	  <button class="btn btn-danger" (click)="eliminar(this.form.id)" >ELIMINAR</button>
+	</div>
+  </div>
+
+

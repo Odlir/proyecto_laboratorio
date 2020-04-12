@@ -30,12 +30,21 @@ export class SharedVarService {
 		return this.subject.asObservable();
 	}
 
-	sendShowButton()
+	sendShowButtonMenu()
 	{
 		this.subject.next();
 	}
 
-	getShowButton(): Observable<any>{
+	getShowButtonMenu(): Observable<any>{
+		return this.subject.asObservable();
+	}
+
+	sendSucursal(sucursal)
+	{
+		this.subject.next(sucursal);
+	}
+
+	getSucursal(): Observable<any>{
 		return this.subject.asObservable();
 	}
 }

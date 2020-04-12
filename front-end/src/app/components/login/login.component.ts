@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
 		this.Auth.changeAuthStatus(true);
 		this.router.navigateByUrl('/dashboard');
 		this.menu.sendShowMenu(); //ESTO LO USO PARA COMUNICARME CON EL COMPONENTE MENU Y MOSTRARLO
-		this.menu.sendShowButton();	//ESTO LO USO PARA COMUNICARME CON EL COMPONENTE NAVBAR Y MOSTRAR EL BOTON
+		this.menu.sendShowButtonMenu();	//ESTO LO USO PARA COMUNICARME CON EL COMPONENTE NAVBAR Y MOSTRAR EL BOTON
   }
 
   handleError(error)
