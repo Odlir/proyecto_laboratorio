@@ -1,4 +1,7 @@
 corregir lo que el back end devuelve los timestamps incorrectos
 
+corregir lo que se desordena el menu
+
+corregir lo que no se activan los modulos al ingresar
 
 

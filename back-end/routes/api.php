@@ -30,5 +30,6 @@ Route::group([
     Route::resource('roles','RolController');
     Route::resource('personas','PersonaController');
     Route::resource('empresas','EmpresaController');
-
+    Route::resource('paises','PaisController');
+    Route::resource('ciudades','CiudadController');
 });

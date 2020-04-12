@@ -18,24 +18,31 @@ export class CrudEmpresaComponent implements OnInit {
 	bsModalRef: BsModalRef;
 
 	public form = {
-    codigo: null,
-    razon_social: null,
-    contacto: null,
+		codigo: null,
+		razon_social: null,
+		contacto: null,
 		email: null,
 		telefono: null,
-    insert_user_id: this.user.me(),
-    edit_user_id: null,
-    insert: {name: null},
-    edit: {name: ''},
-    created_at: null,
+		insert_user_id: this.user.me(),
+		edit_user_id: null,
+		insert: {name: null},
+		edit: {name: ''},
+		created_at: null,
 		updated_at: null,
 		sucursales : []
 	};
 
 	sucursal = {
+		codigo: null,
 		nombre: null,
+		direccion: null,
+		telefono :null,
+		pais_id: null,
+		ciudad_id: null,
+		pais: {name:''},
+		ciudad: {name: ''},
 		insert_user_id: this.user.me(),
-    edit_user_id: null,
+    	edit_user_id: null,
 	}
 
   public id: HttpParams;
@@ -64,14 +71,22 @@ export class CrudEmpresaComponent implements OnInit {
 	anadirSucursal(sucursal)
 	{
 		this.limpiarSucursal();
-		this.sucursal.nombre=sucursal.nombre;
+		this.sucursal=sucursal;
+		this.sucursal.insert_user_id= this.user.me(),
 		this.form.sucursales.push(this.sucursal);
 	}
 
 	limpiarSucursal()
 	{
 		this.sucursal = {
+			codigo: null,
 			nombre: null,
+			direccion: null,
+			telefono :null,
+			pais_id: null,
+			ciudad_id: null,
+			pais: {name:''},
+			ciudad: {name: ''},
 			insert_user_id: this.user.me(),
 			edit_user_id: null,
 		};

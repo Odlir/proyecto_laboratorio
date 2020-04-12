@@ -75,8 +75,13 @@ class EmpresaController extends Controller
     {
         $data = Empresa::with('insert')
         ->with('edit')
-        ->with(["sucursales" => function($q){
-            $q->where('estado', '1');
+        ->with(['sucursales' => function ($query) {
+            $query->where('estado', '1');
+            if($query)
+            {
+                $query->with('pais');
+                $query->with('ciudad');
+            }
         }])
         ->where('id',$id)
         ->first();
