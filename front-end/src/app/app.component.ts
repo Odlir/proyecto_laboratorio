@@ -8,7 +8,7 @@ import {SharedVarService} from './Services/shared/shared-var.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-	title = 'front-end';
+	title = 'Sistema de Desarrollo de Capital Humano';
 	public isExpanded: boolean;
 	public isShowing:boolean = false;
 
