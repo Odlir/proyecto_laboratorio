@@ -1,7 +1,16 @@
 laravel queus funciones asyncronas
 
+credenciales sistema web
+
 http://talentoslinux.eastus2.cloudapp.azure.com/login
 
-credenciales
 user/ D42693147
 password / Edelpozo09
+
+
+credenciales hosting
+
+https://www.gaf.com.pe:2083/
+
+gafcom1
+wyLn{NB!yS5D

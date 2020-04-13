@@ -1,7 +1,7 @@
 CRUDS
 todos los crud seran sin modales
-
 --------------
+
 ENCUESTAS: Es el mantenimiento de las preguntas
 Hay 2 encuestas: intereses / temperamentos
 

@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { TokenService } from './token/token.service';
 import { Observable, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import * as fileSaver from 'file-saver';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +25,16 @@ export class ApiBackRequestService {
         headers = headers.append('Authorization', token);
     }
     return headers;
-  }
+	}
+
+	getHeadersMultipart():HttpHeaders {
+		let headers = new HttpHeaders();
+		let token = this.Token.get();
+		if (token !== null) {
+				headers = headers.append('Authorization', token);
+		}
+		return headers;
+	}
 
   get(url: string): Observable<any> {
     // const me = this;
@@ -82,5 +93,25 @@ export class ApiBackRequestService {
               // }
             return throwError(error || 'Server error')
         }));
-  }
+	}
+
+	uploadFiles(url: string, formData: FormData): Observable<any> {
+
+		return this.http.post(this.constants.apiUrl + url, formData, { headers: this.getHeadersMultipart() })
+				.pipe(catchError(function (error: any) {
+						console.log('some error uploading');
+						return throwError(error || 'Server error')
+				}));
+	}
+
+	downloadExcelFile(path: string): Observable<any>{
+			return this.http.get(this.constants.apiUrl + path, { responseType: 'blob' })
+			.pipe(map((response: any) =>
+				fileSaver.saveAs(response, `importar-persona.xlsx`)
+			),
+			catchError(function (error: any) {
+					console.log("Some error in catch");
+					return throwError(error || 'Server error')
+			}));
+	}
 }

@@ -33,6 +33,7 @@ import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import { CrudSucursalComponent } from './components/empresas/crud-sucursal/crud-sucursal.component';
 import { DetalleSucursalComponent } from './components/empresas/detalle-sucursal/detalle-sucursal.component';
+import { ImportarPersonaComponent } from './components/personas/importar-persona/importar-persona.component';
 
 @NgModule({
 	declarations: [
@@ -50,6 +51,7 @@ import { DetalleSucursalComponent } from './components/empresas/detalle-sucursal
 		DetallePersonaComponent,
 		CrudSucursalComponent,
 		DetalleSucursalComponent,
+		ImportarPersonaComponent,
   ],
   imports: [
     AppRoutingModule,
