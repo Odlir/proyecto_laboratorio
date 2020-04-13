@@ -34,6 +34,7 @@ import {BsModalService} from 'ngx-bootstrap/modal';
 import { CrudSucursalComponent } from './components/empresas/crud-sucursal/crud-sucursal.component';
 import { DetalleSucursalComponent } from './components/empresas/detalle-sucursal/detalle-sucursal.component';
 import { ImportarPersonaComponent } from './components/personas/importar-persona/importar-persona.component';
+import { EncuestasComponent } from './components/encuestas/encuestas.component';
 
 @NgModule({
 	declarations: [
@@ -52,6 +53,7 @@ import { ImportarPersonaComponent } from './components/personas/importar-persona
 		CrudSucursalComponent,
 		DetalleSucursalComponent,
 		ImportarPersonaComponent,
+		EncuestasComponent,
   ],
   imports: [
     AppRoutingModule,

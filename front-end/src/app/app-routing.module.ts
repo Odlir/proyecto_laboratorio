@@ -1,3 +1,4 @@
+import { EncuestasComponent } from './components/encuestas/encuestas.component';
 import { ImportarPersonaComponent } from './components/personas/importar-persona/importar-persona.component';
 import { DetalleSucursalComponent } from './components/empresas/detalle-sucursal/detalle-sucursal.component';
 import { CrudSucursalComponent } from './components/empresas/crud-sucursal/crud-sucursal.component';
@@ -75,7 +76,12 @@ const routes: Routes = [
     path: 'importar-persona',
     component: ImportarPersonaComponent,
     canActivate: [AfterLoginService]
-	}
+	},
+	{
+    path: 'encuestas',
+    component: EncuestasComponent,
+    canActivate: [AfterLoginService]
+	},
 ];
 
 @NgModule({
