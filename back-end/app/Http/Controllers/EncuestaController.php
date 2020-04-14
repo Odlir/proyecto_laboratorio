@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\EmpresaSucursal;
+use App\Encuesta;
 
-class EmpresaSucursalController extends Controller
+class EncuestaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,18 +14,28 @@ class EmpresaSucursalController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->input('id')!=null) //LO USO PARA EL BUSCADOR EN EL CRUD DE SUCURSALES
+        if($request->input('search')!=null) // BUSCAR POR EMPRESA O POR TIPO
         {
             $searchValue=$request->input('search');
-            $data = EmpresaSucursal::where('estado','1')
-            ->where('empresa_id',$request->input('id'))
-            ->where("codigo", "LIKE", "%$searchValue%")
-            ->orWhere('nombre', "LIKE", "%$searchValue%")
-            ->get();
+
+            $data = Encuesta::with('empresa')
+            ->with('tipo');
+
+            $data= $data->whereHas('empresa', function($q) use($searchValue){
+                $q->where("nombre", "LIKE", "%$searchValue%");
+            })
+            ->orWhereHas('tipo', function( $query ) use($searchValue){
+                $query->where("nombre", "LIKE", "%$searchValue%");
+            })
+            ->where('estado','1');
+
+            $data = $data->get();
         }
         else
         {
-            $data = EmpresaSucursal::where('estado','1')
+            $data = Encuesta::where('estado','1')
+            ->with('empresa')
+            ->with('tipo')
             ->get();
         }
 
@@ -39,7 +49,7 @@ class EmpresaSucursalController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -52,13 +62,9 @@ class EmpresaSucursalController extends Controller
     {
         $data= $request->all();
 
-        EmpresaSucursal::create($data);
+        $registro= Encuesta::create($data);
 
-        $sucursales= EmpresaSucursal::where("empresa_id",$request->input('id'))
-        ->where('estado','1')
-        ->get();
-
-        return response()->json($sucursales, 200);
+        return response()->json($registro, 200);
     }
 
     /**
@@ -69,10 +75,10 @@ class EmpresaSucursalController extends Controller
      */
     public function show($id)
     {
-        $data = EmpresaSucursal::with('insert')
+        $data = Encuesta::with('insert')
         ->with('edit')
-        ->with('pais')
-        ->with('ciudad')
+        ->with('empresa')
+        ->with('tipo')
         ->where('id',$id)
         ->first();
 
@@ -101,7 +107,7 @@ class EmpresaSucursalController extends Controller
     {
         $data= $request->all();
 
-        $registro = EmpresaSucursal::find($id);
+        $registro= Encuesta::find($id);
         $registro->update($data);
         $registro->save();
 
@@ -116,14 +122,10 @@ class EmpresaSucursalController extends Controller
      */
     public function destroy($id)
     {
-        $registro = EmpresaSucursal::find($id);
+        $registro = Encuesta::find($id);
         $registro->estado='0';
         $registro->save();
 
-        $sucursales= EmpresaSucursal::where("empresa_id",$registro->empresa_id)
-        ->where('estado','1')
-        ->get();
-
-        return response()->json($sucursales, 200);
+        return response()->json($registro, 200);
     }
 }

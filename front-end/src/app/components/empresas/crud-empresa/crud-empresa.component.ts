@@ -1,3 +1,4 @@
+import { RoutingStateService } from './../../../Services/routing/routing-state.service';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { SharedVarService } from './../../../Services/shared/shared-var.service';
 import { HttpParams } from '@angular/common/http';
@@ -44,7 +45,8 @@ export class CrudEmpresaComponent implements OnInit {
     private api: ApiBackRequestService,
     private user: TokenService,
     private router: Router,
-	private activatedRoute: ActivatedRoute
+		private activatedRoute: ActivatedRoute,
+		private routingState: RoutingStateService
 	) {
 
 	}

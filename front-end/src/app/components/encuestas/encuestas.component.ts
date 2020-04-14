@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import Swal from 'sweetalert2';
 import { ApiBackRequestService } from './../../Services/api-back-request.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-encuestas',
@@ -24,14 +25,19 @@ export class EncuestasComponent implements OnInit {
 
 	async fetch()
   {
-    await this.api.get('personas').toPromise().then(
+    await this.api.get('encuestas').toPromise().then(
       (data) => {this.handle(data)}
     );
 	}
 
 	handle(data)
   {
-    this.rows = data;
+		data.forEach(element => {
+			element.fecha_inicio= moment(element.fecha_inicio).format('DD/MM/YYYY')
+			element.fecha_fin= moment(element.fecha_fin).format('DD/MM/YYYY')
+		});
+		this.rows = data;
+
 	}
 
 	eliminar(id)
@@ -45,7 +51,7 @@ export class EncuestasComponent implements OnInit {
       confirmButtonText: 'Confirmar'
     }).then(async (result) => {
       if (result.value) {
-        await this.api.delete('personas', id).toPromise().then(
+        await this.api.delete('encuestas', id).toPromise().then(
           (data) => {this.fetch()}
         );
       }
@@ -55,7 +61,7 @@ export class EncuestasComponent implements OnInit {
 	async updateFilter(event) {
     const val = event.target.value;
 
-    await this.api.get('personas?search=' + val).toPromise().then(
+    await this.api.get('encuestas?search=' + val).toPromise().then(
       (data) => {this.handle(data)}
     );
   }

@@ -24,7 +24,7 @@ h5 span
 	font-size: inherit;
 }
 
-.ng-invalid:not(form) {
+.form-control.ng-invalid:not(form) {
 	border-left: 5px solid red;
 }
 
@@ -40,7 +40,7 @@ h1, h2, h3, h4, h5, h6, p {
 	margin: 0;
 }
 
-.ng-valid:not(form) {
+.form-control.ng-valid:not(form) {
 	border-left: 5px solid green;
 }
 
@@ -115,6 +115,11 @@ button {
 	height:20%!important;
 }
 
+.h-16
+{
+	height:16%!important;
+}
+
 .ngx-datatable.bootstrap .datatable-footer {
 	background: #424242;
 	color: #ededed!important;
@@ -143,4 +148,9 @@ button {
 .cursor
 {
 	cursor: pointer;
+}
+
+.buscador
+{
+	padding:8px;margin:15px auto;width:30%;
 }

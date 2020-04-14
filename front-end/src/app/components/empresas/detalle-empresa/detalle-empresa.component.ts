@@ -1,3 +1,4 @@
+import { ColumnMode } from '@swimlane/ngx-datatable';
 import { ApiBackRequestService } from './../../../Services/api-back-request.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,6 +10,12 @@ import Swal from 'sweetalert2';
   styleUrls: ['./detalle-empresa.component.css']
 })
 export class DetalleEmpresaComponent implements OnInit {
+
+	rows = [];
+  loadingIndicator = true;
+  reorderable = true;
+
+	ColumnMode = ColumnMode;
 
 	public form = {
 		id:null,
@@ -26,6 +33,8 @@ export class DetalleEmpresaComponent implements OnInit {
 		sucursales : []
 	};
 
+	public tabSelected = 0;
+
   constructor(private api: ApiBackRequestService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -33,8 +42,10 @@ export class DetalleEmpresaComponent implements OnInit {
       const id = params.id;
       if (id != null) {
         this.cargar(id);
-      }
-  	});
+			}
+
+			this.tabSelected = params.tab;
+		});
 	}
 
 	async cargar(id)
@@ -60,6 +71,40 @@ export class DetalleEmpresaComponent implements OnInit {
         );
       }
     })
+	}
+
+	async updateFilter(event) {
+    const val = event.target.value;
+
+    await this.api.get('empresa_sucursal?search=' + val +'&id='+this.form.id).toPromise().then(
+      (data) => {this.handle(data)}
+    );
+	}
+
+	eliminarSucursal(id)
+	{
+      Swal.fire({
+		title: 'Desea eliminar la sucursal?',
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Confirmar'
+		}).then(async (result) => {
+			if (result.value) {
+				await this.api.delete('empresa_sucursal', id).toPromise().then(
+					(data) => {
+						this.form.sucursales=data;
+						this.form.sucursales = [...this.form.sucursales]
+					}
+				);
+			}
+		})
+	}
+
+	handle(data)
+  {
+    this.form.sucursales = data;
   }
 
 }

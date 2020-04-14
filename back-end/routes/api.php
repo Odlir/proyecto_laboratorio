@@ -35,6 +35,8 @@ Route::group([
     Route::resource('ciudades','CiudadController');
     Route::resource('empresa_sucursal','EmpresaSucursalController');
     Route::resource('importar','ImportController');
+    Route::resource('encuestas','EncuestaController');
+    Route::resource('tipo_encuesta','TipoEncuestaController');
 });
 
     // Route::get('/migrate', function() {

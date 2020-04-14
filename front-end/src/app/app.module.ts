@@ -35,6 +35,8 @@ import { CrudSucursalComponent } from './components/empresas/crud-sucursal/crud-
 import { DetalleSucursalComponent } from './components/empresas/detalle-sucursal/detalle-sucursal.component';
 import { ImportarPersonaComponent } from './components/personas/importar-persona/importar-persona.component';
 import { EncuestasComponent } from './components/encuestas/encuestas.component';
+import { CrudEncuestaComponent } from './components/encuestas/crud-encuesta/crud-encuesta.component';
+import { DetalleEncuestaComponent } from './components/encuestas/detalle-encuesta/detalle-encuesta.component';
 
 @NgModule({
 	declarations: [
@@ -54,6 +56,8 @@ import { EncuestasComponent } from './components/encuestas/encuestas.component';
 		DetalleSucursalComponent,
 		ImportarPersonaComponent,
 		EncuestasComponent,
+		CrudEncuestaComponent,
+		DetalleEncuestaComponent,
   ],
   imports: [
     AppRoutingModule,

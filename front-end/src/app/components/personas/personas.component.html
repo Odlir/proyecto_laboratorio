@@ -4,13 +4,13 @@
     <fa-icon [icon]="['fas', 'user-friends']"></fa-icon><h5>MANTENIMIENTO DE PERSONAS</h5>
   </div>
   <div class="col-12 text-right">
-    <button class="btn btn-secondary" [routerLink]="['/importar-persona']">IMPORTAR PERSONAS</button>
+    <!-- <button class="btn btn-secondary" [routerLink]="['/importar-persona']">IMPORTAR PERSONAS</button> -->
     <button class="btn btn-secondary" [routerLink]="['/crud-persona']" >CREAR PERSONA</button>
   </div>
 
   <input
         type="text"
-        style="padding:8px;margin:15px auto;width:30%;"
+        class="buscador"
         placeholder="Buscar por Nombres/Apellidos/Sexo/Correo"
         (keyup)="updateFilter($event)"
       />
@@ -27,7 +27,14 @@
         [limit]="20"
         rowHeight="auto"
         [reorderable]="reorderable"
-      >
+			>
+
+			<ngx-datatable-column name="Id">
+        <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+        <ng-template let-value="value" ngx-datatable-cell-template>
+         {{ value }}
+        </ng-template>
+      </ngx-datatable-column>
 
       <ngx-datatable-column name="Apellidos">
         <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>

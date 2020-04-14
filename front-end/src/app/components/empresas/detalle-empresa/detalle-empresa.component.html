@@ -3,106 +3,167 @@
 	<div class="row">
 		<fa-icon [icon]="['fas', 'city']"></fa-icon><h5>MANTENIMIENTO DE EMPRESAS : {{ form.razon_social }}</h5>
 	</div>
+	<br><br>
+	<mat-tab-group [selectedIndex]="tabSelected">
+		<mat-tab label="Detalle de la Empresa">
+			<div class="row px-4 mt-4 mb-2">
+				<div class="col-7 pr-2">
+				  <div class="widget clearfix">
+					<div class="whead clearfix">
+					  <div class="row">
+						<div class="col-6 border text-center">
+						   <p>Campo</p>
+						</div>
+						<div class="col-6 border text-center">
+						   <p>Dato</p>
+						</div>
+					  </div>
+					</div>
+					<div class="row auditoria">
+					  <div class="col-6 border px-0">
+						<div class="col-12 border-bottom py-3">
+							Id
+						</div>
+						<div class="col-12 border-bottom py-3">
+						  Código
+						</div>
+						<div class="col-12 border-bottom py-3">
+						  Razón Social
+						</div>
+						<div class="col-12 border-bottom py-3">
+						  Contacto
+						</div>
+						<div class="col-12 border-bottom py-3">
+						  Correo Contacto
+						</div>
+						<div class="col-12 py-3">
+						  Teléfono
+						</div>
+					  </div>
+					  <div class="col-6 border px-0">
+						<div class="col-12 border-bottom py-3">
+							{{form.id}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+						  {{form.codigo}}
+						</div>
+						<div class="col-12 border-bottom py-3 h-16">
+						  {{form.razon_social}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+						  {{form.contacto}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+						  {{form.email}}
+						</div>
+						<div class="col-12 py-3 h-16">
+						  {{form.telefono}}
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				<div class="col-5 pl-2">
+				  <div class="widget clearfix h-auto">
+					<div class="whead clearfix text-center">
+					  <p>Auditoría</p>
+					</div>
+					<div class="row auditoria">
+					  <div class="col-6 border px-0">
+						<div class="col-12 border-bottom py-3">
+						  Creado por
+						</div>
+						<div class="col-12 border-bottom py-3">
+						  Creado el
+						</div>
+						<div class="col-12 border-bottom py-3">
+						  Modificado por
+						</div>
+						<div class="col-12 py-3">
+						  Última modificacion
+						</div>
+					  </div>
+					  <div class="col-6 border px-0">
+						<div class="col-12 border-bottom py-3">
+						  {{form.insert.name }}
+						</div>
+						<div class="col-12 border-bottom py-3">
+						  {{form.created_at }}
+						</div>
+						<div class="col-12 border-bottom py-3 h-25">
+						  <span *ngIf="form.edit" >{{form.edit.name }}</span>
+						</div>
+						<div class="col-12 py-3 h-25">
+						  <span *ngIf="form.edit" >{{form.updated_at}}</span>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			</div>
+			<div class="row mt-3">
+				<button class="btn btn-info" [routerLink]="['/empresas/']">REGRESAR A LA LISTA</button>
+				<button class="btn btn-danger" [routerLink]="['/crud-empresa/']" [queryParams]="{id:this.form.id}">EDITAR</button>
+				<button class="btn btn-danger" (click)="eliminar(this.form.id)" >ELIMINAR</button>
+			</div>
+		</mat-tab>
+		<mat-tab label="Sedes">
+			<input
+					type="text"
+					class="buscador"
+					placeholder="Buscar por Codigo/Nombre"
+					(keyup)="updateFilter($event)"
+				/>
+				<ngx-datatable
+				class="bootstrap"
+				[rows]="form.sucursales"
+				[loadingIndicator]="loadingIndicator"
+				[columnMode]="ColumnMode.force"
+				[headerHeight]="40"
+				[summaryPosition]="'bottom'"
+				[footerHeight]="40"
+				[limit]="20"
+				rowHeight="auto"
+				[reorderable]="reorderable"
+				>
 
-	<div class="widget clearfix mt-5">
-	  <div class="whead clearfix">
-		<p>DETALLE DE LA EMPRESA</p>
-	  </div>
-	  <div class="row px-4 mt-4 mb-2">
-		<div class="col-7 pr-2">
-		  <div class="widget clearfix">
-			<div class="whead clearfix">
-			  <div class="row">
-				<div class="col-6 border text-center">
-				   <p>Campo</p>
-				</div>
-				<div class="col-6 border text-center">
-				   <p>Dato</p>
-				</div>
-			  </div>
-			</div>
-			<div class="row auditoria">
-			  <div class="col-6 border px-0">
-				<div class="col-12 border-bottom py-3">
-				  Código
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  Razón Social
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  Contacto
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  Correo Contacto
-				</div>
-				<div class="col-12 py-3">
-				  Teléfono
-				</div>
-			  </div>
-			  <div class="col-6 border px-0">
-				<div class="col-12 border-bottom py-3">
-				  {{form.codigo}}
-				</div>
-				<div class="col-12 border-bottom py-3 h-20">
-				  {{form.razon_social}}
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  {{form.contacto}}
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  {{form.email}}
-				</div>
-				<div class="col-12 py-3 h-20">
-				  {{form.telefono}}
-				</div>
-			  </div>
-			</div>
-		  </div>
-		</div>
-		<div class="col-5 pl-2">
-		  <div class="widget clearfix h-auto">
-			<div class="whead clearfix text-center">
-			  <p>Auditoría</p>
-			</div>
-			<div class="row auditoria">
-			  <div class="col-6 border px-0">
-				<div class="col-12 border-bottom py-3">
-				  Creado por
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  Creado el
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  Modificado por
-				</div>
-				<div class="col-12 py-3">
-				  Última modificacion
-				</div>
-			  </div>
-			  <div class="col-6 border px-0">
-				<div class="col-12 border-bottom py-3">
-				  {{form.insert.name }}
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  {{form.created_at }}
-				</div>
-				<div class="col-12 border-bottom py-3 h-25">
-				  <span *ngIf="form.edit" >{{form.edit.name }}</span>
-				</div>
-				<div class="col-12 py-3 h-25">
-				  <span *ngIf="form.edit" >{{form.updated_at}}</span>
-				</div>
-			  </div>
-			</div>
-		  </div>
-		</div>
-	  </div>
-	</div>
-	<div class="row mt-3">
-	  <button class="btn btn-info" [routerLink]="['/empresas/']">REGRESAR A LA LISTA</button>
-	  <button class="btn btn-danger" [routerLink]="['/crud-empresa/']" [queryParams]="{id:this.form.id}">EDITAR</button>
-	  <button class="btn btn-danger" (click)="eliminar(this.form.id)" >ELIMINAR</button>
-	</div>
+				<ngx-datatable-column name="Id">
+					<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+					<ng-template let-value="value" ngx-datatable-cell-template>
+						{{ value }}
+					</ng-template>
+				</ngx-datatable-column>
+				<ngx-datatable-column name="Código" prop="codigo">
+					<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+					<ng-template let-value="value" ngx-datatable-cell-template>
+					{{ value }}
+					</ng-template>
+				</ngx-datatable-column>
+				<ngx-datatable-column name="Nombre" prop="nombre">
+					<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+					<ng-template let-value="value" ngx-datatable-cell-template>
+					{{ value }}
+					</ng-template>
+				</ngx-datatable-column>
+				<ngx-datatable-column name="Teléfono" prop="telefono">
+					<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+					<ng-template let-value="value" ngx-datatable-cell-template>
+					{{ value }}
+					</ng-template>
+				</ngx-datatable-column>
+				<ngx-datatable-column name="Id">
+					<ng-template let-column="column" ngx-datatable-header-template> Acciones </ng-template>
+					<ng-template let-value="value" ngx-datatable-cell-template>
+						<div class="row justify-content-center">
+						<button class="btn border" type="button" [routerLink]="['/detalle-sucursal/']" [queryParams]="{id:value}"><fa-icon [icon]="['fas', 'eye']"></fa-icon></button>
+						<button class="btn border" type="button" [routerLink]="['/crud-sucursal/']" [queryParams]="{id:value}"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button>
+						<button class="btn border" type="button" (click)="eliminarSucursal(value)" ><fa-icon [icon]="['fas', 'trash']"></fa-icon></button>
+						</div>
+					</ng-template>
+				</ngx-datatable-column>
+			</ngx-datatable>
+		</mat-tab>
+	</mat-tab-group>
   </div>
 
 

@@ -1,3 +1,4 @@
+import { RoutingStateService } from './../../../Services/routing/routing-state.service';
 import { TokenService } from './../../../Services/token/token.service';
 import { ApiBackRequestService } from './../../../Services/api-back-request.service';
 import { HttpParams } from '@angular/common/http';
@@ -37,7 +38,17 @@ export class CrudSucursalComponent implements OnInit {
 	paises = [];
 	ciudades = [];
 
-  constructor(private router: Router, private user: TokenService, private api: ApiBackRequestService, private activatedRoute: ActivatedRoute) { }
+	previousUrl: string;
+
+  constructor(
+	private router: Router,
+	private user: TokenService,
+	private api: ApiBackRequestService,
+	private activatedRoute: ActivatedRoute,
+	private routingState: RoutingStateService
+	) {
+
+  }
 
   ngOnInit(): void {
 		this.activatedRoute.queryParams.subscribe(async params => {
@@ -53,6 +64,7 @@ export class CrudSucursalComponent implements OnInit {
 
 	this.cargarUbigeo();
 
+	this.previousUrl=this.routingState.getPreviousUrl();
 	}
 
 	async cargarEditar()
@@ -149,7 +161,9 @@ export class CrudSucursalComponent implements OnInit {
 
 	returnCrud()
 	{
-		this.router.navigateByUrl('/crud-empresa?id='+this.form.empresa_id+'&tab='+1);
+		// this.router.navigateByUrl(this.previousUrl+'&tab='+1);
+
+		this.router.navigateByUrl(this.previousUrl);
 	}
 
 }

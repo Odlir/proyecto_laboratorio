@@ -27,9 +27,18 @@ nombre
 estado char(1)
 empresa_id
 
-
 ENCUESTA_ALUMNO
 encuesta_id FK
 persona_id FK/ OSEA EL ALUMNO
 empresa_id FK 
 
+TIPO ENCUESTA : INTERES - TALENTOS - TEMPERAMENTOS - TODAS LAS ANTERIORES
+nombre
+estado
+
+ENCUESTAS
+
+tipo_id 
+empresa_sucursal_id // QUE SE BUSQUE AUTOCOMPLETANDO
+fecha_inicio
+fecha_fin // darle 3 meses que se aumente por defecto,

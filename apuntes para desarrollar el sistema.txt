@@ -1,38 +1,27 @@
 CRUDS
 todos los crud seran sin modales
---------------
+----------------------------------------
 
-ENCUESTAS: Es el mantenimiento de las preguntas
-Hay 2 encuestas: intereses / temperamentos
+ENCUESTAS 
+- Hay 3 encuestas: intereses / talentos / temperamentos 
+y cada encuesta tiene sus propias preguntas Y respuestas
 
-por ahora no se necesita crud para las preguntas, todas las preguntas
+- EN LA ESCUESTAS QUE TENGA una pestañita DONDE SE VEAN LAS PERSONAS, 
+y tambien que se puedan asignar personas y tambien importar excels
+
+- Cuando se programa una encuesta, se generaran los 3 tipos de encuestas.
+
+- por ahora no se necesita crud para las preguntas, todas las preguntas
 defrente a la base de datos
 
------------------------------
+- luego de programar la encuesta se debe subir el excel con las personas
 
-PROGRAMACION DE ENCUESTAS: Es para programar las encuestas
-para el colegio
+- EN LAS ENCUESTA DE INTERESES CAMBIAR LOS SELECTS POR RADIO BUTTONS 
 
-En la tabla programacion de encuestas solo tener fecha de inicio y fin
+- TODAS LAS PREGUNTAS EN UNA SOLA HOJA, NO PONER BOTONES PARA IR A LA SIGUIENTE SECCION
 
-categoria de encuestas solo habra interes y temperamentos
+- NO PONEMOS LA BARRA DE CARGA PERO SI HAY QUE VALIDAR QUE SE RESPONDAN TODAS LAS PREGUNTAS
 
-lo mas importante es la fecha de inicio y la fecha de fin
+- que suba el excel y que salga un mensaje de exito
 
-validar para que la encuesta sea hasta fin de año, osea para en el input date
-al registrar la fecha de inicio, en la fecha de fin se ponga hasta el final.
-
-luego de programar la encuesta
-se debe subir el excel con las personas
-
-hacer que al programar una encuesta, las 3 encuestas se generen en uno solo
-
-EN LAS ENCUESTA DE INTERESES CAMBIAR LOS SELECTS POR RADIO BUTTONS 
-
-TODAS LAS PREGUNTAS EN UNA SOLA HOJA, NO PONER BOTONES PARA IR A LA SIGUIENTE SECCION
-
-NO PONEMOS LA BARRA DE CARGA PERO SI HAY QUE VALIDAR QUE SE RESPONDAN TODAS LAS PREGUNTAS
-
-que suba el excel y que salga un mensaje de exito
-
-la formula para los reportes se debe usar del .net debe ser igual
+- la formula para los reportes se debe usar del .net debe ser igual

@@ -8,11 +8,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FormsModule} from '@angular/forms';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
-import { MatDialogModule } from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 @NgModule({
 	declarations: [],
 	imports: [
@@ -29,7 +31,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 		MatIconModule,
 		MatListModule,
 		MatDialogModule,
-		MatTabsModule
+		MatTabsModule,
+		ReactiveFormsModule,
+		MatAutocompleteModule
 	],
 	exports: [
 		MatFormFieldModule,
@@ -45,7 +49,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 		MatIconModule,
 		MatListModule,
 		MatDialogModule,
-		MatTabsModule
+		MatTabsModule,
+		ReactiveFormsModule,
+		MatAutocompleteModule
 	]
 })
 export class AppMaterialModule {
