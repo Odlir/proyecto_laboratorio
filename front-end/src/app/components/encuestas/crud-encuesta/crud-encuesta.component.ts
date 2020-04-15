@@ -1,5 +1,6 @@
+import { ColumnMode } from '@swimlane/ngx-datatable';
 import { map, startWith } from 'rxjs/operators';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from '../../../Services/token/token.service';
@@ -7,6 +8,8 @@ import { ApiBackRequestService } from './../../../Services/api-back-request.serv
 import { HttpParams } from '@angular/common/http';
 import {FormControl} from '@angular/forms';
 import * as moment from 'moment';
+import {FormGroup} from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
 
 export interface Empresa {
 	nombre: string,
@@ -21,7 +24,17 @@ export interface Empresa {
 
 export class CrudEncuestaComponent implements OnInit {
 
+	loadingIndicator = true;
+	reorderable = true;
+
+	ColumnMode = ColumnMode;
+
 	myControl = new FormControl();
+
+	firstFormGroup: FormGroup;
+	secondFormGroup: FormGroup;
+
+	@ViewChild('stepper') stepper: MatStepper;
 
 	public form = {
     fecha_inicio: moment().format('YYYY-MM-DD'),
@@ -33,7 +46,8 @@ export class CrudEncuestaComponent implements OnInit {
     insert: {name: null},
     edit: {name: ''},
     created_at: null,
-    updated_at: null
+	updated_at: null,
+	personas: []
 	};
 
 	empresa = {id:null, nombre: null};
@@ -44,6 +58,8 @@ export class CrudEncuestaComponent implements OnInit {
 	filteredEmpresas: any;
 
 	public id: HttpParams;
+
+	public titulo = 'PROGRAMAR ENCUESTA';
 
   constructor(private api: ApiBackRequestService,
     private user: TokenService,
@@ -91,22 +107,25 @@ export class CrudEncuestaComponent implements OnInit {
 
 	displayFn(empresa): string {
       return empresa ? empresa.nombre : empresa;
-  }
+  	}
 
 	async cargarEditar()
-  {
-    await this.api.show('encuestas', this.id).toPromise().then(
-      (data) => {
-		  this.form = data;
-		}
-	);
-
-	await this.api.show('empresa_sucursal', this.form.empresa_sucursal_id).toPromise().then(
+	{
+		await this.api.show('encuestas', this.id).toPromise().then(
 		(data) => {
-			this.empresa = data;
-		  }
-	  );
-  }
+			this.form = data;
+			this.titulo = 'EDITAR ENCUESTA PROGRAMADA';
+			}
+		);
+
+		await this.api.show('empresa_sucursal', this.form.empresa_sucursal_id).toPromise().then(
+			(data) => {
+				this.empresa = data;
+			}
+		);
+
+		this.stepper.selected.completed = true;
+	}
 
   guardar()
   {
@@ -130,17 +149,30 @@ export class CrudEncuestaComponent implements OnInit {
 					this.form.tipo_encuesta_id= element.id;
 
 					await this.api.post('encuestas', this.form).toPromise().then(
-						(data) => {}
+						(data) => {this.handleRegistrar(data)}
 					);
 			});
 		}else
 		{
 			await this.api.post('encuestas', this.form).toPromise().then(
-				(data) => {}
+				(data) => {this.handleRegistrar(data)}
 			);
 		}
+  }
 
-		this.cerrar('Registro Exitoso')
+  handleRegistrar(data)
+  {
+	this.id=data.id;
+	this.cargarEditar();
+	this.stepper.selected.completed = true;
+    this.stepper.next();
+	this.cerrar('Registro Exitoso')
+  }
+
+  handleEditar()
+  {
+	this.cargarEditar();
+	this.cerrar('Datos Actualizados Correctamente')
   }
 
   async editar()
@@ -148,7 +180,7 @@ export class CrudEncuestaComponent implements OnInit {
 		this.form.empresa_sucursal_id= this.empresa.id;
 
     await this.api.put('encuestas', this.id , this.form).toPromise().then(
-      (data) => {this.cerrar('Datos Actualizados Correctamente')}
+      (data) => {this.handleEditar()}
     );
   }
 
@@ -164,7 +196,6 @@ export class CrudEncuestaComponent implements OnInit {
         popup: 'animated fadeOutUp faster'
       }
     });
-    this.router.navigateByUrl('/encuestas');
 	}
 
 	obtenerFechaFin()
@@ -174,6 +205,38 @@ export class CrudEncuestaComponent implements OnInit {
 		var fin= moment(this.form.fecha_inicio).add(+3, 'M');
 
   		this.form.fecha_fin=moment(fin).format('YYYY-MM-DD')
+	}
+
+	eliminarPersona(id)
+	{
+		Swal.fire({
+			title: 'Desea eliminar la persona?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Confirmar'
+			}).then(async (result) => {
+				if (result.value) {
+					await this.api.delete('encuesta_persona', id).toPromise().then(
+						(data) => {
+							this.form.personas=data.personas;
+							this.form.personas = [...this.form.personas]
+						}
+					);
+				}
+			})
+	}
+
+	async updateFilter(event) {
+		const val = event.target.value;
+
+		await this.api.get('encuesta_persona?search=' + val +'&id='+this.id).toPromise().then(
+			(data) => {
+				this.form.personas=data.personas;
+				this.form.personas = [...this.form.personas]
+			}
+		);
 	}
 
 }

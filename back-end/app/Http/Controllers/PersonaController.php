@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\EncuestaPersona;
 use Illuminate\Http\Request;
 use App\Persona;
 
@@ -17,13 +18,16 @@ class PersonaController extends Controller
         if($request->input('search')!=null)
         {
             $searchValue=$request->input('search');
-            $data = Persona::where('estado','1')
-            ->where('rol_id','2')
-            ->where("nombres", "LIKE", "%$searchValue%")
-            ->orWhere('apellido_materno', "LIKE", "%$searchValue%")
-            ->orWhere('apellido_paterno', "LIKE", "%$searchValue%")
-            ->orWhere('sexo', "LIKE", "%$searchValue%")
-            ->orWhere('email', "LIKE", "%$searchValue%")
+
+            $data = Persona::where('rol_id',2)
+            ->where('estado','1')
+            ->where(function($query) use ($searchValue){
+                $query->where("nombres", "LIKE", "%$searchValue%")
+                ->orWhere('apellido_materno', "LIKE", "%$searchValue%")
+                ->orWhere('apellido_paterno', "LIKE", "%$searchValue%")
+                ->orWhere('sexo', "LIKE", "%$searchValue%")
+                ->orWhere('email', "LIKE", "%$searchValue%");
+            })
             ->get();
         }
         else
@@ -120,6 +124,13 @@ class PersonaController extends Controller
         $registro = Persona::find($id);
         $registro->estado='0';
         $registro->save();
+
+        $encuestas = EncuestaPersona::where('persona_id',$id)->get();
+        foreach($encuestas as $e)
+        {
+            $e->estado='0';
+            $e->save();
+        }
 
         return response()->json($registro, 200);
     }

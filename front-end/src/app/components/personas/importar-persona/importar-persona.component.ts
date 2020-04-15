@@ -1,9 +1,10 @@
-import { Router } from '@angular/router';
-
+import { HttpParams } from '@angular/common/http';
 import { TokenService } from './../../../Services/token/token.service';
 import { ApiBackRequestService } from './../../../Services/api-back-request.service';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-importar-persona',
@@ -13,10 +14,14 @@ import Swal from 'sweetalert2';
 export class ImportarPersonaComponent implements OnInit {
 
 fileToUpload: File = null;
+public encuesta_id;
 
-  constructor(private api: ApiBackRequestService, private user: TokenService, private router: Router) { }
+  constructor(private api: ApiBackRequestService, private user: TokenService, private _location: Location,private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+	this.activatedRoute.queryParams.subscribe(async params => {
+		this.encuesta_id = params.encuesta_id;
+	});
 	}
 
 	handleFileInput(files: FileList) {
@@ -28,6 +33,7 @@ fileToUpload: File = null;
 		const formData: FormData = new FormData();
 		formData.append('file', this.fileToUpload);
 		formData.append('user_id', this.user.me());
+		formData.append('encuesta_id', this.encuesta_id);
 
 		await this.api.uploadFiles('importar', formData).toPromise().then(
 		(data) => {this.cerrar()}
@@ -53,7 +59,13 @@ fileToUpload: File = null;
 			  popup: 'animated fadeOutUp faster'
 			}
 		  });
-		this.router.navigateByUrl('/personas');
+
+		  this.return();
+	}
+
+	return()
+	{
+		this._location.back();
 	}
 
 }

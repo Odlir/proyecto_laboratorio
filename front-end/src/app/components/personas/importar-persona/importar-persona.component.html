@@ -1,7 +1,7 @@
 <div class="px-5">
 	<br>
 	<div class="row">
-	  <fa-icon [icon]="['fas', 'user-friends']"></fa-icon><h5>MANTENIMIENTO DE PERSONAS</h5>
+		<fa-icon [icon]="['fas', 'poll']"></fa-icon><h5>PROGRAMACIÓN DE ENCUESTAS  <span *ngIf="encuesta_id" >: {{ encuesta_id }} </span></h5>
 	</div>
 
 	<div class="widget clearfix mt-5">
@@ -28,7 +28,7 @@
 				<div class="form-group row mt-5">
 					<div class="col-12">
 						<button type="submit" class="btn btn-danger">IMPORTAR</button>
-						<a routerLink="/personas" class="btn btn-info">REGRESAR A LA LISTA</a>
+						<a (click)="return()"  class="btn btn-info text-white">REGRESAR A LA LISTA</a>
 					</div>
 				</div>
 			</form>

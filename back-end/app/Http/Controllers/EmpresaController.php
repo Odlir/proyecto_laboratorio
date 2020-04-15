@@ -19,11 +19,13 @@ class EmpresaController extends Controller
         {
             $searchValue=$request->input('search');
             $data = Empresa::where('estado','1')
-            ->where("codigo", "LIKE", "%$searchValue%")
-            ->orWhere('razon_social', "LIKE", "%$searchValue%")
-            ->orWhere('contacto', "LIKE", "%$searchValue%")
-            ->orWhere('email', "LIKE", "%$searchValue%")
-            ->orWhere('telefono', "LIKE", "%$searchValue%")
+            ->where(function($query) use ($searchValue){
+                $query->where("codigo", "LIKE", "%$searchValue%")
+                ->orWhere('razon_social', "LIKE", "%$searchValue%")
+                ->orWhere('contacto', "LIKE", "%$searchValue%")
+                ->orWhere('email', "LIKE", "%$searchValue%")
+                ->orWhere('telefono', "LIKE", "%$searchValue%");
+            })
             ->get();
         }
         else

@@ -1,27 +1,11 @@
-CRUDS
-todos los crud seran sin modales
-----------------------------------------
-
 ENCUESTAS 
 - Hay 3 encuestas: intereses / talentos / temperamentos 
 y cada encuesta tiene sus propias preguntas Y respuestas
-
-- EN LA ESCUESTAS QUE TENGA una pestañita DONDE SE VEAN LAS PERSONAS, 
-y tambien que se puedan asignar personas y tambien importar excels
-
-- Cuando se programa una encuesta, se generaran los 3 tipos de encuestas.
-
-- por ahora no se necesita crud para las preguntas, todas las preguntas
-defrente a la base de datos
-
-- luego de programar la encuesta se debe subir el excel con las personas
 
 - EN LAS ENCUESTA DE INTERESES CAMBIAR LOS SELECTS POR RADIO BUTTONS 
 
 - TODAS LAS PREGUNTAS EN UNA SOLA HOJA, NO PONER BOTONES PARA IR A LA SIGUIENTE SECCION
 
 - NO PONEMOS LA BARRA DE CARGA PERO SI HAY QUE VALIDAR QUE SE RESPONDAN TODAS LAS PREGUNTAS
-
-- que suba el excel y que salga un mensaje de exito
 
 - la formula para los reportes se debe usar del .net debe ser igual

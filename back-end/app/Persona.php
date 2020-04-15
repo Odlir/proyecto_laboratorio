@@ -57,4 +57,9 @@ class Persona extends Model
     {
         return $this->belongsTo('App\User','edit_user_id');
     }
+
+    public function encuestas()
+    {
+        return $this->belongsToMany('App\Encuesta')->withPivot(["id"]);
+    }
 }

@@ -1,11 +1,8 @@
-me falta poner el tab alumnos en el crud de encuestas
+validar con errores cuando se suba un excel mal
 
-validar con errores cuando se suba un excel mal y al momento de importar poner algo que indique que se esta cargando como
-un relojito o barra de carga
+refactorizar para usar varios componentes y mandarles datos
+puede ser las auditorias y los headers de cada mantenimiento
 
-
-//////
-pestaña alumnos o participantes con su boton importar para importar el excel , son los evaluadores
-eso es para interes y para talentos es igual
-
+en programacion de encuestas al ver los detalles de los alumnos, debo corregir para que se vea el
+encebazo programacion de encuestas y no mantenimiento.
 

@@ -19,8 +19,10 @@ class EmpresaSucursalController extends Controller
             $searchValue=$request->input('search');
             $data = EmpresaSucursal::where('estado','1')
             ->where('empresa_id',$request->input('id'))
-            ->where("codigo", "LIKE", "%$searchValue%")
-            ->orWhere('nombre', "LIKE", "%$searchValue%")
+            ->where(function($query) use ($searchValue){
+                $query->where("codigo", "LIKE", "%$searchValue%")
+                ->orWhere('nombre', "LIKE", "%$searchValue%");
+            })
             ->get();
         }
         else

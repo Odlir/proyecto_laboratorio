@@ -37,6 +37,7 @@ Route::group([
     Route::resource('importar','ImportController');
     Route::resource('encuestas','EncuestaController');
     Route::resource('tipo_encuesta','TipoEncuestaController');
+    Route::resource('encuesta_persona','EncuestaPersonaController');
 });
 
     // Route::get('/migrate', function() {

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Encuesta;
+use App\EncuestaPersona;
+use App\Persona;
+use Illuminate\Http\Request;
 
-class EncuestaController extends Controller
+class EncuestaPersonaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,29 +16,26 @@ class EncuestaController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->input('search')!=null) // BUSCAR POR EMPRESA O POR TIPO
-        {
-            $searchValue=$request->input('search');
-
-            $data = Encuesta::with('empresa')
-            ->with('tipo')
-            ->where('estado','1')
+        $searchValue=$request->input('search');
+        $data = Encuesta::where('estado','1')
+        ->where('id',$request->input('id'))
+        ->with('insert')
+        ->with('edit')
+        ->with('empresa')
+        ->with('tipo')
+        ->with(['personas' => function ($q) use($searchValue){
+            $q->where('personas.estado',"1")
+            // ->with('insert')
+            // ->with('edit')
             ->where(function($query) use ($searchValue){
-                $query->whereHas('empresa', function($q) use($searchValue){
-                    $q->where("nombre", "LIKE", "%$searchValue%");
-                })
-                ->orWhereHas('tipo', function( $query ) use($searchValue){
-                    $query->where("nombre", "LIKE", "%$searchValue%");
-                });
-            })->get();
-        }
-        else
-        {
-            $data = Encuesta::where('estado','1')
-            ->with('empresa')
-            ->with('tipo')
-            ->get();
-        }
+                $query->where("personas.nombres", "LIKE", "%$searchValue%")
+                ->orWhere('personas.apellido_materno', "LIKE", "%$searchValue%")
+                ->orWhere('personas.apellido_paterno', "LIKE", "%$searchValue%")
+                ->orWhere('personas.sexo', "LIKE", "%$searchValue%")
+                ->orWhere('personas.email', "LIKE", "%$searchValue%");
+            });
+        }])
+        ->first();
 
         return response()->json($data, 200);
     }
@@ -48,7 +47,7 @@ class EncuestaController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -59,11 +58,7 @@ class EncuestaController extends Controller
      */
     public function store(Request $request)
     {
-        $data= $request->all();
-
-        $registro= Encuesta::create($data);
-
-        return response()->json($registro, 200);
+        //
     }
 
     /**
@@ -74,17 +69,7 @@ class EncuestaController extends Controller
      */
     public function show($id)
     {
-        $data = Encuesta::with('insert')
-        ->with('edit')
-        ->with('empresa')
-        ->with(['personas' => function ($query) {
-            $query->where('personas.estado', '1');
-        }])
-        ->with('tipo')
-        ->where('id',$id)
-        ->first();
-
-        return response()->json($data, 200);
+        //
     }
 
     /**
@@ -107,13 +92,7 @@ class EncuestaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data= $request->all();
-
-        $registro= Encuesta::find($id);
-        $registro->update($data);
-        $registro->save();
-
-        return response()->json($registro, 200);
+        //
     }
 
     /**
@@ -124,10 +103,24 @@ class EncuestaController extends Controller
      */
     public function destroy($id)
     {
-        $registro = Encuesta::find($id);
+        $registro = EncuestaPersona::find($id);
         $registro->estado='0';
         $registro->save();
 
-        return response()->json($registro, 200);
+        $persona = Persona::find($registro->persona_id);
+        $persona->estado='0';
+        $persona->save();
+
+        $personas= Encuesta::with('insert')
+        ->with('edit')
+        ->with('empresa')
+        ->with(['personas' => function ($query) {
+            $query->where('personas.estado', '1');
+        }])
+        ->with('tipo')
+        ->where('id',$registro->encuesta_id)
+        ->first();
+
+        return response()->json($personas, 200);
     }
 }

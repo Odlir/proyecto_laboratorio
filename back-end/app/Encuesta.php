@@ -38,4 +38,9 @@ class Encuesta extends Model
     {
         return $this->belongsTo('App\User','edit_user_id');
     }
+
+    public function personas()
+    {
+        return $this->belongsToMany('App\Persona')->withPivot(["id"]);
+    }
 }
