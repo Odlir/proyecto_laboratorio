@@ -21,13 +21,6 @@ class Persona extends Model
         'edit_user_id'
     ];
 
-    // protected $dates = ['created_at','updated_at'];
-
-    protected $casts = [
-        'created_at' => 'datetime:d/m/y - H:i',
-        'updated_at' => 'datetime:d/m/y - H:i'
-    ];
-
     public static function boot()
 	{   parent::boot();
 		static::saving(function ($model) {

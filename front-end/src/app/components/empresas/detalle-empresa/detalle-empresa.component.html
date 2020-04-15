@@ -5,7 +5,7 @@
 	</div>
 	<br><br>
 	<mat-tab-group [selectedIndex]="tabSelected">
-		<mat-tab label="Detalle de la Empresa">
+		<mat-tab label="DETALLE DE LA EMPRESA">
 			<div class="row px-4 mt-4 mb-2">
 				<div class="col-7 pr-2">
 				  <div class="widget clearfix">
@@ -88,13 +88,13 @@
 						  {{form.insert.name }}
 						</div>
 						<div class="col-12 border-bottom py-3">
-						  {{form.created_at }}
+						  {{form.created_at | date: 'dd/MM/yyyy hh:mm:ss a'}}
 						</div>
 						<div class="col-12 border-bottom py-3 h-25">
 						  <span *ngIf="form.edit" >{{form.edit.name }}</span>
 						</div>
 						<div class="col-12 py-3 h-25">
-						  <span *ngIf="form.edit" >{{form.updated_at}}</span>
+						  <span *ngIf="form.edit" >{{form.updated_at | date: 'dd/MM/yyyy hh:mm:ss a'}}</span>
 						</div>
 					  </div>
 					</div>
@@ -107,7 +107,7 @@
 				<button class="btn btn-danger" (click)="eliminar(this.form.id)" >ELIMINAR</button>
 			</div>
 		</mat-tab>
-		<mat-tab label="Sedes">
+		<mat-tab label="SUCURSALES">
 			<input
 					type="text"
 					class="buscador"

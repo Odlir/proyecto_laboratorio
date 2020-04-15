@@ -1,5 +1,11 @@
-corregir lo que el back end devuelve los timestamps incorrectos
-
 me falta poner el tab alumnos en el crud de encuestas
 
-debo crear una tabla donde guarde los usuarios que importan excels en el sistema
+validar con errores cuando se suba un excel mal y al momento de importar poner algo que indique que se esta cargando como
+un relojito o barra de carga
+
+
+//////
+pestaña alumnos o participantes con su boton importar para importar el excel , son los evaluadores
+eso es para interes y para talentos es igual
+
+

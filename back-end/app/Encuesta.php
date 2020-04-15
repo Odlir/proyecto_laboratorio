@@ -19,11 +19,6 @@ class Encuesta extends Model
         'edit_user_id'
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime:d/m/y - H:i',
-        'updated_at' => 'datetime:d/m/y - H:i'
-    ];
-
     public function empresa()
     {
         return $this->belongsTo('App\EmpresaSucursal','empresa_sucursal_id');
