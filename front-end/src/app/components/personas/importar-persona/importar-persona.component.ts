@@ -24,6 +24,8 @@ public encuesta_id;
 	});
 	}
 
+	error:{}
+
 	handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
 	}
@@ -36,7 +38,8 @@ public encuesta_id;
 		formData.append('encuesta_id', this.encuesta_id);
 
 		await this.api.uploadFiles('importar', formData).toPromise().then(
-		(data) => {this.cerrar()}
+		(data) => {this.cerrar()},
+		(error) => {this.cerrar(error.error.errors)}
 		);
 	}
 
@@ -47,20 +50,39 @@ public encuesta_id;
 		);
 	}
 
-	cerrar()
+	cerrar(error?)
 	{
-		Swal.fire({
-			title: 'Importación Exitosa',
-			icon: 'success',
-			showClass: {
-			  popup: 'animated fadeInDown faster'
-			},
-			hideClass: {
-			  popup: 'animated fadeOutUp faster'
-			}
-		  });
+		if(error)
+		{
+			// Swal.fire({
+			// 	title: 'Error al importar',
+			// 	text: error,
+			// 	icon: 'warning',
+			// 	showCancelButton: true,
+			// 	confirmButtonColor: '#3085d6',
+			// 	cancelButtonColor: '#d33',
+			// 	confirmButtonText: 'Confirmar'
+			//   });
 
-		  this.return();
+			console.log(error);
+
+			this.error= error;
+		}
+		else
+		{
+			Swal.fire({
+				title: 'Importación Exitosa',
+				icon: 'success',
+				showClass: {
+				popup: 'animated fadeInDown faster'
+				},
+				hideClass: {
+				popup: 'animated fadeOutUp faster'
+				}
+			});
+
+			this.return();
+		}
 	}
 
 	return()

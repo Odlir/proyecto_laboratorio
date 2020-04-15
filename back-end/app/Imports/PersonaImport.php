@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Persona;
 use App\EncuestaPersona;
+use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Illuminate\Support\Collection;
@@ -26,6 +27,26 @@ class PersonaImport implements ToCollection, WithHeadingRow
 
     public function collection(Collection $rows)
     {
+        $messages = [];
+
+        $i = 2;
+        foreach ($rows as $key => $value){
+
+            $messages[$key.'.nombres'.'.required'] = 'El campo nombres, fila '. $i .'  es requerido.';
+            $messages[$key.'.apellido_paterno'.'.required'] = 'El campo apellido_paterno, fila '. $i .'  es requerido.';
+            $messages[$key.'.sexo'.'.required'] = 'El campo sexo, fila '. $i .'  es requerido.';
+            $messages[$key.'.correo'.'.email'] = 'El campo correo, fila '. $i .'  tiene un formato invalido.';
+
+            $i++;
+        }
+
+        Validator::make($rows->toArray(), [
+            '*.nombres' => 'required',
+            '*.apellido_paterno' => 'required',
+            '*.sexo' => 'required',
+            '*.correo' => 'email'
+        ],$messages)->validate();
+
         foreach ($rows as $row)
         {
             $persona= Persona::create([

@@ -1,8 +1,6 @@
-validar con errores cuando se suba un excel mal
-
 refactorizar para usar varios componentes y mandarles datos
 puede ser las auditorias y los headers de cada mantenimiento
 
 en programacion de encuestas al ver los detalles de los alumnos, debo corregir para que se vea el
-encebazo programacion de encuestas y no mantenimiento.
+encabezado programacion de encuestas y no mantenimiento.
 
