@@ -32,10 +32,10 @@ class PersonaImport implements ToCollection, WithHeadingRow
         $i = 2;
         foreach ($rows as $key => $value){
 
-            $messages[$key.'.nombres'.'.required'] = 'El campo nombres, fila '. $i .'  es requerido.';
-            $messages[$key.'.apellido_paterno'.'.required'] = 'El campo apellido_paterno, fila '. $i .'  es requerido.';
-            $messages[$key.'.sexo'.'.required'] = 'El campo sexo, fila '. $i .'  es requerido.';
-            $messages[$key.'.correo'.'.email'] = 'El campo correo, fila '. $i .'  tiene un formato invalido.';
+            $messages[$key.'.nombres'.'.required'] = 'El campo Nombres, fila '. $i .'  es requerido.';
+            $messages[$key.'.apellido_paterno'.'.required'] = 'El campo Apellido Paterno, fila '. $i .'  es requerido.';
+            $messages[$key.'.sexo'.'.required'] = 'El campo Sexo, fila '. $i .'  es requerido.';
+            $messages[$key.'.correo'.'.email'] = 'El campo Correo, fila '. $i .'  tiene un formato invalido.';
 
             $i++;
         }
@@ -44,7 +44,7 @@ class PersonaImport implements ToCollection, WithHeadingRow
             '*.nombres' => 'required',
             '*.apellido_paterno' => 'required',
             '*.sexo' => 'required',
-            '*.correo' => 'email'
+            '*.correo' => 'email|nullable'
         ],$messages)->validate();
 
         foreach ($rows as $row)

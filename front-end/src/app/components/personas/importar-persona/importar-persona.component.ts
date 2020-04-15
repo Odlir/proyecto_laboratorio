@@ -54,18 +54,6 @@ public encuesta_id;
 	{
 		if(error)
 		{
-			// Swal.fire({
-			// 	title: 'Error al importar',
-			// 	text: error,
-			// 	icon: 'warning',
-			// 	showCancelButton: true,
-			// 	confirmButtonColor: '#3085d6',
-			// 	cancelButtonColor: '#d33',
-			// 	confirmButtonText: 'Confirmar'
-			//   });
-
-			console.log(error);
-
 			this.error= error;
 		}
 		else
