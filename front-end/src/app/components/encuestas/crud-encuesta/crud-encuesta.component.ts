@@ -40,7 +40,7 @@ export class CrudEncuestaComponent implements OnInit {
     fecha_inicio: moment().format('YYYY-MM-DD'),
     fecha_fin: null,
     empresa_sucursal_id: null,
-    tipo_encuesta_id: null,
+    tipo_encuesta_id: 0,
     insert_user_id: this.user.me(),
     edit_user_id: null,
     insert: {name: null},
@@ -149,7 +149,9 @@ export class CrudEncuestaComponent implements OnInit {
 					this.form.tipo_encuesta_id= element.id;
 
 					await this.api.post('encuestas', this.form).toPromise().then(
-						(data) => {this.handleRegistrar(data)}
+						(data) => {
+							this.router.navigateByUrl('/encuestas');
+						}
 					);
 			});
 		}else
@@ -158,6 +160,8 @@ export class CrudEncuestaComponent implements OnInit {
 				(data) => {this.handleRegistrar(data)}
 			);
 		}
+
+		this.cerrar('Registro Exitoso')
   }
 
   handleRegistrar(data)
@@ -166,7 +170,6 @@ export class CrudEncuestaComponent implements OnInit {
 	this.cargarEditar();
 	this.stepper.selected.completed = true;
     this.stepper.next();
-	this.cerrar('Registro Exitoso')
   }
 
   handleEditar()

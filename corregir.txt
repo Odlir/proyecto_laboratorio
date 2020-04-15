@@ -4,3 +4,33 @@ puede ser las auditorias y los headers de cada mantenimiento
 en programacion de encuestas al ver los detalles de los alumnos, debo corregir para que se vea el
 encabezado programacion de encuestas y no mantenimiento.
 
+- EN LAS ENCUESTA DE INTERESES CAMBIAR LOS SELECTS POR RADIO BUTTONS 
+
+- TODAS LAS PREGUNTAS EN UNA SOLA HOJA, NO PONER BOTONES PARA IR A LA SIGUIENTE SECCION
+
+- NO PONEMOS LA BARRA DE CARGA PERO SI HAY QUE VALIDAR QUE SE RESPONDAN TODAS LAS PREGUNTAS
+
+a la vista se le enviara el id de la encuesta y el id del alumno
+
+se manejarian 3 tablas
+
+generar un excel con todas las personas asociadas
+a la encuesta, y le agregaremos el link con el id
+de la encuesta y el id de la persona
+
+
+todas las preguntas son iguales para cada encuesta de interes
+
+
+junto la tabla preguntas con la tabla tipo de encuesta
+
+
+tablas
+///
+preguntas
+preguntas interes
+respuestas
+
+
+
+las respuestas ponerle un flag para saber a que encuesta pertenece

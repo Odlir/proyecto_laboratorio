@@ -14,7 +14,7 @@
 				  <label class="col-sm-4 col-form-label w-100">Tipo de Encuesta <span class="text-danger">*</span></label>
 					<div class="col-sm-8">
 						<select name="tipo" class="form-control" [(ngModel)]="form.tipo_encuesta_id" required>
-							<option value="0">Todas</option>
+							<option value="0" *ngIf="id==null" >Todas</option>
 							<option [value]="item.id" *ngFor="let item of tipos">{{item.nombre}}</option>
 						</select>
 					</div>

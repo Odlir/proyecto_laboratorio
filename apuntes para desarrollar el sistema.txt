@@ -1,11 +1,4 @@
 ENCUESTAS 
-- Hay 3 encuestas: intereses / talentos / temperamentos 
-y cada encuesta tiene sus propias preguntas Y respuestas
-
-- EN LAS ENCUESTA DE INTERESES CAMBIAR LOS SELECTS POR RADIO BUTTONS 
-
-- TODAS LAS PREGUNTAS EN UNA SOLA HOJA, NO PONER BOTONES PARA IR A LA SIGUIENTE SECCION
-
-- NO PONEMOS LA BARRA DE CARGA PERO SI HAY QUE VALIDAR QUE SE RESPONDAN TODAS LAS PREGUNTAS
+- Hay 3 encuestas: intereses / talentos / temperamentos y cada tipo de encuesta tiene sus propias preguntas Y respuestas
 
 - la formula para los reportes se debe usar del .net debe ser igual
