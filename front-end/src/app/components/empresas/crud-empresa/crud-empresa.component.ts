@@ -1,12 +1,12 @@
-import { RoutingStateService } from './../../../Services/routing/routing-state.service';
+import { MatStepper } from '@angular/material/stepper';
 import { ColumnMode } from '@swimlane/ngx-datatable';
-import { SharedVarService } from './../../../Services/shared/shared-var.service';
 import { HttpParams } from '@angular/common/http';
 import Swal from 'sweetalert2';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TokenService } from '../../../Services/token/token.service';
 import { ApiBackRequestService } from './../../../Services/api-back-request.service';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-crud-empresa',
@@ -19,6 +19,11 @@ export class CrudEmpresaComponent implements OnInit {
 	reorderable = true;
 
 	ColumnMode = ColumnMode;
+
+	firstFormGroup: FormGroup;
+	secondFormGroup: FormGroup;
+
+	@ViewChild('stepper') stepper: MatStepper;
 
 	public form = {
 		codigo: null,
@@ -35,8 +40,6 @@ export class CrudEmpresaComponent implements OnInit {
 		sucursales : []
 	};
 
-	public tabSelected = 0;
-
 	public titulo= "CREAR EMPRESA";
 
   public id: HttpParams;
@@ -44,9 +47,7 @@ export class CrudEmpresaComponent implements OnInit {
   constructor(
     private api: ApiBackRequestService,
     private user: TokenService,
-    private router: Router,
-		private activatedRoute: ActivatedRoute,
-		private routingState: RoutingStateService
+	private activatedRoute: ActivatedRoute,
 	) {
 
 	}
@@ -55,10 +56,8 @@ export class CrudEmpresaComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(async params => {
         this.id = params.id;
         if (this.id != null) {
-          this.cargarEditar();
+					this.cargarEditar();
 				}
-
-				this.tabSelected = params.tab;
 		});
 	}
 
@@ -66,7 +65,9 @@ export class CrudEmpresaComponent implements OnInit {
   {
 		this.titulo = "EDITAR EMPRESA";
     await this.api.show('empresas', this.id).toPromise().then(
-      (data) => {this.form = data}
+      (data) => {
+				this.form = data;
+				this.stepper.selected.completed = true;}
     );
   }
 
@@ -85,14 +86,33 @@ export class CrudEmpresaComponent implements OnInit {
   async registrar()
   {
     await this.api.post('empresas', this.form).toPromise().then(
-      (data) => {this.cerrar('Registro Exitoso')}
+			(data) => {
+				this.handleRegistrar(data);
+			}
     );
-  }
+	}
+
+	handleRegistrar(data)
+	{
+		this.id= data.id;
+		this.form=data;
+		this.stepper.selected.completed = true;
+    	this.stepper.next();
+		this.cerrar('Empresa Registrada Exitosamente')
+	}
+
+	handleEditar(data)
+	{
+		this.form=data;
+		this.cerrar('Datos Actualizados Correctamente')
+	}
 
   async editar()
   {	this.form.edit_user_id = this.user.me();
     await this.api.put('empresas', this.id , this.form).toPromise().then(
-      (data) => {this.cerrar('Datos Actualizados Correctamente')}
+      (data) => {
+		  this.handleEditar(data);
+		  }
     );
   }
 
@@ -108,12 +128,11 @@ export class CrudEmpresaComponent implements OnInit {
         popup: 'animated fadeOutUp faster'
       }
     });
-    this.router.navigateByUrl('/empresas');
-	}
+}
 
 	eliminarSucursal(id)
 	{
-      Swal.fire({
+    Swal.fire({
 		title: 'Desea eliminar la sucursal?',
 		icon: 'warning',
 		showCancelButton: true,
@@ -141,8 +160,8 @@ export class CrudEmpresaComponent implements OnInit {
 	}
 
 	handle(data)
-  {
-    this.form.sucursales = data;
-  }
+	{
+		this.form.sucursales = data;
+	}
 }
 

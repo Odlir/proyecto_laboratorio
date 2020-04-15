@@ -57,7 +57,9 @@ class EmpresaController extends Controller
 
         $registro= Empresa::create($data);
 
-        return response()->json($registro, 200);
+        return $this->show($registro->id);
+
+        // return response()->json($registro, 200);
     }
 
     /**
@@ -105,7 +107,9 @@ class EmpresaController extends Controller
         $registro->update($data);
         $registro->save();
 
-        return response()->json($registro, 200);
+        return $this->show($id);
+
+        // return response()->json($registro, 200);
     }
 
     /**

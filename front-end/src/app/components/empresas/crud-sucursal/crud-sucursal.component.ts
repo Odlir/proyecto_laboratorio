@@ -161,9 +161,15 @@ export class CrudSucursalComponent implements OnInit {
 
 	returnCrud()
 	{
-		// this.router.navigateByUrl(this.previousUrl+'&tab='+1);
+		if(this.previousUrl.includes('detalle'))
+		{
+			this.router.navigateByUrl(this.previousUrl);
+		}
+		else
+		{
+			this.router.navigateByUrl('crud-empresa?id='+this.form.empresa_id);
+		}
 
-		this.router.navigateByUrl(this.previousUrl);
 	}
 
 }

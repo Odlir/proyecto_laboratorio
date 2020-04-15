@@ -4,7 +4,7 @@
 		<fa-icon [icon]="['fas', 'city']"></fa-icon><h5>MANTENIMIENTO DE EMPRESAS <span *ngIf="id" >: {{ form.razon_social }}</span></h5>
 	</div>
 
-	<form (ngSubmit)="guardar()" class="px-4 mt-5" ngNativeValidate>
+	<!-- <form (ngSubmit)="guardar()" class="px-4 mt-5" ngNativeValidate>
 		<mat-tab-group [selectedIndex]="tabSelected">
 			<mat-tab [label]="titulo" >
 				<div class="row">
@@ -154,9 +154,161 @@
 			</ngx-datatable>
 			</mat-tab>
 		</mat-tab-group>
-	</form>
+	</form> -->
+	<br><br>
 
+	  <mat-horizontal-stepper linear #stepper>
+		<mat-step completed="false">
+		<ng-template matStepLabel>{{ titulo }}</ng-template>
+		  	<div class="row">
+				<div class="col-7">
+					<form (ngSubmit)="guardar()" class="px-4 mt-5" ngNativeValidate>
+					<div class="form-group row my-3">
+						<label class="col-sm-4 col-form-label w-100">Código <span class="text-danger">*</span></label>
+						<div class="col-sm-8">
+						<input type="text" name="codigo" class="form-control" [(ngModel)]="form.codigo" required>
+						</div>
+						<hr>
+					</div>
 
-  </div>
+					<div class="form-group row my-3">
+						<label class="col-sm-4 col-form-label w-100">Razón Social <span class="text-danger">*</span></label>
+						<div class="col-sm-8">
+						<input type="text" name="razonsocial" class="form-control" [(ngModel)]="form.razon_social" required>
+						</div>
+						<hr>
+					</div>
+
+					<div class="form-group row my-3">
+						<label class="col-sm-4 col-form-label w-100">Contacto <span class="text-danger">*</span></label>
+						<div class="col-sm-8">
+							<input type="text" name="contacto" class="form-control" [(ngModel)]="form.contacto" required>
+						</div>
+						<hr>
+					</div>
+
+					<div class="form-group row my-3">
+						<label class="col-sm-4 col-form-label w-100">Teléfono <span class="text-danger">*</span></label>
+						<div class="col-sm-8">
+							<input type="number" name="telefono" class="form-control" [(ngModel)]="form.telefono" required>
+						</div>
+						<hr>
+					</div>
+
+					<div class="form-group row my-3">
+						<label class="col-sm-4 col-form-label w-100">Correo Contacto <span class="text-danger">*</span></label>
+						<div class="col-sm-8">
+						<input type="email" name="correo" class="form-control" [(ngModel)]="form.email" required>
+						</div>
+						<hr>
+					</div>
+
+					<div class="form-group row mt-5">
+						<div class="col-12">
+						<button type="submit" class="btn btn-danger">GUARDAR</button>
+						<a routerLink="/empresas" class="btn btn-info">REGRESAR A LA LISTA</a>
+						</div>
+					</div>
+				</form>
+				</div>
+				<div class="col-5 p-0 widget clearfix" *ngIf="id" >
+					<div class="whead clearfix text-center">
+					<p>Auditoría</p>
+					</div>
+					<div class="row auditoria">
+					<div class="col-6 border px-0">
+						<div class="col-12 border-bottom py-3">
+						Creado por
+						</div>
+						<div class="col-12 border-bottom py-3">
+						Creado el
+						</div>
+						<div class="col-12 border-bottom py-3">
+						Modificado por
+						</div>
+						<div class="col-12 py-3">
+						Última modificacion
+						</div>
+					</div>
+					<div class="col-6 border px-0">
+						<div class="col-12 border-bottom py-3">
+						{{form.insert.name }}
+						</div>
+						<div class="col-12 border-bottom py-3">
+						{{form.created_at | date: 'dd/MM/yyyy hh:mm:ss a'}}
+						</div>
+						<div class="col-12 border-bottom py-3 h-25">
+						<span *ngIf="form.edit" >{{form.edit.name }}</span>
+						</div>
+						<div class="col-12 py-3 h-25">
+						<span *ngIf="form.edit" >{{form.updated_at | date: 'dd/MM/yyyy hh:mm:ss a'}}</span>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</mat-step>
+		<mat-step [stepControl]="secondFormGroup">
+			<ng-template matStepLabel>SUCURSALES</ng-template>
+			<div class="col-12 text-right my-3">
+				<button type="button" class="btn btn-success" [routerLink]="['/crud-sucursal']" [queryParams]="{empresa_id:id}">AÑADIR SUCURSALES</button>
+			</div>
+			<input
+				type="text"
+				class="buscador"
+				placeholder="Buscar por Codigo/Nombre"
+				(keyup)="updateFilter($event)"
+			/>
+			<ngx-datatable
+			class="bootstrap"
+			[rows]="form.sucursales"
+			[loadingIndicator]="loadingIndicator"
+			[columnMode]="ColumnMode.force"
+			[headerHeight]="40"
+			[summaryPosition]="'bottom'"
+			[footerHeight]="40"
+			[limit]="20"
+			rowHeight="auto"
+			[reorderable]="reorderable"
+			>
+
+			<ngx-datatable-column name="Id">
+				<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+				<ng-template let-value="value" ngx-datatable-cell-template>
+					{{ value }}
+				</ng-template>
+			</ngx-datatable-column>
+			<ngx-datatable-column name="Código" prop="codigo">
+				<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+				<ng-template let-value="value" ngx-datatable-cell-template>
+				{{ value }}
+				</ng-template>
+			</ngx-datatable-column>
+			<ngx-datatable-column name="Nombre" prop="nombre">
+				<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+				<ng-template let-value="value" ngx-datatable-cell-template>
+				{{ value }}
+				</ng-template>
+			</ngx-datatable-column>
+			<ngx-datatable-column name="Teléfono" prop="telefono">
+				<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+				<ng-template let-value="value" ngx-datatable-cell-template>
+				{{ value }}
+				</ng-template>
+			</ngx-datatable-column>
+			<ngx-datatable-column name="Id">
+				<ng-template let-column="column" ngx-datatable-header-template> Acciones </ng-template>
+				<ng-template let-value="value" ngx-datatable-cell-template>
+					<div class="row justify-content-center">
+					<button class="btn border" type="button" [routerLink]="['/detalle-sucursal/']" [queryParams]="{id:value}"><fa-icon [icon]="['fas', 'eye']"></fa-icon></button>
+					<button class="btn border" type="button" [routerLink]="['/crud-sucursal/']" [queryParams]="{id:value}"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button>
+					<button class="btn border" type="button" (click)="eliminarSucursal(value)" ><fa-icon [icon]="['fas', 'trash']"></fa-icon></button>
+					</div>
+				</ng-template>
+			</ngx-datatable-column>
+			</ngx-datatable>
+		</mat-step>
+	  </mat-horizontal-stepper>
+	</div>
 
 

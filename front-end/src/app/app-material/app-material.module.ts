@@ -1,7 +1,6 @@
-import { MatTabsModule } from '@angular/material/tabs';
+import {MatTabsModule} from '@angular/material/tabs';
 import {BrowserModule} from '@angular/platform-browser';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
@@ -14,12 +13,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatStepperModule} from '@angular/material/stepper';
+
 
 @NgModule({
 	declarations: [],
 	imports: [
 		MatFormFieldModule,
-		MatTableModule,
 		MatSidenavModule,
 		MatButtonModule,
 		MatSelectModule,
@@ -33,11 +33,11 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 		MatDialogModule,
 		MatTabsModule,
 		ReactiveFormsModule,
-		MatAutocompleteModule
+		MatAutocompleteModule,
+		MatStepperModule,
 	],
 	exports: [
 		MatFormFieldModule,
-		MatTableModule,
 		MatSidenavModule,
 		MatButtonModule,
 		MatSelectModule,
@@ -51,7 +51,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 		MatDialogModule,
 		MatTabsModule,
 		ReactiveFormsModule,
-		MatAutocompleteModule
+		MatAutocompleteModule,
+		MatStepperModule
 	]
 })
 export class AppMaterialModule {
