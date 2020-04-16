@@ -69,7 +69,14 @@ export class DetalleSucursalComponent implements OnInit {
 
 	returnCrud()
 	{
-		this.router.navigateByUrl(this.previousUrl);
+		if(this.previousUrl.includes('detalle'))
+		{
+			this.router.navigateByUrl('detalle-empresa?id='+this.form.empresa_id+'&tab=1');
+		}
+		else
+		{
+			this.router.navigateByUrl('crud-empresa?id='+this.form.empresa_id+'&tab=1');
+		}
 	}
 
 }

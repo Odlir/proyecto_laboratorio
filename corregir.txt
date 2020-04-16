@@ -1,6 +1,6 @@
 - PONER LOS ICONOS DEL MENU UNO ABAJO DE OTRO
 
-- tambien tiene que ser responsive
+- EL SISTEMA DEBE SER RESPONSIVE
 
 - llenar los seeders de la empresa con su sucursal
 
@@ -19,7 +19,7 @@ de la encuesta y el id de la persona
 
 quitar la ruta de test de interes
 
-en donde colegio es el nombre de la empresa, no de la sucursal
+en donde dice colegio es el nombre de la empresa, no de la sucursal
 
 
 
