@@ -16,6 +16,8 @@ export class SucursalComponent implements OnInit {
 
 	@Input() id: any;
 
+	@Input() tab: any;
+
 	sucursales = [];
 
 	constructor(private api: ApiBackRequestService) { }

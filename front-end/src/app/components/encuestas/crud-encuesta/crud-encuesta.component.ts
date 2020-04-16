@@ -1,6 +1,5 @@
 import { map, startWith } from 'rxjs/operators';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import Swal from 'sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from '../../../Services/token/token.service';
 import { ApiBackRequestService } from './../../../Services/api-back-request.service';
@@ -72,8 +71,16 @@ export class CrudEncuestaComponent implements OnInit {
 
 		this.activatedRoute.queryParams.subscribe(async params => {
 			this.id = params.id;
+			let tab= params.tab;
 			if (this.id != null) {
-				this.cargarEditar();
+				if(tab!=null)
+				{
+					this.cargarEditar(1);
+				}
+				else
+				{
+					this.cargarEditar();
+				}
 			}
 			else
 			{
@@ -108,7 +115,7 @@ export class CrudEncuestaComponent implements OnInit {
       return empresa ? empresa.nombre : empresa;
   	}
 
-	async cargarEditar()
+	async cargarEditar(next?)
 	{
 		await this.api.show('encuestas', this.id).toPromise().then(
 		(data) => {
@@ -117,13 +124,18 @@ export class CrudEncuestaComponent implements OnInit {
 			}
 		);
 
+		this.stepper.selected.completed = true;
+
+		if(next)
+		{
+			this.stepper.next();
+		}
+
 		await this.api.show('empresa_sucursal', this.form.empresa_sucursal_id).toPromise().then(
 			(data) => {
 				this.empresa = data;
 			}
 		);
-
-		this.stepper.selected.completed = true;
 	}
 
   guardar()
@@ -149,7 +161,10 @@ export class CrudEncuestaComponent implements OnInit {
 
 					await this.api.post('encuestas', this.form).toPromise().then(
 						(data) => {
-							this.subirExcel(data.id);
+							if(this.fileToUpload!=null)
+							{
+								this.subirExcel(data.id);
+							}
 						}
 					);
 			});
@@ -158,12 +173,15 @@ export class CrudEncuestaComponent implements OnInit {
 		}else
 		{
 			await this.api.post('encuestas', this.form).toPromise().then(
-				(data) => { this.subirExcel(data.id);
-					this.handleRegistrar(data)}
+				(data) => {
+					this.handleRegistrar(data)
+					if(this.fileToUpload!=null)
+					{
+						this.subirExcel(data.id);
+					}
+				}
 			);
 		}
-
-		this.cerrar('Registro Exitoso')
   }
 
   handleRegistrar(data)
@@ -171,13 +189,11 @@ export class CrudEncuestaComponent implements OnInit {
 	this.id=data.id;
 	this.cargarEditar();
 	this.stepper.selected.completed = true;
-    this.stepper.next();
   }
 
   handleEditar()
   {
 	this.cargarEditar();
-	this.cerrar('Datos Actualizados Correctamente')
   }
 
   async editar()
@@ -188,21 +204,6 @@ export class CrudEncuestaComponent implements OnInit {
       (data) => {this.handleEditar()}
     );
   }
-
-  cerrar(mensaje)
-  {
-    Swal.fire({
-      title: mensaje,
-      icon: 'success',
-      showClass: {
-        popup: 'animated fadeInDown faster'
-      },
-      hideClass: {
-        popup: 'animated fadeOutUp faster'
-      }
-    });
-	}
-
 
 	obtenerFechaFin()
 	{

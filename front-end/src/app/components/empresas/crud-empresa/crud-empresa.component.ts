@@ -1,7 +1,6 @@
 import { MatStepper } from '@angular/material/stepper';
 import { HttpParams } from '@angular/common/http';
-import Swal from 'sweetalert2';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from '../../../Services/token/token.service';
 import { ApiBackRequestService } from './../../../Services/api-back-request.service';
 import { Component, OnInit, ViewChild} from '@angular/core';
@@ -41,26 +40,40 @@ export class CrudEmpresaComponent implements OnInit {
     private api: ApiBackRequestService,
     private user: TokenService,
 	private activatedRoute: ActivatedRoute,
+	private router: Router
 	) {
 
 	}
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(async params => {
-        this.id = params.id;
+		this.id = params.id;
+		let tab= params.tab;
         if (this.id != null) {
-					this.cargarEditar();
-				}
-		});
+			if(tab!=null)
+			{
+				this.cargarEditar(1);
+			}
+			else
+			{
+				this.cargarEditar();
+			}
+		}
+	});
 	}
 
-  async cargarEditar()
+  async cargarEditar(next?)
   {
 		this.titulo = "EDITAR EMPRESA";
     await this.api.show('empresas', this.id).toPromise().then(
       (data) => {
-		this.form = data;
-		this.stepper.selected.completed = true;}
+			this.form = data;
+			this.stepper.selected.completed = true;
+			if(next)
+			{
+				this.stepper.next();
+			}
+		}
     );
   }
 
@@ -76,11 +89,17 @@ export class CrudEmpresaComponent implements OnInit {
     }
   }
 
+  return()
+  {
+	this.router.navigateByUrl('/empresas');
+  }
+
   async registrar()
   {
     await this.api.post('empresas', this.form).toPromise().then(
 			(data) => {
 				this.handleRegistrar(data);
+				this.return();
 			}
     );
 	}
@@ -90,14 +109,13 @@ export class CrudEmpresaComponent implements OnInit {
 		this.id= data.id;
 		this.form=data;
 		this.stepper.selected.completed = true;
-    	this.stepper.next();
-		this.cerrar('Empresa Registrada Exitosamente')
+		this.stepper.next();
+		this.titulo = "EDITAR EMPRESA";
 	}
 
 	handleEditar(data)
 	{
 		this.form=data;
-		this.cerrar('Datos Actualizados Correctamente')
 	}
 
   async editar()
@@ -108,20 +126,6 @@ export class CrudEmpresaComponent implements OnInit {
 		  }
     );
   }
-
-  cerrar(mensaje)
-  {
-    Swal.fire({
-      title: mensaje,
-      icon: 'success',
-      showClass: {
-        popup: 'animated fadeInDown faster'
-      },
-      hideClass: {
-        popup: 'animated fadeOutUp faster'
-      }
-    });
-}
 
 }
 

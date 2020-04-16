@@ -4,7 +4,6 @@ import { ApiBackRequestService } from './../../../Services/api-back-request.serv
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crud-sucursal',
@@ -32,6 +31,8 @@ export class CrudSucursalComponent implements OnInit {
 
 	previousUrl: string;
 
+	tab = null;
+
   constructor(
 	private router: Router,
 	private user: TokenService,
@@ -50,6 +51,7 @@ export class CrudSucursalComponent implements OnInit {
 
 		this.activatedRoute.queryParams.subscribe(async params => {
 			this.id = params.id;
+			this.tab = params.tab;
 			if (this.id != null) {
 				this.cargarEditar();
 			}
@@ -99,7 +101,6 @@ export class CrudSucursalComponent implements OnInit {
 	{
 		await this.api.post('empresa_sucursal', this.form).toPromise().then(
 			(data) => {
-				this.cerrar('Registro Exitoso');
 				this.limpiarSucursal();
 			}
 		);
@@ -109,37 +110,20 @@ export class CrudSucursalComponent implements OnInit {
   {	this.form.edit_user_id = this.user.me();
     await this.api.put('empresa_sucursal', this.id , this.form).toPromise().then(
       (data) => {
-		  this.cerrar('Datos Actualizados Correctamente')
 		  this.returnCrud();
 		}
     );
   }
 
-	cerrar(mensaje)
-  {
-    Swal.fire({
-      title: mensaje,
-      icon: 'success',
-      showClass: {
-        popup: 'animated fadeInDown faster'
-      },
-      hideClass: {
-        popup: 'animated fadeOutUp faster'
-      }
-	});
-
-	// this.returnCrud();
-	}
-
 	returnCrud()
 	{
 		if(this.previousUrl.includes('detalle'))
 		{
-			this.router.navigateByUrl(this.previousUrl);
+			this.router.navigateByUrl('detalle-empresa?id='+this.form.empresa_id+'&tab=1');
 		}
 		else
 		{
-			this.router.navigateByUrl('crud-empresa?id='+this.form.empresa_id);
+			this.router.navigateByUrl('crud-empresa?id='+this.form.empresa_id+'&tab=1');
 		}
 
 	}

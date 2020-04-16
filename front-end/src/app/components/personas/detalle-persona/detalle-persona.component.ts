@@ -72,7 +72,21 @@ export class DetallePersonaComponent implements OnInit {
 
 	return()
 	{
-		this.router.navigateByUrl(this.previousUrl);
+		if(this.previousUrl.includes('encuesta'))
+		{
+			if(this.previousUrl.includes('detalle'))
+			{
+				this.router.navigateByUrl('detalle-encuesta?id='+this.encuesta_id+'&tab=1');
+			}
+			else
+			{
+				this.router.navigateByUrl('crud-encuesta?id='+this.encuesta_id+'&tab=1');
+			}
+		}
+		else
+		{
+			this.router.navigateByUrl(this.previousUrl);
+		}
 	}
 
 }

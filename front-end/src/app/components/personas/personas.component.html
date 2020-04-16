@@ -2,7 +2,6 @@
 	<app-header nombre="MANTENIMIENTO DE PERSONAS" icono="user-friends"></app-header>
 
   <div class="col-12 text-right">
-    <!-- <button class="btn btn-secondary" [routerLink]="['/importar-persona']">IMPORTAR PERSONAS</button> -->
     <button class="btn btn-secondary" [routerLink]="['/crud-persona']" >CREAR PERSONA</button>
   </div>
 
@@ -27,10 +26,10 @@
         [reorderable]="reorderable"
 			>
 
-			<ngx-datatable-column name="Id">
-        <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+			<ngx-datatable-column name="Id" [width]="1">
+        <ng-template let-column="column" ngx-datatable-header-template >{{ column.name }}</ng-template>
         <ng-template let-value="value" ngx-datatable-cell-template>
-         {{ value }}
+         <a [routerLink]="['/detalle-persona/']" [queryParams]="{id:value}">{{ value }}</a>
         </ng-template>
       </ngx-datatable-column>
 

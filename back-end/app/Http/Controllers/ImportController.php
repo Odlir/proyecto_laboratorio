@@ -15,7 +15,7 @@ class ImportController extends Controller
      */
     public function index()
     {
-        return response()->download(storage_path("app/public/importar-persona.xlsx"));
+        return response()->download(storage_path("app/public/importar-alumnos.xlsx"));
     }
 
     /**

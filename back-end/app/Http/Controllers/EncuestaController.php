@@ -22,19 +22,23 @@ class EncuestaController extends Controller
             ->with('tipo')
             ->where('estado','1')
             ->where(function($query) use ($searchValue){
-                $query->whereHas('empresa', function($q) use($searchValue){
+                $query->where("id", "LIKE", "%$searchValue%")
+                ->orwhereHas('empresa', function($q) use($searchValue){
                     $q->where("nombre", "LIKE", "%$searchValue%");
                 })
                 ->orWhereHas('tipo', function( $query ) use($searchValue){
                     $query->where("nombre", "LIKE", "%$searchValue%");
                 });
-            })->get();
+            })
+            ->orderBy('id', 'DESC')
+            ->get();
         }
         else
         {
             $data = Encuesta::where('estado','1')
             ->with('empresa')
             ->with('tipo')
+            ->orderBy('id', 'DESC')
             ->get();
         }
 
@@ -78,7 +82,8 @@ class EncuestaController extends Controller
         ->with('edit')
         ->with('empresa')
         ->with(['personas' => function ($query) {
-            $query->where('personas.estado', '1');
+            $query->where('personas.estado', '1')
+            ->orderBy('id', 'DESC');
         }])
         ->with('tipo')
         ->where('id',$id)

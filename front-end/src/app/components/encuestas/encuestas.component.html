@@ -1,13 +1,13 @@
 	<app-header nombre="PROGRAMACIÓN DE ENCUESTAS" icono="poll"></app-header>
 
 	<div class="col-12 text-right">
-	  <button class="btn btn-secondary" [routerLink]="['/crud-encuesta']" >CREAR ENCUESTA</button>
+	  <button class="btn btn-secondary" [routerLink]="['/crud-encuesta']" >PROGRAMAR ENCUESTA</button>
 	</div>
 
 	<input
 		  type="text"
 		  class="buscador"
-		  placeholder="Buscar por Empresa / Tipo de Encuesta"
+		  placeholder="Buscar por Id/Empresa/Tipo de Encuesta"
 		  (keyup)="updateFilter($event)"
 		/>
 
@@ -25,10 +25,10 @@
 		  [reorderable]="reorderable"
 		>
 
-		<ngx-datatable-column name="Id">
+		<ngx-datatable-column name="Id" [width]="1">
 			<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 			<ng-template let-value="value" ngx-datatable-cell-template>
-				{{ value }}
+				<a [routerLink]="['/detalle-encuesta/']" [queryParams]="{id:value}">{{ value }}</a>
 			</ng-template>
 		</ngx-datatable-column>
 

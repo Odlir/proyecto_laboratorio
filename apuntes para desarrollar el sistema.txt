@@ -1,4 +1,9 @@
+cuando grabas que regrese a la lista
+cuando editas que se quede en la misma pantalla
+
+
 ENCUESTAS 
 - Hay 3 encuestas: intereses / talentos / temperamentos y cada tipo de encuesta tiene sus propias preguntas Y respuestas
 
 - la formula para los reportes se debe usar del .net debe ser igual
+

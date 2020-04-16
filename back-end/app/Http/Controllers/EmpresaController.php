@@ -26,11 +26,13 @@ class EmpresaController extends Controller
                 ->orWhere('email', "LIKE", "%$searchValue%")
                 ->orWhere('telefono', "LIKE", "%$searchValue%");
             })
+            ->orderBy('id', 'DESC')
             ->get();
         }
         else
         {
             $data = Empresa::where('estado','1')
+            ->orderBy('id', 'DESC')
             ->get();
         }
 
@@ -75,7 +77,8 @@ class EmpresaController extends Controller
         $data = Empresa::with('insert')
         ->with('edit')
         ->with(['sucursales' => function ($query) {
-            $query->where('estado', '1');
+            $query->where('estado', '1')
+            ->orderBy('id', 'DESC');
         }])
         ->where('id',$id)
         ->first();

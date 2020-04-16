@@ -20,6 +20,8 @@ export class AlumnosComponent implements OnInit {
 
 	@Input() id: any;
 
+	@Input() tab: any;
+
   constructor(private api: ApiBackRequestService) { }
 
   ngOnInit(): void {

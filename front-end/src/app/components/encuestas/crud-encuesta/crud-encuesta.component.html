@@ -51,11 +51,11 @@
 					<hr>
 				</div>
 
-				<div *ngIf="id==null">
+				<div *ngIf="id==null" class="border mt-5 bg-light">
 					<div class="form-group row my-3">
 						<label class="col-sm-4 col-form-label w-100">Plantilla</label>
 						<div class="col-sm-8">
-							<a class="cursor text-primary" (click)="descargarPlantilla()" >importar-persona.xlsx</a>
+							<a class="cursor text-primary" (click)="descargarPlantilla()" >importar-alumnos.xlsx</a>
 						</div>
 						<hr>
 					</div>
@@ -65,9 +65,9 @@
 						</div>
 					</div>
 					<div class="form-group row my-3">
-						<label class="col-sm-4 col-form-label w-100">Importar <span class="text-danger">*</span></label>
+						<label class="col-sm-4 col-form-label w-100">Importar Alumnos<span class="text-danger">*</span></label>
 						<div class="col-sm-8">
-							<input type="file" id="file" (change)="handleFileInput($event.target.files)" required>
+							<input type="file" id="file" (change)="handleFileInput($event.target.files)">
 						</div>
 						<hr>
 					</div>

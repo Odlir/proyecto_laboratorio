@@ -9,3 +9,7 @@
 	align-items: center;
 }
 
+.mat-toolbar.mat-accent {
+	background: rgb(96, 125, 139);
+    color: white;
+}

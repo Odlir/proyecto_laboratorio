@@ -107,7 +107,7 @@ export class ApiBackRequestService {
 	downloadExcelFile(path: string): Observable<any>{
 			return this.http.get(this.constants.apiUrl + path, { responseType: 'blob' })
 			.pipe(map((response: any) =>
-				fileSaver.saveAs(response, `importar-persona.xlsx`)
+				fileSaver.saveAs(response, `importar-alumnos.xlsx`)
 			),
 			catchError(function (error: any) {
 					console.log("Some error in catch");

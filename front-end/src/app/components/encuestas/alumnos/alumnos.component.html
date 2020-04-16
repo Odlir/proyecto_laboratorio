@@ -1,10 +1,10 @@
 <div class="col-12 text-right my-3">
-	<button type="button" class="btn btn-success" [routerLink]="['/importar-persona']" [queryParams]="{encuesta_id:id}">IMPORTAR</button>
+	<button type="button" class="btn btn-success" [routerLink]="['/importar-persona']" [queryParams]="{encuesta_id:id,tab:1}">IMPORTAR</button>
 </div>
 <input
 	type="text"
 	class="buscador"
-	placeholder="Buscar por Nombres/Apellidos/Sexo/Correo"
+	placeholder="Buscar por Id/Nombres/Apellidos/Sexo/Correo"
 	(keyup)="updateFilter($event)"
 />
 <ngx-datatable
@@ -20,10 +20,10 @@ rowHeight="auto"
 [reorderable]="reorderable"
 >
 
-<ngx-datatable-column name="Id">
+<ngx-datatable-column name="Id" [width]="1">
 	<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 	<ng-template let-value="value" ngx-datatable-cell-template>
-	 {{ value }}
+		<a [routerLink]="['/detalle-persona/']" [queryParams]="{id:value,encuesta_id:id}">{{ value }}</a>
 	</ng-template>
   </ngx-datatable-column>
 

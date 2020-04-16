@@ -1,5 +1,5 @@
 <div class="col-12 text-right my-3">
-	<button type="button" class="btn btn-success" [routerLink]="['/crud-sucursal']" [queryParams]="{empresa_id:id}">AÑADIR SUCURSALES</button>
+	<button type="button" class="btn btn-success" [routerLink]="['/crud-sucursal']" [queryParams]="{empresa_id:id,tab:1}">AÑADIR SUCURSALES</button>
 </div>
 <input
 	type="text"
@@ -23,16 +23,16 @@ rowHeight="auto"
 <ngx-datatable-column name="Id">
 	<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 	<ng-template let-value="value" ngx-datatable-cell-template>
-		{{ value }}
+		<a [routerLink]="['/detalle-sucursal/']" [queryParams]="{id:value}">{{ value }}</a>
 	</ng-template>
 </ngx-datatable-column>
-<ngx-datatable-column name="Nombre" prop="nombre">
+<ngx-datatable-column name="Nombre" prop="nombre" [width]="900">
 	<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 	<ng-template let-value="value" ngx-datatable-cell-template>
 	{{ value }}
 	</ng-template>
 </ngx-datatable-column>
-<ngx-datatable-column name="Id">
+<ngx-datatable-column name="Id" [width]="900">
 	<ng-template let-column="column" ngx-datatable-header-template> Acciones </ng-template>
 	<ng-template let-value="value" ngx-datatable-cell-template>
 		<div class="row justify-content-center">

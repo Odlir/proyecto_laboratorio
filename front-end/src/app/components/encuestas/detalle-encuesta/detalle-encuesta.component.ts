@@ -31,11 +31,14 @@ export class DetalleEncuestaComponent implements OnInit {
 
 	public id: HttpParams;
 
+	public tabSelected= 0;
+
   constructor(private api: ApiBackRequestService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
 		this.activatedRoute.queryParams.subscribe(async params => {
-      this.id = params.id;
+			this.id = params.id;
+			this.tabSelected = params.tab;
       if (this.id != null) {
         this.cargar(this.id);
       }

@@ -29,12 +29,14 @@ class PersonaController extends Controller
                 ->orWhere('sexo', "LIKE", "%$searchValue%")
                 ->orWhere('email', "LIKE", "%$searchValue%");
             })
+            ->orderBy('id', 'DESC')
             ->get();
         }
         else
         {
             $data = Persona::where('estado','1')
             ->where('rol_id','2')
+            ->orderBy('id', 'DESC')
             ->get();
         }
 

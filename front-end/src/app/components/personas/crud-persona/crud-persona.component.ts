@@ -1,6 +1,5 @@
 import { RoutingStateService } from './../../../Services/routing/routing-state.service';
 import { HttpParams } from '@angular/common/http';
-import Swal from 'sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from '../../../Services/token/token.service';
 import { ApiBackRequestService } from './../../../Services/api-back-request.service';
@@ -74,7 +73,7 @@ export class CrudPersonaComponent implements OnInit {
   async registrar()
   {
     await this.api.post('personas', this.form).toPromise().then(
-      (data) => {this.cerrar('Registro Exitoso')}
+      (data) => {this.return()}
     );
   }
 
@@ -82,28 +81,27 @@ export class CrudPersonaComponent implements OnInit {
   { this.form.edit_user_id = this.user.me();
 
     await this.api.put('personas', this.id , this.form).toPromise().then(
-      (data) => {this.cerrar('Datos Actualizados Correctamente')}
+      (data) => {this.return()}
     );
   }
 
-  cerrar(mensaje)
-  {
-    Swal.fire({
-      title: mensaje,
-      icon: 'success',
-      showClass: {
-        popup: 'animated fadeInDown faster'
-      },
-      hideClass: {
-        popup: 'animated fadeOutUp faster'
-      }
-    });
-		this.return();
-	}
-
 	return()
 	{
-		this.router.navigateByUrl(this.previousUrl);
+		if(this.previousUrl.includes('encuesta'))
+		{
+			if(this.previousUrl.includes('detalle'))
+			{
+				this.router.navigateByUrl('detalle-encuesta?id='+this.encuesta_id+'&tab=1');
+			}
+			else
+			{
+				this.router.navigateByUrl('crud-encuesta?id='+this.encuesta_id+'&tab=1');
+			}
+		}
+		else
+		{
+			this.router.navigateByUrl(this.previousUrl);
+		}
 	}
 
 }

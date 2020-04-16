@@ -23,11 +23,13 @@ class EmpresaSucursalController extends Controller
                 $query->where('id', "LIKE", "%$searchValue%")
                 ->orWhere('nombre', "LIKE", "%$searchValue%");
             })
+            ->orderBy('id', 'DESC')
             ->get();
         }
         else
         {
             $data = EmpresaSucursal::where('estado','1')
+            ->orderBy('id', 'DESC')
             ->get();
         }
 

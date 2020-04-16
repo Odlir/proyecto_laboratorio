@@ -26,13 +26,16 @@ export class DetalleEmpresaComponent implements OnInit {
 		sucursales : []
 	};
 
+	public tabSelected= 0;
+
 	public id: HttpParams
 
   constructor(private api: ApiBackRequestService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
 		this.activatedRoute.queryParams.subscribe(async params => {
-      this.id = params.id;
+			this.id = params.id;
+			this.tabSelected = params.tab;
       if (this.id != null) {
         this.cargar(this.id);
 			}

@@ -28,12 +28,14 @@ class EncuestaPersonaController extends Controller
             // ->with('insert')
             // ->with('edit')
             ->where(function($query) use ($searchValue){
-                $query->where("personas.nombres", "LIKE", "%$searchValue%")
+                $query->where("personas.id", "LIKE", "%$searchValue%")
+                ->orWhere("personas.nombres", "LIKE", "%$searchValue%")
                 ->orWhere('personas.apellido_materno', "LIKE", "%$searchValue%")
                 ->orWhere('personas.apellido_paterno', "LIKE", "%$searchValue%")
                 ->orWhere('personas.sexo', "LIKE", "%$searchValue%")
                 ->orWhere('personas.email', "LIKE", "%$searchValue%");
-            });
+            })
+            ->orderBy('id', 'DESC');
         }])
         ->first();
 

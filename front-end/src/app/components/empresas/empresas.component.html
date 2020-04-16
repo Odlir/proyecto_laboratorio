@@ -25,10 +25,10 @@
 		  [reorderable]="reorderable"
 		>
 
-		<ngx-datatable-column name="Id">
+		<ngx-datatable-column name="Id" [width]="1">
 			<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 			<ng-template let-value="value" ngx-datatable-cell-template>
-				{{ value }}
+				<a [routerLink]="['/detalle-empresa/']" [queryParams]="{id:value}">{{ value }}</a>
 			</ng-template>
 		</ngx-datatable-column>
 		<ngx-datatable-column name="Razón Social" prop="razon_social">
