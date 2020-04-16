@@ -38,6 +38,9 @@ Route::group([
     Route::resource('encuestas','EncuestaController');
     Route::resource('tipo_encuesta','TipoEncuestaController');
     Route::resource('encuesta_persona','EncuestaPersonaController');
+    Route::resource('preguntas','PreguntaController');
+    Route::resource('subpreguntas','SubPreguntaController');
+    Route::resource('respuestas','RespuestaController');
 });
 
     // Route::get('/migrate', function() {

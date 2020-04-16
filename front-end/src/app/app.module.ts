@@ -43,6 +43,7 @@ import { HeaderComponent } from './components/partials/header/header.component';
 import { AuditoriaComponent } from './components/partials/auditoria/auditoria.component';
 import { AlumnosComponent } from './components/encuestas/alumnos/alumnos.component';
 import { SucursalComponent } from './components/empresas/sucursal/sucursal.component';
+import { HeaderEncuestaComponent } from './components/partials/header-encuesta/header-encuesta.component';
 
 @NgModule({
 	declarations: [
@@ -69,6 +70,7 @@ import { SucursalComponent } from './components/empresas/sucursal/sucursal.compo
 		AuditoriaComponent,
 		AlumnosComponent,
 		SucursalComponent,
+		HeaderEncuestaComponent,
   ],
   imports: [
 	BrowserModule,

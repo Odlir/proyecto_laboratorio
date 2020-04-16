@@ -48,7 +48,7 @@ export class ApiBackRequestService {
       }));
   }
 
-  show(url: string, urlParams: HttpParams): Observable<any> {
+  show(url: string, urlParams: any): Observable<any> {
     // const me = this;
     return this.http.get(this.constants.apiUrl + url + '/' + urlParams, {headers: this.getHeaders()} )
     .pipe(catchError(function(error: any) {
