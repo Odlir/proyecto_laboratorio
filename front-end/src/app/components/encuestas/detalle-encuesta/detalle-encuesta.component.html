@@ -1,111 +1,74 @@
-<div class="px-5">
-	<br>
-	<div class="row">
-		<fa-icon [icon]="['fas', 'poll']"></fa-icon><h5>PROGRAMACIÓN DE ENCUESTAS: {{ form.id }} </h5>
-	</div>
+	<app-header nombre="PROGRAMACIÓN DE ENCUESTAS" icono="poll"></app-header>
 
-	<div class="widget clearfix mt-5">
-	  <div class="whead clearfix">
-		<p>DETALLE DE ENCUESTA PROGRAMADA</p>
-	  </div>
-	  <div class="row px-4 mt-4 mb-2">
-		<div class="col-7 pr-2">
-		  <div class="widget clearfix">
-			<div class="whead clearfix">
-			  <div class="row">
-				<div class="col-6 border text-center">
-				   <p>Campo</p>
+	<br><br>
+	<mat-tab-group>
+		<mat-tab label="DETALLE DE ENCUESTA PROGRAMADA" >
+			<div class="row data-crud">
+				<div class="col-7">
+				  <div class="widget clearfix">
+					<div class="whead clearfix">
+					  <div class="row">
+						<div class="col-6 border text-center">
+						   <p>Campo</p>
+						</div>
+						<div class="col-6 border text-center">
+						   <p>Dato</p>
+						</div>
+					  </div>
+					</div>
+					<div class="row auditoria">
+					  <div class="col-6 border px-0">
+						<div class="col-12 border-bottom py-3">
+							Id
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Empresa
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Tipo de Encuesta
+						</div>
+						<div class="col-12 border-bottom py-3">
+							 Fecha de Inicio
+						</div>
+						<div class="col-12 border-bottom py-3">
+							  Fecha de Fín
+						</div>
+					  </div>
+					  <div class="col-6 border px-0">
+						<div class="col-12 border-bottom py-3">
+							{{form.id}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+						  {{form.empresa.nombre}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.tipo.nombre}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+						  {{form.fecha_inicio}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+						  {{form.fecha_fin}}
+						</div>
+					  </div>
+					</div>
+				  </div>
 				</div>
-				<div class="col-6 border text-center">
-				   <p>Dato</p>
+				<div class="col-5 p-0 widget clearfix">
+					<app-auditoria [form]="form"></app-auditoria>
 				</div>
-			  </div>
 			</div>
-			<div class="row auditoria">
-			  <div class="col-6 border px-0">
-				<div class="col-12 border-bottom py-3">
-					Id
-				</div>
-				<div class="col-12 border-bottom py-3">
-					Empresa
-				</div>
-				<div class="col-12 border-bottom py-3">
-					Tipo de Encuesta
-				</div>
-				<div class="col-12 border-bottom py-3">
-				 	Fecha de Inicio
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  	Fecha de Fín
-				</div>
-			  </div>
-			  <div class="col-6 border px-0">
-				<div class="col-12 border-bottom py-3">
-					{{form.id}}
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  {{form.empresa.nombre}}
-				</div>
-				<div class="col-12 border-bottom py-3">
-					{{form.tipo.nombre}}
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  {{form.fecha_inicio}}
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  {{form.fecha_fin}}
-				</div>
-			  </div>
-			</div>
-		  </div>
-		</div>
-		<div class="col-5 pl-2">
-		  <div class="widget clearfix h-auto">
-			<div class="whead clearfix text-center">
-			  <p>Auditoría</p>
-			</div>
-			<div class="row auditoria">
-			  <div class="col-6 border px-0">
-				<div class="col-12 border-bottom py-3">
-				  Creado por
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  Creado el
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  Modificado por
-				</div>
-				<div class="col-12 py-3">
-				  Última modificacion
-				</div>
-			  </div>
-			  <div class="col-6 border px-0">
-				<div class="col-12 border-bottom py-3">
-				  {{form.insert.name }}
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  {{form.created_at | date: 'dd/MM/yyyy hh:mm:ss a'}}
-				</div>
-				<div class="col-12 border-bottom py-3 h-25">
-				  <span *ngIf="form.edit" >{{form.edit.name }}</span>
-				</div>
-				<div class="col-12 py-3 h-25">
-				  <span *ngIf="form.edit" >{{form.updated_at | date: 'dd/MM/yyyy hh:mm:ss a'}}</span>
-				</div>
-			  </div>
-			</div>
-		  </div>
-		</div>
-	  </div>
-	</div>
-	<div class="row mt-3">
-	  <button class="btn btn-info" [routerLink]="['/encuestas/']">REGRESAR A LA LISTA</button>
-	  <button class="btn btn-danger" [routerLink]="['/crud-encuesta/']" [queryParams]="{id:this.form.id}">EDITAR</button>
-	  <button class="btn btn-danger" (click)="eliminar(this.form.id)" >ELIMINAR</button>
-	</div>
-  </div>
 
-
+			<div class="row mt-3">
+				<button class="btn btn-info" [routerLink]="['/encuestas/']">REGRESAR A LA LISTA</button>
+				<button class="btn btn-danger" [routerLink]="['/crud-encuesta/']" [queryParams]="{id:this.form.id}">EDITAR</button>
+				<button class="btn btn-danger" (click)="eliminar(this.form.id)" >ELIMINAR</button>
+			</div>
+		</mat-tab>
+		<mat-tab label="ALUMNOS">
+			<app-alumnos [id]="this.id" ></app-alumnos>
+		</mat-tab>
+	</mat-tab-group>
 
 
 

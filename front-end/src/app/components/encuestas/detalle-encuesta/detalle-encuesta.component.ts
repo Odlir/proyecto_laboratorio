@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiBackRequestService } from './../../../Services/api-back-request.service';
@@ -28,13 +29,15 @@ export class DetalleEncuestaComponent implements OnInit {
 		tipo:{nombre: null}
 	}
 
+	public id: HttpParams;
+
   constructor(private api: ApiBackRequestService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
 		this.activatedRoute.queryParams.subscribe(async params => {
-      const id = params.id;
-      if (id != null) {
-        this.cargar(id);
+      this.id = params.id;
+      if (this.id != null) {
+        this.cargar(this.id);
       }
   	});
 	}

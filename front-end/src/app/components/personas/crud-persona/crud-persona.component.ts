@@ -1,3 +1,4 @@
+import { RoutingStateService } from './../../../Services/routing/routing-state.service';
 import { HttpParams } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -26,21 +27,29 @@ export class CrudPersonaComponent implements OnInit {
     updated_at: null
   };
 
-  public id: HttpParams;
+	public id: HttpParams;
+
+	public encuesta_id: HttpParams
+
+	previousUrl: string;
 
   constructor(
     private api: ApiBackRequestService,
     private user: TokenService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) { }
+		private activatedRoute: ActivatedRoute,
+		private routingState: RoutingStateService) { }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(async params => {
-        this.id = params.id;
+				this.id = params.id;
+				this.encuesta_id = params.encuesta_id;
         if (this.id != null) {
           this.cargarEditar();
         }
-    });
+		});
+
+		this.previousUrl=this.routingState.getPreviousUrl();
   }
 
   async cargarEditar()
@@ -89,7 +98,12 @@ export class CrudPersonaComponent implements OnInit {
         popup: 'animated fadeOutUp faster'
       }
     });
-    this.router.navigateByUrl('/personas');
-  }
+		this.return();
+	}
+
+	return()
+	{
+		this.router.navigateByUrl(this.previousUrl);
+	}
 
 }

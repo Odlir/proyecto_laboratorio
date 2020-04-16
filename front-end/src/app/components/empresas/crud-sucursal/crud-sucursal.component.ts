@@ -53,6 +53,7 @@ export class CrudSucursalComponent implements OnInit {
   ngOnInit(): void {
 		this.activatedRoute.queryParams.subscribe(async params => {
 			this.form.empresa_id = params.empresa_id;
+			this.cargarEmpresa(this.form.empresa_id);
 		});
 
 		this.activatedRoute.queryParams.subscribe(async params => {
@@ -67,15 +68,22 @@ export class CrudSucursalComponent implements OnInit {
 	this.previousUrl=this.routingState.getPreviousUrl();
 	}
 
+	async cargarEmpresa(id)
+	{
+		await this.api.show('empresas',id).toPromise().then(
+			(data) => {
+					  this.empresa = data;
+					  }
+		  );
+	}
+
 	async cargarEditar()
   {
     await this.api.show('empresa_sucursal', this.id).toPromise().then(
       (data) => {this.form = data}
 		);
 
-	await this.api.show('empresas', this.form.empresa_id).toPromise().then(
-		(data) => {this.empresa = data}
-		);
+		this.cargarEmpresa(this.form.empresa_id);
 
 	this.getCiudades(this.form.pais_id);
   }

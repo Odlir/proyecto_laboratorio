@@ -1,3 +1,4 @@
+import { TestInteresComponent } from './components/test-interes/test-interes.component';
 import { DetalleEncuestaComponent } from './components/encuestas/detalle-encuesta/detalle-encuesta.component';
 import { CrudEncuestaComponent } from './components/encuestas/crud-encuesta/crud-encuesta.component';
 import { EncuestasComponent } from './components/encuestas/encuestas.component';
@@ -92,6 +93,11 @@ const routes: Routes = [
 	{
     path: 'detalle-encuesta',
     component: DetalleEncuestaComponent,
+    canActivate: [AfterLoginService]
+	},
+	{
+    path: 'test-interes',
+    component: TestInteresComponent,
     canActivate: [AfterLoginService]
 	},
 ];

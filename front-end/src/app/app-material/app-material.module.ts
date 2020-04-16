@@ -1,5 +1,4 @@
 import {MatTabsModule} from '@angular/material/tabs';
-import {BrowserModule} from '@angular/platform-browser';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {NgModule} from '@angular/core';
@@ -24,7 +23,6 @@ import {MatStepperModule} from '@angular/material/stepper';
 		MatButtonModule,
 		MatSelectModule,
 		MatInputModule,
-		BrowserModule,
 		BrowserAnimationsModule,
 		FormsModule,
 		MatToolbarModule,
@@ -42,7 +40,6 @@ import {MatStepperModule} from '@angular/material/stepper';
 		MatButtonModule,
 		MatSelectModule,
 		MatInputModule,
-		BrowserModule,
 		BrowserAnimationsModule,
 		FormsModule,
 		MatToolbarModule,

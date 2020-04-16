@@ -1,3 +1,4 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 /*FONT-AWESOME*/
 import {FontAwesomeModule, FaIconLibrary} from '@fortawesome/angular-fontawesome';
@@ -37,6 +38,11 @@ import { ImportarPersonaComponent } from './components/personas/importar-persona
 import { EncuestasComponent } from './components/encuestas/encuestas.component';
 import { CrudEncuestaComponent } from './components/encuestas/crud-encuesta/crud-encuesta.component';
 import { DetalleEncuestaComponent } from './components/encuestas/detalle-encuesta/detalle-encuesta.component';
+import { TestInteresComponent } from './components/test-interes/test-interes.component';
+import { HeaderComponent } from './components/partials/header/header.component';
+import { AuditoriaComponent } from './components/partials/auditoria/auditoria.component';
+import { AlumnosComponent } from './components/encuestas/alumnos/alumnos.component';
+import { SucursalComponent } from './components/empresas/sucursal/sucursal.component';
 
 @NgModule({
 	declarations: [
@@ -58,16 +64,22 @@ import { DetalleEncuestaComponent } from './components/encuestas/detalle-encuest
 		EncuestasComponent,
 		CrudEncuestaComponent,
 		DetalleEncuestaComponent,
+		TestInteresComponent,
+		HeaderComponent,
+		AuditoriaComponent,
+		AlumnosComponent,
+		SucursalComponent,
   ],
   imports: [
+	BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
     FontAwesomeModule,
     AppMaterialModule,
     AppLibreriasModule,
-		NgbModule,
-		TooltipModule.forRoot()
+	NgbModule,
+	TooltipModule.forRoot()
 	],
   providers: [ConstantsService, BsModalService],
   bootstrap: [AppComponent]

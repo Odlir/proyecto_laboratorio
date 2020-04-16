@@ -1,4 +1,3 @@
-import { ColumnMode } from '@swimlane/ngx-datatable';
 import { map, startWith } from 'rxjs/operators';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
@@ -24,11 +23,6 @@ export interface Empresa {
 
 export class CrudEncuestaComponent implements OnInit {
 
-	loadingIndicator = true;
-	reorderable = true;
-
-	ColumnMode = ColumnMode;
-
 	myControl = new FormControl();
 
 	firstFormGroup: FormGroup;
@@ -47,7 +41,8 @@ export class CrudEncuestaComponent implements OnInit {
     edit: {name: ''},
     created_at: null,
 	updated_at: null,
-	personas: []
+	personas: [],
+	empresa:{nombre:null}
 	};
 
 	empresa = {id:null, nombre: null};
@@ -208,38 +203,6 @@ export class CrudEncuestaComponent implements OnInit {
 		var fin= moment(this.form.fecha_inicio).add(+3, 'M');
 
   		this.form.fecha_fin=moment(fin).format('YYYY-MM-DD')
-	}
-
-	eliminarPersona(id)
-	{
-		Swal.fire({
-			title: 'Desea eliminar la persona?',
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Confirmar'
-			}).then(async (result) => {
-				if (result.value) {
-					await this.api.delete('encuesta_persona', id).toPromise().then(
-						(data) => {
-							this.form.personas=data.personas;
-							this.form.personas = [...this.form.personas]
-						}
-					);
-				}
-			})
-	}
-
-	async updateFilter(event) {
-		const val = event.target.value;
-
-		await this.api.get('encuesta_persona?search=' + val +'&id='+this.id).toPromise().then(
-			(data) => {
-				this.form.personas=data.personas;
-				this.form.personas = [...this.form.personas]
-			}
-		);
 	}
 
 }

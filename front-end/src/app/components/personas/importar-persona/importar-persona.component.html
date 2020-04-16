@@ -1,8 +1,7 @@
-<div class="px-5">
+
+	<app-header nombre="PROGRAMACIÓN DE ENCUESTAS" icono="poll"></app-header>
 	<br>
-	<div class="row">
-		<fa-icon [icon]="['fas', 'poll']"></fa-icon><h5>PROGRAMACIÓN DE ENCUESTAS  <span *ngIf="encuesta_id" >: {{ encuesta_id }} </span></h5>
-	</div>
+	<h5><span *ngIf="encuesta_id" >Id Encuesta: {{ encuesta_id }} </span></h5>
 
 	<div class="widget clearfix mt-5">
 		<div class="whead clearfix">
@@ -39,6 +38,5 @@
 			</form>
 		</div>
 	  </div>
-</div>
 
 

@@ -1,5 +1,4 @@
 import { MatStepper } from '@angular/material/stepper';
-import { ColumnMode } from '@swimlane/ngx-datatable';
 import { HttpParams } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
@@ -14,11 +13,6 @@ import {FormGroup} from '@angular/forms';
   styleUrls: ['./crud-empresa.component.css']
 })
 export class CrudEmpresaComponent implements OnInit {
-
-	loadingIndicator = true;
-	reorderable = true;
-
-	ColumnMode = ColumnMode;
 
 	firstFormGroup: FormGroup;
 	secondFormGroup: FormGroup;
@@ -42,7 +36,7 @@ export class CrudEmpresaComponent implements OnInit {
 
 	public titulo= "CREAR EMPRESA";
 
-  public id: HttpParams;
+  	public id: HttpParams;
 
   constructor(
     private api: ApiBackRequestService,
@@ -66,8 +60,8 @@ export class CrudEmpresaComponent implements OnInit {
 		this.titulo = "EDITAR EMPRESA";
     await this.api.show('empresas', this.id).toPromise().then(
       (data) => {
-				this.form = data;
-				this.stepper.selected.completed = true;}
+		this.form = data;
+		this.stepper.selected.completed = true;}
     );
   }
 
@@ -130,38 +124,5 @@ export class CrudEmpresaComponent implements OnInit {
     });
 }
 
-	eliminarSucursal(id)
-	{
-    Swal.fire({
-		title: 'Desea eliminar la sucursal?',
-		icon: 'warning',
-		showCancelButton: true,
-		confirmButtonColor: '#3085d6',
-		cancelButtonColor: '#d33',
-		confirmButtonText: 'Confirmar'
-		}).then(async (result) => {
-			if (result.value) {
-				await this.api.delete('empresa_sucursal', id).toPromise().then(
-					(data) => {
-						this.form.sucursales=data;
-						this.form.sucursales = [...this.form.sucursales]
-					}
-				);
-			}
-		})
-	}
-
-	async updateFilter(event) {
-    const val = event.target.value;
-
-    await this.api.get('empresa_sucursal?search=' + val +'&id='+this.id).toPromise().then(
-      (data) => {this.handle(data)}
-    );
-	}
-
-	handle(data)
-	{
-		this.form.sucursales = data;
-	}
 }
 

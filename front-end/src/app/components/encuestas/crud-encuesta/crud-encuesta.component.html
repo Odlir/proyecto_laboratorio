@@ -1,19 +1,16 @@
-<div class="px-5">
-	<br>
-	<div class="row">
-		<fa-icon [icon]="['fas', 'poll']"></fa-icon><h5>PROGRAMACIÓN DE ENCUESTAS  <span *ngIf="id" >: {{ id }} </span></h5>
-	</div>
+
+	<app-header nombre="PROGRAMACIÓN DE ENCUESTAS" icono="poll"></app-header>
 	<br><br>
 	<mat-horizontal-stepper linear #stepper>
 		<mat-step completed="false">
 		<ng-template matStepLabel>{{ titulo }} <span></span></ng-template>
-		<div class="row">
+		<div class="row data-crud">
 			<div class="col-7">
 			  <form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
 				<div class="form-group row my-3">
 				  <label class="col-sm-4 col-form-label w-100">Tipo de Encuesta <span class="text-danger">*</span></label>
 					<div class="col-sm-8">
-						<select name="tipo" class="form-control" [(ngModel)]="form.tipo_encuesta_id" required>
+						<select [attr.disabled]="id ? '' : null" name="tipo" class="form-control" [(ngModel)]="form.tipo_encuesta_id" required>
 							<option value="0" *ngIf="id==null" >Todas</option>
 							<option [value]="item.id" *ngFor="let item of tipos">{{item.nombre}}</option>
 						</select>
@@ -24,7 +21,7 @@
 				<div class="form-group row my-3">
 				  <label class="col-sm-4 col-form-label w-100">Empresa <span class="text-danger">*</span></label>
 				  <div class="col-sm-8">
-					<mat-form-field class="example-full-width">
+					<mat-form-field class="example-full-width" *ngIf="id==null;else other_content">
 						<input type="text" [(ngModel)]="empresa" matInput name="empresa" class="form-control" [formControl]="myControl" [matAutocomplete]="auto" required>
 						<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
 						<mat-option *ngFor="let option of filteredEmpresas | async" [value]="option">
@@ -32,6 +29,8 @@
 						</mat-option>
 						</mat-autocomplete>
 					</mat-form-field>
+
+					<ng-template #other_content ><span class="form-control">{{ form.empresa.nombre }}</span></ng-template>
 				  </div>
 				  <hr>
 				</div>
@@ -60,109 +59,13 @@
 				</div>
 			  </form>
 			</div>
-			<div class="col-5 p-0 widget clearfix mt-4" *ngIf="id" >
-			  <div class="whead clearfix text-center">
-				<p>Auditoría</p>
-			  </div>
-			  <div class="row auditoria">
-				<div class="col-6 border px-0">
-				  <div class="col-12 border-bottom py-3">
-					Creado por
-				  </div>
-				  <div class="col-12 border-bottom py-3">
-					Creado el
-				  </div>
-				  <div class="col-12 border-bottom py-3">
-					Modificado por
-				  </div>
-				  <div class="col-12 py-3">
-					Última modificacion
-				  </div>
-				</div>
-				<div class="col-6 border px-0">
-				  <div class="col-12 border-bottom py-3">
-					{{form.insert.name }}
-				  </div>
-				  <div class="col-12 border-bottom py-3">
-					{{form.created_at | date: 'dd/MM/yyyy hh:mm:ss a'}}
-				  </div>
-				  <div class="col-12 border-bottom py-3 h-25">
-					<span *ngIf="form.edit" >{{form.edit.name }}</span>
-				  </div>
-				  <div class="col-12 py-3 h-25">
-					<span *ngIf="form.edit" >{{form.updated_at | date: 'dd/MM/yyyy hh:mm:ss a'}}</span>
-				  </div>
-				</div>
-			  </div>
+			<div class="col-5 p-0 widget clearfix" *ngIf="id" >
+				<app-auditoria [form]="form"></app-auditoria>
 			</div>
-		  </div>
+		</div>
 		</mat-step>
 		<mat-step [stepControl]="secondFormGroup">
 			<ng-template matStepLabel>ALUMNOS</ng-template>
-			<div class="col-12 text-right my-3">
-				<button type="button" class="btn btn-success" [routerLink]="['/importar-persona']" [queryParams]="{encuesta_id:id}">IMPORTAR</button>
-			</div>
-			<input
-				type="text"
-				class="buscador"
-				placeholder="Buscar por Nombres/Apellidos/Sexo/Correo"
-				(keyup)="updateFilter($event)"
-			/>
-			<ngx-datatable
-			class="bootstrap"
-			[rows]="form.personas"
-			[loadingIndicator]="loadingIndicator"
-			[columnMode]="ColumnMode.force"
-			[headerHeight]="40"
-			[summaryPosition]="'bottom'"
-			[footerHeight]="40"
-			[limit]="20"
-			rowHeight="auto"
-			[reorderable]="reorderable"
-			>
-
-			<ngx-datatable-column name="Id">
-				<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
-				<ng-template let-value="value" ngx-datatable-cell-template>
-				 {{ value }}
-				</ng-template>
-			  </ngx-datatable-column>
-
-			  <ngx-datatable-column name="Apellidos">
-				<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
-				<ng-template let-value="value" ngx-datatable-cell-template>
-				 {{ value }}
-				</ng-template>
-			  </ngx-datatable-column>
-			  <ngx-datatable-column name="Nombres">
-				<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
-				<ng-template let-value="value" ngx-datatable-cell-template>
-				 {{ value }}
-				</ng-template>
-			  </ngx-datatable-column>
-			  <ngx-datatable-column name="Sexo">
-				<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
-				<ng-template let-value="value" ngx-datatable-cell-template>
-				 {{ value }}
-				</ng-template>
-			  </ngx-datatable-column>
-			  <ngx-datatable-column name="Correo Personal" prop="email">
-				<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
-				<ng-template let-value="value" ngx-datatable-cell-template>
-				 {{ value }}
-				</ng-template>
-			  </ngx-datatable-column>
-			  <ngx-datatable-column name="Id" prop="id">
-				<ng-template let-column="column" ngx-datatable-header-template> Acciones </ng-template>
-				<ng-template let-value="value" ngx-datatable-cell-template>
-				  <div class="row justify-content-center">
-					<button class="btn border" [routerLink]="['/detalle-persona/']" [queryParams]="{id:value}"><fa-icon [icon]="['fas', 'eye']"></fa-icon></button>
-					<button class="btn border" [routerLink]="['/crud-persona/']" [queryParams]="{id:value}"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button>
-					<button class="btn border" (click)="eliminarPersona(value)" ><fa-icon [icon]="['fas', 'trash']"></fa-icon></button>
-				  </div>
-				</ng-template>
-			  </ngx-datatable-column>
-			</ngx-datatable>
+			<app-alumnos [id]="this.id" ></app-alumnos>
 		</mat-step>
 	</mat-horizontal-stepper>
-  </div>

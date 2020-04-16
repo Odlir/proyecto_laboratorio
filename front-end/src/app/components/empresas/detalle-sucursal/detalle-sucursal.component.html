@@ -1,15 +1,14 @@
-<div class="px-5">
+
+	<app-header nombre="MANTENIMIENTO DE EMPRESAS" icono="city"></app-header>
 	<br>
-	<div class="row">
-		<fa-icon [icon]="['fas', 'city']"></fa-icon><h5>MANTENIMIENTO DE EMPRESAS : {{ empresa.razon_social }}</h5>
-	</div>
+	<H5>RAZON SOCIAL: {{ empresa.razon_social }}</H5>
 
 	<div class="widget clearfix mt-5">
 	  <div class="whead clearfix">
 		<p>DETALLE DE LA SUCURSAL : {{ form.nombre }}</p>
 	  </div>
-	  <div class="row px-4 mt-4 mb-2">
-		<div class="col-7 pr-2">
+	  <div class="row data-crud">
+		<div class="col-7">
 		  <div class="widget clearfix">
 			<div class="whead clearfix">
 			  <div class="row">
@@ -71,42 +70,8 @@
 			</div>
 		  </div>
 		</div>
-		<div class="col-5 pl-2">
-		  <div class="widget clearfix h-auto">
-			<div class="whead clearfix text-center">
-			  <p>Auditoría</p>
-			</div>
-			<div class="row auditoria">
-			  <div class="col-6 border px-0">
-				<div class="col-12 border-bottom py-3">
-				  Creado por
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  Creado el
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  Modificado por
-				</div>
-				<div class="col-12 py-3">
-				  Última modificacion
-				</div>
-			  </div>
-			  <div class="col-6 border px-0">
-				<div class="col-12 border-bottom py-3">
-				  {{form.insert.name }}
-				</div>
-				<div class="col-12 border-bottom py-3">
-				  {{form.created_at | date: 'dd/MM/yyyy hh:mm:ss a'}}
-				</div>
-				<div class="col-12 border-bottom py-3 h-25">
-				  <span *ngIf="form.edit" >{{form.edit.name }}</span>
-				</div>
-				<div class="col-12 py-3 h-25">
-				  <span *ngIf="form.edit" >{{form.updated_at | date: 'dd/MM/yyyy hh:mm:ss a'}}</span>
-				</div>
-			  </div>
-			</div>
-		  </div>
+		<div class="col-5 p-0 widget clearfix">
+			<app-auditoria [form]="form"></app-auditoria>
 		</div>
 	  </div>
 	</div>
@@ -115,7 +80,7 @@
 	  <button class="btn btn-danger" [routerLink]="['/crud-sucursal/']" [queryParams]="{id:form.id}">EDITAR</button>
 	  <button class="btn btn-danger" (click)="eliminar(this.form.id)" >ELIMINAR</button>
 	</div>
-  </div>
+
 
 
 

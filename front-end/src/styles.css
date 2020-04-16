@@ -154,3 +154,11 @@ button {
 {
 	padding:8px;margin:15px auto;width:30%;
 }
+
+.data-crud
+{
+	padding-left: 1.5rem !important;
+	padding-right: 1.5rem !important;
+	margin-bottom: 0.5rem !important;
+	margin-top: 0.5rem !important;
+}
