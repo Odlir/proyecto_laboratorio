@@ -10,7 +10,6 @@ class Empresa extends Model
     use MyTrait;
 
     protected $fillable = [
-        'codigo',
         'razon_social',
         'contacto',
         'email',
@@ -22,11 +21,9 @@ class Empresa extends Model
     public static function boot()
 	{   parent::boot();
 		static::saving(function ($model) {
-            $model->codigo = $model->setUpperCase('codigo',$model->codigo);
             $model->razon_social = $model->setUpperCase('razon_social',$model->razon_social);
             $model->contacto = $model->setUpperCase('contacto',$model->contacto);
 
-            $model->codigo = $model->sinTilde('codigo',$model->codigo);
             $model->razon_social = $model->sinTilde('razon_social',$model->razon_social);
             $model->contacto = $model->sinTilde('contacto',$model->contacto);
         });

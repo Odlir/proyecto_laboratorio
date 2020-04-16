@@ -17,11 +17,15 @@ export class TestInteresComponent implements OnInit {
 
 	encuestas = [];
 
-	encuesta = {
+	subencuesta = {
 		pregunta_id : null,
 		subpregunta_id :null,
 		respuesta_id :null
 	}
+
+	subencuestas=[
+
+	]
 
   constructor(private api: ApiBackRequestService) { }
 
@@ -47,26 +51,27 @@ export class TestInteresComponent implements OnInit {
 
 	guardar()
 	{
-		console.log(this.encuesta);
+		console.log(this.encuestas);
 	}
 
-	select(index,pregunta_id,subpregunta_id,respuesta_id)
+	select(index_preg,index_sub,pregunta_id,subpregunta_id,respuesta_id)
 	{
-		this.encuesta.pregunta_id= pregunta_id;
-		this.encuesta.subpregunta_id= subpregunta_id;
-		this.encuesta.respuesta_id= respuesta_id;
+		this.subencuesta.pregunta_id= pregunta_id;
+		this.subencuesta.subpregunta_id= subpregunta_id;
+		this.subencuesta.respuesta_id= respuesta_id;
 
-		this.encuestas[index]=this.encuesta;
+		this.subencuestas[index_sub]= JSON.parse(JSON.stringify(this.subencuesta));
+
+		this.encuestas[index_preg]= JSON.parse(JSON.stringify( this.subencuestas));
 
 		this.limpiar();
 
 		console.log(this.encuestas);
-
 	}
 
 	limpiar()
 	{
-		this.encuesta = {
+		this.subencuesta = {
 			pregunta_id : null,
 			subpregunta_id :null,
 			respuesta_id :null

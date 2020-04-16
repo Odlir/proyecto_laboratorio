@@ -21,12 +21,12 @@
 			<p class="font-weight-bold text-uppercase">{{ +i+1 }}. {{ item.nombre }}</p>
 		</div>
 		<div class="row py-3">
-			<div class="col-4 border-right" *ngFor="let item2 of subpreguntas" >
+			<div class="col-4 border-right" *ngFor="let item2 of subpreguntas; let i2= index" >
 				<p class="text-danger font-weight-bold">{{ item2.nombre }}</p>
 				<div *ngIf="item2.id!=3;else other_content" >
 					<div class="col-12 align-items-center mt-3" *ngFor="let item3 of respuestas">
 						<div *ngIf="item3.subpregunta==null" >
-							<input type="radio" [name]="encuestas[i]" [value]="item3.nombre" (change)="select(i,item.id,item2.id,item3.id)">
+							<input type="radio" [name]="'respuesta'+i+'-'+i2" [value]="item3.nombre" (change)="select(i,i2,item.id,item2.id,item3.id)">
 							<label>{{ item3.nombre }}</label>
 						</div>
 					</div>
@@ -34,7 +34,7 @@
 				<ng-template #other_content>
 					<div class="col-12 align-items-center mt-3" *ngFor="let item3 of respuestas">
 						<div *ngIf="item3.subpregunta!=null" >
-							<input type="radio" [name]="encuestas[i]" [value]="item3.nombre" (change)="select(i,item.id,item2.id,item3.id)">
+							<input type="radio" [name]="'respuesta'+i+'-'+i2" [value]="item3.nombre" (change)="select(i,i2,item.id,item2.id,item3.id)">
 							<label>{{ item3.nombre }}</label>
 						</div>
 					</div>

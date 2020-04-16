@@ -15,17 +15,10 @@ class CreateEmpresaSucursalTable extends Migration
     {
         Schema::create('empresa_sucursal', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo');
+
             $table->string('nombre');
+
             $table->char('estado',1)->comment('0-Inactivo/1-Activo')->default(1);
-            $table->string('direccion',300);
-            $table->string('telefono');
-
-            $table->unsignedBigInteger('pais_id');
-            $table->foreign('pais_id')->references('id')->on('paises');
-
-            $table->unsignedBigInteger('ciudad_id');
-            $table->foreign('ciudad_id')->references('id')->on('ciudades');
 
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('empresas');

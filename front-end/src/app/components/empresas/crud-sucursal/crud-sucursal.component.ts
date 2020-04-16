@@ -16,12 +16,7 @@ export class CrudSucursalComponent implements OnInit {
 	public id: HttpParams;
 
 	form = {
-		codigo: null,
 		nombre: null,
-		direccion: null,
-		telefono :null,
-		pais_id: null,
-		ciudad_id: null,
 		insert_user_id: this.user.me(),
 		edit_user_id: null,
 		empresa_id: null,
@@ -34,9 +29,6 @@ export class CrudSucursalComponent implements OnInit {
 	empresa = {
 		razon_social: null
 	}
-
-	paises = [];
-	ciudades = [];
 
 	previousUrl: string;
 
@@ -63,8 +55,6 @@ export class CrudSucursalComponent implements OnInit {
 			}
 		});
 
-	this.cargarUbigeo();
-
 	this.previousUrl=this.routingState.getPreviousUrl();
 	}
 
@@ -84,43 +74,13 @@ export class CrudSucursalComponent implements OnInit {
 		);
 
 		this.cargarEmpresa(this.form.empresa_id);
-
-	this.getCiudades(this.form.pais_id);
   }
 
-	async cargarUbigeo()
-	{
-		await this.api.get('paises').toPromise().then(
-			(data) => {this.paises=data;}
-		);
-	}
 
 	limpiarSucursal()
 	{
-		this.form = {
-			codigo: null,
-			nombre: null,
-			direccion: null,
-			telefono :null,
-			pais_id: null,
-			ciudad_id: null,
-			insert_user_id: this.user.me(),
-			edit_user_id: null,
-			empresa_id: null,
-			insert: {name: null},
-			edit: {name: ''},
-			created_at: null,
-			updated_at: null,
-		}
+		this.form.nombre = null;
 	}
-
-	async getCiudades(id)
-	{
-		await this.api.show('ciudades',id).toPromise().then(
-			(data) => {this.ciudades=data;}
-		);
-	}
-
 
 	async guardar()
 	{
@@ -140,6 +100,7 @@ export class CrudSucursalComponent implements OnInit {
 		await this.api.post('empresa_sucursal', this.form).toPromise().then(
 			(data) => {
 				this.cerrar('Registro Exitoso');
+				this.limpiarSucursal();
 			}
 		);
 	}
@@ -147,7 +108,10 @@ export class CrudSucursalComponent implements OnInit {
 	async editar()
   {	this.form.edit_user_id = this.user.me();
     await this.api.put('empresa_sucursal', this.id , this.form).toPromise().then(
-      (data) => {this.cerrar('Datos Actualizados Correctamente')}
+      (data) => {
+		  this.cerrar('Datos Actualizados Correctamente')
+		  this.returnCrud();
+		}
     );
   }
 
@@ -164,7 +128,7 @@ export class CrudSucursalComponent implements OnInit {
       }
 	});
 
-	this.returnCrud();
+	// this.returnCrud();
 	}
 
 	returnCrud()

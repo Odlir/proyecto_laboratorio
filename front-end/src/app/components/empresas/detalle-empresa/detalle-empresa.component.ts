@@ -13,7 +13,6 @@ export class DetalleEmpresaComponent implements OnInit {
 
 	public form = {
 		id:null,
-    codigo: null,
     razon_social: null,
     contacto: null,
 		email: null,

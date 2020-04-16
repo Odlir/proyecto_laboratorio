@@ -41,7 +41,7 @@
 				<div class="col-12 border-bottom py-3">
 				  Sexo
 				</div>
-				<div class="col-12 py-3">
+				<div class="col-12 py-3" *ngIf="encuesta_id==null" >
 				  Correo Personal
 				</div>
 			  </div>
@@ -52,7 +52,7 @@
 				<div class="col-12 border-bottom py-3">
 				  {{form.apellido_paterno}}
 				</div>
-				<div class="col-12 border-bottom py-3 h-16">
+				<div class="col-12 border-bottom py-3 h-17">
 				  {{form.apellido_materno}}
 				</div>
 				<div class="col-12 border-bottom py-3">
@@ -61,7 +61,7 @@
 				<div class="col-12 border-bottom py-3">
 				  {{form.sexo}}
 				</div>
-				<div class="col-12 py-3 h-20">
+				<div class="col-12 py-3 h-20" *ngIf="encuesta_id==null" >
 				  {{form.email}}
 				</div>
 			  </div>

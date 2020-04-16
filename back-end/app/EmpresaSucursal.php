@@ -11,12 +11,7 @@ class EmpresaSucursal extends Model
     protected $table="empresa_sucursal";
 
     protected $fillable = [
-        'codigo',
         'nombre',
-        'direccion',
-        'telefono',
-        'pais_id',
-        'ciudad_id',
         'empresa_id',
         'insert_user_id',
         'edit_user_id'
@@ -25,13 +20,8 @@ class EmpresaSucursal extends Model
     public static function boot()
 	{   parent::boot();
 		static::saving(function ($model) {
-            $model->codigo = $model->setUpperCase('codigo',$model->codigo);
             $model->nombre = $model->setUpperCase('nombre',$model->nombre);
-            $model->direccion = $model->setUpperCase('direccion',$model->direccion);
-
-            $model->codigo = $model->sinTilde('codigo',$model->codigo);
             $model->nombre = $model->sinTilde('nombre',$model->nombre);
-            $model->direccion = $model->sinTilde('direccion',$model->direccion);
         });
     }
 

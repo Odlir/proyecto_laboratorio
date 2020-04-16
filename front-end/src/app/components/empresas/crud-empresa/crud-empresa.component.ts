@@ -20,7 +20,6 @@ export class CrudEmpresaComponent implements OnInit {
 	@ViewChild('stepper') stepper: MatStepper;
 
 	public form = {
-		codigo: null,
 		razon_social: null,
 		contacto: null,
 		email: null,

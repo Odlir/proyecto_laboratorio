@@ -22,7 +22,8 @@ class PersonaController extends Controller
             $data = Persona::where('rol_id',2)
             ->where('estado','1')
             ->where(function($query) use ($searchValue){
-                $query->where("nombres", "LIKE", "%$searchValue%")
+                $query->where("id", "LIKE", "%$searchValue%")
+                ->orWhere('nombres', "LIKE", "%$searchValue%")
                 ->orWhere('apellido_materno', "LIKE", "%$searchValue%")
                 ->orWhere('apellido_paterno', "LIKE", "%$searchValue%")
                 ->orWhere('sexo', "LIKE", "%$searchValue%")

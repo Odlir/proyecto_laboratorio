@@ -12,7 +12,7 @@ class TipoEncuestaSeeder extends Seeder
     public function run()
     {
         DB::table('tipo_encuesta')->insert([
-            'nombre' => 'Interés',
+            'nombre' => 'Intereses',
         ]);
 
         DB::table('tipo_encuesta')->insert([

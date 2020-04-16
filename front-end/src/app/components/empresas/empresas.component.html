@@ -7,7 +7,7 @@
 	<input
         type="text"
         class="buscador"
-        placeholder="Buscar por Codigo/Razón Social/Contacto/Correo/Teléfono"
+        placeholder="Buscar por Id/Razón Social/Contacto/Correo/Teléfono"
         (keyup)="updateFilter($event)"
       />
 
@@ -30,12 +30,6 @@
 			<ng-template let-value="value" ngx-datatable-cell-template>
 				{{ value }}
 			</ng-template>
-		</ngx-datatable-column>
-		<ngx-datatable-column name="Código" prop="codigo">
-		  <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
-		  <ng-template let-value="value" ngx-datatable-cell-template>
-		   {{ value }}
-		  </ng-template>
 		</ngx-datatable-column>
 		<ngx-datatable-column name="Razón Social" prop="razon_social">
 		  <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>

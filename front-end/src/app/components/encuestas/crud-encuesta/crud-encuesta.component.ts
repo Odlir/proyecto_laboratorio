@@ -23,6 +23,10 @@ export interface Empresa {
 
 export class CrudEncuestaComponent implements OnInit {
 
+	error:{}
+
+	fileToUpload: File = null;
+
 	myControl = new FormControl();
 
 	firstFormGroup: FormGroup;
@@ -145,14 +149,17 @@ export class CrudEncuestaComponent implements OnInit {
 
 					await this.api.post('encuestas', this.form).toPromise().then(
 						(data) => {
-							this.router.navigateByUrl('/encuestas');
+							this.subirExcel(data.id);
 						}
 					);
 			});
+
+			this.router.navigateByUrl('/encuestas');
 		}else
 		{
 			await this.api.post('encuestas', this.form).toPromise().then(
-				(data) => {this.handleRegistrar(data)}
+				(data) => { this.subirExcel(data.id);
+					this.handleRegistrar(data)}
 			);
 		}
 
@@ -196,6 +203,7 @@ export class CrudEncuestaComponent implements OnInit {
     });
 	}
 
+
 	obtenerFechaFin()
 	{
 		this.form.fecha_fin=null;
@@ -203,6 +211,36 @@ export class CrudEncuestaComponent implements OnInit {
 		var fin= moment(this.form.fecha_inicio).add(+3, 'M');
 
   		this.form.fecha_fin=moment(fin).format('YYYY-MM-DD')
+	}
+
+	async descargarPlantilla()
+	{
+		await this.api.downloadExcelFile('importar').toPromise().then(
+				(data) => {}
+		);
+	}
+
+	handleFileInput(files: FileList) {
+		this.fileToUpload = files.item(0);
+	}
+
+	async subirExcel(encuesta_id)
+	{
+		const formData: FormData = new FormData();
+		formData.append('file', this.fileToUpload);
+		formData.append('user_id', this.user.me());
+		formData.append('encuesta_id', encuesta_id);
+
+		await this.api.uploadFiles('importar', formData).toPromise().then(
+		(data) => {},
+		(error) => {this.errorImportar(error.error.errors)}
+		);
+	}
+
+	errorImportar(error)
+	{
+
+		this.error= error;
 	}
 
 }

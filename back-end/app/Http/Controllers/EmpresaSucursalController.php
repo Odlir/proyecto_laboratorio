@@ -20,7 +20,7 @@ class EmpresaSucursalController extends Controller
             $data = EmpresaSucursal::where('estado','1')
             ->where('empresa_id',$request->input('id'))
             ->where(function($query) use ($searchValue){
-                $query->where("codigo", "LIKE", "%$searchValue%")
+                $query->where('id', "LIKE", "%$searchValue%")
                 ->orWhere('nombre', "LIKE", "%$searchValue%");
             })
             ->get();

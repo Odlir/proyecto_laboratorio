@@ -4,7 +4,7 @@
 <input
 	type="text"
 	class="buscador"
-	placeholder="Buscar por Codigo/Nombre"
+	placeholder="Buscar por Id/Nombre"
 	(keyup)="updateFilter($event)"
 />
 <ngx-datatable
@@ -26,19 +26,7 @@ rowHeight="auto"
 		{{ value }}
 	</ng-template>
 </ngx-datatable-column>
-<ngx-datatable-column name="Código" prop="codigo">
-	<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
-	<ng-template let-value="value" ngx-datatable-cell-template>
-	{{ value }}
-	</ng-template>
-</ngx-datatable-column>
 <ngx-datatable-column name="Nombre" prop="nombre">
-	<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
-	<ng-template let-value="value" ngx-datatable-cell-template>
-	{{ value }}
-	</ng-template>
-</ngx-datatable-column>
-<ngx-datatable-column name="Teléfono" prop="telefono">
 	<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 	<ng-template let-value="value" ngx-datatable-cell-template>
 	{{ value }}

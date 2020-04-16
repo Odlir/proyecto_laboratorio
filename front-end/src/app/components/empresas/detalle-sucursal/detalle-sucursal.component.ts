@@ -13,12 +13,7 @@ export class DetalleSucursalComponent implements OnInit {
 
 	form = {
 		id: null,
-		codigo: null,
 		nombre: null,
-		direccion: null,
-		telefono :null,
-		pais_id: null,
-		ciudad_id: null,
 		insert_user_id: null,
 		edit_user_id: null,
 		empresa_id: null,
@@ -26,8 +21,6 @@ export class DetalleSucursalComponent implements OnInit {
 		edit: {name: ''},
 		created_at: null,
 		updated_at: null,
-		pais: {name:null},
-		ciudad:{name: null}
 	}
 
 	empresa = {
@@ -54,13 +47,7 @@ export class DetalleSucursalComponent implements OnInit {
     await this.api.show('empresa_sucursal', id).toPromise().then(
       (data) => {this.form = data}
 		);
-
-		await this.api.show('empresas', this.form.empresa_id).toPromise().then(
-      (data) => {this.empresa = data}
-    );
 	}
-
-
 
 	eliminar(id)
   {
@@ -82,8 +69,6 @@ export class DetalleSucursalComponent implements OnInit {
 
 	returnCrud()
 	{
-		// this.router.navigateByUrl(this.previousUrl+'&tab='+1);
-
 		this.router.navigateByUrl(this.previousUrl);
 	}
 
