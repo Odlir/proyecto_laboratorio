@@ -10,16 +10,14 @@ encabezado programacion de encuestas y no mantenimiento.
 
 - NO PONEMOS LA BARRA DE CARGA PERO SI HAY QUE VALIDAR QUE SE RESPONDAN TODAS LAS PREGUNTAS
 
-a la vista se le enviara el id de la encuesta y el id del alumno
+- a la vista DE LA ENCUESTA RESPONDER se le enviara el id de la encuesta y el id del alumno
 
-se manejarian 3 tablas
-
-generar un excel con todas las personas asociadas
+- generar un excel con todas las personas asociadas
 a la encuesta, y le agregaremos el link con el id
 de la encuesta y el id de la persona
 
 
-todas las preguntas son iguales para cada encuesta de interes
+- todas las preguntas son iguales para cada encuesta de interes
 
 
 junto la tabla preguntas con la tabla tipo de encuesta
