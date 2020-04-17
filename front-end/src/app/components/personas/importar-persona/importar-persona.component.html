@@ -5,7 +5,7 @@
 
 	<div class="widget clearfix mt-5">
 		<div class="whead clearfix">
-		  <p>IMPORTAR ALUMNOS</p>
+		  <p>IMPORTAR</p>
 		</div>
 		<div class="row">
 			<form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
@@ -22,7 +22,7 @@
 					</div>
 				</div>
 				<div class="form-group row my-3">
-					<label class="col-sm-4 col-form-label w-100">Archivo <span class="text-danger">*</span></label>
+					<label class="col-sm-4 col-form-label w-100">Importar Alumnos <span class="text-danger">*</span></label>
 					<div class="col-sm-8">
 						<input type="file" id="file" (change)="handleFileInput($event.target.files)" required>
 					</div>
@@ -31,7 +31,7 @@
 
 				<div class="form-group row mt-5">
 					<div class="col-12">
-						<button type="submit" class="btn btn-danger">IMPORTAR</button>
+						<button type="submit" class="btn btn-success">IMPORTAR</button>
 						<a (click)="return()"  class="btn btn-info text-white">REGRESAR A LA LISTA</a>
 					</div>
 				</div>

@@ -30,3 +30,11 @@ respuesta_id
 encuesta_id
 persona_id
 }
+
+tratar de meter las respuestas dentro
+de subpregunta y eso dentro del pregunta
+
+
+nested form y reactive forms para lo de los test de interes
+
+a cada respuesta meterle tres objetos nulos para el objeto

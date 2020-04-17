@@ -34,7 +34,9 @@ export class CrudEmpresaComponent implements OnInit {
 
 	public titulo= "CREAR EMPRESA";
 
-  	public id: HttpParams;
+	public id: HttpParams;
+
+	public generarSucursal= false;
 
   constructor(
     private api: ApiBackRequestService,
@@ -86,7 +88,7 @@ export class CrudEmpresaComponent implements OnInit {
     else
     {
       this.registrar();
-    }
+	}
   }
 
   return()
@@ -99,18 +101,35 @@ export class CrudEmpresaComponent implements OnInit {
     await this.api.post('empresas', this.form).toPromise().then(
 			(data) => {
 				this.handleRegistrar(data);
-				this.return();
 			}
     );
 	}
 
-	handleRegistrar(data)
+
+	async handleRegistrar(data)
 	{
-		this.id= data.id;
-		this.form=data;
-		this.stepper.selected.completed = true;
-		this.stepper.next();
-		this.titulo = "EDITAR EMPRESA";
+		if(this.generarSucursal==false)
+		{
+			const form= {
+				nombre : data.razon_social,
+				empresa_id : data.id,
+				insert_user_id: this.user.me(),
+			}
+
+			await this.api.post('empresa_sucursal', form).toPromise().then(
+				(data) => {
+					this.return();
+				}
+			);
+		}
+		else
+		{
+			this.id= data.id;
+			this.form=data;
+			this.stepper.selected.completed = true;
+			this.stepper.next();
+			this.titulo = "EDITAR EMPRESA";
+		}
 	}
 
 	handleEditar(data)
