@@ -1,5 +1,5 @@
+import { RoutingStateService } from './../../../Services/routing/routing-state.service';
 import { HttpParams } from '@angular/common/http';
-import Swal from 'sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from '../../../Services/token/token.service';
 import { ApiBackRequestService } from './../../../Services/api-back-request.service';
@@ -26,21 +26,29 @@ export class CrudPersonaComponent implements OnInit {
     updated_at: null
   };
 
-  public id: HttpParams;
+	public id: HttpParams;
+
+	public encuesta_id: HttpParams
+
+	previousUrl: string;
 
   constructor(
     private api: ApiBackRequestService,
     private user: TokenService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) { }
+		private activatedRoute: ActivatedRoute,
+		private routingState: RoutingStateService) { }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(async params => {
-        this.id = params.id;
+				this.id = params.id;
+				this.encuesta_id = params.encuesta_id;
         if (this.id != null) {
           this.cargarEditar();
         }
-    });
+		});
+
+		this.previousUrl=this.routingState.getPreviousUrl();
   }
 
   async cargarEditar()
@@ -65,7 +73,7 @@ export class CrudPersonaComponent implements OnInit {
   async registrar()
   {
     await this.api.post('personas', this.form).toPromise().then(
-      (data) => {this.cerrar('Registro Exitoso')}
+      (data) => {this.return()}
     );
   }
 
@@ -73,23 +81,27 @@ export class CrudPersonaComponent implements OnInit {
   { this.form.edit_user_id = this.user.me();
 
     await this.api.put('personas', this.id , this.form).toPromise().then(
-      (data) => {this.cerrar('Datos Actualizados Correctamente')}
+      (data) => {this.return()}
     );
   }
 
-  cerrar(mensaje)
-  {
-    Swal.fire({
-      title: mensaje,
-      icon: 'success',
-      showClass: {
-        popup: 'animated fadeInDown faster'
-      },
-      hideClass: {
-        popup: 'animated fadeOutUp faster'
-      }
-    });
-    this.router.navigateByUrl('/personas');
-  }
+	return()
+	{
+		if(this.previousUrl.includes('encuesta'))
+		{
+			if(this.previousUrl.includes('detalle'))
+			{
+				this.router.navigateByUrl('detalle-encuesta?id='+this.encuesta_id+'&tab=1');
+			}
+			else
+			{
+				this.router.navigateByUrl('crud-encuesta?id='+this.encuesta_id+'&tab=1');
+			}
+		}
+		else
+		{
+			this.router.navigateByUrl(this.previousUrl);
+		}
+	}
 
 }

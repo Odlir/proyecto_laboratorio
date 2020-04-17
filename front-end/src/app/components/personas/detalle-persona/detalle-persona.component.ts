@@ -1,3 +1,5 @@
+import { HttpParams } from '@angular/common/http';
+import { RoutingStateService } from './../../../Services/routing/routing-state.service';
 import { ApiBackRequestService } from './../../../Services/api-back-request.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,17 +25,24 @@ export class DetallePersonaComponent implements OnInit {
     edit: {name: ''},
     created_at: null,
     updated_at: null
-  };
+	};
 
-  constructor(private api: ApiBackRequestService, private router: Router, private activatedRoute: ActivatedRoute) { }
+	previousUrl: string;
+
+	public encuesta_id: HttpParams;
+
+  constructor(private api: ApiBackRequestService, private router: Router, private activatedRoute: ActivatedRoute,private routingState: RoutingStateService) { }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(async params => {
-      const id = params.id;
+			const id = params.id;
+			this.encuesta_id = params.encuesta_id;
       if (id != null) {
         this.cargar(id);
       }
-  });
+	});
+
+	this.previousUrl=this.routingState.getPreviousUrl();
   }
 
   async cargar(id)
@@ -55,10 +64,29 @@ export class DetallePersonaComponent implements OnInit {
     }).then(async (result) => {
       if (result.value) {
         await this.api.delete('personas', id).toPromise().then(
-          (data) => {this.router.navigateByUrl('/personas');}
+          (data) => {this.return();}
         );
       }
     })
-  }
+	}
+
+	return()
+	{
+		if(this.previousUrl.includes('encuesta'))
+		{
+			if(this.previousUrl.includes('detalle'))
+			{
+				this.router.navigateByUrl('detalle-encuesta?id='+this.encuesta_id+'&tab=1');
+			}
+			else
+			{
+				this.router.navigateByUrl('crud-encuesta?id='+this.encuesta_id+'&tab=1');
+			}
+		}
+		else
+		{
+			this.router.navigateByUrl(this.previousUrl);
+		}
+	}
 
 }

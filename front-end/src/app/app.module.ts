@@ -1,11 +1,11 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 /*FONT-AWESOME*/
 import {FontAwesomeModule, FaIconLibrary} from '@fortawesome/angular-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 
-
 /* VARIABLE GLOBAL*/
 import {ConstantsService} from './common/constants.service';
-
 
 /* ANGULAR MATERIAL*/
 import {AppMaterialModule} from './app-material/app-material.module';
@@ -29,7 +29,21 @@ import {CrudPersonaComponent} from './components/personas/crud-persona/crud-pers
 import {DetalleEmpresaComponent} from './components/empresas/detalle-empresa/detalle-empresa.component';
 import {CrudEmpresaComponent} from './components/empresas/crud-empresa/crud-empresa.component';
 import {DetallePersonaComponent} from './components/personas/detalle-persona/detalle-persona.component';
-import {SidenavComponent} from './components/sidenav/sidenav.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {TooltipModule} from 'ngx-bootstrap/tooltip';
+import {BsModalService} from 'ngx-bootstrap/modal';
+import { CrudSucursalComponent } from './components/empresas/crud-sucursal/crud-sucursal.component';
+import { DetalleSucursalComponent } from './components/empresas/detalle-sucursal/detalle-sucursal.component';
+import { ImportarPersonaComponent } from './components/personas/importar-persona/importar-persona.component';
+import { EncuestasComponent } from './components/encuestas/encuestas.component';
+import { CrudEncuestaComponent } from './components/encuestas/crud-encuesta/crud-encuesta.component';
+import { DetalleEncuestaComponent } from './components/encuestas/detalle-encuesta/detalle-encuesta.component';
+import { TestInteresComponent } from './components/test-interes/test-interes.component';
+import { HeaderComponent } from './components/partials/header/header.component';
+import { AuditoriaComponent } from './components/partials/auditoria/auditoria.component';
+import { AlumnosComponent } from './components/encuestas/alumnos/alumnos.component';
+import { SucursalComponent } from './components/empresas/sucursal/sucursal.component';
+import { HeaderEncuestaComponent } from './components/partials/header-encuesta/header-encuesta.component';
 
 @NgModule({
 	declarations: [
@@ -45,17 +59,32 @@ import {SidenavComponent} from './components/sidenav/sidenav.component';
 		DetalleEmpresaComponent,
 		CrudEmpresaComponent,
 		DetallePersonaComponent,
+		CrudSucursalComponent,
+		DetalleSucursalComponent,
+		ImportarPersonaComponent,
+		EncuestasComponent,
+		CrudEncuestaComponent,
+		DetalleEncuestaComponent,
+		TestInteresComponent,
+		HeaderComponent,
+		AuditoriaComponent,
+		AlumnosComponent,
+		SucursalComponent,
+		HeaderEncuestaComponent,
+  ],
+  imports: [
+	BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    CommonModule,
+    FontAwesomeModule,
+    AppMaterialModule,
+    AppLibreriasModule,
+	NgbModule,
+	TooltipModule.forRoot()
 	],
-	imports: [
-		AppRoutingModule,
-		HttpClientModule,
-		CommonModule,
-		FontAwesomeModule,
-		AppMaterialModule,
-		AppLibreriasModule
-	],
-	providers: [ConstantsService],
-	bootstrap: [AppComponent]
+  providers: [ConstantsService, BsModalService],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 	constructor(library: FaIconLibrary) {

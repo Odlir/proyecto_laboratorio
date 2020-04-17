@@ -1,17 +1,14 @@
-<div class="px-5">
-  <br>
-  <div class="row">
-    <fa-icon [icon]="['fas', 'user-friends']"></fa-icon><h5>MANTENIMIENTO DE PERSONAS</h5>
-  </div>
+
+	<app-header nombre="MANTENIMIENTO DE PERSONAS" icono="user-friends"></app-header>
+
   <div class="col-12 text-right">
-    <button class="btn btn-secondary">IMPORTAR PERSONAS</button>
     <button class="btn btn-secondary" [routerLink]="['/crud-persona']" >CREAR PERSONA</button>
   </div>
 
   <input
         type="text"
-        style="padding:8px;margin:15px auto;width:30%;"
-        placeholder="Buscar por Nombres/Apellidos/Sexo/Correo"
+        class="buscador"
+        placeholder="Buscar por Id/Nombres/Apellidos/Sexo/Correo"
         (keyup)="updateFilter($event)"
       />
 
@@ -27,7 +24,14 @@
         [limit]="20"
         rowHeight="auto"
         [reorderable]="reorderable"
-      >
+			>
+
+			<ngx-datatable-column name="Id" [width]="1">
+        <ng-template let-column="column" ngx-datatable-header-template >{{ column.name }}</ng-template>
+        <ng-template let-value="value" ngx-datatable-cell-template>
+         <a [routerLink]="['/detalle-persona/']" [queryParams]="{id:value}">{{ value }}</a>
+        </ng-template>
+      </ngx-datatable-column>
 
       <ngx-datatable-column name="Apellidos">
         <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
@@ -66,4 +70,3 @@
     </ngx-datatable>
   </div>
 
-</div>

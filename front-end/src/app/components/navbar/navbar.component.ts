@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
 		private Token: TokenService,
 		private sharedService: SharedVarService) {
 
-		this.login = this.sharedService.getShowButton().subscribe(()=>{
+		this.login = this.sharedService.getShowButtonMenu().subscribe(()=>{
 			this.show();
 		})
 	}

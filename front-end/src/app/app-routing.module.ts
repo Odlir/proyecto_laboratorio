@@ -1,3 +1,10 @@
+import { TestInteresComponent } from './components/test-interes/test-interes.component';
+import { DetalleEncuestaComponent } from './components/encuestas/detalle-encuesta/detalle-encuesta.component';
+import { CrudEncuestaComponent } from './components/encuestas/crud-encuesta/crud-encuesta.component';
+import { EncuestasComponent } from './components/encuestas/encuestas.component';
+import { ImportarPersonaComponent } from './components/personas/importar-persona/importar-persona.component';
+import { DetalleSucursalComponent } from './components/empresas/detalle-sucursal/detalle-sucursal.component';
+import { CrudSucursalComponent } from './components/empresas/crud-sucursal/crud-sucursal.component';
 import { DetallePersonaComponent } from './components/personas/detalle-persona/detalle-persona.component';
 import { CrudPersonaComponent } from './components/personas/crud-persona/crud-persona.component';
 import { DetalleEmpresaComponent } from './components/empresas/detalle-empresa/detalle-empresa.component';
@@ -18,11 +25,11 @@ const routes: Routes = [
     component: LoginComponent,
     canActivate: [BeforeLoginService]
   },
-  {
-    path: 'signup',
-    component: SignupComponent,
-    canActivate: [BeforeLoginService]
-  },
+  // {
+  //   path: 'signup',
+  //   component: SignupComponent,
+  //   canActivate: [BeforeLoginService]
+  // },
   {
     path: 'dashboard',
     component: DashboardComponent,
@@ -57,11 +64,46 @@ const routes: Routes = [
     path: 'detalle-empresa',
     component: DetalleEmpresaComponent,
     canActivate: [AfterLoginService]
-	}
+	},
+	{
+    path: 'crud-sucursal',
+    component: CrudSucursalComponent,
+    canActivate: [AfterLoginService]
+	},
+	{
+    path: 'detalle-sucursal',
+    component: DetalleSucursalComponent,
+    canActivate: [AfterLoginService]
+	},
+	{
+    path: 'importar-persona',
+    component: ImportarPersonaComponent,
+    canActivate: [AfterLoginService]
+	},
+	{
+    path: 'encuestas',
+    component: EncuestasComponent,
+    canActivate: [AfterLoginService]
+	},
+	{
+    path: 'crud-encuesta',
+    component: CrudEncuestaComponent,
+    canActivate: [AfterLoginService]
+	},
+	{
+    path: 'detalle-encuesta',
+    component: DetalleEncuestaComponent,
+    canActivate: [AfterLoginService]
+	},
+	{
+    path: 'test-interes',
+    component: TestInteresComponent,
+    canActivate: [AfterLoginService]
+	},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

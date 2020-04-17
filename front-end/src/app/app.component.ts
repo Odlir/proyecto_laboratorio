@@ -1,3 +1,4 @@
+import { RoutingStateService } from './Services/routing/routing-state.service';
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import {SharedVarService} from './Services/shared/shared-var.service';
@@ -8,11 +9,12 @@ import {SharedVarService} from './Services/shared/shared-var.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-	title = 'front-end';
+	title = 'Sistema de Encuestas';
 	public isExpanded: boolean;
 	public isShowing:boolean = false;
 
-	constructor(private router: Router, private sharedService: SharedVarService) {
+	constructor(private router: Router, private sharedService: SharedVarService,routingState: RoutingStateService) {
+		routingState.loadRouting();
 	}
 
 	ngOnInit(): void {

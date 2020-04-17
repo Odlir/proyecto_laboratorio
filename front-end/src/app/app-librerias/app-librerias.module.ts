@@ -6,11 +6,11 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
   declarations: [],
   imports: [
     CommonModule,
-    NgxDatatableModule
+		NgxDatatableModule
   ],
   exports: [
     CommonModule,
-    NgxDatatableModule
+		NgxDatatableModule
   ]
 })
 export class AppLibreriasModule {

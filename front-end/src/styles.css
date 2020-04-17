@@ -19,7 +19,12 @@ html, body {
 	height: 100%;
 }
 
-.ng-invalid:not(form) {
+h5 span
+{
+	font-size: inherit;
+}
+
+.form-control.ng-invalid:not(form) {
 	border-left: 5px solid red;
 }
 
@@ -28,13 +33,14 @@ fa-icon {
 	align-items: center;
 	margin-left: 5px;
 	margin-right: 10px;
+	font-size: 15px;
 }
 
 h1, h2, h3, h4, h5, h6, p {
 	margin: 0;
 }
 
-.ng-valid:not(form) {
+.form-control.ng-valid:not(form) {
 	border-left: 5px solid green;
 }
 
@@ -109,6 +115,17 @@ button {
 	height:20%!important;
 }
 
+.h-16
+{
+	height:16%!important;
+}
+
+.h-17
+{
+	height:17%!important;
+}
+
+
 .ngx-datatable.bootstrap .datatable-footer {
 	background: #424242;
 	color: #ededed!important;
@@ -132,4 +149,22 @@ button {
 	line-height: 50px;
 	height: 50px;
 	padding: 0 1.2rem;
+}
+
+.cursor
+{
+	cursor: pointer;
+}
+
+.buscador
+{
+	padding:8px;margin:15px auto;width:30%;
+}
+
+.data-crud
+{
+	padding-left: 1.5rem !important;
+	padding-right: 1.5rem !important;
+	margin-bottom: 0.5rem !important;
+	margin-top: 0.5rem !important;
 }

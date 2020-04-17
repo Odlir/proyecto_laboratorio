@@ -15,11 +15,10 @@ class CreateEmpresasTable extends Migration
     {
         Schema::create('empresas', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo')->nullable();
-            $table->string('razon_social',300)->nullable();
+            $table->string('razon_social',300);
+            $table->string('email')->nullable();
             $table->string('contacto')->nullable();
-            $table->string('email');
-            $table->string('telefono');
+            $table->string('telefono')->nullable();
             $table->char('estado',1)->comment('0-Inactivo/1-Activo')->default(1);
 
             $table->unsignedBigInteger('insert_user_id')->comment('Usuario que hizo el registro');

@@ -1,0 +1,57 @@
+
+	<app-header nombre="MANTENIMIENTO DE EMPRESAS" icono="city"></app-header>
+	<br>
+	<H5>RAZON SOCIAL: {{ empresa.razon_social }}</H5>
+
+	<div class="widget clearfix mt-5">
+	  <div class="whead clearfix">
+		<p>DETALLE DE LA SUCURSAL : {{ form.nombre }}</p>
+	  </div>
+	  <div class="row data-crud">
+		<div class="col-7">
+		  <div class="widget clearfix h-auto">
+			<div class="whead clearfix">
+			  <div class="row">
+				<div class="col-6 border text-center">
+				   <p>Campo</p>
+				</div>
+				<div class="col-6 border text-center">
+				   <p>Dato</p>
+				</div>
+			  </div>
+			</div>
+			<div class="row auditoria">
+			  <div class="col-6 border px-0">
+				<div class="col-12 border-bottom py-3">
+					Id
+				</div>
+				<div class="col-12 border-bottom py-3">
+				  Nombre
+				</div>
+			  </div>
+			  <div class="col-6 border px-0">
+				<div class="col-12 border-bottom py-3">
+					{{form.id}}
+				</div>
+				<div class="col-12 border-bottom py-3">
+				  {{form.nombre}}
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<div class="col-5 p-0 widget clearfix">
+			<app-auditoria [form]="form"></app-auditoria>
+		</div>
+	  </div>
+	</div>
+	<div class="row mt-3">
+	  <button class="btn btn-info"  (click)="returnCrud()">REGRESAR A LA LISTA</button>
+	  <!-- <button class="btn btn-danger" [routerLink]="['/crud-sucursal/']" [queryParams]="{id:form.id}">EDITAR</button> -->
+	  <button class="btn btn-danger" (click)="eliminar(this.form.id)" >ELIMINAR</button>
+	</div>
+
+
+
+
+

@@ -1,11 +1,13 @@
 <main>
 	<app-navbar></app-navbar>
-	<mat-sidenav-container class="encuesta-container">
+	<mat-sidenav-container class="encuesta-container" autosize>
 		<mat-sidenav mode="side" opened>
 			<app-sidenav></app-sidenav>
 		</mat-sidenav>
 		<mat-sidenav-content>
-			<router-outlet></router-outlet>
+			<div class="px-5 pt-5">
+				<router-outlet></router-outlet>
+			</div>
 		</mat-sidenav-content>
 	</mat-sidenav-container>
 </main>

@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\MyTrait;
-use Illuminate\Support\Carbon;
 
 class Persona extends Model
 {
@@ -20,13 +19,6 @@ class Persona extends Model
         'rol_id',
         'insert_user_id',
         'edit_user_id'
-    ];
-
-    // protected $dates = ['created_at','updated_at'];
-
-    protected $casts = [
-        'created_at' => 'datetime:d/m/y - H:i',
-        'updated_at' => 'datetime:d/m/y - H:i'
     ];
 
     public static function boot()
@@ -64,5 +56,10 @@ class Persona extends Model
     public function edit()
     {
         return $this->belongsTo('App\User','edit_user_id');
+    }
+
+    public function encuestas()
+    {
+        return $this->belongsToMany('App\Encuesta')->withPivot(["id"]);
     }
 }

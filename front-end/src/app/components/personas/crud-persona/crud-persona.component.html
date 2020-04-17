@@ -1,14 +1,20 @@
-<div class="px-5">
-	<br>
-	<div class="row">
-	  <fa-icon [icon]="['fas', 'user-friends']"></fa-icon><h5>MANTENIMIENTO DE PERSONAS</h5>
+
+	<div *ngIf="encuesta_id;else other_content">
+		<app-header nombre="PROGRAMACIÓN DE ENCUESTAS" icono="poll"></app-header>
 	</div>
+
+	<ng-template #other_content>
+		<app-header nombre="MANTENIMIENTO DE PERSONAS" icono="user-friends"></app-header>
+	</ng-template>
 
 	<div class="widget clearfix mt-5">
 	  <div class="whead clearfix">
-		<p>CREAR PERSONA</p>
+		<p><span *ngIf="id;else templateName" >EDITAR </span>PERSONA <span *ngIf="id" >: {{ form.nombres }} {{ form.apellido_paterno }} {{ form.apellido_materno }}</span></p>
+		<ng-template #templateName>
+			CREAR
+		</ng-template>
 	  </div>
-	  <div class="row">
+	  <div class="row data-crud">
 		<div class="col-7">
 		  <form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
 			<div class="form-group row my-3">
@@ -46,7 +52,7 @@
 			  <hr>
 			</div>
 
-			<div class="form-group row my-3">
+			<div class="form-group row my-3" *ngIf="encuesta_id==null">
 			  <label class="col-sm-4 col-form-label w-100">Correo Personal</label>
 			  <div class="col-sm-8">
 				<input type="email" name="email" class="form-control" [(ngModel)]="form.email">
@@ -57,47 +63,13 @@
 			<div class="form-group row">
 			  <div class="col-12">
 				<button type="submit" class="btn btn-danger">GUARDAR</button>
-				<a routerLink="/personas" class="btn btn-info">REGRESAR A LA LISTA</a>
+				<a (click)="return()" class="btn btn-info text-white">REGRESAR A LA LISTA</a>
 			  </div>
 			</div>
 		  </form>
 		</div>
-		<div class="col-5 p-0 widget clearfix mt-4" *ngIf="id" >
-		  <div class="whead clearfix text-center">
-			<p>Auditoría</p>
-		  </div>
-		  <div class="row auditoria">
-			<div class="col-6 border px-0">
-			  <div class="col-12 border-bottom py-3">
-				Creado por
-			  </div>
-			  <div class="col-12 border-bottom py-3">
-				Creado el
-			  </div>
-			  <div class="col-12 border-bottom py-3">
-				Modificado por
-			  </div>
-			  <div class="col-12 py-3">
-				Última modificacion
-			  </div>
-			</div>
-			<div class="col-6 border px-0">
-			  <div class="col-12 border-bottom py-3">
-				{{form.insert.name }}
-			  </div>
-			  <div class="col-12 border-bottom py-3">
-				{{form.created_at }}
-			  </div>
-			  <div class="col-12 border-bottom py-3 h-25">
-				<span *ngIf="form.edit" >{{form.edit.name }}</span>
-			  </div>
-			  <div class="col-12 py-3 h-25">
-				<span *ngIf="form.edit" >{{form.updated_at}}</span>
-			  </div>
-			</div>
-		  </div>
+		<div class="col-5 p-0 widget clearfix" *ngIf="id" >
+		  <app-auditoria [form]="form"></app-auditoria>
 		</div>
 	  </div>
 	</div>
-  </div>
-
