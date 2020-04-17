@@ -1,6 +1,8 @@
+
 import { HttpParams } from '@angular/common/http';
 import { ApiBackRequestService } from './../../Services/api-back-request.service';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms'
 
 @Component({
   selector: 'app-test-interes',
@@ -13,25 +15,44 @@ export class TestInteresComponent implements OnInit {
 
 	subpreguntas = [];
 
-	respuestas = [];
-
-	encuestas = [];
-
-	subencuesta = {
-		pregunta_id : null,
-		subpregunta_id :null,
-		respuesta_id :null
+	form = {
+		pregunta_id: null,
+		subpregunta_id: null,
+		respuesta_id: null,
+		encuesta_id: null,
+		persona_id: null
 	}
 
-	subencuestas=[
+	respuestas1= [];
 
-	]
+	respuestas2= [];
 
-  constructor(private api: ApiBackRequestService) { }
+	data = [];
+
+	FormGroup: FormGroup;
+
+  constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder) {
+
+  }
 
   ngOnInit(): void {
 
 		this.fetch();
+	}
+
+	reactive(preguntas)
+	{
+		this.FormGroup = this.formBuilder.group({
+			preguntas: ['']
+		  });
+
+			const preguntasMethodsControl = <FormArray>this.FormGroup.controls['productMethod'];
+			// creating radio button control for each item.
+			for (let i = 0 ; i < preguntas.length; i++) {
+			preguntasMethodsControl.push(new FormControl());
+			}
+
+			console.log(this.FormGroup);
 	}
 
 	async fetch()
@@ -44,38 +65,62 @@ export class TestInteresComponent implements OnInit {
       (data) => {this.subpreguntas=data;}
 		);
 
-		await this.api.show('respuestas', 1).toPromise().then(
-      (data) => {this.respuestas=data;}
-    );
+		await this.api.get('respuestas?encuesta=1&sub=1').toPromise().then(
+			(data) => {this.respuestas1=data;}
+		);
+
+		await this.api.get('respuestas?encuesta=1&sub=2').toPromise().then(
+			(data) => {this.respuestas2=data;}
+		);
+
+		this.subpreguntas.forEach(element => {
+			if(element.tipo_subpregunta=='1')
+			{
+				element.respuestas= JSON.parse(JSON.stringify(this.respuestas1));
+			}
+			else
+			{
+				element.respuestas= JSON.parse(JSON.stringify(this.respuestas2));
+			}
+			element.respuesta_id= null;
+		});
+
+		this.preguntas.forEach(element => {
+			element.subpreguntas= JSON.parse(JSON.stringify(this.subpreguntas));
+		});
+
+		this.reactive(this.preguntas);
 	}
 
-	guardar()
+	async guardar()
 	{
-		console.log(this.encuestas);
-	}
+		this.preguntas.forEach(preg => {
+			preg.subpreguntas.forEach(async sub => {
+				this.form.pregunta_id= preg.id;
+				this.form.subpregunta_id= sub.id;
+				this.form.respuesta_id= sub.respuesta_id;
 
-	select(index_preg,index_sub,pregunta_id,subpregunta_id,respuesta_id)
-	{
-		this.subencuesta.pregunta_id= pregunta_id;
-		this.subencuesta.subpregunta_id= subpregunta_id;
-		this.subencuesta.respuesta_id= respuesta_id;
+				this.data.push(this.form);
 
-		this.subencuestas[index_sub]= JSON.parse(JSON.stringify(this.subencuesta));
+				this.limpiar()
+			});
+		});
 
-		this.encuestas[index_preg]= JSON.parse(JSON.stringify( this.subencuestas));
+		await this.api.post('encuesta_persona', this.data).toPromise().then(
+			(data) => {
 
-		this.limpiar();
-
-		console.log(this.encuestas);
+			}
+		  );
 	}
 
 	limpiar()
 	{
-		this.subencuesta = {
-			pregunta_id : null,
-			subpregunta_id :null,
-			respuesta_id :null
+		this.form = {
+			pregunta_id: null,
+			subpregunta_id: null,
+			respuesta_id: null,
+			encuesta_id: null,
+			persona_id: null
 		}
 	}
-
 }

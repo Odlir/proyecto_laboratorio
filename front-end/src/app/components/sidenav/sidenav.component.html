@@ -11,9 +11,13 @@
 		<fa-icon [icon]="['fas', 'city']"></fa-icon>
 		<span class="full-width" *ngIf="isExpanded">Empresas</span>
 	</a>
-	<a class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="dashboard">
+	<a class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="encuestas">
 		<fa-icon [icon]="['fas', 'poll']"></fa-icon>
 		<span class="full-width" *ngIf="isExpanded">Programar Encuestas</span>
+	</a>
+	<a class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="test-interes">
+		<fa-icon [icon]="['fas', 'poll']"></fa-icon>
+		<span class="full-width" *ngIf="isExpanded">Intereses</span>
 	</a>
 </mat-nav-list>
 
