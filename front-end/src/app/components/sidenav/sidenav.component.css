@@ -19,6 +19,29 @@
 	padding-left: 1em;
 }
 
-.active {
-	background-color: blue;
+.list-item-active {
+	font-weight: bold;
+	color: blue !important;
+	background: #dfdfdf !important;
+}
+
+.logo_upc {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 2em;
+	padding-top: 1em;
+}
+
+.logo_upc span {
+	padding-top: 0.3em;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.mat-nav-list a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
