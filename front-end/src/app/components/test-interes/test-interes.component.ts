@@ -30,7 +30,7 @@ export class TestInteresComponent implements OnInit {
 
 	FormGroup: FormGroup;
 
-	constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder,private activatedRoute: ActivatedRoute) {
+	constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder, private activatedRoute: ActivatedRoute) {
 
 	}
 
@@ -41,7 +41,7 @@ export class TestInteresComponent implements OnInit {
 		this.activatedRoute.queryParams.subscribe(async params => {
 			this.form.encuesta_id = params.encuesta_id;
 			this.form.persona_id = params.persona_id;
-		  });
+		});
 	}
 
 	reactive(preguntas) {
@@ -58,21 +58,29 @@ export class TestInteresComponent implements OnInit {
 		console.log(this.FormGroup);
 	}
 
-	async fetch() {
-		await this.api.show('preguntas', 1).toPromise().then(
-			(data) => { this.preguntas = data }
+	fetch() {
+		this.api.get('preguntas', 1).subscribe(
+			(data) => {
+				this.preguntas = data
+			}
 		);
 
-		await this.api.show('subpreguntas', 1).toPromise().then(
-			(data) => { this.subpreguntas = data; }
+		this.api.get('subpreguntas', 1).subscribe(
+			(data) => {
+				this.subpreguntas = data;
+			}
 		);
 
-		await this.api.get('respuestas?encuesta=1&sub=1').toPromise().then(
-			(data) => { this.respuestas1 = data; }
+		this.api.get('respuestas?encuesta=1&sub=1').subscribe(
+			(data) => {
+				this.respuestas1 = data;
+			}
 		);
 
-		await this.api.get('respuestas?encuesta=1&sub=2').toPromise().then(
-			(data) => { this.respuestas2 = data; }
+		this.api.get('respuestas?encuesta=1&sub=2').subscribe(
+			(data) => {
+				this.respuestas2 = data;
+			}
 		);
 
 		this.subpreguntas.forEach(element => {
@@ -92,9 +100,9 @@ export class TestInteresComponent implements OnInit {
 		this.reactive(this.preguntas);
 	}
 
-	async guardar() {
+	guardar() {
 		this.preguntas.forEach(preg => {
-			preg.subpreguntas.forEach(async sub => {
+			preg.subpreguntas.forEach(sub => {
 				this.form.pregunta_id = preg.id;
 				this.form.subpregunta_id = sub.id;
 				this.form.respuesta_id = sub.respuesta_id;
@@ -105,9 +113,9 @@ export class TestInteresComponent implements OnInit {
 			});
 		});
 
-		await this.api.post('encuesta_persona', this.data).toPromise().then(
+		this.api.post('encuesta_persona', this.data).subscribe(
 			(data) => {
-
+				
 			}
 		);
 	}

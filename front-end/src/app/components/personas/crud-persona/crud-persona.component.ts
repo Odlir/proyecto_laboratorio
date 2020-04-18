@@ -51,10 +51,12 @@ export class CrudPersonaComponent implements OnInit {
     this.previousUrl = this.routingState.getPreviousUrl();
   }
 
-  async cargarEditar() {
-    await this.api.show('personas', this.id).toPromise().then(
-      (data) => { this.form = data }
-    );
+  cargarEditar() {
+    this.api.get('personas', this.id).subscribe(
+      (data) => {
+        this.form = data
+        }
+      );
   }
 
   guardar() {
@@ -66,18 +68,22 @@ export class CrudPersonaComponent implements OnInit {
     }
   }
 
-  async registrar() {
-    await this.api.post('personas', this.form).toPromise().then(
-      (data) => { this.return() }
-    );
+  registrar() {
+    this.api.post('personas', this.form).subscribe(
+      (data) => {
+        this.return()
+        }
+      );
   }
 
-  async editar() {
+  editar() {
     this.form.edit_user_id = this.user.me();
 
-    await this.api.put('personas', this.id, this.form).toPromise().then(
-      (data) => { this.return() }
-    );
+    this.api.put('personas', this.id, this.form).subscribe(
+      (data) => {
+        this.return()
+        }
+      );
   }
 
   return() {

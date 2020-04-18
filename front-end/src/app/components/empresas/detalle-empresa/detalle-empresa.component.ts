@@ -42,9 +42,11 @@ export class DetalleEmpresaComponent implements OnInit {
     });
   }
 
-  async cargar(id) {
-    await this.api.show('empresas', id).toPromise().then(
-      (data) => { this.form = data }
+  cargar(id) {
+    this.api.get('empresas', id).subscribe(
+      (data) => {
+        this.form = data
+      }
     );
   }
 
@@ -56,10 +58,12 @@ export class DetalleEmpresaComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Confirmar'
-    }).then(async (result) => {
+    }).then((result) => {
       if (result.value) {
-        await this.api.delete('empresas', id).toPromise().then(
-          (data) => { this.router.navigateByUrl('/empresas'); }
+        this.api.delete('empresas', id).subscribe(
+          (data) => {
+            this.router.navigateByUrl('/empresas');
+          }
         );
       }
     })

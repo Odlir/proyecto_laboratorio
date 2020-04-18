@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Encuesta;
+use App\TipoEncuesta;
 
 class EncuestaController extends Controller
 {
@@ -62,9 +63,29 @@ class EncuestaController extends Controller
     {
         $data = $request->all();
 
-        $registro = Encuesta::create($data);
+        $id = [];
+        if ($request->campo == 'todas') {
+            $tipos = TipoEncuesta::where('estado', '1')
+                ->orderBy('id', 'DESC')
+                ->get();
 
-        return response()->json($registro, 200);
+            unset($data['tipo_encuesta_id']);
+
+            foreach ($tipos as $t) {
+
+                $data['tipo_encuesta_id'] = $t->id;
+
+                $registro = Encuesta::create($data);
+
+                array_push($id, $registro['id']);
+            }
+
+            return response()->json($id, 200);
+            
+        } else {
+            $registro = Encuesta::create($data);
+            return response()->json($registro, 200);
+        }
     }
 
     /**

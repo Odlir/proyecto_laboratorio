@@ -28,18 +28,18 @@ export class AlumnosComponent implements OnInit {
 		this.fetch();
 	}
 
-	async fetch() {
-		await this.api.show('encuestas', this.id).toPromise().then(
+	fetch() {
+		this.api.get('encuestas', this.id).subscribe(
 			(data) => {
 				this.personas = data.personas;
 			}
 		);
 	}
 
-	async updateFilter(event) {
+	updateFilter(event) {
 		const val = event.target.value;
 
-		await this.api.get('encuesta_persona?search=' + val + '&id=' + this.id).toPromise().then(
+		this.api.get('encuesta_persona?search=' + val + '&id=' + this.id).subscribe(
 			(data) => {
 				this.personas = data.personas;
 				this.personas = [...this.personas]
@@ -55,9 +55,9 @@ export class AlumnosComponent implements OnInit {
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
 			confirmButtonText: 'Confirmar'
-		}).then(async (result) => {
+		}).then((result) => {
 			if (result.value) {
-				await this.api.delete('encuesta_persona', id).toPromise().then(
+				this.api.delete('encuesta_persona', id).subscribe(
 					(data) => {
 						this.personas = data.personas;
 						this.personas = [...this.personas]

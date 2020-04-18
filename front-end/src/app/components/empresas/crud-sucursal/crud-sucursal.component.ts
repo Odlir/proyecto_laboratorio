@@ -46,31 +46,32 @@ export class CrudSucursalComponent implements OnInit {
 	ngOnInit(): void {
 		this.activatedRoute.queryParams.subscribe(async params => {
 			this.form.empresa_id = params.empresa_id;
-			this.cargarEmpresa(this.form.empresa_id);
-		});
-
-		this.activatedRoute.queryParams.subscribe(async params => {
 			this.id = params.id;
 			this.tab = params.tab;
+
 			if (this.id != null) {
 				this.cargarEditar();
 			}
+
+			this.cargarEmpresa(this.form.empresa_id);
 		});
 
 		this.previousUrl = this.routingState.getPreviousUrl();
 	}
 
-	async cargarEmpresa(id) {
-		await this.api.show('empresas', id).toPromise().then(
+	cargarEmpresa(id) {
+		this.api.get('empresas', id).subscribe(
 			(data) => {
 				this.empresa = data;
 			}
 		);
 	}
 
-	async cargarEditar() {
-		await this.api.show('empresa_sucursal', this.id).toPromise().then(
-			(data) => { this.form = data }
+	cargarEditar() {
+		this.api.get('empresa_sucursal', this.id).subscribe(
+			(data) => {
+				this.form = data
+			}
 		);
 
 		this.cargarEmpresa(this.form.empresa_id);
@@ -81,7 +82,7 @@ export class CrudSucursalComponent implements OnInit {
 		this.form.nombre = null;
 	}
 
-	async guardar() {
+	guardar() {
 		if (this.id) {
 			this.editar();
 		}
@@ -91,17 +92,17 @@ export class CrudSucursalComponent implements OnInit {
 
 	}
 
-	async registrar() {
-		await this.api.post('empresa_sucursal', this.form).toPromise().then(
+	registrar() {
+		this.api.post('empresa_sucursal', this.form).subscribe(
 			(data) => {
 				this.limpiarSucursal();
 			}
 		);
 	}
 
-	async editar() {
+	editar() {
 		this.form.edit_user_id = this.user.me();
-		await this.api.put('empresa_sucursal', this.id, this.form).toPromise().then(
+		this.api.put('empresa_sucursal', this.id, this.form).subscribe(
 			(data) => {
 				this.returnCrud();
 			}

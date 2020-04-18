@@ -36,61 +36,49 @@ export class ApiBackRequestService {
     return headers;
   }
 
-  get(url: string): Observable<any> {
-    // const me = this;
-    return this.http.get(this.constants.apiUrl + url, { headers: this.getHeaders() })
+  get(url: string , urlParams?: any): Observable<any> {
+    
+    let params='';
+
+    if(urlParams)
+    {
+      params =  '/' + urlParams;
+    }
+
+    return this.http.get(this.constants.apiUrl + url + params, { headers: this.getHeaders() })
       .pipe(catchError(function (error: any) {
         console.log('Some error in catch');
-        // if (error.status === 500 /*|| error.status === 403*/) {
-        //     me.router.navigate(['/logout']);
-        // }
         return throwError(error || 'Server error');
       }));
   }
 
-  show(url: string, urlParams: any): Observable<any> {
-    // const me = this;
-    return this.http.get(this.constants.apiUrl + url + '/' + urlParams, { headers: this.getHeaders() })
-      .pipe(catchError(function (error: any) {
-        console.log('Some error in catch');
-        // if (error.status === 500 /*|| error.status === 403*/) {
-        //     me.router.navigate(['/logout']);
-        // }
-        return throwError(error || 'Server error');
-      }));
-  }
+  // show(url: string, urlParams: any): Observable<any> {
+  //   return this.http.get(this.constants.apiUrl + url + '/' + urlParams, { headers: this.getHeaders() })
+  //     .pipe(catchError(function (error: any) {
+  //       console.log('Some error in catch');
+  //       return throwError(error || 'Server error');
+  //     }));
+  // }
 
 
   post(url: string, body: Object): Observable<any> {
-    // const me = this;
     return this.http.post(this.constants.apiUrl + url, JSON.stringify(body), { headers: this.getHeaders() })
       .pipe(catchError(function (error: any) {
         console.log('Some error in catch');
-        // if (error.status === 500) {
-        //     me.router.navigate(['/logout']);
-        // }
         return throwError(error || 'Server error');
       }));
   }
 
   put(url: string, urlParams: HttpParams, body: Object): Observable<any> {
-    // const me = this;
     return this.http.put(this.constants.apiUrl + url + '/' + urlParams, JSON.stringify(body), { headers: this.getHeaders() })
       .pipe(catchError(function (error: any) {
-        // if (error.status === 401) {
-        //     me.router.navigate(['/logout']);
-        // }
         return throwError(error || 'Server error')
       }));
   }
 
   delete(url: string, urlParams: HttpParams): Observable<any> {
-    // const me = this;
     return this.http.delete(this.constants.apiUrl + url + '/' + urlParams, { headers: this.getHeaders() })
       .pipe(catchError(function (error: any) {
-        // if (error.status === 401) {
-        //     me.router.navigate(['/logout']);
-        // }
         return throwError(error || 'Server error')
       }));
   }

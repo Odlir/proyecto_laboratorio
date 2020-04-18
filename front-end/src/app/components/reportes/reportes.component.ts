@@ -31,26 +31,30 @@ export class ReportesComponent implements OnInit {
 		this.fetch();
 	}
 
-	async fetch() {
-		await this.api.get('empresa_sucursal').toPromise().then(
-			(data) => { this.sucursales = data }
+	fetch() {
+		this.api.get('empresa_sucursal').subscribe(
+			(data) => {
+				this.sucursales = data
+			}
 		);
 	}
 
-	async obtenerIntereses() {
+	obtenerIntereses() {
 		this.intereses = [];
 
-		await this.api.get('links?tipo=1&sucursal=' + this.sucursal.id).toPromise().then(
-			(data) => { this.intereses = data }
+		this.api.get('links?tipo=1&sucursal=' + this.sucursal.id).subscribe(
+			(data) => {
+				this.intereses = data
+			}
 		);
 	}
 
-	async guardar() {
+	guardar() {
 		this.form.archivo = this.sucursal.nombre + '-LINKS-ENCUESTAS.xlsx';
 
-		await this.api.downloadFile('exportar', this.form).toPromise().then(
+		this.api.downloadFile('exportar', this.form).subscribe(
 			(data) => { },
-			(error) => { this.mensaje('No hay alumnos registrados en el test de interés')}
+			(error) => { this.mensaje('No hay alumnos registrados en el test de interés') }
 		);
 	}
 

@@ -35,27 +35,27 @@ export class ImportarPersonaComponent implements OnInit {
 		this.fileToUpload = files.item(0);
 	}
 
-	async guardar() {
+	guardar() {
 		const formData: FormData = new FormData();
 		formData.append('file', this.fileToUpload);
 		formData.append('user_id', this.user.me());
 		formData.append('encuesta_id', this.encuesta_id);
 		formData.append('campo', 'persona');
 
-		await this.api.uploadFiles('importar', formData).toPromise().then(
+		this.api.uploadFiles('importar', formData).subscribe(
 			(data) => { this.cerrar() },
 			(error) => { this.cerrar(error.error.errors) }
 		);
 	}
 
-	async descargarPlantilla() {
+	descargarPlantilla() {
 		let form = {
 			campo: 'persona',
 			archivo: 'importar-alumnos.xlsx'
 		}
 
-		await this.api.downloadFile('exportar', form).toPromise().then(
-			(data) => { }
+		this.api.downloadFile('exportar', form).subscribe(
+			(data) => { },
 		);
 	}
 

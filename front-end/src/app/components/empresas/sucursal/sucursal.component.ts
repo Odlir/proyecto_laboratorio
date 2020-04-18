@@ -26,17 +26,21 @@ export class SucursalComponent implements OnInit {
 		this.fetch();
 	}
 
-	async fetch() {
-		await this.api.show('empresas', this.id).toPromise().then(
-			(data) => { this.sucursales = data.sucursales }
+	fetch() {
+		this.api.get('empresas', this.id).subscribe(
+			(data) => {
+				this.sucursales = data.sucursales
+			}
 		);
 	}
 
-	async updateFilter(event) {
+	updateFilter(event) {
 		const val = event.target.value;
 
-		await this.api.get('empresa_sucursal?search=' + val + '&id=' + this.id).toPromise().then(
-			(data) => { this.sucursales = data; }
+		this.api.get('empresa_sucursal?search=' + val + '&id=' + this.id).subscribe(
+			(data) => {
+				this.sucursales = data;
+			}
 		);
 	}
 
@@ -48,9 +52,9 @@ export class SucursalComponent implements OnInit {
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
 			confirmButtonText: 'Confirmar'
-		}).then(async (result) => {
+		}).then((result) => {
 			if (result.value) {
-				await this.api.delete('empresa_sucursal', id).toPromise().then(
+				this.api.delete('empresa_sucursal', id).subscribe(
 					(data) => {
 						this.sucursales = data;
 						this.sucursales = [...this.sucursales]

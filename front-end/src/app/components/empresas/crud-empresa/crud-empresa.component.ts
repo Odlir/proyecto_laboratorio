@@ -62,9 +62,9 @@ export class CrudEmpresaComponent implements OnInit {
 		});
 	}
 
-	async cargarEditar(next?) {
+	cargarEditar(next?) {
 		this.titulo = "EDITAR EMPRESA";
-		await this.api.show('empresas', this.id).toPromise().then(
+		this.api.get('empresas', this.id).subscribe(
 			(data) => {
 				this.form = data;
 				this.stepper.selected.completed = true;
@@ -88,8 +88,8 @@ export class CrudEmpresaComponent implements OnInit {
 		this.router.navigateByUrl('/empresas');
 	}
 
-	async registrar() {
-		await this.api.post('empresas', this.form).toPromise().then(
+	registrar() {
+		this.api.post('empresas', this.form).subscribe(
 			(data) => {
 				this.handleRegistrar(data);
 			}
@@ -97,7 +97,7 @@ export class CrudEmpresaComponent implements OnInit {
 	}
 
 
-	async handleRegistrar(data) {
+	handleRegistrar(data) {
 		if (this.generarSucursal == false) {
 			const form = {
 				nombre: data.razon_social,
@@ -105,7 +105,7 @@ export class CrudEmpresaComponent implements OnInit {
 				insert_user_id: this.user.me(),
 			}
 
-			await this.api.post('empresa_sucursal', form).toPromise().then(
+			this.api.post('empresa_sucursal', form).subscribe(
 				(data) => {
 					this.return();
 				}
@@ -124,9 +124,9 @@ export class CrudEmpresaComponent implements OnInit {
 		this.form = data;
 	}
 
-	async editar() {
+	editar() {
 		this.form.edit_user_id = this.user.me();
-		await this.api.put('empresas', this.id, this.form).toPromise().then(
+		this.api.put('empresas', this.id, this.form).subscribe(
 			(data) => {
 				this.handleEditar(data);
 			}

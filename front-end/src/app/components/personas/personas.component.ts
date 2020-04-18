@@ -23,10 +23,12 @@ export class PersonasComponent implements OnInit {
 
   }
 
-  async fetch() {
-    await this.api.get('personas').toPromise().then(
-      (data) => { this.handle(data) }
-    );
+  fetch() {
+    this.api.get('personas').subscribe(
+      (data) => {
+        this.handle(data)
+        }
+      );
   }
 
   handle(data) {
@@ -41,21 +43,25 @@ export class PersonasComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Confirmar'
-    }).then(async (result) => {
+    }).then((result) => {
       if (result.value) {
-        await this.api.delete('personas', id).toPromise().then(
-          (data) => { this.fetch() }
-        );
+        this.api.delete('personas', id).subscribe(
+          (data) => {
+            this.fetch()
+            }
+          );
       }
     })
   }
 
-  async updateFilter(event) {
+  updateFilter(event) {
     const val = event.target.value;
 
-    await this.api.get('personas?search=' + val).toPromise().then(
-      (data) => { this.handle(data) }
-    );
+    this.api.get('personas?search=' + val).subscribe(
+      (data) => {
+        this.handle(data)
+        }
+      );
   }
 
 }

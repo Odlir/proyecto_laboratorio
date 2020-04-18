@@ -23,9 +23,11 @@ export class EncuestasComponent implements OnInit {
     this.fetch();
   }
 
-  async fetch() {
-    await this.api.get('encuestas').toPromise().then(
-      (data) => { this.handle(data) }
+  fetch() {
+    this.api.get('encuestas').subscribe(
+      (data) => {
+        this.handle(data)
+      }
     );
   }
 
@@ -46,21 +48,24 @@ export class EncuestasComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Confirmar'
-    }).then(async (result) => {
+    }).then((result) => {
       if (result.value) {
-        await this.api.delete('encuestas', id).toPromise().then(
-          (data) => { this.fetch() }
+        this.api.delete('encuestas', id).subscribe(
+          (data) => {
+            this.fetch()
+          }
         );
       }
     })
   }
 
-  async updateFilter(event) {
+  updateFilter(event) {
     const val = event.target.value;
 
-    await this.api.get('encuestas?search=' + val).toPromise().then(
-      (data) => { this.handle(data) }
+    this.api.get('encuestas?search=' + val).subscribe(
+      (data) => {
+        this.handle(data)
+      }
     );
   }
-
 }

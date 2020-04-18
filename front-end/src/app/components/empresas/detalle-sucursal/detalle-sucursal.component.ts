@@ -42,9 +42,11 @@ export class DetalleSucursalComponent implements OnInit {
 		this.previousUrl = this.routingState.getPreviousUrl();
 	}
 
-	async cargar(id) {
-		await this.api.show('empresa_sucursal', id).toPromise().then(
-			(data) => { this.form = data }
+	cargar(id) {
+		this.api.get('empresa_sucursal', id).subscribe(
+			(data) => {
+				this.form = data
+			}
 		);
 	}
 
@@ -56,10 +58,12 @@ export class DetalleSucursalComponent implements OnInit {
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
 			confirmButtonText: 'Confirmar'
-		}).then(async (result) => {
+		}).then((result) => {
 			if (result.value) {
-				await this.api.delete('empresa_sucursal', id).toPromise().then(
-					(data) => { this.returnCrud(); }
+				this.api.delete('empresa_sucursal', id).subscribe(
+					(data) => {
+						this.returnCrud();
+					}
 				);
 			}
 		})

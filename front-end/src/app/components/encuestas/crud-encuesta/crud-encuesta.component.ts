@@ -45,7 +45,8 @@ export class CrudEncuestaComponent implements OnInit {
 		created_at: null,
 		updated_at: null,
 		personas: [],
-		empresa: { nombre: null }
+		empresa: { nombre: null },
+		campo: null
 	};
 
 	empresa = { id: null, nombre: null };
@@ -88,13 +89,16 @@ export class CrudEncuestaComponent implements OnInit {
 	}
 
 	async fetch() {
-		await this.api.get('tipo_encuesta').toPromise().then(
-			(data) => { this.tipos = data; }
+		this.api.get('tipo_encuesta').subscribe(
+			(data) => {
+				this.tipos = data;
+			}
 		);
 
-		await this.api.get('empresa_sucursal').toPromise().then(
-			(data) => { this.empresas = data }
-		);
+		await this.api.get('empresa_sucursal').toPromise() //ESTO LO PUSE ASINCRONO PARA QUE EL AUTOCOMPLETAR FUNCIONE
+			.then(
+				(data) => { this.empresas = data }
+			);
 
 		this.filteredEmpresas = this.myControl.valueChanges.pipe(
 			startWith(null),
@@ -113,10 +117,16 @@ export class CrudEncuestaComponent implements OnInit {
 	}
 
 	async cargarEditar(next?) {
-		await this.api.show('encuestas', this.id).toPromise().then(
+		await this.api.get('encuestas', this.id).subscribe(
 			(data) => {
 				this.form = data;
 				this.titulo = 'EDITAR ENCUESTA PROGRAMADA';
+			}
+		);
+
+		await this.api.get('empresa_sucursal', this.form.empresa_sucursal_id).subscribe(
+			(data) => {
+				this.empresa = data;
 			}
 		);
 
@@ -125,12 +135,6 @@ export class CrudEncuestaComponent implements OnInit {
 		if (next) {
 			this.stepper.next();
 		}
-
-		await this.api.show('empresa_sucursal', this.form.empresa_sucursal_id).toPromise().then(
-			(data) => {
-				this.empresa = data;
-			}
-		);
 	}
 
 	guardar() {
@@ -142,31 +146,29 @@ export class CrudEncuestaComponent implements OnInit {
 		}
 	}
 
-	async registrar() {
+	registrar() {
 		this.form.empresa_sucursal_id = this.empresa.id;
 
 		if (this.form.tipo_encuesta_id == 0) {
-			this.tipos.reverse();
-			this.tipos.forEach(async element => {
-				this.form.tipo_encuesta_id = element.id;
+			this.form.campo = 'todas';
 
-				await this.api.post('encuestas', this.form).toPromise().then(
-					(data) => {
-						if (this.fileToUpload != null) {
-							this.subirExcel(data.id);
-						}
-						else {
-							this.router.navigateByUrl('/encuestas');
-						}
-					}
-				);
-			});
-		} else {
-			await this.api.post('encuestas', this.form).toPromise().then(
+			this.api.post('encuestas', this.form).subscribe(
 				(data) => {
-					// this.handleRegistrar(data)
 					if (this.fileToUpload != null) {
-						this.subirExcel(data.id);
+						data.forEach((element, i) => {
+							this.subirExcel(element,i);
+						});
+					}
+					else {
+						this.router.navigateByUrl('/encuestas');
+					}
+				}
+			);
+		} else {
+			this.api.post('encuestas', this.form).subscribe(
+				(data) => {
+					if (this.fileToUpload != null) {
+						this.subirExcel(data.id,0);
 					}
 					else {
 						this.router.navigateByUrl('/encuestas');
@@ -180,29 +182,20 @@ export class CrudEncuestaComponent implements OnInit {
 		Swal.fire({
 			title: msj,
 			icon: 'success',
-			timer: 2000
+			timer: 3000
 		});
 
 		this.router.navigateByUrl('/encuestas');
 	}
 
-	//   handleRegistrar(data)
-	//   {
-	// 	this.id=data.id;
-	// 	this.cargarEditar();
-	// 	this.stepper.selected.completed = true;
-	//   }
-
-	handleEditar() {
-		this.cargarEditar();
-	}
-
-	async editar() {
+	editar() {
 		this.form.edit_user_id = this.user.me();
 		this.form.empresa_sucursal_id = this.empresa.id;
 
-		await this.api.put('encuestas', this.id, this.form).toPromise().then(
-			(data) => { this.handleEditar() }
+		this.api.put('encuestas', this.id, this.form).subscribe(
+			(data) => {
+				this.cargarEditar()
+			}
 		);
 	}
 
@@ -214,12 +207,13 @@ export class CrudEncuestaComponent implements OnInit {
 		this.form.fecha_fin = moment(fin).format('YYYY-MM-DD')
 	}
 
-	async descargarPlantilla() {
+	descargarPlantilla() {
 		let form = {
 			campo: 'persona',
 			archivo: 'importar-alumnos.xlsx'
 		}
-		await this.api.downloadFile('exportar', form).toPromise().then(
+
+		this.api.downloadFile('exportar', form).toPromise().then(
 			(data) => { }
 		);
 	}
@@ -228,16 +222,24 @@ export class CrudEncuestaComponent implements OnInit {
 		this.fileToUpload = files.item(0);
 	}
 
-	async subirExcel(encuesta_id) {
+	subirExcel(encuesta_id, element) {
 		const formData: FormData = new FormData();
 		formData.append('file', this.fileToUpload);
 		formData.append('user_id', this.user.me());
 		formData.append('encuesta_id', encuesta_id);
 		formData.append('campo', 'persona');
 
-		await this.api.uploadFiles('importar', formData).toPromise().then(
-			(data) => { this.mensaje('Importación Exitosa'); },
-			(error) => { this.mensaje('Hubo errores en la importación'); }
+		this.api.uploadFiles('importar', formData).subscribe(
+			(data) => {
+				if (element == 0) {
+					this.mensaje('Importación Exitosa');
+				}
+			},
+			(error) => {
+				if (element == 0) {
+					this.mensaje('Hubo errores en la Importación');
+				}
+			}
 		);
 	}
 }

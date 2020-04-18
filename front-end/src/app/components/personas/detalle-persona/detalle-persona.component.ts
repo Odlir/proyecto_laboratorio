@@ -45,9 +45,11 @@ export class DetallePersonaComponent implements OnInit {
     this.previousUrl = this.routingState.getPreviousUrl();
   }
 
-  async cargar(id) {
-    await this.api.show('personas', id).toPromise().then(
-      (data) => { this.form = data }
+  cargar(id) {
+    this.api.get('personas', id).subscribe(
+      (data) => {
+        this.form = data
+      }
     );
   }
 
@@ -59,10 +61,12 @@ export class DetallePersonaComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Confirmar'
-    }).then(async (result) => {
+    }).then((result) => {
       if (result.value) {
-        await this.api.delete('personas', id).toPromise().then(
-          (data) => { this.return(); }
+        this.api.delete('personas', id).subscribe(
+          (data) => {
+            this.return();
+          }
         );
       }
     })

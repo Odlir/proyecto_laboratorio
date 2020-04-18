@@ -24,9 +24,11 @@ export class EmpresasComponent implements OnInit {
 
   }
 
-  async fetch() {
-    await this.api.get('empresas').toPromise().then(
-      (data) => { this.handle(data) }
+  fetch() {
+    this.api.get('empresas').subscribe(
+      (data) => {
+        this.handle(data)
+      }
     );
   }
 
@@ -42,20 +44,24 @@ export class EmpresasComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Confirmar'
-    }).then(async (result) => {
+    }).then((result) => {
       if (result.value) {
-        await this.api.delete('empresas', id).toPromise().then(
-          (data) => { this.fetch() }
+        this.api.delete('empresas', id).subscribe(
+          (data) => {
+            this.fetch()
+          }
         );
       }
     })
   }
 
-  async updateFilter(event) {
+  updateFilter(event) {
     const val = event.target.value;
 
-    await this.api.get('empresas?search=' + val).toPromise().then(
-      (data) => { this.handle(data) }
+    this.api.get('empresas?search=' + val).subscribe(
+      (data) => {
+        this.handle(data)
+      }
     );
   }
 }

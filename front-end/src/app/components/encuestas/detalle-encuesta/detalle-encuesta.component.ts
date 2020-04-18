@@ -45,8 +45,8 @@ export class DetalleEncuestaComponent implements OnInit {
     });
   }
 
-  async cargar(id) {
-    await this.api.show('encuestas', id).toPromise().then(
+  cargar(id) {
+    this.api.get('encuestas', id).subscribe(
       (data) => {
         this.form = data
         this.form.fecha_inicio = moment(this.form.fecha_inicio).format('DD/MM/YYYY')
@@ -63,11 +63,13 @@ export class DetalleEncuestaComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Confirmar'
-    }).then(async (result) => {
+    }).then((result) => {
       if (result.value) {
-        await this.api.delete('encuestas', id).toPromise().then(
-          (data) => { this.router.navigateByUrl('/encuestas') }
-        );
+        this.api.delete('encuestas', id).subscribe(
+          (data) => {
+            this.router.navigateByUrl('/encuestas')
+            }
+          );
       }
     })
   }
