@@ -22,6 +22,8 @@ class CreateSubpreguntasTable extends Migration
             $table->unsignedBigInteger('tipo_encuesta_id');
             $table->foreign('tipo_encuesta_id')->references('id')->on('tipo_encuesta');
 
+            $table->char('tipo_subpregunta',1)->nullable();
+
             $table->timestamps();
         });
     }

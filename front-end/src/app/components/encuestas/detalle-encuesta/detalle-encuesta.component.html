@@ -61,8 +61,7 @@
 
 			<div class="row mt-3">
 				<button class="btn btn-info" [routerLink]="['/encuestas/']">REGRESAR A LA LISTA</button>
-				<!-- <button class="btn btn-danger" [routerLink]="['/crud-encuesta/']" [queryParams]="{id:this.form.id}">EDITAR</button> -->
-				<button class="btn btn-danger" (click)="eliminar(this.form.id)" >ELIMINAR</button>
+				<button class="btn btn-danger ml-5" (click)="eliminar(this.form.id)" >ELIMINAR</button>
 			</div>
 		</mat-tab>
 		<mat-tab label="ALUMNOS">

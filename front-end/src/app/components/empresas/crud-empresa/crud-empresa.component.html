@@ -44,11 +44,17 @@
 
 				<div class="form-group row mt-5">
 					<div class="col-12">
-					<button type="submit" class="btn btn-danger">GUARDAR</button>
+					<button type="submit" class="btn btn-success">GUARDAR</button>
 					<a routerLink="/empresas" class="btn btn-info">REGRESAR A LA LISTA</a>
 					</div>
 				</div>
 			</form>
+			</div>
+			<div class="col-5" *ngIf="id==null">
+				<div class="form-check my-3">
+					<input type="checkbox" [(ngModel)]="generarSucursal" [ngModelOptions]="{standalone: true}">
+					<label class="form-check-label" for="exampleCheck1">Sucursales</label>
+				</div>
 			</div>
 			<div class="col-5 p-0 widget clearfix" *ngIf="id" >
 				<app-auditoria [form]="form"></app-auditoria>

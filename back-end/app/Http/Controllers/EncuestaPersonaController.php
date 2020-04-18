@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Encuesta;
 use App\EncuestaPersona;
+use App\EncuestaRespuesta;
 use App\Persona;
 use Illuminate\Http\Request;
 
@@ -58,9 +59,16 @@ class EncuestaPersonaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) //AQUI GUARDO LAS RESPUESTAS DE LAS ENCUESTAS
     {
-        //
+        $data= $request->all();
+
+        foreach($data as $d)
+        {
+           EncuestaRespuesta::create($d);
+        }
+
+        return response()->json($data, 200);
     }
 
     /**

@@ -1,11 +1,13 @@
-import {HttpParams} from '@angular/common/http';
-import {ApiBackRequestService} from './../../Services/api-back-request.service';
-import {Component, OnInit} from '@angular/core';
+
+import { HttpParams } from '@angular/common/http';
+import { ApiBackRequestService } from './../../Services/api-back-request.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms'
 
 @Component({
-	selector: 'app-test-interes',
-	templateUrl: './test-interes.component.html',
-	styleUrls: ['./test-interes.component.css']
+  selector: 'app-test-interes',
+  templateUrl: './test-interes.component.html',
+  styleUrls: ['./test-interes.component.css']
 })
 export class TestInteresComponent implements OnInit {
 
@@ -13,70 +15,112 @@ export class TestInteresComponent implements OnInit {
 
 	subpreguntas = [];
 
-	respuestas = [];
-
-	encuestas = [];
-
-	subencuesta = {
+	form = {
 		pregunta_id: null,
 		subpregunta_id: null,
-		respuesta_id: null
-	};
-
-	subencuestas = [];
-
-	constructor(private api: ApiBackRequestService) {
+		respuesta_id: null,
+		encuesta_id: null,
+		persona_id: null
 	}
 
-	ngOnInit(): void {
+	respuestas1= [];
+
+	respuestas2= [];
+
+	data = [];
+
+	FormGroup: FormGroup;
+
+  constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder) {
+
+  }
+
+  ngOnInit(): void {
 
 		this.fetch();
 	}
 
-	async fetch() {
-		await this.api.show('preguntas', 1).toPromise().then(
-			(data) => {
-				this.preguntas = data;
+	reactive(preguntas)
+	{
+		this.FormGroup = this.formBuilder.group({
+			preguntas: ['']
+		  });
+
+			const preguntasMethodsControl = <FormArray>this.FormGroup.controls['productMethod'];
+			// creating radio button control for each item.
+			for (let i = 0 ; i < preguntas.length; i++) {
+			preguntasMethodsControl.push(new FormControl());
 			}
+
+			console.log(this.FormGroup);
+	}
+
+	async fetch()
+	{
+		await this.api.show('preguntas', 1).toPromise().then(
+      (data) => {this.preguntas=data}
 		);
 
 		await this.api.show('subpreguntas', 1).toPromise().then(
-			(data) => {
-				this.subpreguntas = data;
-			}
+      (data) => {this.subpreguntas=data;}
 		);
 
-		await this.api.show('respuestas', 1).toPromise().then(
-			(data) => {
-				this.respuestas = data;
-			}
+		await this.api.get('respuestas?encuesta=1&sub=1').toPromise().then(
+			(data) => {this.respuestas1=data;}
 		);
+
+		await this.api.get('respuestas?encuesta=1&sub=2').toPromise().then(
+			(data) => {this.respuestas2=data;}
+		);
+
+		this.subpreguntas.forEach(element => {
+			if(element.tipo_subpregunta=='1')
+			{
+				element.respuestas= JSON.parse(JSON.stringify(this.respuestas1));
+			}
+			else
+			{
+				element.respuestas= JSON.parse(JSON.stringify(this.respuestas2));
+			}
+			element.respuesta_id= null;
+		});
+
+		this.preguntas.forEach(element => {
+			element.subpreguntas= JSON.parse(JSON.stringify(this.subpreguntas));
+		});
+
+		this.reactive(this.preguntas);
 	}
 
-	guardar() {
-		console.log(this.encuestas);
+	async guardar()
+	{
+		this.preguntas.forEach(preg => {
+			preg.subpreguntas.forEach(async sub => {
+				this.form.pregunta_id= preg.id;
+				this.form.subpregunta_id= sub.id;
+				this.form.respuesta_id= sub.respuesta_id;
+
+				this.data.push(this.form);
+
+				this.limpiar()
+			});
+		});
+
+		await this.api.post('encuesta_persona', this.data).toPromise().then(
+			(data) => {
+
+			}
+		  );
 	}
 
-	select(index_preg, index_sub, pregunta_id, subpregunta_id, respuesta_id) {
-		this.subencuesta.pregunta_id = pregunta_id;
-		this.subencuesta.subpregunta_id = subpregunta_id;
-		this.subencuesta.respuesta_id = respuesta_id;
-
-		this.subencuestas[index_sub] = JSON.parse(JSON.stringify(this.subencuesta));
-
-		this.encuestas[index_preg] = JSON.parse(JSON.stringify(this.subencuestas));
-
-		this.limpiar();
-
-		console.log(this.encuestas);
-	}
-
-	limpiar() {
-		this.subencuesta = {
+	limpiar()
+	{
+		this.form = {
 			pregunta_id: null,
 			subpregunta_id: null,
-			respuesta_id: null
-		};
+			respuesta_id: null,
+			encuesta_id: null,
+			persona_id: null
+		}
 	}
-
 }

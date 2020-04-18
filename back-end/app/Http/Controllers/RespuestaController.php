@@ -12,9 +12,16 @@ class RespuestaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $encuesta=$request->input('encuesta');
+        $subpregunta=$request->input('sub');
+
+        $data = Respuesta::where('tipo_encuesta_id',$encuesta)
+        ->where('tipo_subpregunta',$subpregunta)
+        ->get();
+
+        return response()->json($data, 200);
     }
 
     /**

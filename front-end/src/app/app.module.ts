@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 /*FONT-AWESOME*/
@@ -45,6 +46,7 @@ import { AlumnosComponent } from './components/encuestas/alumnos/alumnos.compone
 import { SucursalComponent } from './components/empresas/sucursal/sucursal.component';
 import { HeaderEncuestaComponent } from './components/partials/header-encuesta/header-encuesta.component';
 
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -70,7 +72,7 @@ import { HeaderEncuestaComponent } from './components/partials/header-encuesta/h
 		AuditoriaComponent,
 		AlumnosComponent,
 		SucursalComponent,
-		HeaderEncuestaComponent,
+		HeaderEncuestaComponent
   ],
   imports: [
 	BrowserModule,
