@@ -10,8 +10,6 @@
 
 ////////////////////////////////
 
-- en donde dice colegio es el nombre de la empresa, no de la sucursal
-
 - pregunta si despues de que el alumno guarde la encuesta se debe desactivar el link
 
 - me falta poner como required a los radios
