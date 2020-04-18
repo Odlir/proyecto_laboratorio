@@ -7,9 +7,9 @@ import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-importar-persona',
-  templateUrl: './importar-persona.component.html',
-  styleUrls: ['./importar-persona.component.css']
+	selector: 'app-importar-persona',
+	templateUrl: './importar-persona.component.html',
+	styleUrls: ['./importar-persona.component.css']
 })
 export class ImportarPersonaComponent implements OnInit {
 
@@ -19,63 +19,72 @@ export class ImportarPersonaComponent implements OnInit {
 	previousUrl: string;
 
 
-  constructor(private api: ApiBackRequestService, private user: TokenService,private activatedRoute: ActivatedRoute,private routingState: RoutingStateService, private router:Router) { }
+	constructor(private api: ApiBackRequestService, private user: TokenService, private activatedRoute: ActivatedRoute, private routingState: RoutingStateService, private router: Router) { }
 
-  ngOnInit(): void {
-	this.activatedRoute.queryParams.subscribe(async params => {
-		this.encuesta_id = params.encuesta_id;
-	});
+	ngOnInit(): void {
+		this.activatedRoute.queryParams.subscribe(async params => {
+			this.encuesta_id = params.encuesta_id;
+		});
 
-	this.previousUrl=this.routingState.getPreviousUrl();
+		this.previousUrl = this.routingState.getPreviousUrl();
 	}
 
-	error:{}
+	error: {}
 
 	handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+		this.fileToUpload = files.item(0);
 	}
 
-	async guardar()
-	{
+	async guardar() {
 		const formData: FormData = new FormData();
 		formData.append('file', this.fileToUpload);
 		formData.append('user_id', this.user.me());
 		formData.append('encuesta_id', this.encuesta_id);
+		formData.append('campo', 'persona');
 
 		await this.api.uploadFiles('importar', formData).toPromise().then(
-		(data) => {this.cerrar()},
-		(error) => {this.cerrar(error.error.errors)}
+			(data) => { this.cerrar() },
+			(error) => { this.cerrar(error.error.errors) }
 		);
 	}
 
-	async descargarPlantilla()
-	{
-		await this.api.downloadExcelFile('importar').toPromise().then(
-				(data) => {}
-		);
-	}
-
-	cerrar(error?)
-	{
-		if(error)
-		{
-			this.error= error;
+	async descargarPlantilla() {
+		let form = {
+			campo: 'persona',
+			archivo: 'importar-alumnos.xlsx'
 		}
-		else
-		{
+
+		await this.api.downloadFile('exportar', form).toPromise().then(
+			(data) => { }
+		);
+	}
+
+	cerrar(error?) {
+		if (error) {
+			this.error = error;
+		}
+		else {
+			this.mensaje('Importación Exitosa');
 			this.return();
 		}
 	}
 
-	return()
-	{
-		if(this.previousUrl.includes('detalle'))
-		{
-			this.router.navigateByUrl('detalle-encuesta?id='+this.encuesta_id+'&tab=1');
+	mensaje(msj) {
+		Swal.fire({
+			title: msj,
+			icon: 'success',
+			timer: 2000
+		});
+
+		this.router.navigateByUrl('/encuestas');
+	}
+
+	return() {
+		if (this.previousUrl.includes('detalle')) {
+			this.router.navigateByUrl('detalle-encuesta?id=' + this.encuesta_id + '&tab=1');
 		}
-		else
-		{
-			this.router.navigateByUrl('crud-encuesta?id='+this.encuesta_id+'&tab=1');
+		else {
+			this.router.navigateByUrl('crud-encuesta?id=' + this.encuesta_id + '&tab=1');
 		}
 	}
 

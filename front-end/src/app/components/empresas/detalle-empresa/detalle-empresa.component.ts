@@ -11,46 +11,44 @@ import Swal from 'sweetalert2';
 })
 export class DetalleEmpresaComponent implements OnInit {
 
-	public form = {
-		id:null,
+  public form = {
+    id: null,
     razon_social: null,
     contacto: null,
-		email: null,
-		telefono: null,
+    email: null,
+    telefono: null,
     insert_user_id: null,
     edit_user_id: null,
-    insert: {name: null},
-    edit: {name: ''},
+    insert: { name: null },
+    edit: { name: '' },
     created_at: null,
-		updated_at: null,
-		sucursales : []
-	};
+    updated_at: null,
+    sucursales: []
+  };
 
-	public tabSelected= 0;
+  public tabSelected = 0;
 
-	public id: HttpParams
+  public id: HttpParams
 
   constructor(private api: ApiBackRequestService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-		this.activatedRoute.queryParams.subscribe(async params => {
-			this.id = params.id;
-			this.tabSelected = params.tab;
+    this.activatedRoute.queryParams.subscribe(async params => {
+      this.id = params.id;
+      this.tabSelected = params.tab;
       if (this.id != null) {
         this.cargar(this.id);
-			}
-		});
-	}
+      }
+    });
+  }
 
-	async cargar(id)
-  {
+  async cargar(id) {
     await this.api.show('empresas', id).toPromise().then(
-      (data) => {this.form = data}
+      (data) => { this.form = data }
     );
-	}
+  }
 
-	eliminar(id)
-  {
+  eliminar(id) {
     Swal.fire({
       title: 'Desea eliminar el registro?',
       icon: 'warning',
@@ -61,9 +59,9 @@ export class DetalleEmpresaComponent implements OnInit {
     }).then(async (result) => {
       if (result.value) {
         await this.api.delete('empresas', id).toPromise().then(
-          (data) => {this.router.navigateByUrl('/empresas');}
+          (data) => { this.router.navigateByUrl('/empresas'); }
         );
       }
     })
-	}
+  }
 }

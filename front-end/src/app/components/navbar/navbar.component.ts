@@ -1,8 +1,8 @@
-import {TokenService} from '../../Services/token/token.service';
-import {Router} from '@angular/router';
-import {AuthService} from '../../Services/token/auth.service';
-import {Component, OnInit} from '@angular/core';
-import {SharedVarService} from '../../Services/shared/shared-var.service';
+import { TokenService } from '../../Services/token/token.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../Services/token/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { SharedVarService } from '../../Services/shared/shared-var.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -22,14 +22,14 @@ export class NavbarComponent implements OnInit {
 		private Token: TokenService,
 		private sharedService: SharedVarService) {
 
-		this.login = this.sharedService.getShowButtonMenu().subscribe(()=>{
+		this.login = this.sharedService.getShowButtonMenu().subscribe(() => {
 			this.show();
 		})
 	}
 
 	ngOnInit(): void {
 		this.Auth.authStatus.subscribe(value => this.loggedIn = value);
-		this.sharedService.getValue().subscribe( value => {
+		this.sharedService.getValue().subscribe(value => {
 			this.isExpanded = value;
 		});
 		this.show();
@@ -39,14 +39,11 @@ export class NavbarComponent implements OnInit {
 		this.sharedService.setValue(!isExpanded);
 	}
 
-	show()
-	{
-		if (this.Token.loggedIn())
-		{
+	show() {
+		if (this.Token.loggedIn()) {
 			this.showButton = true;
 		}
-		else
-		{
+		else {
 			this.showButton = false;
 		}
 	}

@@ -6,11 +6,10 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private loggedIn = new BehaviorSubject <boolean>(this.Token.loggedIn());
+  private loggedIn = new BehaviorSubject<boolean>(this.Token.loggedIn());
   authStatus = this.loggedIn.asObservable();
 
-  changeAuthStatus(value: boolean)
-  {
+  changeAuthStatus(value: boolean) {
     this.loggedIn.next(value);
   }
   constructor(private Token: TokenService) { }

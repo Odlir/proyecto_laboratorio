@@ -41,6 +41,8 @@ Route::group([
     Route::resource('preguntas','PreguntaController');
     Route::resource('subpreguntas','SubPreguntaController');
     Route::resource('respuestas','RespuestaController');
+    Route::resource('links','LinkController');
+    Route::resource('exportar','ExportController');
 });
 
     // Route::get('/migrate', function() {

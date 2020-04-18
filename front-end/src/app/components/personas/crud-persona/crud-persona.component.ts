@@ -12,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrudPersonaComponent implements OnInit {
 
-	public form = {
+  public form = {
     nombres: null,
     apellido_materno: null,
     apellido_paterno: null,
@@ -20,88 +20,78 @@ export class CrudPersonaComponent implements OnInit {
     email: null,
     insert_user_id: this.user.me(),
     edit_user_id: null,
-    insert: {name: null},
-    edit: {name: ''},
+    insert: { name: null },
+    edit: { name: '' },
     created_at: null,
     updated_at: null
   };
 
-	public id: HttpParams;
+  public id: HttpParams;
 
-	public encuesta_id: HttpParams
+  public encuesta_id: HttpParams
 
-	previousUrl: string;
+  previousUrl: string;
 
   constructor(
     private api: ApiBackRequestService,
     private user: TokenService,
     private router: Router,
-		private activatedRoute: ActivatedRoute,
-		private routingState: RoutingStateService) { }
+    private activatedRoute: ActivatedRoute,
+    private routingState: RoutingStateService) { }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(async params => {
-				this.id = params.id;
-				this.encuesta_id = params.encuesta_id;
-        if (this.id != null) {
-          this.cargarEditar();
-        }
-		});
+      this.id = params.id;
+      this.encuesta_id = params.encuesta_id;
+      if (this.id != null) {
+        this.cargarEditar();
+      }
+    });
 
-		this.previousUrl=this.routingState.getPreviousUrl();
+    this.previousUrl = this.routingState.getPreviousUrl();
   }
 
-  async cargarEditar()
-  {
+  async cargarEditar() {
     await this.api.show('personas', this.id).toPromise().then(
-      (data) => {this.form = data}
+      (data) => { this.form = data }
     );
   }
 
-  guardar()
-  {
-    if(this.id)
-    {
+  guardar() {
+    if (this.id) {
       this.editar();
     }
-    else
-    {
+    else {
       this.registrar();
     }
   }
 
-  async registrar()
-  {
+  async registrar() {
     await this.api.post('personas', this.form).toPromise().then(
-      (data) => {this.return()}
+      (data) => { this.return() }
     );
   }
 
-  async editar()
-  { this.form.edit_user_id = this.user.me();
+  async editar() {
+    this.form.edit_user_id = this.user.me();
 
-    await this.api.put('personas', this.id , this.form).toPromise().then(
-      (data) => {this.return()}
+    await this.api.put('personas', this.id, this.form).toPromise().then(
+      (data) => { this.return() }
     );
   }
 
-	return()
-	{
-		if(this.previousUrl.includes('encuesta'))
-		{
-			if(this.previousUrl.includes('detalle'))
-			{
-				this.router.navigateByUrl('detalle-encuesta?id='+this.encuesta_id+'&tab=1');
-			}
-			else
-			{
-				this.router.navigateByUrl('crud-encuesta?id='+this.encuesta_id+'&tab=1');
-			}
-		}
-		else
-		{
-			this.router.navigateByUrl(this.previousUrl);
-		}
-	}
+  return() {
+    if (this.previousUrl.includes('encuesta')) {
+      if (this.previousUrl.includes('detalle')) {
+        this.router.navigateByUrl('detalle-encuesta?id=' + this.encuesta_id + '&tab=1');
+      }
+      else {
+        this.router.navigateByUrl('crud-encuesta?id=' + this.encuesta_id + '&tab=1');
+      }
+    }
+    else {
+      this.router.navigateByUrl(this.previousUrl);
+    }
+  }
 
 }

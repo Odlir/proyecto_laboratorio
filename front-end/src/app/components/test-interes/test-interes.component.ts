@@ -5,9 +5,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms'
 
 @Component({
-  selector: 'app-test-interes',
-  templateUrl: './test-interes.component.html',
-  styleUrls: ['./test-interes.component.css']
+	selector: 'app-test-interes',
+	templateUrl: './test-interes.component.html',
+	styleUrls: ['./test-interes.component.css']
 })
 export class TestInteresComponent implements OnInit {
 
@@ -23,82 +23,77 @@ export class TestInteresComponent implements OnInit {
 		persona_id: null
 	}
 
-	respuestas1= [];
+	respuestas1 = [];
 
-	respuestas2= [];
+	respuestas2 = [];
 
 	data = [];
 
 	FormGroup: FormGroup;
 
-  constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder) {
+	constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder) {
 
-  }
+	}
 
-  ngOnInit(): void {
+	ngOnInit(): void {
 
 		this.fetch();
 	}
 
-	reactive(preguntas)
-	{
+	reactive(preguntas) {
 		this.FormGroup = this.formBuilder.group({
 			preguntas: ['']
-		  });
+		});
 
-			const preguntasMethodsControl = <FormArray>this.FormGroup.controls['productMethod'];
-			// creating radio button control for each item.
-			for (let i = 0 ; i < preguntas.length; i++) {
+		const preguntasMethodsControl = <FormArray>this.FormGroup.controls['productMethod'];
+		// creating radio button control for each item.
+		for (let i = 0; i < preguntas.length; i++) {
 			preguntasMethodsControl.push(new FormControl());
-			}
+		}
 
-			console.log(this.FormGroup);
+		console.log(this.FormGroup);
 	}
 
-	async fetch()
-	{
+	async fetch() {
 		await this.api.show('preguntas', 1).toPromise().then(
-      (data) => {this.preguntas=data}
+			(data) => { this.preguntas = data }
 		);
 
 		await this.api.show('subpreguntas', 1).toPromise().then(
-      (data) => {this.subpreguntas=data;}
+			(data) => { this.subpreguntas = data; }
 		);
 
 		await this.api.get('respuestas?encuesta=1&sub=1').toPromise().then(
-			(data) => {this.respuestas1=data;}
+			(data) => { this.respuestas1 = data; }
 		);
 
 		await this.api.get('respuestas?encuesta=1&sub=2').toPromise().then(
-			(data) => {this.respuestas2=data;}
+			(data) => { this.respuestas2 = data; }
 		);
 
 		this.subpreguntas.forEach(element => {
-			if(element.tipo_subpregunta=='1')
-			{
-				element.respuestas= JSON.parse(JSON.stringify(this.respuestas1));
+			if (element.tipo_subpregunta == '1') {
+				element.respuestas = JSON.parse(JSON.stringify(this.respuestas1));
 			}
-			else
-			{
-				element.respuestas= JSON.parse(JSON.stringify(this.respuestas2));
+			else {
+				element.respuestas = JSON.parse(JSON.stringify(this.respuestas2));
 			}
-			element.respuesta_id= null;
+			element.respuesta_id = null;
 		});
 
 		this.preguntas.forEach(element => {
-			element.subpreguntas= JSON.parse(JSON.stringify(this.subpreguntas));
+			element.subpreguntas = JSON.parse(JSON.stringify(this.subpreguntas));
 		});
 
 		this.reactive(this.preguntas);
 	}
 
-	async guardar()
-	{
+	async guardar() {
 		this.preguntas.forEach(preg => {
 			preg.subpreguntas.forEach(async sub => {
-				this.form.pregunta_id= preg.id;
-				this.form.subpregunta_id= sub.id;
-				this.form.respuesta_id= sub.respuesta_id;
+				this.form.pregunta_id = preg.id;
+				this.form.subpregunta_id = sub.id;
+				this.form.respuesta_id = sub.respuesta_id;
 
 				this.data.push(this.form);
 
@@ -110,11 +105,10 @@ export class TestInteresComponent implements OnInit {
 			(data) => {
 
 			}
-		  );
+		);
 	}
 
-	limpiar()
-	{
+	limpiar() {
 		this.form = {
 			pregunta_id: null,
 			subpregunta_id: null,

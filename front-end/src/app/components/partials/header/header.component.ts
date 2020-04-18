@@ -6,8 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-	@Input() nombre: string;
-	@Input() icono: string;
+  @Input() nombre: string;
+  @Input() icono: string;
   constructor() { }
 
   ngOnInit(): void {

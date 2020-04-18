@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Encuesta;
 use Illuminate\Http\Request;
-use App\Imports\PersonaImport;
-use Maatwebsite\Excel\Facades\Excel;
 
-class ImportController extends Controller
+class ExportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,14 +35,20 @@ class ImportController extends Controller
      */
     public function store(Request $request)
     {
-        $file = $request->file('file');
+        $data = $request->all();
 
-        if($request->campo=='persona')
+        if($request->campo=="persona")
         {
-            $data=Excel::import(new PersonaImport($request->user_id,$request->encuesta_id), $file);
+            return response()->download(storage_path("app/public/importar-alumnos.xlsx"));
         }
+        else if($request->campo=="links")
+        {
+            $encuesta= Encuesta::where('id',$request->encuesta_id)
+            ->with('personas')
+            ->first();
 
-        return response()->json($data, 200);
+            // return response()->(new LinkExport($encuesta['personas'])->download('invoices.xlsx');
+        }
     }
 
     /**

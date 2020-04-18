@@ -1,38 +1,42 @@
 
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BsModalService } from 'ngx-bootstrap/modal';
+
 /*FONT-AWESOME*/
-import {FontAwesomeModule, FaIconLibrary} from '@fortawesome/angular-fontawesome';
-import {fas} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 /* VARIABLE GLOBAL*/
-import {ConstantsService} from './common/constants.service';
+import { ConstantsService } from './common/constants.service';
 
 /* ANGULAR MATERIAL*/
-import {AppMaterialModule} from './app-material/app-material.module';
+import { AppMaterialModule } from './app-material/app-material.module';
 
 /* LIBRERIAS */
-import {AppLibreriasModule} from './app-librerias/app-librerias.module';
+import { AppLibreriasModule } from './app-librerias/app-librerias.module';
 
 /* */
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {NavbarComponent} from './components/navbar/navbar.component';
-import {LoginComponent} from './components/login/login.component';
-import {SignupComponent} from './components/signup/signup.component';
-import {HttpClientModule} from '@angular/common/http';
-import {DashboardComponent} from './components/dashboard/dashboard.component';
-import {PersonasComponent} from './components/personas/personas.component';
-import {EmpresasComponent} from './components/empresas/empresas.component';
-import {CrudPersonaComponent} from './components/personas/crud-persona/crud-persona.component';
-import {DetalleEmpresaComponent} from './components/empresas/detalle-empresa/detalle-empresa.component';
-import {CrudEmpresaComponent} from './components/empresas/crud-empresa/crud-empresa.component';
-import {DetallePersonaComponent} from './components/personas/detalle-persona/detalle-persona.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {TooltipModule} from 'ngx-bootstrap/tooltip';
-import {BsModalService} from 'ngx-bootstrap/modal';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PersonasComponent } from './components/personas/personas.component';
+import { EmpresasComponent } from './components/empresas/empresas.component';
+import { CrudPersonaComponent } from './components/personas/crud-persona/crud-persona.component';
+import { DetalleEmpresaComponent } from './components/empresas/detalle-empresa/detalle-empresa.component';
+import { CrudEmpresaComponent } from './components/empresas/crud-empresa/crud-empresa.component';
+import { DetallePersonaComponent } from './components/personas/detalle-persona/detalle-persona.component';
 import { CrudSucursalComponent } from './components/empresas/crud-sucursal/crud-sucursal.component';
 import { DetalleSucursalComponent } from './components/empresas/detalle-sucursal/detalle-sucursal.component';
 import { ImportarPersonaComponent } from './components/personas/importar-persona/importar-persona.component';
@@ -45,6 +49,7 @@ import { AuditoriaComponent } from './components/partials/auditoria/auditoria.co
 import { AlumnosComponent } from './components/encuestas/alumnos/alumnos.component';
 import { SucursalComponent } from './components/empresas/sucursal/sucursal.component';
 import { HeaderEncuestaComponent } from './components/partials/header-encuesta/header-encuesta.component';
+import { ReportesComponent } from './components/reportes/reportes.component';
 
 
 @NgModule({
@@ -72,21 +77,25 @@ import { HeaderEncuestaComponent } from './components/partials/header-encuesta/h
 		AuditoriaComponent,
 		AlumnosComponent,
 		SucursalComponent,
-		HeaderEncuestaComponent
-  ],
-  imports: [
-	BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    CommonModule,
-    FontAwesomeModule,
-    AppMaterialModule,
-    AppLibreriasModule,
-	NgbModule,
-	TooltipModule.forRoot()
+		HeaderEncuestaComponent,
+		ReportesComponent
 	],
-  providers: [ConstantsService, BsModalService],
-  bootstrap: [AppComponent]
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		HttpClientModule,
+		CommonModule,
+		FontAwesomeModule,
+		AppMaterialModule,
+		AppLibreriasModule,
+		NgbModule,
+		BrowserAnimationsModule,
+		FormsModule,
+		ReactiveFormsModule,
+		TooltipModule.forRoot()
+	],
+	providers: [ConstantsService, BsModalService],
+	bootstrap: [AppComponent]
 })
 export class AppModule {
 	constructor(library: FaIconLibrary) {

@@ -11,37 +11,34 @@ import * as moment from 'moment';
 })
 export class EncuestasComponent implements OnInit {
 
-	rows = [];
+  rows = [];
   loadingIndicator = true;
   reorderable = true;
 
-	ColumnMode = ColumnMode;
+  ColumnMode = ColumnMode;
 
   constructor(private api: ApiBackRequestService) { }
 
   ngOnInit(): void {
-		this.fetch();
-	}
+    this.fetch();
+  }
 
-	async fetch()
-  {
+  async fetch() {
     await this.api.get('encuestas').toPromise().then(
-      (data) => {this.handle(data)}
+      (data) => { this.handle(data) }
     );
-	}
+  }
 
-	handle(data)
-  {
-		data.forEach(element => {
-			element.fecha_inicio= moment(element.fecha_inicio).format('DD/MM/YYYY')
-			element.fecha_fin= moment(element.fecha_fin).format('DD/MM/YYYY')
-		});
-		this.rows = data;
+  handle(data) {
+    data.forEach(element => {
+      element.fecha_inicio = moment(element.fecha_inicio).format('DD/MM/YYYY')
+      element.fecha_fin = moment(element.fecha_fin).format('DD/MM/YYYY')
+    });
+    this.rows = data;
 
-	}
+  }
 
-	eliminar(id)
-  {
+  eliminar(id) {
     Swal.fire({
       title: 'Desea eliminar el registro?',
       icon: 'warning',
@@ -52,17 +49,17 @@ export class EncuestasComponent implements OnInit {
     }).then(async (result) => {
       if (result.value) {
         await this.api.delete('encuestas', id).toPromise().then(
-          (data) => {this.fetch()}
+          (data) => { this.fetch() }
         );
       }
     })
-	}
+  }
 
-	async updateFilter(event) {
+  async updateFilter(event) {
     const val = event.target.value;
 
     await this.api.get('encuestas?search=' + val).toPromise().then(
-      (data) => {this.handle(data)}
+      (data) => { this.handle(data) }
     );
   }
 

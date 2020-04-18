@@ -1,6 +1,6 @@
 import { TokenService } from './../token/token.service';
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -21,21 +21,19 @@ export class SharedVarService {
 		this.isExpanded.next(newValue);
 	}
 
-	sendShowMenu()
-	{
+	sendShowMenu() {
 		this.subject.next();
 	}
 
-	getShowMenu(): Observable<any>{
+	getShowMenu(): Observable<any> {
 		return this.subject.asObservable();
 	}
 
-	sendShowButtonMenu()
-	{
+	sendShowButtonMenu() {
 		this.subject.next();
 	}
 
-	getShowButtonMenu(): Observable<any>{
+	getShowButtonMenu(): Observable<any> {
 		return this.subject.asObservable();
 	}
 

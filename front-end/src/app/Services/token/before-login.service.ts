@@ -5,7 +5,7 @@ import { CanActivate } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class BeforeLoginService implements CanActivate{
+export class BeforeLoginService implements CanActivate {
 
   constructor(private Token: TokenService) { }
   canActivate(route: import("@angular/router").ActivatedRouteSnapshot, state: import("@angular/router").RouterStateSnapshot): boolean | import("@angular/router").UrlTree | import("rxjs").Observable<boolean | import("@angular/router").UrlTree> | Promise<boolean | import("@angular/router").UrlTree> {

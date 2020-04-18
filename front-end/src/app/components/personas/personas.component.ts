@@ -23,20 +23,17 @@ export class PersonasComponent implements OnInit {
 
   }
 
-  async fetch()
-  {
+  async fetch() {
     await this.api.get('personas').toPromise().then(
-      (data) => {this.handle(data)}
+      (data) => { this.handle(data) }
     );
   }
 
-  handle(data)
-  {
+  handle(data) {
     this.rows = data;
   }
 
-  eliminar(id)
-  {
+  eliminar(id) {
     Swal.fire({
       title: 'Desea eliminar el registro?',
       icon: 'warning',
@@ -47,7 +44,7 @@ export class PersonasComponent implements OnInit {
     }).then(async (result) => {
       if (result.value) {
         await this.api.delete('personas', id).toPromise().then(
-          (data) => {this.fetch()}
+          (data) => { this.fetch() }
         );
       }
     })
@@ -57,7 +54,7 @@ export class PersonasComponent implements OnInit {
     const val = event.target.value;
 
     await this.api.get('personas?search=' + val).toPromise().then(
-      (data) => {this.handle(data)}
+      (data) => { this.handle(data) }
     );
   }
 

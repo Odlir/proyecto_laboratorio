@@ -24,29 +24,26 @@ export class LoginComponent implements OnInit {
     private Jarwis: JarwisService,
     private Token: TokenService,
     private router: Router,
-		private Auth: AuthService,
-		private menu: SharedVarService
-    ) { }
+    private Auth: AuthService,
+    private menu: SharedVarService
+  ) { }
 
-  onSubmit()
-  {
+  onSubmit() {
     this.Jarwis.login(this.form).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );
   }
 
-  handleResponse(data)
-  {
+  handleResponse(data) {
     this.Token.handle(data.access_token, data.user);
-		this.Auth.changeAuthStatus(true);
-		this.router.navigateByUrl('/dashboard');
-		this.menu.sendShowMenu(); //ESTO LO USO PARA COMUNICARME CON EL COMPONENTE MENU Y MOSTRARLO
-		this.menu.sendShowButtonMenu();	//ESTO LO USO PARA COMUNICARME CON EL COMPONENTE NAVBAR Y MOSTRAR EL BOTON
+    this.Auth.changeAuthStatus(true);
+    this.router.navigateByUrl('/dashboard');
+    this.menu.sendShowMenu(); //ESTO LO USO PARA COMUNICARME CON EL COMPONENTE MENU Y MOSTRARLO
+    this.menu.sendShowButtonMenu();	//ESTO LO USO PARA COMUNICARME CON EL COMPONENTE NAVBAR Y MOSTRAR EL BOTON
   }
 
-  handleError(error)
-  {
+  handleError(error) {
     this.error = error.error.error;
   }
 

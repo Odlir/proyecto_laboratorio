@@ -3,7 +3,8 @@
 		<img width="40%" height="40%" src="assets/images/logo_upc_red.png" alt="UPC">
 		<span>UPC </span><span *ngIf="isExpanded">Encuestas</span>
 	</div>
-	<a class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="personas" [routerLinkActiveOptions]="{exact: true}">
+	<a class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="personas"
+		[routerLinkActiveOptions]="{exact: true}">
 		<fa-icon [icon]="['fas', 'user-friends']"></fa-icon>
 		<span class="full-width" *ngIf="isExpanded">Personas</span>
 	</a>
@@ -12,12 +13,14 @@
 		<span class="full-width" *ngIf="isExpanded">Empresas</span>
 	</a>
 	<a class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="encuestas">
-		<fa-icon [icon]="['fas', 'poll']"></fa-icon>
+		<fa-icon [icon]="['fas', 'edit']"></fa-icon>
 		<span class="full-width" *ngIf="isExpanded">Programar Encuestas</span>
 	</a>
-	<a class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="test-interes">
+	<a class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="reportes">
 		<fa-icon [icon]="['fas', 'poll']"></fa-icon>
+		<span class="full-width" *ngIf="isExpanded">Reportes</span>
+	</a>
+	<a class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="test-intereses">
 		<span class="full-width" *ngIf="isExpanded">Intereses</span>
 	</a>
 </mat-nav-list>
-

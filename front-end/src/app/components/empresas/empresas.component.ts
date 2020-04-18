@@ -24,20 +24,17 @@ export class EmpresasComponent implements OnInit {
 
   }
 
-  async fetch()
-  {
+  async fetch() {
     await this.api.get('empresas').toPromise().then(
-      (data) => {this.handle(data)}
+      (data) => { this.handle(data) }
     );
   }
 
-  handle(data)
-  {
+  handle(data) {
     this.rows = data;
   }
 
-  eliminar(id)
-  {
+  eliminar(id) {
     Swal.fire({
       title: 'Desea eliminar el registro?',
       icon: 'warning',
@@ -48,17 +45,17 @@ export class EmpresasComponent implements OnInit {
     }).then(async (result) => {
       if (result.value) {
         await this.api.delete('empresas', id).toPromise().then(
-          (data) => {this.fetch()}
+          (data) => { this.fetch() }
         );
       }
     })
   }
 
-	async updateFilter(event) {
+  async updateFilter(event) {
     const val = event.target.value;
 
     await this.api.get('empresas?search=' + val).toPromise().then(
-      (data) => {this.handle(data)}
+      (data) => { this.handle(data) }
     );
   }
 }

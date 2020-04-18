@@ -21,39 +21,37 @@ export class DetallePersonaComponent implements OnInit {
     email: null,
     insert_user_id: null,
     edit_user_id: null,
-    insert: {name: null},
-    edit: {name: ''},
+    insert: { name: null },
+    edit: { name: '' },
     created_at: null,
     updated_at: null
-	};
+  };
 
-	previousUrl: string;
+  previousUrl: string;
 
-	public encuesta_id: HttpParams;
+  public encuesta_id: HttpParams;
 
-  constructor(private api: ApiBackRequestService, private router: Router, private activatedRoute: ActivatedRoute,private routingState: RoutingStateService) { }
+  constructor(private api: ApiBackRequestService, private router: Router, private activatedRoute: ActivatedRoute, private routingState: RoutingStateService) { }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(async params => {
-			const id = params.id;
-			this.encuesta_id = params.encuesta_id;
+      const id = params.id;
+      this.encuesta_id = params.encuesta_id;
       if (id != null) {
         this.cargar(id);
       }
-	});
+    });
 
-	this.previousUrl=this.routingState.getPreviousUrl();
+    this.previousUrl = this.routingState.getPreviousUrl();
   }
 
-  async cargar(id)
-  {
+  async cargar(id) {
     await this.api.show('personas', id).toPromise().then(
-      (data) => {this.form = data}
+      (data) => { this.form = data }
     );
   }
 
-  eliminar(id)
-  {
+  eliminar(id) {
     Swal.fire({
       title: 'Desea eliminar el registro?',
       icon: 'warning',
@@ -64,29 +62,24 @@ export class DetallePersonaComponent implements OnInit {
     }).then(async (result) => {
       if (result.value) {
         await this.api.delete('personas', id).toPromise().then(
-          (data) => {this.return();}
+          (data) => { this.return(); }
         );
       }
     })
-	}
+  }
 
-	return()
-	{
-		if(this.previousUrl.includes('encuesta'))
-		{
-			if(this.previousUrl.includes('detalle'))
-			{
-				this.router.navigateByUrl('detalle-encuesta?id='+this.encuesta_id+'&tab=1');
-			}
-			else
-			{
-				this.router.navigateByUrl('crud-encuesta?id='+this.encuesta_id+'&tab=1');
-			}
-		}
-		else
-		{
-			this.router.navigateByUrl(this.previousUrl);
-		}
-	}
+  return() {
+    if (this.previousUrl.includes('encuesta')) {
+      if (this.previousUrl.includes('detalle')) {
+        this.router.navigateByUrl('detalle-encuesta?id=' + this.encuesta_id + '&tab=1');
+      }
+      else {
+        this.router.navigateByUrl('crud-encuesta?id=' + this.encuesta_id + '&tab=1');
+      }
+    }
+    else {
+      this.router.navigateByUrl(this.previousUrl);
+    }
+  }
 
 }

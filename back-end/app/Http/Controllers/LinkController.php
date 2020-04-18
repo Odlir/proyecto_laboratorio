@@ -2,20 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\EmpresaSucursal;
+use App\Encuesta;
 use Illuminate\Http\Request;
-use App\Imports\PersonaImport;
-use Maatwebsite\Excel\Facades\Excel;
 
-class ImportController extends Controller
+class LinkController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $tipo_encuesta = $request->input('tipo');
+        $sucursal = $request->input('sucursal');
 
+        $data = Encuesta::where('estado','1')
+        ->where('tipo_encuesta_id',$tipo_encuesta)
+        ->whereHas('empresa', function($q) use($sucursal){
+            $q->where('id', $sucursal);
+        })
+        ->get();
+
+        return response()->json($data, 200);
     }
 
     /**
@@ -36,14 +46,7 @@ class ImportController extends Controller
      */
     public function store(Request $request)
     {
-        $file = $request->file('file');
-
-        if($request->campo=='persona')
-        {
-            $data=Excel::import(new PersonaImport($request->user_id,$request->encuesta_id), $file);
-        }
-
-        return response()->json($data, 200);
+        //
     }
 
     /**

@@ -18,5 +18,7 @@ de la encuesta y el id de la persona
 
 - en donde dice colegio es el nombre de la empresa, no de la sucursal
 
+- pregunta si despues de guardar la encuesta desactivo el link
 
+- me falta poner como required a los radios
 

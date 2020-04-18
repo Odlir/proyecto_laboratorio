@@ -1,75 +1,77 @@
+<div *ngIf="encuesta_id;else other_content">
+	<app-header nombre="PROGRAMACIÓN DE ENCUESTAS" icono="edit"></app-header>
+</div>
 
-	<div *ngIf="encuesta_id;else other_content">
-		<app-header nombre="PROGRAMACIÓN DE ENCUESTAS" icono="poll"></app-header>
-	</div>
+<ng-template #other_content>
+	<app-header nombre="MANTENIMIENTO DE PERSONAS" icono="user-friends"></app-header>
+</ng-template>
 
-	<ng-template #other_content>
-		<app-header nombre="MANTENIMIENTO DE PERSONAS" icono="user-friends"></app-header>
-	</ng-template>
-
-	<div class="widget clearfix mt-5">
-	  <div class="whead clearfix">
-		<p><span *ngIf="id;else templateName" >EDITAR </span>PERSONA <span *ngIf="id" >: {{ form.nombres }} {{ form.apellido_paterno }} {{ form.apellido_materno }}</span></p>
+<div class="widget clearfix mt-5">
+	<div class="whead clearfix">
+		<p><span *ngIf="id;else templateName">EDITAR </span>PERSONA <span *ngIf="id">: {{ form.nombres }}
+				{{ form.apellido_paterno }} {{ form.apellido_materno }}</span></p>
 		<ng-template #templateName>
 			CREAR
 		</ng-template>
-	  </div>
-	  <div class="row data-crud">
-		<div class="col-7">
-		  <form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
-			<div class="form-group row my-3">
-			  <label class="col-sm-4 col-form-label w-100">Apellido Paterno <span class="text-danger">*</span></label>
-			  <div class="col-sm-8">
-				<input type="text" name="apepaterno" class="form-control" [(ngModel)]="form.apellido_paterno" required>
-			  </div>
-			  <hr>
-			</div>
-
-			<div class="form-group row my-3">
-			  <label class="col-sm-4 col-form-label w-100">Apellido Materno</label>
-			  <div class="col-sm-8">
-				<input type="text" name="apematerno" class="form-control" [(ngModel)]="form.apellido_materno">
-			  </div>
-			  <hr>
-			</div>
-
-			<div class="form-group row my-3">
-			  <label class="col-sm-4 col-form-label w-100">Nombres <span class="text-danger">*</span></label>
-			  <div class="col-sm-8">
-				<input type="text" name="nombres" class="form-control" [(ngModel)]="form.nombres" required>
-			  </div>
-			  <hr>
-			</div>
-
-			<div class="form-group row my-3">
-			  <label class="col-sm-4 col-form-label w-100">Sexo <span class="text-danger">*</span></label>
-			  <div class="col-sm-8">
-				<select name="sexo" id="" class="form-control" [(ngModel)]="form.sexo" required>
-				  <option value="FEMENINO">FEMENINO</option>
-				  <option value="MASCULINO">MASCULINO</option>
-				</select>
-			  </div>
-			  <hr>
-			</div>
-
-			<div class="form-group row my-3" *ngIf="encuesta_id==null">
-			  <label class="col-sm-4 col-form-label w-100">Correo Personal</label>
-			  <div class="col-sm-8">
-				<input type="email" name="email" class="form-control" [(ngModel)]="form.email">
-			  </div>
-			  <hr>
-			</div>
-
-			<div class="form-group row">
-			  <div class="col-12">
-				<button type="submit" class="btn btn-success">GUARDAR</button>
-				<a (click)="return()" class="btn btn-info text-white">REGRESAR A LA LISTA</a>
-			  </div>
-			</div>
-		  </form>
-		</div>
-		<div class="col-5 p-0 widget clearfix" *ngIf="id" >
-		  <app-auditoria [form]="form"></app-auditoria>
-		</div>
-	  </div>
 	</div>
+	<div class="row data-crud">
+		<div class="col-7">
+			<form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
+				<div class="form-group row my-3">
+					<label class="col-sm-4 col-form-label w-100">Apellido Paterno <span
+							class="text-danger">*</span></label>
+					<div class="col-sm-8">
+						<input type="text" name="apepaterno" class="form-control" [(ngModel)]="form.apellido_paterno"
+							required>
+					</div>
+					<hr>
+				</div>
+
+				<div class="form-group row my-3">
+					<label class="col-sm-4 col-form-label w-100">Apellido Materno</label>
+					<div class="col-sm-8">
+						<input type="text" name="apematerno" class="form-control" [(ngModel)]="form.apellido_materno">
+					</div>
+					<hr>
+				</div>
+
+				<div class="form-group row my-3">
+					<label class="col-sm-4 col-form-label w-100">Nombres <span class="text-danger">*</span></label>
+					<div class="col-sm-8">
+						<input type="text" name="nombres" class="form-control" [(ngModel)]="form.nombres" required>
+					</div>
+					<hr>
+				</div>
+
+				<div class="form-group row my-3">
+					<label class="col-sm-4 col-form-label w-100">Sexo <span class="text-danger">*</span></label>
+					<div class="col-sm-8">
+						<select name="sexo" id="" class="form-control" [(ngModel)]="form.sexo" required>
+							<option value="FEMENINO">FEMENINO</option>
+							<option value="MASCULINO">MASCULINO</option>
+						</select>
+					</div>
+					<hr>
+				</div>
+
+				<div class="form-group row my-3" *ngIf="encuesta_id==null">
+					<label class="col-sm-4 col-form-label w-100">Correo Personal</label>
+					<div class="col-sm-8">
+						<input type="email" name="email" class="form-control" [(ngModel)]="form.email">
+					</div>
+					<hr>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-12">
+						<button type="submit" class="btn btn-success">GUARDAR</button>
+						<a (click)="return()" class="btn btn-info text-white">REGRESAR A LA LISTA</a>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-5 p-0 widget clearfix" *ngIf="id">
+			<app-auditoria [form]="form"></app-auditoria>
+		</div>
+	</div>
+</div>
