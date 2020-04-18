@@ -1,8 +1,7 @@
-
-import { HttpParams } from '@angular/common/http';
 import { ApiBackRequestService } from './../../Services/api-back-request.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms'
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-test-interes',
@@ -31,13 +30,18 @@ export class TestInteresComponent implements OnInit {
 
 	FormGroup: FormGroup;
 
-	constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder) {
+	constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder,private activatedRoute: ActivatedRoute) {
 
 	}
 
 	ngOnInit(): void {
 
 		this.fetch();
+
+		this.activatedRoute.queryParams.subscribe(async params => {
+			this.form.encuesta_id = params.encuesta_id;
+			this.form.persona_id = params.persona_id;
+		  });
 	}
 
 	reactive(preguntas) {

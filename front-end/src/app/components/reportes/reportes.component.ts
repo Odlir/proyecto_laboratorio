@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { ApiBackRequestService } from './../../Services/api-back-request.service';
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
 	selector: 'app-reportes',
@@ -48,8 +49,17 @@ export class ReportesComponent implements OnInit {
 		this.form.archivo = this.sucursal.nombre + '-LINKS-ENCUESTAS.xlsx';
 
 		await this.api.downloadFile('exportar', this.form).toPromise().then(
-			(data) => { }
+			(data) => { },
+			(error) => { this.mensaje('No hay alumnos registrados en el test de interés')}
 		);
+	}
+
+	mensaje(msj) {
+		Swal.fire({
+			title: msj,
+			icon: 'warning',
+			timer: 2000
+		});
 	}
 
 	return() {

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EncuestaRespuesta extends Model
 {
-    protected $table="encuesta_respuesta";
+    protected $table = "encuesta_respuesta";
 
     protected $fillable = [
         'estado',

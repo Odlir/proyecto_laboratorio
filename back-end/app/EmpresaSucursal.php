@@ -8,7 +8,7 @@ use App\Traits\MyTrait;
 class EmpresaSucursal extends Model
 {
     use MyTrait;
-    protected $table="empresa_sucursal";
+    protected $table = "empresa_sucursal";
 
     protected $fillable = [
         'nombre',
@@ -18,10 +18,11 @@ class EmpresaSucursal extends Model
     ];
 
     public static function boot()
-	{   parent::boot();
-		static::saving(function ($model) {
-            $model->nombre = $model->setUpperCase('nombre',$model->nombre);
-            $model->nombre = $model->sinTilde('nombre',$model->nombre);
+    {
+        parent::boot();
+        static::saving(function ($model) {
+            $model->nombre = $model->setUpperCase('nombre', $model->nombre);
+            $model->nombre = $model->sinTilde('nombre', $model->nombre);
         });
     }
 
@@ -37,12 +38,12 @@ class EmpresaSucursal extends Model
 
     public function insert()
     {
-        return $this->belongsTo('App\User','insert_user_id');
+        return $this->belongsTo('App\User', 'insert_user_id');
     }
 
     public function edit()
     {
-        return $this->belongsTo('App\User','edit_user_id');
+        return $this->belongsTo('App\User', 'edit_user_id');
     }
 
     public function encuestas()

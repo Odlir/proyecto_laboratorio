@@ -14,7 +14,7 @@ class RolController extends Controller
      */
     public function index()
     {
-        $data = Rol::where('estado','1')->get();
+        $data = Rol::where('estado', '1')->get();
 
         return response()->json($data, 200);
     }

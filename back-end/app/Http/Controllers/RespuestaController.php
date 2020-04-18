@@ -14,12 +14,12 @@ class RespuestaController extends Controller
      */
     public function index(Request $request)
     {
-        $encuesta=$request->input('encuesta');
-        $subpregunta=$request->input('sub');
+        $encuesta = $request->input('encuesta');
+        $subpregunta = $request->input('sub');
 
-        $data = Respuesta::where('tipo_encuesta_id',$encuesta)
-        ->where('tipo_subpregunta',$subpregunta)
-        ->get();
+        $data = Respuesta::where('tipo_encuesta_id', $encuesta)
+            ->where('tipo_subpregunta', $subpregunta)
+            ->get();
 
         return response()->json($data, 200);
     }
@@ -53,8 +53,8 @@ class RespuestaController extends Controller
      */
     public function show($id)
     {
-        $data = Respuesta::where('tipo_encuesta_id',$id)
-        ->get();
+        $data = Respuesta::where('tipo_encuesta_id', $id)
+            ->get();
 
         return response()->json($data, 200);
     }

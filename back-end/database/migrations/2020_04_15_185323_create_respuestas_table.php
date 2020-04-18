@@ -17,12 +17,12 @@ class CreateRespuestasTable extends Migration
             $table->id();
 
             $table->string('nombre');
-            $table->char('estado',1)->comment('0-Inactivo/1-Activo')->default(1);
+            $table->char('estado', 1)->comment('0-Inactivo/1-Activo')->default(1);
 
             $table->unsignedBigInteger('tipo_encuesta_id');
             $table->foreign('tipo_encuesta_id')->references('id')->on('tipo_encuesta');
 
-            $table->char('tipo_subpregunta',1)->nullable();
+            $table->char('tipo_subpregunta', 1)->nullable();
 
             $table->timestamps();
         });

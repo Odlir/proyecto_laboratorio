@@ -46,8 +46,8 @@ class PreguntaController extends Controller
      */
     public function show($id)
     {
-        $data = Pregunta::where('tipo_encuesta_id',$id)
-        ->get();
+        $data = Pregunta::where('tipo_encuesta_id', $id)
+            ->get();
 
         return response()->json($data, 200);
     }

@@ -22,17 +22,18 @@ class Persona extends Model
     ];
 
     public static function boot()
-	{   parent::boot();
-		static::saving(function ($model) {
-            $model->nombres = $model->setUpperCase('nombres',$model->nombres);
-            $model->apellido_materno = $model->setUpperCase('apellido_materno',$model->apellido_materno);
-            $model->apellido_paterno = $model->setUpperCase('apellido_paterno',$model->apellido_paterno);
-            $model->sexo = $model->setUpperCase('sexo',$model->sexo);
+    {
+        parent::boot();
+        static::saving(function ($model) {
+            $model->nombres = $model->setUpperCase('nombres', $model->nombres);
+            $model->apellido_materno = $model->setUpperCase('apellido_materno', $model->apellido_materno);
+            $model->apellido_paterno = $model->setUpperCase('apellido_paterno', $model->apellido_paterno);
+            $model->sexo = $model->setUpperCase('sexo', $model->sexo);
 
-            $model->nombres = $model->sinTilde('nombres',$model->nombres);
-            $model->apellido_materno = $model->sinTilde('apellido_materno',$model->apellido_materno);
-            $model->apellido_paterno = $model->sinTilde('apellido_paterno',$model->apellido_paterno);
-            $model->sexo = $model->sinTilde('sexo',$model->sexo);
+            $model->nombres = $model->sinTilde('nombres', $model->nombres);
+            $model->apellido_materno = $model->sinTilde('apellido_materno', $model->apellido_materno);
+            $model->apellido_paterno = $model->sinTilde('apellido_paterno', $model->apellido_paterno);
+            $model->sexo = $model->sinTilde('sexo', $model->sexo);
         });
     }
 
@@ -40,7 +41,7 @@ class Persona extends Model
 
     public function getApellidosAttribute($value)
     {
-        return $this->apellido_paterno." ".$this->apellido_materno;
+        return $this->apellido_paterno . " " . $this->apellido_materno;
     }
 
     public function rol()
@@ -50,12 +51,12 @@ class Persona extends Model
 
     public function insert()
     {
-        return $this->belongsTo('App\User','insert_user_id');
+        return $this->belongsTo('App\User', 'insert_user_id');
     }
 
     public function edit()
     {
-        return $this->belongsTo('App\User','edit_user_id');
+        return $this->belongsTo('App\User', 'edit_user_id');
     }
 
     public function encuestas()

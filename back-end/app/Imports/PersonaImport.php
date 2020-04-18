@@ -12,29 +12,30 @@ use Illuminate\Support\Collection;
 class PersonaImport implements ToCollection, WithHeadingRow
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
 
     private $user;
     private $encuesta_id;
 
-    public function __construct($user_id,$encuesta_id) {
+    public function __construct($user_id, $encuesta_id)
+    {
         $this->user = $user_id;
         $this->encuesta_id = $encuesta_id;
-     }
+    }
 
     public function collection(Collection $rows)
     {
         $messages = [];
 
         $i = 2;
-        foreach ($rows as $key => $value){
+        foreach ($rows as $key => $value) {
 
-            $messages[$key.'.nombres'.'.required'] = 'El campo Nombres, fila '. $i .'  es requerido.';
-            $messages[$key.'.apellido_paterno'.'.required'] = 'El campo Apellido Paterno, fila '. $i .'  es requerido.';
-            $messages[$key.'.sexo'.'.required'] = 'El campo Sexo, fila '. $i .'  es requerido.';
+            $messages[$key . '.nombres' . '.required'] = 'El campo Nombres, fila ' . $i . '  es requerido.';
+            $messages[$key . '.apellido_paterno' . '.required'] = 'El campo Apellido Paterno, fila ' . $i . '  es requerido.';
+            $messages[$key . '.sexo' . '.required'] = 'El campo Sexo, fila ' . $i . '  es requerido.';
             $i++;
         }
 
@@ -42,11 +43,10 @@ class PersonaImport implements ToCollection, WithHeadingRow
             '*.nombres' => 'required',
             '*.apellido_paterno' => 'required',
             '*.sexo' => 'required'
-        ],$messages)->validate();
+        ], $messages)->validate();
 
-        foreach ($rows as $row)
-        {
-            $persona= Persona::create([
+        foreach ($rows as $row) {
+            $persona = Persona::create([
                 'nombres'     => $row['nombres'],
                 'apellido_paterno'    => $row['apellido_paterno'],
                 'apellido_materno' => $row['apellido_materno'],

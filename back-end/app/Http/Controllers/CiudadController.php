@@ -46,8 +46,8 @@ class CiudadController extends Controller
      */
     public function show($id)
     {
-        $ciudad = Ciudad::where('country_id',$id)
-        ->get();
+        $ciudad = Ciudad::where('country_id', $id)
+            ->get();
 
         return response()->json($ciudad, 200);
     }

@@ -19,7 +19,7 @@ class CreateEncuestasTable extends Migration
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
 
-            $table->char('estado',1)->comment('0-Inactivo/1-Activo')->default(1);
+            $table->char('estado', 1)->comment('0-Inactivo/1-Activo')->default(1);
 
             $table->unsignedBigInteger('empresa_sucursal_id');
             $table->foreign('empresa_sucursal_id')->references('id')->on('empresa_sucursal');
