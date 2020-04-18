@@ -21,7 +21,11 @@ export class AppComponent implements OnInit {
 		this.sharedService.getValue().subscribe(value => {
 			this.isExpanded = value;
 		});
-		this.router.navigateByUrl('/dashboard');
+
+		if(this.router.url === '/login')
+		{
+			this.router.navigateByUrl('/dashboard');
+		}
 	}
 
 }

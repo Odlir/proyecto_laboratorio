@@ -156,7 +156,7 @@ export class CrudEncuestaComponent implements OnInit {
 				(data) => {
 					if (this.fileToUpload != null) {
 						data.forEach((element, i) => {
-							this.subirExcel(element,i);
+							this.subirExcel(element, i);
 						});
 					}
 					else {
@@ -168,7 +168,7 @@ export class CrudEncuestaComponent implements OnInit {
 			this.api.post('encuestas', this.form).subscribe(
 				(data) => {
 					if (this.fileToUpload != null) {
-						this.subirExcel(data.id,0);
+						this.subirExcel(data.id, 0);
 					}
 					else {
 						this.router.navigateByUrl('/encuestas');
@@ -178,11 +178,11 @@ export class CrudEncuestaComponent implements OnInit {
 		}
 	}
 
-	mensaje(msj) {
+	mensaje(msj, time) {
 		Swal.fire({
 			title: msj,
 			icon: 'success',
-			timer: 3000
+			timer: time
 		});
 
 		this.router.navigateByUrl('/encuestas');
@@ -232,12 +232,12 @@ export class CrudEncuestaComponent implements OnInit {
 		this.api.uploadFiles('importar', formData).subscribe(
 			(data) => {
 				if (element == 0) {
-					this.mensaje('Importación Exitosa');
+					this.mensaje('Importación Exitosa', 3000);
 				}
 			},
 			(error) => {
 				if (element == 0) {
-					this.mensaje('Hubo errores en la Importación');
+					this.mensaje('Hubo errores en la Importación', 3000);
 				}
 			}
 		);

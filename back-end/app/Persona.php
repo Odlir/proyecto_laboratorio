@@ -37,7 +37,12 @@ class Persona extends Model
         });
     }
 
-    protected $appends = ['apellidos'];
+    protected $appends = ['apellidos','nombrecompleto'];
+
+    public function getNombreCompletoAttribute($value)
+    {
+        return $this->nombres . " " . $this->apellido_paterno . " " . $this->apellido_materno;
+    }
 
     public function getApellidosAttribute($value)
     {

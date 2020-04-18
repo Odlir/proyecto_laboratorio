@@ -30,18 +30,37 @@ export class TestInteresComponent implements OnInit {
 
 	FormGroup: FormGroup;
 
+	public sucursal = null;
+
+	public alumno = null;
+
 	constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder, private activatedRoute: ActivatedRoute) {
 
 	}
 
 	ngOnInit(): void {
-
-		this.fetch();
-
 		this.activatedRoute.queryParams.subscribe(async params => {
 			this.form.encuesta_id = params.encuesta_id;
 			this.form.persona_id = params.persona_id;
 		});
+
+		this.fetch();
+
+		this.obtenerDatos();
+	}
+
+	obtenerDatos() {
+		this.api.get('encuestas', this.form.encuesta_id).subscribe(
+			(data) => {
+				this.sucursal = data.empresa.nombre;
+
+				data.personas.filter(obj => {
+					if (obj.id == this.form.persona_id) {
+						this.alumno = obj.nombrecompleto;
+					}
+				})
+			}
+		);
 	}
 
 	reactive(preguntas) {
@@ -115,7 +134,7 @@ export class TestInteresComponent implements OnInit {
 
 		this.api.post('encuesta_persona', this.data).subscribe(
 			(data) => {
-				
+
 			}
 		);
 	}

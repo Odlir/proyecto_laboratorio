@@ -99,7 +99,7 @@ const routes: Routes = [
   {
     path: 'test-intereses',
     component: TestInteresComponent,
-    canActivate: [AfterLoginService]
+    canActivate: [BeforeLoginService]
   },
   {
     path: 'reportes',
