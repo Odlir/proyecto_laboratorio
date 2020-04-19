@@ -21,22 +21,22 @@ class Encuesta extends Model
 
     public function empresa()
     {
-        return $this->belongsTo('App\EmpresaSucursal','empresa_sucursal_id');
+        return $this->belongsTo('App\EmpresaSucursal', 'empresa_sucursal_id');
     }
 
     public function tipo()
     {
-        return $this->belongsTo('App\TipoEncuesta','tipo_encuesta_id');
+        return $this->belongsTo('App\TipoEncuesta', 'tipo_encuesta_id');
     }
 
     public function insert()
     {
-        return $this->belongsTo('App\User','insert_user_id');
+        return $this->belongsTo('App\User', 'insert_user_id');
     }
 
     public function edit()
     {
-        return $this->belongsTo('App\User','edit_user_id');
+        return $this->belongsTo('App\User', 'edit_user_id');
     }
 
     public function personas()

@@ -1,98 +1,100 @@
-
-	<app-header nombre="PROGRAMACIÓN DE ENCUESTAS" icono="poll"></app-header>
-	<br><br>
-	<mat-horizontal-stepper linear #stepper>
-		<mat-step completed="false">
+<app-header nombre="PROGRAMACIÓN DE ENCUESTAS" icono="edit"></app-header>
+<br><br>
+<mat-horizontal-stepper linear #stepper>
+	<mat-step completed="false">
 		<ng-template matStepLabel>{{ titulo }} <span></span></ng-template>
 		<div class="row data-crud">
 			<div class="col-7">
-			  <form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
-				<div class="form-group row my-3">
-				  <label class="col-sm-4 col-form-label w-100">Tipo de Encuesta <span class="text-danger">*</span></label>
-					<div class="col-sm-8">
-						<select [attr.disabled]="id ? '' : null" name="tipo" class="form-control" [(ngModel)]="form.tipo_encuesta_id" required>
-							<option value="0" *ngIf="id==null" >Todas</option>
-							<option [value]="item.id" *ngFor="let item of tipos">{{item.nombre}}</option>
-						</select>
-					</div>
-				  <hr>
-				</div>
-
-				<div class="form-group row my-3">
-				  <label class="col-sm-4 col-form-label w-100">Empresa <span class="text-danger">*</span></label>
-				  <div class="col-sm-8">
-					<mat-form-field class="example-full-width w-100" *ngIf="id==null;else other_content">
-						<input type="text" [(ngModel)]="empresa" matInput name="empresa" class="form-control" [formControl]="myControl" [matAutocomplete]="auto" required>
-						<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-						<mat-option *ngFor="let option of filteredEmpresas | async" [value]="option">
-							{{option.nombre}}
-						</mat-option>
-						</mat-autocomplete>
-					</mat-form-field>
-
-					<ng-template #other_content ><span class="form-control">{{ form.empresa.nombre }}</span></ng-template>
-				  </div>
-				  <hr>
-				</div>
-
-				<div class="form-group row my-3">
-				  <label class="col-sm-4 col-form-label w-100">Fecha de Inicio <span class="text-danger">*</span></label>
-				  <div class="col-sm-8">
-					<input type="date" name="fecha_inicio" class="form-control" [(ngModel)]="form.fecha_inicio" required (change)="obtenerFechaFin()">
-				  </div>
-				  <hr>
-				</div>
-
-				<div class="form-group row my-3">
-					<label class="col-sm-4 col-form-label w-100">Fecha de Fín <span class="text-danger">*</span></label>
-					<div class="col-sm-8">
-						<input type="date" name="fecha_fin" class="form-control" [(ngModel)]="form.fecha_fin" required>
-					</div>
-					<hr>
-				</div>
-
-				<div *ngIf="id==null" class="border mt-5 bg-light">
+				<form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
 					<div class="form-group row my-3">
-						<label class="col-sm-4 col-form-label w-100">Plantilla</label>
+						<label class="col-sm-4 col-form-label w-100">Tipo de Encuesta <span
+								class="text-danger">*</span></label>
 						<div class="col-sm-8">
-							<a class="cursor text-primary" (click)="descargarPlantilla()" >importar-alumnos.xlsx</a>
+							<select [attr.disabled]="id ? '' : null" name="tipo" class="form-control"
+								[(ngModel)]="form.tipo_encuesta_id" required>
+								<option value="0" *ngIf="id==null">Todas</option>
+								<option [value]="item.id" *ngFor="let item of tipos">{{item.nombre}}</option>
+							</select>
 						</div>
 						<hr>
 					</div>
-					<div class="alert alert-danger my-3" *ngIf="error" >
-						<div *ngFor="let item of error | keyvalue">
-							{{item.value}}
-						</div>
-					</div>
+
 					<div class="form-group row my-3">
-						<label class="col-sm-4 col-form-label w-100">Importar Alumnos</label>
+						<label class="col-sm-4 col-form-label w-100">Empresa <span class="text-danger">*</span></label>
 						<div class="col-sm-8">
-							<input type="file" id="file" (change)="handleFileInput($event.target.files)">
+							<mat-form-field class="example-full-width w-100" *ngIf="id==null;else other_content">
+								<input type="text" [(ngModel)]="empresa" matInput name="empresa" class="form-control"
+									[formControl]="myControl" [matAutocomplete]="auto" required>
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+									<mat-option *ngFor="let option of filteredEmpresas | async" [value]="option">
+										{{option.nombre}}
+									</mat-option>
+								</mat-autocomplete>
+							</mat-form-field>
+
+							<ng-template #other_content><span class="form-control">{{ form.empresa.nombre }}</span>
+							</ng-template>
 						</div>
 						<hr>
 					</div>
-				</div>
 
-				<div class="form-group row mt-5">
-				  <div class="col-12">
-					<button type="submit" class="btn btn-success">GUARDAR</button>
-					<a routerLink="/encuestas" class="btn btn-info">REGRESAR A LA LISTA</a>
-				  </div>
-				</div>
-			  </form>
+					<div class="form-group row my-3">
+						<label class="col-sm-4 col-form-label w-100">Fecha de Inicio <span
+								class="text-danger">*</span></label>
+						<div class="col-sm-8">
+							<input type="date" name="fecha_inicio" class="form-control" [(ngModel)]="form.fecha_inicio"
+								required (change)="obtenerFechaFin()">
+						</div>
+						<hr>
+					</div>
+
+					<div class="form-group row my-3">
+						<label class="col-sm-4 col-form-label w-100">Fecha de Fín <span
+								class="text-danger">*</span></label>
+						<div class="col-sm-8">
+							<input type="date" name="fecha_fin" class="form-control" [(ngModel)]="form.fecha_fin"
+								required>
+						</div>
+						<hr>
+					</div>
+
+					<div *ngIf="id==null" class="border mt-5 bg-light">
+						<div class="form-group row my-3">
+							<label class="col-sm-4 col-form-label w-100">Bajar Plantilla</label>
+							<div class="col-sm-8">
+								<a class="cursor text-primary" (click)="descargarPlantilla()">importar-alumnos.xlsx</a>
+							</div>
+							<hr>
+						</div>
+						<div class="form-group row my-3">
+							<label class="col-sm-4 col-form-label w-100">Importar Alumnos</label>
+							<div class="col-sm-8">
+								<input type="file" id="file" (change)="handleFileInput($event.target.files)">
+							</div>
+							<hr>
+						</div>
+					</div>
+
+					<div class="form-group row mt-5">
+						<div class="col-12">
+							<button type="submit" class="btn btn-success">GUARDAR Y CERRAR</button>
+							<a routerLink="/encuestas" class="btn btn-info">REGRESAR A LA LISTA</a>
+						</div>
+					</div>
+				</form>
 			</div>
 			<div class="col-5 p-0 widget clearfix" *ngIf="id;">
-				<app-auditoria [form]="form" ></app-auditoria>
+				<app-auditoria [form]="form"></app-auditoria>
 			</div>
 		</div>
-		</mat-step>
-		<mat-step [stepControl]="secondFormGroup">
-			<ng-template matStepLabel>ALUMNOS</ng-template>
-			<app-alumnos [id]="this.id" ></app-alumnos>
-			<div class="form-group row mt-3">
-				<div class="col-12">
-				  <a routerLink="/encuestas" class="btn btn-info">REGRESAR A LA LISTA</a>
-				</div>
+	</mat-step>
+	<mat-step [stepControl]="secondFormGroup">
+		<ng-template matStepLabel>ALUMNOS</ng-template>
+		<app-alumnos [id]="this.id"></app-alumnos>
+		<div class="form-group row mt-3">
+			<div class="col-12">
+				<a routerLink="/encuestas" class="btn btn-info">REGRESAR A LA LISTA</a>
 			</div>
-		</mat-step>
-	</mat-horizontal-stepper>
+		</div>
+	</mat-step>
+</mat-horizontal-stepper>

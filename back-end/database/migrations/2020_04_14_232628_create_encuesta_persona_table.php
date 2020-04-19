@@ -16,7 +16,7 @@ class CreateEncuestaPersonaTable extends Migration
         Schema::create('encuesta_persona', function (Blueprint $table) {
             $table->id();
 
-            $table->char('estado',1)->comment('0-Inactivo/1-Activo')->default(1);
+            $table->char('estado', 1)->comment('0-Inactivo/1-Activo')->default(1);
 
             $table->unsignedBigInteger('persona_id');
             $table->foreign('persona_id')->references('id')->on('personas');

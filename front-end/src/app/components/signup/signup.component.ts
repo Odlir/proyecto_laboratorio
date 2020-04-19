@@ -18,28 +18,25 @@ export class SignupComponent implements OnInit {
   };
 
 
-  public error = {name: null, email: null, password: null};
+  public error = { name: null, email: null, password: null };
   constructor(
     private Jarwis: JarwisService,
     private Token: TokenService,
     private router: Router
-    ) { }
+  ) { }
 
-  onSubmit()
-  {
+  onSubmit() {
     this.Jarwis.signup(this.form).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );
   }
 
-  handleError(error)
-  {
+  handleError(error) {
     this.error = error.error.errors;
   }
 
-  handleResponse(data)
-  {
+  handleResponse(data) {
     this.Token.handle(data.access_token, data.user);
     this.router.navigateByUrl('/dashboard');
   }

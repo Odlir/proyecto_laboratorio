@@ -14,7 +14,7 @@ class TipoEncuestaController extends Controller
      */
     public function index()
     {
-        $data = TipoEncuesta::where('estado','1')
+        $data = TipoEncuesta::where('estado', '1')
             ->get();
 
         return response()->json($data, 200);

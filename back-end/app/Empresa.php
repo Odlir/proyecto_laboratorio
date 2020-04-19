@@ -19,13 +19,14 @@ class Empresa extends Model
     ];
 
     public static function boot()
-	{   parent::boot();
-		static::saving(function ($model) {
-            $model->razon_social = $model->setUpperCase('razon_social',$model->razon_social);
-            $model->contacto = $model->setUpperCase('contacto',$model->contacto);
+    {
+        parent::boot();
+        static::saving(function ($model) {
+            $model->razon_social = $model->setUpperCase('razon_social', $model->razon_social);
+            $model->contacto = $model->setUpperCase('contacto', $model->contacto);
 
-            $model->razon_social = $model->sinTilde('razon_social',$model->razon_social);
-            $model->contacto = $model->sinTilde('contacto',$model->contacto);
+            $model->razon_social = $model->sinTilde('razon_social', $model->razon_social);
+            $model->contacto = $model->sinTilde('contacto', $model->contacto);
         });
     }
 
@@ -36,11 +37,11 @@ class Empresa extends Model
 
     public function insert()
     {
-        return $this->belongsTo('App\User','insert_user_id');
+        return $this->belongsTo('App\User', 'insert_user_id');
     }
 
     public function edit()
     {
-        return $this->belongsTo('App\User','edit_user_id');
+        return $this->belongsTo('App\User', 'edit_user_id');
     }
 }

@@ -1,33 +1,33 @@
 <div class="whead clearfix text-center">
 	<p>Auditoría</p>
-  </div>
-  <div class="row auditoria">
+</div>
+<div class="row auditoria">
 	<div class="col-6 border px-0">
-	  <div class="col-12 border-bottom py-3">
-		Creado por
-	  </div>
-	  <div class="col-12 border-bottom py-3">
-		Creado el
-	  </div>
-	  <div class="col-12 border-bottom py-3">
-		Modificado por
-	  </div>
-	  <div class="col-12 py-3">
-		Última modificacion
-	  </div>
+		<div class="col-12 border-bottom py-3">
+			Creado por
+		</div>
+		<div class="col-12 border-bottom py-3">
+			Creado el
+		</div>
+		<div class="col-12 border-bottom py-3">
+			Modificado por
+		</div>
+		<div class="col-12 py-3">
+			Última modificacion
+		</div>
 	</div>
 	<div class="col-6 border px-0">
-	  <div class="col-12 border-bottom py-3">
-		{{form.insert.name }}
-	  </div>
-	  <div class="col-12 border-bottom py-3">
-		{{form.created_at | date: 'dd/MM/yyyy hh:mm:ss a'}}
-	  </div>
-	  <div class="col-12 border-bottom py-3 h-25">
-		<span *ngIf="form.edit" >{{form.edit.name }}</span>
-	  </div>
-	  <div class="col-12 py-3 h-25">
-		<span *ngIf="form.edit" >{{form.updated_at | date: 'dd/MM/yyyy hh:mm:ss a'}}</span>
-	  </div>
+		<div class="col-12 border-bottom py-3">
+			{{form.insert.name }}
+		</div>
+		<div class="col-12 border-bottom py-3">
+			{{form.created_at | date: 'dd/MM/yyyy hh:mm:ss a'}}
+		</div>
+		<div class="col-12 border-bottom py-3 h-25">
+			<span *ngIf="form.edit">{{form.edit.name }}</span>
+		</div>
+		<div class="col-12 py-3 h-25">
+			<span *ngIf="form.edit">{{form.updated_at | date: 'dd/MM/yyyy hh:mm:ss a'}}</span>
+		</div>
 	</div>
-  </div>
+</div>

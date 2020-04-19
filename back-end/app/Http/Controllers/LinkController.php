@@ -2,19 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\EmpresaSucursal;
+use App\Encuesta;
 use Illuminate\Http\Request;
-use App\Ciudad;
 
-class CiudadController extends Controller
+class LinkController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $tipo_encuesta = $request->input('tipo');
+        $sucursal = $request->input('sucursal');
+
+        $data = Encuesta::where('estado', '1')
+            ->where('tipo_encuesta_id', $tipo_encuesta)
+            ->whereHas('empresa', function ($q) use ($sucursal) {
+                $q->where('id', $sucursal);
+            })
+            ->get();
+
+        return response()->json($data, 200);
     }
 
     /**
@@ -46,10 +57,7 @@ class CiudadController extends Controller
      */
     public function show($id)
     {
-        $ciudad = Ciudad::where('country_id', $id)
-            ->get();
-
-        return response()->json($ciudad, 200);
+        //
     }
 
     /**

@@ -16,7 +16,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','signup']]);
+        $this->middleware('auth:api', ['except' => ['login', 'signup']]);
     }
 
     /**
@@ -28,7 +28,7 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Email o Contraseña Incorrectos'], 401);
         }
 
@@ -59,7 +59,7 @@ class AuthController extends Controller
 
     public function signup(SignUpRequest $request)
     {
-        $user= User::create($request->all());
+        $user = User::create($request->all());
 
         return $this->login($user);
     }

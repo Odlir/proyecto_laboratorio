@@ -6,17 +6,17 @@ import { filter } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class RoutingStateService {
-	private history = [];
+  private history = [];
 
-	constructor(private router: Router) { }
+  constructor(private router: Router) { }
 
-	public loadRouting(): void {
+  public loadRouting(): void {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(({urlAfterRedirects}: NavigationEnd) => {
+      .subscribe(({ urlAfterRedirects }: NavigationEnd) => {
         this.history = [...this.history, urlAfterRedirects];
       });
-	}
+  }
 
   public getHistory(): string[] {
     return this.history;

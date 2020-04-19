@@ -1,17 +1,15 @@
+<app-header nombre="MANTENIMIENTO DE EMPRESAS" icono="city"></app-header>
+<br>
+<H5>RAZON SOCIAL: {{ empresa.razon_social}}</H5>
 
-
-	<app-header nombre="MANTENIMIENTO DE EMPRESAS" icono="city"></app-header>
-	<br>
-	<H5>RAZON SOCIAL: {{ empresa.razon_social}}</H5>
-
-	<div class="widget clearfix mt-5">
-	  <div class="whead clearfix">
-		<p><span *ngIf="id;else templateName" >EDITAR </span>SUCURSAL<span *ngIf="id" > : {{ form.nombre }}</span></p>
+<div class="widget clearfix mt-5">
+	<div class="whead clearfix">
+		<p><span *ngIf="id;else templateName">EDITAR </span>SUCURSAL<span *ngIf="id"> : {{ form.nombre }}</span></p>
 		<ng-template #templateName>
 			CREAR
 		</ng-template>
-	  </div>
-	  <div class="row data-crud">
+	</div>
+	<div class="row data-crud">
 		<div class="col-6">
 			<form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
 				<div class="form-group row my-3">
@@ -27,10 +25,8 @@
 				</div>
 			</form>
 		</div>
-		<div class="col-6 p-0 widget clearfix" *ngIf="id" >
-		  <app-auditoria [form]="form"></app-auditoria>
+		<div class="col-6 p-0 widget clearfix" *ngIf="id">
+			<app-auditoria [form]="form"></app-auditoria>
 		</div>
-	  </div>
 	</div>
-
-
+</div>

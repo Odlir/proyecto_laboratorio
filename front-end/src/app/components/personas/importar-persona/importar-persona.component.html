@@ -1,42 +1,39 @@
+<app-header nombre="PROGRAMACIÓN DE ENCUESTAS" icono="edit"></app-header>
+<br>
+<h5><span *ngIf="encuesta_id">Id Encuesta: {{ encuesta_id }} </span></h5>
 
-	<app-header nombre="PROGRAMACIÓN DE ENCUESTAS" icono="poll"></app-header>
-	<br>
-	<h5><span *ngIf="encuesta_id" >Id Encuesta: {{ encuesta_id }} </span></h5>
-
-	<div class="widget clearfix mt-5">
-		<div class="whead clearfix">
-		  <p>IMPORTAR</p>
-		</div>
-		<div class="row">
-			<form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
-				<div class="form-group row my-3">
-					<label class="col-sm-4 col-form-label w-100">Plantilla <span class="text-danger">*</span></label>
-					<div class="col-sm-8">
-						<a class="cursor text-primary" (click)="descargarPlantilla()" >importar-alumnos.xlsx</a>
-					</div>
-					<hr>
+<div class="widget clearfix mt-5">
+	<div class="whead clearfix">
+		<p>IMPORTAR</p>
+	</div>
+	<div class="row">
+		<form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
+			<div class="form-group row my-3">
+				<label class="col-sm-4 col-form-label w-100">Bajar Plantilla <span class="text-danger">*</span></label>
+				<div class="col-sm-8">
+					<a class="cursor text-primary" (click)="descargarPlantilla()">importar-alumnos.xlsx</a>
 				</div>
-				<div class="alert alert-danger my-3" *ngIf="error" >
-					<div *ngFor="let item of error | keyvalue">
-						{{item.value}}
-					</div>
+				<hr>
+			</div>
+			<div class="alert alert-danger my-3" *ngIf="error">
+				<div *ngFor="let item of error | keyvalue">
+					{{item.value}}
 				</div>
-				<div class="form-group row my-3">
-					<label class="col-sm-4 col-form-label w-100">Importar Alumnos <span class="text-danger">*</span></label>
-					<div class="col-sm-8">
-						<input type="file" id="file" (change)="handleFileInput($event.target.files)" required>
-					</div>
-					<hr>
+			</div>
+			<div class="form-group row my-3">
+				<label class="col-sm-4 col-form-label w-100">Importar Alumnos <span class="text-danger">*</span></label>
+				<div class="col-sm-8">
+					<input type="file" id="file" (change)="handleFileInput($event.target.files)" required>
 				</div>
+				<hr>
+			</div>
 
-				<div class="form-group row mt-5">
-					<div class="col-12">
-						<button type="submit" class="btn btn-success">IMPORTAR</button>
-						<a (click)="return()"  class="btn btn-info text-white">REGRESAR A LA LISTA</a>
-					</div>
+			<div class="form-group row mt-5">
+				<div class="col-12">
+					<button type="submit" class="btn btn-success">IMPORTAR</button>
+					<a (click)="return()" class="btn btn-info text-white">REGRESAR A LA LISTA</a>
 				</div>
-			</form>
-		</div>
-	  </div>
-
-
+			</div>
+		</form>
+	</div>
+</div>

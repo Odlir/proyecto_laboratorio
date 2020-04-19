@@ -15,7 +15,6 @@ class ImportController extends Controller
      */
     public function index()
     {
-        return response()->download(storage_path("app/public/importar-alumnos.xlsx"));
     }
 
     /**
@@ -38,7 +37,9 @@ class ImportController extends Controller
     {
         $file = $request->file('file');
 
-        $data=Excel::import(new PersonaImport($request->user_id,$request->encuesta_id), $file);
+        if ($request->campo == 'persona') {
+            $data = Excel::import(new PersonaImport($request->user_id, $request->encuesta_id), $file);
+        }
 
         return response()->json($data, 200);
     }

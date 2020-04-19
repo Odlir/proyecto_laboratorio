@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Encuesta;
+use App\Exports\LinkExport;
 use Illuminate\Http\Request;
-use App\Ciudad;
+use Maatwebsite\Excel\Facades\Excel;
 
-class CiudadController extends Controller
+class ExportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,6 @@ class CiudadController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -35,7 +36,31 @@ class CiudadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $mensaje = '';
+
+        $data = $request->all();
+
+        if ($request->campo == "persona") {
+            return response()->download(storage_path("app/public/importar-alumnos.xlsx"));
+        } else if ($request->campo == "links") {
+            $encuesta = Encuesta::where('id', $request->encuesta_id)
+                ->with('personas')
+                ->first();
+
+            if ($encuesta['personas']->isEmpty()) {
+                if ($encuesta['tipo_encuesta_id'] == 1) {
+                    $mensaje = "No Hay Alumnos Registrados en la encuesta de Interés";
+                } else {
+                    $mensaje = "No Hay Alumnos Registrados en la encuesta de Temperamentos";
+                }
+
+                return response()->json(['error' => $mensaje], 401);
+            }
+            else
+            {
+                return Excel::download(new LinkExport($encuesta['personas'], $encuesta['id']), 'encuesta.xlsx');
+            }
+        }
     }
 
     /**
@@ -46,10 +71,7 @@ class CiudadController extends Controller
      */
     public function show($id)
     {
-        $ciudad = Ciudad::where('country_id', $id)
-            ->get();
-
-        return response()->json($ciudad, 200);
+        //
     }
 
     /**

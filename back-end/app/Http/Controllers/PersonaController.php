@@ -15,29 +15,26 @@ class PersonaController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->input('search')!=null)
-        {
-            $searchValue=$request->input('search');
+        if ($request->input('search') != null) {
+            $searchValue = $request->input('search');
 
-            $data = Persona::where('rol_id',2)
-            ->where('estado','1')
-            ->where(function($query) use ($searchValue){
-                $query->where("id", "LIKE", "%$searchValue%")
-                ->orWhere('nombres', "LIKE", "%$searchValue%")
-                ->orWhere('apellido_materno', "LIKE", "%$searchValue%")
-                ->orWhere('apellido_paterno', "LIKE", "%$searchValue%")
-                ->orWhere('sexo', "LIKE", "%$searchValue%")
-                ->orWhere('email', "LIKE", "%$searchValue%");
-            })
-            ->orderBy('id', 'DESC')
-            ->get();
-        }
-        else
-        {
-            $data = Persona::where('estado','1')
-            ->where('rol_id','2')
-            ->orderBy('id', 'DESC')
-            ->get();
+            $data = Persona::where('rol_id', 2)
+                ->where('estado', '1')
+                ->where(function ($query) use ($searchValue) {
+                    $query->where("id", "LIKE", "%$searchValue%")
+                        ->orWhere('nombres', "LIKE", "%$searchValue%")
+                        ->orWhere('apellido_materno', "LIKE", "%$searchValue%")
+                        ->orWhere('apellido_paterno', "LIKE", "%$searchValue%")
+                        ->orWhere('sexo', "LIKE", "%$searchValue%")
+                        ->orWhere('email', "LIKE", "%$searchValue%");
+                })
+                ->orderBy('id', 'DESC')
+                ->get();
+        } else {
+            $data = Persona::where('estado', '1')
+                ->where('rol_id', '2')
+                ->orderBy('id', 'DESC')
+                ->get();
         }
 
         return response()->json($data, 200);
@@ -62,10 +59,10 @@ class PersonaController extends Controller
      */
     public function store(Request $request)
     {
-        $data= $request->all();
-        $data['rol_id']=2;
+        $data = $request->all();
+        $data['rol_id'] = 2;
 
-        $registro= Persona::create($data);
+        $registro = Persona::create($data);
 
         return response()->json($registro, 200);
     }
@@ -79,10 +76,10 @@ class PersonaController extends Controller
     public function show($id)
     {
         $data = Persona::with('insert')
-        ->with('edit')
-        ->where('rol_id','2')
-        ->where('id',$id)
-        ->first();
+            ->with('edit')
+            ->where('rol_id', '2')
+            ->where('id', $id)
+            ->first();
 
         return response()->json($data, 200);
     }
@@ -107,9 +104,9 @@ class PersonaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data= $request->all();
+        $data = $request->all();
 
-        $registro= Persona::find($id);
+        $registro = Persona::find($id);
         $registro->update($data);
         $registro->save();
 
@@ -125,13 +122,12 @@ class PersonaController extends Controller
     public function destroy($id)
     {
         $registro = Persona::find($id);
-        $registro->estado='0';
+        $registro->estado = '0';
         $registro->save();
 
-        $encuestas = EncuestaPersona::where('persona_id',$id)->get();
-        foreach($encuestas as $e)
-        {
-            $e->estado='0';
+        $encuestas = EncuestaPersona::where('persona_id', $id)->get();
+        foreach ($encuestas as $e) {
+            $e->estado = '0';
             $e->save();
         }
 

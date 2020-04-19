@@ -6,17 +6,17 @@
 
 - EL IMPORTAR EN EXCEL EN CELULAR ESTÁ FALLANDO
 
+- VALIDAR QUE EN CREAR EMPRESA, CUANDO INGRESE CORREO QUE SE ENVIE UN CORREO AL COLEGIO CON LOS LINKS
+
 ////////////////////////////////
 
-- a la vista DE LA ENCUESTA RESPONDER se le enviara el id de la encuesta y el id del alumno
+- pregunta si despues de que el alumno guarde la encuesta se debe desactivar el link
 
-- generar un excel con todas las personas asociadas
-a la encuesta, y le agregaremos el link con el id
-de la encuesta y el id de la persona
-
-- quitar la ruta de test de interes
-
-- en donde dice colegio es el nombre de la empresa, no de la sucursal
+- me falta poner como required a los radios
 
 
+
+
+
+<base href="/front-encuesta/">
 

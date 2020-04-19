@@ -1,54 +1,55 @@
+<app-header nombre="MANTENIMIENTO DE EMPRESAS" icono="city"></app-header>
 
-	<app-header nombre="MANTENIMIENTO DE EMPRESAS" icono="city"></app-header>
+<br><br>
 
-	<br><br>
-
-	<mat-horizontal-stepper linear #stepper>
+<mat-horizontal-stepper linear #stepper>
 	<mat-step completed="false">
-	<ng-template matStepLabel>{{ titulo }} <span *ngIf="id" >: {{ form.razon_social }}</span></ng-template>
+		<ng-template matStepLabel>{{ titulo }} <span *ngIf="id">: {{ form.razon_social }}</span></ng-template>
 		<div class="row data-crud">
 			<div class="col-7">
 				<form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
 
-				<div class="form-group row my-3">
-					<label class="col-sm-4 col-form-label w-100">Razón Social <span class="text-danger">*</span></label>
-					<div class="col-sm-8">
-					<input type="text" name="razonsocial" class="form-control" [(ngModel)]="form.razon_social" required>
+					<div class="form-group row my-3">
+						<label class="col-sm-4 col-form-label w-100">Razón Social <span
+								class="text-danger">*</span></label>
+						<div class="col-sm-8">
+							<input type="text" name="razonsocial" class="form-control" [(ngModel)]="form.razon_social"
+								required>
+						</div>
+						<hr>
 					</div>
-					<hr>
-				</div>
 
-				<div class="form-group row my-3">
-					<label class="col-sm-4 col-form-label w-100">Contacto</label>
-					<div class="col-sm-8">
-						<input type="text" name="contacto" class="form-control" [(ngModel)]="form.contacto">
+					<div class="form-group row my-3">
+						<label class="col-sm-4 col-form-label w-100">Contacto</label>
+						<div class="col-sm-8">
+							<input type="text" name="contacto" class="form-control" [(ngModel)]="form.contacto">
+						</div>
+						<hr>
 					</div>
-					<hr>
-				</div>
 
-				<div class="form-group row my-3">
-					<label class="col-sm-4 col-form-label w-100">Teléfono</label>
-					<div class="col-sm-8">
-						<input type="number" name="telefono" class="form-control" [(ngModel)]="form.telefono">
+					<div class="form-group row my-3">
+						<label class="col-sm-4 col-form-label w-100">Teléfono</label>
+						<div class="col-sm-8">
+							<input type="number" name="telefono" class="form-control" [(ngModel)]="form.telefono">
+						</div>
+						<hr>
 					</div>
-					<hr>
-				</div>
 
-				<div class="form-group row my-3">
-					<label class="col-sm-4 col-form-label w-100">Correo Contacto</label>
-					<div class="col-sm-8">
-					<input type="email" name="correo" class="form-control" [(ngModel)]="form.email">
+					<div class="form-group row my-3">
+						<label class="col-sm-4 col-form-label w-100">Correo Contacto</label>
+						<div class="col-sm-8">
+							<input type="email" name="correo" class="form-control" [(ngModel)]="form.email">
+						</div>
+						<hr>
 					</div>
-					<hr>
-				</div>
 
-				<div class="form-group row mt-5">
-					<div class="col-12">
-					<button type="submit" class="btn btn-success">GUARDAR</button>
-					<a routerLink="/empresas" class="btn btn-info">REGRESAR A LA LISTA</a>
+					<div class="form-group row mt-5">
+						<div class="col-12">
+							<button type="submit" class="btn btn-success">GUARDAR</button>
+							<a routerLink="/empresas" class="btn btn-info">REGRESAR A LA LISTA</a>
+						</div>
 					</div>
-				</div>
-			</form>
+				</form>
 			</div>
 			<div class="col-5" *ngIf="id==null">
 				<div class="form-check my-3">
@@ -56,7 +57,7 @@
 					<label class="form-check-label" for="exampleCheck1">Sucursales</label>
 				</div>
 			</div>
-			<div class="col-5 p-0 widget clearfix" *ngIf="id" >
+			<div class="col-5 p-0 widget clearfix" *ngIf="id">
 				<app-auditoria [form]="form"></app-auditoria>
 			</div>
 		</div>
@@ -66,10 +67,8 @@
 		<app-sucursal [id]="id"></app-sucursal>
 		<div class="form-group row mt-3">
 			<div class="col-12">
-			<a routerLink="/empresas" class="btn btn-info">REGRESAR A LA LISTA</a>
+				<a routerLink="/empresas" class="btn btn-info">REGRESAR A LA LISTA</a>
 			</div>
 		</div>
 	</mat-step>
-	</mat-horizontal-stepper>
-
-
+</mat-horizontal-stepper>

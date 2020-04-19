@@ -11,13 +11,11 @@ export class JarwisService {
 
   constructor(private http: HttpClient) { }
 
-  signup(data)
-  {
+  signup(data) {
     return this.http.post(this.apiUrl + 'signup', data);
   }
 
-  login(data)
-  {
+  login(data) {
     return this.http.post(this.apiUrl + 'login', data);
   }
 }

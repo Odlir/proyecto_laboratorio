@@ -17,28 +17,28 @@ class EncuestaPersonaController extends Controller
      */
     public function index(Request $request)
     {
-        $searchValue=$request->input('search');
-        $data = Encuesta::where('estado','1')
-        ->where('id',$request->input('id'))
-        ->with('insert')
-        ->with('edit')
-        ->with('empresa')
-        ->with('tipo')
-        ->with(['personas' => function ($q) use($searchValue){
-            $q->where('personas.estado',"1")
-            // ->with('insert')
-            // ->with('edit')
-            ->where(function($query) use ($searchValue){
-                $query->where("personas.id", "LIKE", "%$searchValue%")
-                ->orWhere("personas.nombres", "LIKE", "%$searchValue%")
-                ->orWhere('personas.apellido_materno', "LIKE", "%$searchValue%")
-                ->orWhere('personas.apellido_paterno', "LIKE", "%$searchValue%")
-                ->orWhere('personas.sexo', "LIKE", "%$searchValue%")
-                ->orWhere('personas.email', "LIKE", "%$searchValue%");
-            })
-            ->orderBy('id', 'DESC');
-        }])
-        ->first();
+        $searchValue = $request->input('search');
+        $data = Encuesta::where('estado', '1')
+            ->where('id', $request->input('id'))
+            ->with('insert')
+            ->with('edit')
+            ->with('empresa')
+            ->with('tipo')
+            ->with(['personas' => function ($q) use ($searchValue) {
+                $q->where('personas.estado', "1")
+                    // ->with('insert')
+                    // ->with('edit')
+                    ->where(function ($query) use ($searchValue) {
+                        $query->where("personas.id", "LIKE", "%$searchValue%")
+                            ->orWhere("personas.nombres", "LIKE", "%$searchValue%")
+                            ->orWhere('personas.apellido_materno', "LIKE", "%$searchValue%")
+                            ->orWhere('personas.apellido_paterno', "LIKE", "%$searchValue%")
+                            ->orWhere('personas.sexo', "LIKE", "%$searchValue%")
+                            ->orWhere('personas.email', "LIKE", "%$searchValue%");
+                    })
+                    ->orderBy('id', 'DESC');
+            }])
+            ->first();
 
         return response()->json($data, 200);
     }
@@ -61,11 +61,10 @@ class EncuestaPersonaController extends Controller
      */
     public function store(Request $request) //AQUI GUARDO LAS RESPUESTAS DE LAS ENCUESTAS
     {
-        $data= $request->all();
+        $data = $request->all();
 
-        foreach($data as $d)
-        {
-           EncuestaRespuesta::create($d);
+        foreach ($data as $d) {
+            EncuestaRespuesta::create($d);
         }
 
         return response()->json($data, 200);
@@ -114,22 +113,22 @@ class EncuestaPersonaController extends Controller
     public function destroy($id)
     {
         $registro = EncuestaPersona::find($id);
-        $registro->estado='0';
+        $registro->estado = '0';
         $registro->save();
 
         $persona = Persona::find($registro->persona_id);
-        $persona->estado='0';
+        $persona->estado = '0';
         $persona->save();
 
-        $personas= Encuesta::with('insert')
-        ->with('edit')
-        ->with('empresa')
-        ->with(['personas' => function ($query) {
-            $query->where('personas.estado', '1');
-        }])
-        ->with('tipo')
-        ->where('id',$registro->encuesta_id)
-        ->first();
+        $personas = Encuesta::with('insert')
+            ->with('edit')
+            ->with('empresa')
+            ->with(['personas' => function ($query) {
+                $query->where('personas.estado', '1');
+            }])
+            ->with('tipo')
+            ->where('id', $registro->encuesta_id)
+            ->first();
 
         return response()->json($personas, 200);
     }

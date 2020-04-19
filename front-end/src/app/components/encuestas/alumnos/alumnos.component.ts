@@ -4,13 +4,13 @@ import { ApiBackRequestService } from './../../../Services/api-back-request.serv
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-alumnos',
-  templateUrl: './alumnos.component.html',
-  styleUrls: ['./alumnos.component.css']
+	selector: 'app-alumnos',
+	templateUrl: './alumnos.component.html',
+	styleUrls: ['./alumnos.component.css']
 })
 export class AlumnosComponent implements OnInit {
 
-	personas=[];
+	personas = [];
 
 	loadingIndicator = true;
 	reorderable = true;
@@ -22,34 +22,32 @@ export class AlumnosComponent implements OnInit {
 
 	@Input() tab: any;
 
-  constructor(private api: ApiBackRequestService) { }
+	constructor(private api: ApiBackRequestService) { }
 
-  ngOnInit(): void {
+	ngOnInit(): void {
 		this.fetch();
 	}
 
-	async fetch()
-	{
-		await this.api.show('encuestas', this.id).toPromise().then(
+	fetch() {
+		this.api.get('encuestas', this.id).subscribe(
 			(data) => {
-				this.personas= data.personas;
-				}
-			);
+				this.personas = data.personas;
+			}
+		);
 	}
 
-	async updateFilter(event) {
+	updateFilter(event) {
 		const val = event.target.value;
 
-		await this.api.get('encuesta_persona?search=' + val +'&id='+this.id).toPromise().then(
+		this.api.get('encuesta_persona?search=' + val + '&id=' + this.id).subscribe(
 			(data) => {
-				this.personas=data.personas;
+				this.personas = data.personas;
 				this.personas = [...this.personas]
 			}
 		);
 	}
 
-	eliminarPersona(id)
-	{
+	eliminarPersona(id) {
 		Swal.fire({
 			title: 'Desea eliminar la persona?',
 			icon: 'warning',
@@ -57,16 +55,16 @@ export class AlumnosComponent implements OnInit {
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
 			confirmButtonText: 'Confirmar'
-			}).then(async (result) => {
-				if (result.value) {
-					await this.api.delete('encuesta_persona', id).toPromise().then(
-						(data) => {
-							this.personas=data.personas;
-							this.personas = [...this.personas]
-						}
-					);
-				}
-			})
+		}).then((result) => {
+			if (result.value) {
+				this.api.delete('encuesta_persona', id).subscribe(
+					(data) => {
+						this.personas = data.personas;
+						this.personas = [...this.personas]
+					}
+				);
+			}
+		})
 	}
 
 }

@@ -10,6 +10,6 @@ class Ciudad extends Model
 
     public function pais()
     {
-        return $this->belongsTo('App\Pais','country_id','id');
+        return $this->belongsTo('App\Pais', 'country_id', 'id');
     }
 }

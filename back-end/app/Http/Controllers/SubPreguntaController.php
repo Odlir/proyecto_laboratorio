@@ -46,8 +46,8 @@ class SubPreguntaController extends Controller
      */
     public function show($id)
     {
-        $data = SubPregunta::where('tipo_encuesta_id',$id)
-        ->get();
+        $data = SubPregunta::where('tipo_encuesta_id', $id)
+            ->get();
 
         return response()->json($data, 200);
     }

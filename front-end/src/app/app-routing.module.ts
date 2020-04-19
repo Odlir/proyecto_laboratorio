@@ -1,3 +1,4 @@
+import { ReportesComponent } from './components/reportes/reportes.component';
 import { TestInteresComponent } from './components/test-interes/test-interes.component';
 import { DetalleEncuestaComponent } from './components/encuestas/detalle-encuesta/detalle-encuesta.component';
 import { CrudEncuestaComponent } from './components/encuestas/crud-encuesta/crud-encuesta.component';
@@ -49,57 +50,62 @@ const routes: Routes = [
     path: 'detalle-persona',
     component: DetallePersonaComponent,
     canActivate: [AfterLoginService]
-	},
-	{
+  },
+  {
     path: 'empresas',
     component: EmpresasComponent,
     canActivate: [AfterLoginService]
-	},
-	{
+  },
+  {
     path: 'crud-empresa',
     component: CrudEmpresaComponent,
     canActivate: [AfterLoginService]
-	},
-	{
+  },
+  {
     path: 'detalle-empresa',
     component: DetalleEmpresaComponent,
     canActivate: [AfterLoginService]
-	},
-	{
+  },
+  {
     path: 'crud-sucursal',
     component: CrudSucursalComponent,
     canActivate: [AfterLoginService]
-	},
-	{
+  },
+  {
     path: 'detalle-sucursal',
     component: DetalleSucursalComponent,
     canActivate: [AfterLoginService]
-	},
-	{
+  },
+  {
     path: 'importar-persona',
     component: ImportarPersonaComponent,
     canActivate: [AfterLoginService]
-	},
-	{
+  },
+  {
     path: 'encuestas',
     component: EncuestasComponent,
     canActivate: [AfterLoginService]
-	},
-	{
+  },
+  {
     path: 'crud-encuesta',
     component: CrudEncuestaComponent,
     canActivate: [AfterLoginService]
-	},
-	{
+  },
+  {
     path: 'detalle-encuesta',
     component: DetalleEncuestaComponent,
     canActivate: [AfterLoginService]
-	},
-	{
-    path: 'test-interes',
+  },
+  {
+    path: 'test-intereses',
     component: TestInteresComponent,
+    canActivate: [BeforeLoginService]
+  },
+  {
+    path: 'reportes',
+    component: ReportesComponent,
     canActivate: [AfterLoginService]
-	},
+  }
 ];
 
 @NgModule({
