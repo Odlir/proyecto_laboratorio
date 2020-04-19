@@ -19,6 +19,7 @@ class RespuestaController extends Controller
 
         $data = Respuesta::where('tipo_encuesta_id', $encuesta)
             ->where('tipo_subpregunta', $subpregunta)
+            ->where('estado', '1')
             ->get();
 
         return response()->json($data, 200);
@@ -54,6 +55,7 @@ class RespuestaController extends Controller
     public function show($id)
     {
         $data = Respuesta::where('tipo_encuesta_id', $id)
+            ->where('estado', '1')
             ->get();
 
         return response()->json($data, 200);

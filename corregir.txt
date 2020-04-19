@@ -8,11 +8,12 @@
 
 - VALIDAR QUE EN CREAR EMPRESA, CUANDO INGRESE CORREO QUE SE ENVIE UN CORREO AL COLEGIO CON LOS LINKS
 
+- buscar como hacer para que no se guarde la memoria cache
+
 ////////////////////////////////
 
-- pregunta si despues de que el alumno guarde la encuesta se debe desactivar el link
 
-- me falta poner como required a los radios
+
 
 
 

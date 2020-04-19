@@ -1,8 +1,8 @@
 <app-header nombre="ENCUESTA : TEST DE INTERESES" icono="tv"></app-header>
 <br>
-<H5>COLEGIO GAF</H5>
+<H5>EMPRESA: {{ sucursal }}</H5>
 <br>
-<app-header-encuesta nombre="EVALUADO " icono="user-cog" alumno="NOMBRE DEL ALUMNO"></app-header-encuesta>
+<app-header-encuesta nombre="EVALUADO " icono="user-cog" [alumno]="alumno"></app-header-encuesta>
 <br>
 
 <p class="font-weight-bold">INSTRUCCIONES</p>
@@ -26,7 +26,7 @@
 					<div class="col-12 align-items-center mt-3" *ngFor="let item3 of item2.respuestas; let i3 = index">
 						<div *ngIf="item3.subpregunta==null" >
 							<label>
-								<input type="radio" [name]="i+'-'+i2" [value]="item3.id" [formControlName]="i+'-'+i2" checked>
+								<input type="radio" [name]="i+'-'+i2" [value]="item3.id" [formControlName]="i+'-'+i2">
 								{{ item3.nombre }}
 							</label>
 						</div>

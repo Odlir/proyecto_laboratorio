@@ -54,7 +54,7 @@ export class NavbarComponent implements OnInit {
 		this.Auth.changeAuthStatus(false);
 		this.sharedService.sendShowMenu();
 		this.show();
-		this.router.navigateByUrl('/login');
+		this.router.navigateByUrl('/');
 	}
 
 }

@@ -31,7 +31,9 @@ class LinkExport implements FromView, ShouldAutoSize, WithEvents
 
         foreach($this->personas as $p)
         {
-            $p->link_intereses = $this->link_intereses.'?encuesta_id='.$this->encuesta_id.'&persona_id='.$p->id;
+            // $p->link_intereses = $this->link_intereses.'?encuesta_id='.$this->encuesta_id.'&persona_id='.$p->id;
+
+            $p->link_intereses = $this->link_intereses.'/'.$this->encuesta_id.'/'.$p->id;
         }
     }
 

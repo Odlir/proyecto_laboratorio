@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
-import {ApiBackRequestService} from './../../Services/api-back-request.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { ApiBackRequestService } from './../../Services/api-back-request.service';
 import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-test-interes',
@@ -28,18 +29,41 @@ export class TestInteresComponent implements OnInit {
 	formGroup: FormGroup;
 	group: any = {};
 
-	constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder) {
+	public sucursal = null;
+
+	public alumno = null;
+
+	constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder, private route: ActivatedRoute) {
 		this.formGroup = new FormGroup(this.group);
 	}
 
 	ngOnInit(): void {
 
+		this.form.encuesta_id = parseInt(this.route.snapshot.params.encuesta_id)
+		this.form.persona_id = parseInt(this.route.snapshot.params.persona_id);
+
+		this.obtenerDatos();
+
 		this.fetch();
+	}
+
+	obtenerDatos() {
+		this.api.get('encuestas', this.form.encuesta_id).subscribe(
+			(data) => {
+				this.sucursal = data.empresa.nombre;
+
+				data.personas.filter(obj => {
+					if (obj.id == this.form.persona_id) {
+						this.alumno = obj.nombrecompleto;
+					}
+				})
+			}
+		);
 	}
 
 	reactive(preguntas) {
 		preguntas.forEach((pr, index) => {
-			pr.subpreguntas.forEach( (p, i) => {
+			pr.subpreguntas.forEach((p, i) => {
 				let ind = `${index}-${i}`;
 				this.group[ind] = new FormControl('', [Validators.required])
 			})
@@ -89,9 +113,9 @@ export class TestInteresComponent implements OnInit {
 
 	async guardar() {
 		console.log('form', this.formGroup);
-		Object.values(this.formGroup.controls).forEach( a => {
+		Object.values(this.formGroup.controls).forEach(a => {
 			//console.log('a', a.status);
-			if (a.status == 'INVALID'){
+			if (a.status == 'INVALID') {
 				Swal.fire('Hello world!');
 			}
 		});

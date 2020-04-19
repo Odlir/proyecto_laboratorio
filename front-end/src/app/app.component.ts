@@ -22,10 +22,10 @@ export class AppComponent implements OnInit {
 			this.isExpanded = value;
 		});
 
-		if(this.router.url === '/login')
-		{
+		if (this.router.url === '') {
 			this.router.navigateByUrl('/dashboard');
-		}
+		} 
+
 	}
 
 }

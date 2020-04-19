@@ -12,12 +12,12 @@
 		<span class="full-width" *ngIf="isExpanded">Empresas</span>
 	</a>
 	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="encuestas">
-		<fa-icon [icon]="['fas', 'poll']"></fa-icon>
+		<fa-icon [icon]="['fas', 'edit']"></fa-icon>
 		<span class="full-width" *ngIf="isExpanded">Programar Encuestas</span>
 	</a>
-	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="test-interes">
+	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="reportes">
 		<fa-icon [icon]="['fas', 'poll']"></fa-icon>
-		<span class="full-width" *ngIf="isExpanded">Intereses</span>
+		<span class="full-width" *ngIf="isExpanded">Reportes</span>
 	</a>
 </mat-nav-list>
 

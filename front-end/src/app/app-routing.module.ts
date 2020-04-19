@@ -22,7 +22,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'login',
+    path: '',
     component: LoginComponent,
     canActivate: [BeforeLoginService]
   },
@@ -97,9 +97,10 @@ const routes: Routes = [
     canActivate: [AfterLoginService]
   },
   {
-    path: 'test-intereses',
+    path: 'test-intereses/:encuesta_id/:persona_id',
     component: TestInteresComponent,
-    canActivate: [BeforeLoginService]
+    // canActivate: [BeforeLoginService]
+    canActivate: [AfterLoginService]
   },
   {
     path: 'reportes',

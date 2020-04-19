@@ -14,7 +14,7 @@ export class AfterLoginService implements CanActivate {
       return true;
     }
     else {
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/');
     }
   }
 }
