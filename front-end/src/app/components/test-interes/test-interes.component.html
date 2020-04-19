@@ -14,7 +14,7 @@
 
 <br>
 
-<form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
+<form [formGroup]="formGroup" (ngSubmit)="guardar()" class="px-4">
 	<div class="widget clearfix mb-2" *ngFor="let item of preguntas; let i = index;" >
 		<div class="whead clearfix">
 			<p class="font-weight-bold text-uppercase">{{ +i+1 }}. {{ item.nombre }}</p>
@@ -23,10 +23,12 @@
 			<div class="col-4 border-right" *ngFor="let item2 of item.subpreguntas; let i2= index" >
 				<p class="text-danger font-weight-bold">{{ item2.nombre }}</p>
 				<div>
-					<div class="col-12 align-items-center mt-3" *ngFor="let item3 of item2.respuestas">
+					<div class="col-12 align-items-center mt-3" *ngFor="let item3 of item2.respuestas; let i3 = index">
 						<div *ngIf="item3.subpregunta==null" >
-							<input type="radio" [name]="'respuesta_'+i+'_'+i2" [value]="item3.id" [(ngModel)]="item2.respuesta_id" required>
-							<label>{{ item3.nombre }}</label>
+							<label>
+								<input type="radio" [name]="i+'-'+i2" [value]="item3.id" [formControlName]="i+'-'+i2" checked>
+								{{ item3.nombre }}
+							</label>
 						</div>
 					</div>
 				</div>
