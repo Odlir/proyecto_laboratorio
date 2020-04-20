@@ -2,16 +2,14 @@
     <thead>
     <tr>
         <th>NOMBRE</th>
-        <th>INTERESES</th>
-        <th>TEMPERAMENTOS</th>
+        <th>{{ $tipo }}</th>
     </tr>
     </thead>
     <tbody>
     @foreach($personas as $p)
         <tr>
             <td>{{ $p->nombres }} {{ $p->apellido_paterno }} {{ $p->apellido_materno }}</td>
-            <td>{{ $p->link_intereses }}</td>
-            <td></td>
+            <td>{{ $p->link }}</td>
         </tr>
       @endforeach
     </tbody>

@@ -22,11 +22,10 @@ class Empresa extends Model
     {
         parent::boot();
         static::saving(function ($model) {
-            $model->razon_social = $model->setUpperCase('razon_social', $model->razon_social);
-            $model->contacto = $model->setUpperCase('contacto', $model->contacto);
-
             $model->razon_social = $model->sinTilde('razon_social', $model->razon_social);
             $model->contacto = $model->sinTilde('contacto', $model->contacto);
+            $model->razon_social = $model->setUpperCase('razon_social', $model->razon_social);
+            $model->contacto = $model->setUpperCase('contacto', $model->contacto);
         });
     }
 

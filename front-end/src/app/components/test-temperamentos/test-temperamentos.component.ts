@@ -1,30 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { ApiBackRequestService } from './../../Services/api-back-request.service';
-import Swal from 'sweetalert2';
+import { ApiBackRequestService } from 'src/app/Services/api-back-request.service';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
-	selector: 'app-test-interes',
-	templateUrl: './test-interes.component.html',
-	styleUrls: ['./test-interes.component.css']
+	selector: 'app-test-temperamentos',
+	templateUrl: './test-temperamentos.component.html',
+	styleUrls: ['./test-temperamentos.component.css']
 })
-export class TestInteresComponent implements OnInit {
+export class TestTemperamentosComponent implements OnInit {
 
 	preguntas = [];
 
-	subpreguntas = [];
-
 	form = {
 		pregunta_id: null,
-		subpregunta_id: null,
 		respuesta_id: null,
 		encuesta_id: null,
 		persona_id: null
 	};
 
-	respuestas1 = [];
-	respuestas2 = [];
+	respuestas = [];
+
 	data = [];
 	formGroup: FormGroup;
 	group: any = {};
@@ -42,7 +39,6 @@ export class TestInteresComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-
 		this.form.encuesta_id = parseInt(this.route.snapshot.params.encuesta_id)
 		this.form.persona_id = parseInt(this.route.snapshot.params.persona_id);
 
@@ -77,56 +73,33 @@ export class TestInteresComponent implements OnInit {
 
 	reactive(preguntas) {
 		preguntas.forEach((pr) => {
-			pr.subpreguntas.forEach((s) => {
-				let ind = `${pr.id}-${s.id}`;
-				this.group[ind] = new FormControl('', [Validators.required])
-			})
+			let ind = `${pr.id}`;
+			this.group[ind] = new FormControl('', [Validators.required])
 		});
 	}
 
 	async fetch() {
-		await this.api.show('preguntas', 1).toPromise().then(
+		await this.api.show('preguntas', 3).toPromise().then(
 			(data) => {
 				this.preguntas = data;
 			}
 		);
 
-		await this.api.show('subpreguntas', 1).toPromise().then(
+		await this.api.show('respuestas', 3).toPromise().then(
 			(data) => {
-				this.subpreguntas = data;
+				this.respuestas = data;
 			}
 		);
-
-		await this.api.get('respuestas?encuesta=1&sub=1').toPromise().then(
-			(data) => {
-				this.respuestas1 = data;
-			}
-		);
-
-		await this.api.get('respuestas?encuesta=1&sub=2').toPromise().then(
-			(data) => {
-				this.respuestas2 = data;
-			}
-		);
-
-		this.subpreguntas.forEach(element => {
-			if (element.tipo_subpregunta == '1') {
-				element.respuestas = JSON.parse(JSON.stringify(this.respuestas1));
-			} else {
-				element.respuestas = JSON.parse(JSON.stringify(this.respuestas2));
-			}
-			element.respuesta_id = null;
-		});
 
 		this.preguntas.forEach(element => {
-			element.subpreguntas = JSON.parse(JSON.stringify(this.subpreguntas));
+			element.respuestas = JSON.parse(JSON.stringify(this.respuestas));
+			element.respuesta_id = null;
 		});
 
 		this.reactive(this.preguntas);
 	}
 
 	async guardar() {
-
 		Object.entries(this.formGroup.controls).every(a => {
 			if (a[1].value == '') {
 				Swal.fire({
@@ -140,10 +113,7 @@ export class TestInteresComponent implements OnInit {
 				return false;
 			}
 			else {
-
-				let ids = a[0].split('-');
-				this.form.pregunta_id = ids[0];
-				this.form.subpregunta_id = ids[1];
+				this.form.pregunta_id = a[0];
 				this.form.respuesta_id = a[1].value;
 
 				this.data.push({ ...this.form });
@@ -171,4 +141,5 @@ export class TestInteresComponent implements OnInit {
 			);
 		}
 	}
+
 }

@@ -54,7 +54,7 @@
 			<div class="col-5" *ngIf="id==null">
 				<div class="form-check my-3">
 					<input type="checkbox" [(ngModel)]="generarSucursal" [ngModelOptions]="{standalone: true}">
-					<label class="form-check-label" for="exampleCheck1">Sucursales</label>
+					<label class="form-check-label" for="exampleCheck1">Sedes</label>
 				</div>
 			</div>
 			<div class="col-5 p-0 widget clearfix" *ngIf="id">
@@ -63,7 +63,7 @@
 		</div>
 	</mat-step>
 	<mat-step [stepControl]="secondFormGroup">
-		<ng-template matStepLabel>SUCURSALES</ng-template>
+		<ng-template matStepLabel>SEDES</ng-template>
 		<app-sucursal [id]="id"></app-sucursal>
 		<div class="form-group row mt-3">
 			<div class="col-12">

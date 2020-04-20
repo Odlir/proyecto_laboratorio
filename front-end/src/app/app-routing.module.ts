@@ -19,6 +19,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { TestTemperamentosComponent } from './components/test-temperamentos/test-temperamentos.component';
 
 const routes: Routes = [
   {
@@ -99,8 +100,14 @@ const routes: Routes = [
   {
     path: 'test-intereses/:encuesta_id/:persona_id',
     component: TestInteresComponent,
-    // canActivate: [BeforeLoginService]
-    canActivate: [AfterLoginService]
+    // canActivate: [AfterLoginService]
+    canActivate: [BeforeLoginService]
+  },
+  {
+    path: 'test-temperamentos/:encuesta_id/:persona_id',
+    component: TestTemperamentosComponent,
+    // canActivate: [AfterLoginService]
+    canActivate: [BeforeLoginService]
   },
   {
     path: 'reportes',

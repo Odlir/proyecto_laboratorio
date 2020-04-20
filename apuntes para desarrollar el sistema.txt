@@ -3,6 +3,10 @@ cuando editas que se quede en la misma pantalla
 
 
 ENCUESTAS 
+- EL SISTEMA NO DEBE PERMITIR GUARDAR TILDES / Ñ / NI CARACTERES EXTRAÑOS
+
+- TODO DEBE GUARDARSE EN MAYUSCULAS
+
 - Hay 3 encuestas: intereses / talentos / temperamentos y cada tipo de encuesta tiene sus propias preguntas Y respuestas
 
 - la formula para los reportes se debe usar del .net debe ser igual

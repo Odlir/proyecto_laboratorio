@@ -26,15 +26,16 @@ class Persona extends Model
     {
         parent::boot();
         static::saving(function ($model) {
-            $model->nombres = $model->setUpperCase('nombres', $model->nombres);
-            $model->apellido_materno = $model->setUpperCase('apellido_materno', $model->apellido_materno);
-            $model->apellido_paterno = $model->setUpperCase('apellido_paterno', $model->apellido_paterno);
-            $model->sexo = $model->setUpperCase('sexo', $model->sexo);
 
             $model->nombres = $model->sinTilde('nombres', $model->nombres);
             $model->apellido_materno = $model->sinTilde('apellido_materno', $model->apellido_materno);
             $model->apellido_paterno = $model->sinTilde('apellido_paterno', $model->apellido_paterno);
             $model->sexo = $model->sinTilde('sexo', $model->sexo);
+            
+            $model->nombres = $model->setUpperCase('nombres', $model->nombres);
+            $model->apellido_materno = $model->setUpperCase('apellido_materno', $model->apellido_materno);
+            $model->apellido_paterno = $model->setUpperCase('apellido_paterno', $model->apellido_paterno);
+            $model->sexo = $model->setUpperCase('sexo', $model->sexo);
         });
     }
 

@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Config;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -20,20 +21,28 @@ class LinkExport implements FromView, ShouldAutoSize, WithEvents
 
     private $encuesta_id;
 
-    private $link_intereses = 'http://localhost:4200/#/test-intereses';
+    private $url;
 
-    // private $link_intereses = 'http://gaf.com.pe/front-encuesta/#/test-intereses';
+    private $tipo;
 
-    public function __construct($personas,$id)
+    private $api;
+
+    public function __construct($personas, $id, $tipo)
     {
         $this->personas = $personas;
         $this->encuesta_id = $id;
+        $this->api = config('constants.front_end');
 
-        foreach($this->personas as $p)
-        {
-            // $p->link_intereses = $this->link_intereses.'?encuesta_id='.$this->encuesta_id.'&persona_id='.$p->id;
+        if ($tipo == 'int') {
+            $this->url = '/test-intereses/';
+            $this->tipo = 'INTERESES';
+        } else {
+            $this->url = '/test-temperamentos/';
+            $this->tipo = 'TEMPERAMENTOS';
+        }
 
-            $p->link_intereses = $this->link_intereses.'/'.$this->encuesta_id.'/'.$p->id;
+        foreach ($this->personas as $p) {
+            $p->link = $this->api . $this->url . $this->encuesta_id . '/' . $p->id;
         }
     }
 
@@ -41,7 +50,8 @@ class LinkExport implements FromView, ShouldAutoSize, WithEvents
     {
         return view('links', [
             'personas' => $this->personas,
-            'encuesta_id' => $this->encuesta_id
+            'encuesta_id' => $this->encuesta_id,
+            'tipo' => $this->tipo
         ]);
     }
 

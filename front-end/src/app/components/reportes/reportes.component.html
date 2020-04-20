@@ -6,7 +6,7 @@
 			<label class="col-sm-4 col-form-label w-100">Empresa <span class="text-danger">*</span></label>
 			<div class="col-sm-8">
 				<select name="empresa" class="form-control" [(ngModel)]="sucursal" required
-					(change)="obtenerIntereses()">
+					(change)="obtenerEncuestas()">
 					<option [ngValue]="item" *ngFor="let item of sucursales">{{item.nombre}}</option>
 				</select>
 			</div>
@@ -16,8 +16,18 @@
 		<div class="form-group row my-3">
 			<label class="col-sm-4 col-form-label w-100">Intereses <span class="text-danger">*</span></label>
 			<div class="col-sm-8">
-				<select name="empresa" class="form-control" [(ngModel)]="form.encuesta_id" required>
+				<select name="intereses" class="form-control" [(ngModel)]="interes_id" required>
 					<option [value]="item.id" *ngFor="let item of intereses">ENCUESTA INTERES - {{item.id}}</option>
+				</select>
+			</div>
+			<hr>
+		</div>
+
+		<div class="form-group row my-3">
+			<label class="col-sm-4 col-form-label w-100">Temperamentos <span class="text-danger">*</span></label>
+			<div class="col-sm-8">
+				<select name="temperamentos" class="form-control" [(ngModel)]="temperamento_id" required>
+					<option [value]="item.id" *ngFor="let item of temperamentos">ENCUESTA TEMPERAMENTOS - {{item.id}}</option>
 				</select>
 			</div>
 			<hr>

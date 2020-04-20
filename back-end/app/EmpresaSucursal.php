@@ -21,8 +21,8 @@ class EmpresaSucursal extends Model
     {
         parent::boot();
         static::saving(function ($model) {
-            $model->nombre = $model->setUpperCase('nombre', $model->nombre);
             $model->nombre = $model->sinTilde('nombre', $model->nombre);
+            $model->nombre = $model->setUpperCase('nombre', $model->nombre);
         });
     }
 

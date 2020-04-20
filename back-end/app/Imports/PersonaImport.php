@@ -36,13 +36,15 @@ class PersonaImport implements ToCollection, WithHeadingRow
             $messages[$key . '.nombres' . '.required'] = 'El campo Nombres, fila ' . $i . '  es requerido.';
             $messages[$key . '.apellido_paterno' . '.required'] = 'El campo Apellido Paterno, fila ' . $i . '  es requerido.';
             $messages[$key . '.sexo' . '.required'] = 'El campo Sexo, fila ' . $i . '  es requerido.';
+            $messages[$key . '.ano' . '.numeric'] = 'El campo Año, fila ' . $i . '  debe ser numerico.';
             $i++;
         }
 
         Validator::make($rows->toArray(), [
             '*.nombres' => 'required',
             '*.apellido_paterno' => 'required',
-            '*.sexo' => 'required'
+            '*.sexo' => 'required',
+            '*.ano' => 'numeric|nullable'
         ], $messages)->validate();
 
         foreach ($rows as $row) {
@@ -51,6 +53,7 @@ class PersonaImport implements ToCollection, WithHeadingRow
                 'apellido_paterno'    => $row['apellido_paterno'],
                 'apellido_materno' => $row['apellido_materno'],
                 'sexo' => $row['sexo'],
+                'anio' => $row['ano'],
                 'rol_id' => 2,
                 'insert_user_id' => $this->user
             ]);

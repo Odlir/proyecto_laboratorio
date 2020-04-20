@@ -50,6 +50,7 @@ import { AlumnosComponent } from './components/encuestas/alumnos/alumnos.compone
 import { SucursalComponent } from './components/empresas/sucursal/sucursal.component';
 import { HeaderEncuestaComponent } from './components/partials/header-encuesta/header-encuesta.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
+import { TestTemperamentosComponent } from './components/test-temperamentos/test-temperamentos.component';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { ReportesComponent } from './components/reportes/reportes.component';
 		AlumnosComponent,
 		SucursalComponent,
 		HeaderEncuestaComponent,
-		ReportesComponent
+		ReportesComponent,
+		TestTemperamentosComponent
 	],
 	imports: [
 		BrowserModule,

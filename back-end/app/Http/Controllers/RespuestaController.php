@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\EncuestaRespuesta;
 use App\Respuesta;
 use Illuminate\Http\Request;
 
@@ -41,9 +42,13 @@ class RespuestaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) //AQUI CONSULTO SI ES QUE LA ENCUESTA FUE COMPLETADA
     {
-        //
+        $data = EncuestaRespuesta::where('encuesta_id', $request->encuesta_id)
+            ->where('persona_id', $request->persona_id)
+            ->first();
+
+        return response()->json($data, 200);
     }
 
     /**
@@ -61,7 +66,7 @@ class RespuestaController extends Controller
         return response()->json($data, 200);
     }
 
-    /**
+    /** 
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

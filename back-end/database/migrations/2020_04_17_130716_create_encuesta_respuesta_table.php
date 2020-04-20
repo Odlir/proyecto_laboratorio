@@ -21,7 +21,7 @@ class CreateEncuestaRespuestaTable extends Migration
             $table->unsignedBigInteger('pregunta_id');
             $table->foreign('pregunta_id')->references('id')->on('preguntas');
 
-            $table->unsignedBigInteger('subpregunta_id');
+            $table->unsignedBigInteger('subpregunta_id')->nullable();
             $table->foreign('subpregunta_id')->references('id')->on('subpreguntas');
 
             $table->unsignedBigInteger('respuesta_id');

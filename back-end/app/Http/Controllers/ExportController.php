@@ -37,7 +37,7 @@ class ExportController extends Controller
     public function store(Request $request)
     {
         $mensaje = '';
-
+        $tipo = "";
         $data = $request->all();
 
         if ($request->campo == "persona") {
@@ -47,18 +47,18 @@ class ExportController extends Controller
                 ->with('personas')
                 ->first();
 
-            if ($encuesta['personas']->isEmpty()) {
-                if ($encuesta['tipo_encuesta_id'] == 1) {
-                    $mensaje = "No Hay Alumnos Registrados en la encuesta de Interés";
-                } else {
-                    $mensaje = "No Hay Alumnos Registrados en la encuesta de Temperamentos";
-                }
-
-                return response()->json(['error' => $mensaje], 401);
+            if ($encuesta['tipo_encuesta_id'] == 1) {
+                $mensaje = "No Hay Alumnos Registrados en la encuesta de Interés";
+                $tipo = 'int';
+            } else {
+                $mensaje = "No Hay Alumnos Registrados en la encuesta de Temperamentos";
+                $tipo = 'tem';
             }
-            else
-            {
-                return Excel::download(new LinkExport($encuesta['personas'], $encuesta['id']), 'encuesta.xlsx');
+
+            if ($encuesta['personas']->isEmpty()) {
+                return response()->json(['error' => $mensaje], 401);
+            } else {
+                return Excel::download(new LinkExport($encuesta['personas'], $encuesta['id'],$tipo), 'encuesta.xlsx');
             }
         }
     }

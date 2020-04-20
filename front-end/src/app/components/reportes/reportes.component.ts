@@ -16,9 +16,15 @@ export class ReportesComponent implements OnInit {
 		archivo: null
 	}
 
+	public interes_id: null;
+
+	public temperamento_id: null;
+
 	public sucursales = [];
 
 	public intereses = [];
+
+	public temperamentos = [];
 
 	public sucursal = {
 		id: null,
@@ -39,22 +45,52 @@ export class ReportesComponent implements OnInit {
 		);
 	}
 
-	obtenerIntereses() {
+	obtenerEncuestas() {
 		this.intereses = [];
+		this.temperamentos = [];
 
 		this.api.get('links?tipo=1&sucursal=' + this.sucursal.id).subscribe(
 			(data) => {
 				this.intereses = data
 			}
 		);
+
+		this.api.get('links?tipo=3&sucursal=' + this.sucursal.id).subscribe(
+			(data) => {
+				this.temperamentos = data
+			}
+		);
+	}
+
+	limpiar() {
+		this.form.encuesta_id = null;
+		this.form.archivo = null;
 	}
 
 	guardar() {
-		this.form.archivo = this.sucursal.nombre + '-LINKS-ENCUESTAS.xlsx';
+		
+		this.form.archivo = this.sucursal.nombre + '-LINKS-INTERESES.xlsx';
+		this.form.encuesta_id = this.interes_id;
 
 		this.api.downloadFile('exportar', this.form).subscribe(
-			(data) => { },
-			(error) => { this.mensaje('No hay alumnos registrados en el test de interés') }
+			(data) => {
+				this.limpiar();
+				this.temperamento();
+			},
+			async (error) => { 
+				this.mensaje('No hay alumnos registrados en la Encuesta de Intereses') 
+			}
+		);
+		
+	}
+
+	temperamento() {
+		this.form.archivo = this.sucursal.nombre + '-LINKS-TEMPERAMENTOS.xlsx';
+		this.form.encuesta_id = this.temperamento_id;
+
+		this.api.downloadFile('exportar', this.form).subscribe(
+			(data) => { this.limpiar() },
+			(error) => { this.mensaje('No hay alumnos registrados en la Encuesta de Temperamentos') }
 		);
 	}
 

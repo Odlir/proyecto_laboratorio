@@ -178,10 +178,10 @@ export class CrudEncuestaComponent implements OnInit {
 		}
 	}
 
-	mensaje(msj, time) {
+	mensaje(msj, time,ico) {
 		Swal.fire({
 			title: msj,
-			icon: 'success',
+			icon: ico,
 			timer: time
 		});
 
@@ -232,12 +232,12 @@ export class CrudEncuestaComponent implements OnInit {
 		this.api.uploadFiles('importar', formData).subscribe(
 			(data) => {
 				if (element == 0) {
-					this.mensaje('Importación Exitosa', 3000);
+					this.mensaje('Importación Exitosa', 3000,'success');
 				}
 			},
 			(error) => {
 				if (element == 0) {
-					this.mensaje('Hubo errores en la Importación', 3000);
+					this.mensaje('Hubo errores en la Importación', 3000,'warning');
 				}
 			}
 		);
