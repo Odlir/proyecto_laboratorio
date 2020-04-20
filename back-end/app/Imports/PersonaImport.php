@@ -19,11 +19,13 @@ class PersonaImport implements ToCollection, WithHeadingRow
 
     private $user;
     private $encuesta_id;
+    private $todas;
 
-    public function __construct($user_id, $encuesta_id)
+    public function __construct($user_id, $encuesta_id, $todas)
     {
         $this->user = $user_id;
         $this->encuesta_id = $encuesta_id;
+        $this->todas = $todas;
     }
 
     public function collection(Collection $rows)
@@ -36,7 +38,7 @@ class PersonaImport implements ToCollection, WithHeadingRow
             $messages[$key . '.nombres' . '.required'] = 'El campo Nombres, fila ' . $i . '  es requerido.';
             $messages[$key . '.apellido_paterno' . '.required'] = 'El campo Apellido Paterno, fila ' . $i . '  es requerido.';
             $messages[$key . '.sexo' . '.required'] = 'El campo Sexo, fila ' . $i . '  es requerido.';
-            $messages[$key . '.ano' . '.numeric'] = 'El campo Año, fila ' . $i . '  debe ser numerico.';
+            $messages[$key . '.ano' . '.alpha_num'] = 'El campo Año, fila ' . $i . '  solo permite numeros y letras.';
             $i++;
         }
 
@@ -44,7 +46,7 @@ class PersonaImport implements ToCollection, WithHeadingRow
             '*.nombres' => 'required',
             '*.apellido_paterno' => 'required',
             '*.sexo' => 'required',
-            '*.ano' => 'numeric|nullable'
+            '*.ano' => 'alpha_num|nullable'
         ], $messages)->validate();
 
         foreach ($rows as $row) {
@@ -58,11 +60,22 @@ class PersonaImport implements ToCollection, WithHeadingRow
                 'insert_user_id' => $this->user
             ]);
 
-            EncuestaPersona::create([
-                'persona_id'     => $persona->id,
-                'encuesta_id'    => $this->encuesta_id,
-                'insert_user_id' => $this->user
-            ]);
+            if ($this->todas) {
+                $var=explode(',',$this->encuesta_id);
+                foreach ($var as $e) {
+                    EncuestaPersona::create([
+                        'persona_id'     => $persona->id,
+                        'encuesta_id'    => $e,
+                        'insert_user_id' => $this->user
+                    ]);
+                }
+            } else {
+                EncuestaPersona::create([
+                    'persona_id'     => $persona->id,
+                    'encuesta_id'    => $this->encuesta_id,
+                    'insert_user_id' => $this->user
+                ]);
+            }
         }
     }
 }

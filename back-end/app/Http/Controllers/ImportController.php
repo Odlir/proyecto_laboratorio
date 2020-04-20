@@ -38,7 +38,7 @@ class ImportController extends Controller
         $file = $request->file('file');
 
         if ($request->campo == 'persona') {
-            $data = Excel::import(new PersonaImport($request->user_id, $request->encuesta_id), $file);
+            $data = Excel::import(new PersonaImport($request->user_id, $request->encuesta_id,$request->tipo), $file);   
         }
 
         return response()->json($data, 200);

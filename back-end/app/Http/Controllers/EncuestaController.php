@@ -64,7 +64,7 @@ class EncuestaController extends Controller
         $data = $request->all();
 
         $id = [];
-        if ($request->campo == 'todas') {
+        if ($request->todas) {
             $tipos = TipoEncuesta::where('estado', '1')
                 ->orderBy('id', 'DESC')
                 ->get();

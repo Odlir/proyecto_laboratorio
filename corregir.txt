@@ -1,4 +1,8 @@
-- PONER LOS ICONOS DEL MENU UNO ABAJO DE OTRO
+- LOS TEST DEBEN PODER AVANZARSE CON LOS TABS
+
+- TODOS LOS CRUS DEBEN TENER EL PRIMER INPUT CON UN FOCUS
+
+- en reportes va estar el modulo de reporte consejero el cual va a tener los porcentajes de avance de todo
 
 - EL SISTEMA DEBE SER RESPONSIVE
 
@@ -8,9 +12,7 @@
 
 - VALIDAR QUE EN CREAR EMPRESA, CUANDO INGRESE UN EXCEL QUE SE ENVIE UN CORREO AL COLEGIO CON LOS LINKS
 
-- buscar como hacer para que no se guarde la memoria cache
-
-- ver si le puedo poner seguridad a esas rutas
+- ver si le puedo poner seguridad a las rutas de los test
 
 - la libreria que se usaria para los graficos seria lavacharts
 ////////////////////////////////

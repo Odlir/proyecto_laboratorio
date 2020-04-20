@@ -3,7 +3,7 @@ import { HttpParams } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from '../../../Services/token/token.service';
 import { ApiBackRequestService } from './../../../Services/api-back-request.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-crud-persona',
@@ -31,6 +31,7 @@ export class CrudPersonaComponent implements OnInit {
   public encuesta_id: HttpParams
 
   previousUrl: string;
+
 
   constructor(
     private api: ApiBackRequestService,

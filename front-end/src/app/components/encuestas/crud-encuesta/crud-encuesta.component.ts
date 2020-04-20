@@ -46,7 +46,7 @@ export class CrudEncuestaComponent implements OnInit {
 		updated_at: null,
 		personas: [],
 		empresa: { nombre: null },
-		campo: null
+		todas: false
 	};
 
 	empresa = { id: null, nombre: null };
@@ -150,14 +150,15 @@ export class CrudEncuestaComponent implements OnInit {
 		this.form.empresa_sucursal_id = this.empresa.id;
 
 		if (this.form.tipo_encuesta_id == 0) {
-			this.form.campo = 'todas';
+			this.form.todas = true;
 
 			this.api.post('encuestas', this.form).subscribe(
 				(data) => {
 					if (this.fileToUpload != null) {
-						data.forEach((element, i) => {
-							this.subirExcel(element, i);
-						});
+						// data.forEach((element, i) => {
+						// 	this.subirExcel(element, i);
+						// });
+						this.subirExcel(data, 0, true);
 					}
 					else {
 						this.router.navigateByUrl('/encuestas');
@@ -168,7 +169,7 @@ export class CrudEncuestaComponent implements OnInit {
 			this.api.post('encuestas', this.form).subscribe(
 				(data) => {
 					if (this.fileToUpload != null) {
-						this.subirExcel(data.id, 0);
+						this.subirExcel(data.id, false);
 					}
 					else {
 						this.router.navigateByUrl('/encuestas');
@@ -178,7 +179,31 @@ export class CrudEncuestaComponent implements OnInit {
 		}
 	}
 
-	mensaje(msj, time,ico) {
+	subirExcel(encuesta_id, element, tipo?) {
+		const formData: FormData = new FormData();
+		formData.append('file', this.fileToUpload);
+		formData.append('user_id', this.user.me());
+		formData.append('campo', 'persona');
+		formData.append('encuesta_id', encuesta_id);
+		if (tipo) {
+			formData.append('tipo', tipo);
+		}
+
+		this.api.uploadFiles('importar', formData).subscribe(
+			(data) => {
+				if (element == 0) {
+					this.mensaje('Importación Exitosa', 3000, 'success');
+				}
+			},
+			(error) => {
+				if (element == 0) {
+					this.mensaje('Hubo errores en la Importación', 3000, 'warning');
+				}
+			}
+		);
+	}
+
+	mensaje(msj, time, ico) {
 		Swal.fire({
 			title: msj,
 			icon: ico,
@@ -220,26 +245,5 @@ export class CrudEncuestaComponent implements OnInit {
 
 	handleFileInput(files: FileList) {
 		this.fileToUpload = files.item(0);
-	}
-
-	subirExcel(encuesta_id, element) {
-		const formData: FormData = new FormData();
-		formData.append('file', this.fileToUpload);
-		formData.append('user_id', this.user.me());
-		formData.append('encuesta_id', encuesta_id);
-		formData.append('campo', 'persona');
-
-		this.api.uploadFiles('importar', formData).subscribe(
-			(data) => {
-				if (element == 0) {
-					this.mensaje('Importación Exitosa', 3000,'success');
-				}
-			},
-			(error) => {
-				if (element == 0) {
-					this.mensaje('Hubo errores en la Importación', 3000,'warning');
-				}
-			}
-		);
 	}
 }

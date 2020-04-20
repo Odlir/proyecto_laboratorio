@@ -7,9 +7,11 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class HeaderEncuestaComponent implements OnInit {
 
-  @Input() nombre: string;
+  @Input() encuesta: string;
   @Input() icono: string;
   @Input() alumno: string;
+  @Input() id: string;
+  @Input() sucursal: string;
 
   constructor() { }
 

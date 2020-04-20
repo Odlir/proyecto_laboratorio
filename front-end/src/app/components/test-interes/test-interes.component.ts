@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { ApiBackRequestService } from './../../Services/api-back-request.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
 	selector: 'app-test-interes',
@@ -37,6 +38,8 @@ export class TestInteresComponent implements OnInit {
 
 	public show: boolean = true;
 
+	public rango: boolean = false;
+
 	constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder, private route: ActivatedRoute) {
 		this.formGroup = new FormGroup(this.group);
 	}
@@ -52,6 +55,17 @@ export class TestInteresComponent implements OnInit {
 	obtenerDatos() {
 		this.api.get('encuestas', this.form.encuesta_id).subscribe(
 			(data) => {
+
+				if (moment(new Date()).format('YYYY-MM-DD') < data.fecha_inicio) {
+					this.show = false;
+					this.rango = true;
+				}
+
+				if (moment(new Date()).format('YYYY-MM-DD') > data.fecha_fin) {
+					this.show = false;
+					this.rango = true;
+				}
+
 				this.sucursal = data.empresa.nombre;
 
 				data.personas.filter(obj => {
@@ -62,17 +76,18 @@ export class TestInteresComponent implements OnInit {
 			}
 		);
 
-		this.api.post('respuestas', this.form).subscribe(
-			(data) => {
-				if (Object.keys(data).length === 0) {
-					this.fetch();
+		if (this.show) {
+			this.api.post('respuestas', this.form).subscribe(
+				(data) => {
+					if (Object.keys(data).length === 0) {
+						this.fetch();
+					}
+					else {
+						this.show = false;
+					}
 				}
-				else
-				{
-					this.show = false;
-				}
-			}
-		);
+			);
+		}
 	}
 
 	reactive(preguntas) {
