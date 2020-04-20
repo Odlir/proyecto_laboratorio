@@ -99,15 +99,11 @@ const routes: Routes = [
   },
   {
     path: 'test-intereses/:encuesta_id/:persona_id',
-    component: TestInteresComponent,
-    // canActivate: [AfterLoginService]
-    canActivate: [BeforeLoginService]
+    component: TestInteresComponent
   },
   {
     path: 'test-temperamentos/:encuesta_id/:persona_id',
-    component: TestTemperamentosComponent,
-    // canActivate: [AfterLoginService]
-    canActivate: [BeforeLoginService]
+    component: TestTemperamentosComponent
   },
   {
     path: 'reportes',

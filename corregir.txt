@@ -10,14 +10,16 @@
 
 - EL IMPORTAR EN EXCEL EN CELULAR ESTÁ FALLANDO
 
-- VALIDAR QUE EN CREAR EMPRESA, CUANDO INGRESE UN EXCEL QUE SE ENVIE UN CORREO AL COLEGIO CON LOS LINKS
-
 - ver si le puedo poner seguridad a las rutas de los test
 
 - la libreria que se usaria para los graficos seria lavacharts
-////////////////////////////////
 
 - cuando programo la encuesta debe generarse los links automaticamente en caso haya un excel
+
+- validar que en programar encuesta, en caso hay un excel que se envie un correo al colegio con los links.
+
+////////////////////////////////
+
 
 
 

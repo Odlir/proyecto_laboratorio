@@ -1,11 +1,9 @@
-<app-header-encuesta encuesta="PREFERENCIA DE TEMPERAMENTO" icono="tv" [alumno]="alumno" [id]="form.encuesta_id"
+<app-header-encuesta encuesta="ENCUESTA: PREFERENCIA DE TEMPERAMENTO - ADOLESCENTES" icono="tv" [alumno]="alumno" [id]="form.encuesta_id"
     [sucursal]="sucursal">
 </app-header-encuesta>
 <br>
-<p>Este instrumento, EPT, ha sido desarrollado por Effectus Fischman Consultores como una forma aplicativa de utilizar
-    la teoría de la personalidad de Carl Jung. Esperamos sea de gran ayuda para describir sus preferencias con relación
-    a su personalidad. Los resultados lo ayudarán a conocerse mejor, lo cual puede favorecer su interacción con los
-    demás.</p>
+<p>Esta encuesta se utiliza para describir sus preferencias con relación a su personalidad. 
+    <br> Los resultados lo ayudarán a conocerse mejor, lo cual puede favorecer su interacción con los demás.</p>
 <br>
 
 <form [formGroup]="formGroup" (ngSubmit)="guardar()" *ngIf="show;else two">
