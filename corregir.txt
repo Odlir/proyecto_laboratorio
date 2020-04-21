@@ -26,7 +26,7 @@ intereses
 talentos
 temperamentos
 
-
+ponerle arriba un progress bar con las encuestas
 
 
 

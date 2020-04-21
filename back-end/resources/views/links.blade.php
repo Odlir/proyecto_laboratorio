@@ -2,7 +2,7 @@
     <thead>
     <tr>
         <th>NOMBRE</th>
-        <th>INTERES</th>
+        <th>INTERESES</th>
         @if ($todo)
             <th>TALENTOS</th>
             <th>TEMPERAMENTOS</th>
