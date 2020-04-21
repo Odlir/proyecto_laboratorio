@@ -25,7 +25,7 @@ class EncuestaPersonaController extends Controller
             ->with('empresa')
             ->with('tipo')
             ->with(['personas' => function ($q) use ($searchValue) {
-                $q->where('personas.estado', "1")
+                $q->wherePivot('estado', '1')
                     // ->with('insert')
                     // ->with('edit')
                     ->where(function ($query) use ($searchValue) {
@@ -101,7 +101,24 @@ class EncuestaPersonaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $registro = EncuestaPersona::find($id);
+        $registro->estado = '0';
+        $registro->save();
+
+        $personas = Encuesta::with('insert')
+            ->with('edit')
+            ->with('empresa')
+            ->with(['general' => function ($query) {
+                $query->with(['personas' => function ($query) {
+                    $query->wherePivot('estado', '1')
+                        ->orderBy('id', 'DESC');
+                }]);
+            }])
+            ->with('tipo')
+            ->where('id', $request->encuesta_id)
+            ->first();
+
+        return response()->json($personas, 200);
     }
 
     /**
@@ -112,24 +129,5 @@ class EncuestaPersonaController extends Controller
      */
     public function destroy($id)
     {
-        $registro = EncuestaPersona::find($id);
-        $registro->estado = '0';
-        $registro->save();
-
-        $persona = Persona::find($registro->persona_id);
-        $persona->estado = '0';
-        $persona->save();
-
-        $personas = Encuesta::with('insert')
-            ->with('edit')
-            ->with('empresa')
-            ->with(['personas' => function ($query) {
-                $query->where('personas.estado', '1');
-            }])
-            ->with('tipo')
-            ->where('id', $registro->encuesta_id)
-            ->first();
-
-        return response()->json($personas, 200);
     }
 }

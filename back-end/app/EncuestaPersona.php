@@ -14,7 +14,7 @@ class EncuestaPersona extends Model
     protected $fillable = [
         'estado',
         'persona_id',
-        'encuesta_id',
+        'encuesta_general_id',
         'insert_user_id',
         'edit_user_id'
     ];

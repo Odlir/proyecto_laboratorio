@@ -16,7 +16,8 @@ class Encuesta extends Model
         'empresa_sucursal_id',
         'tipo_encuesta_id',
         'insert_user_id',
-        'edit_user_id'
+        'edit_user_id',
+        'encuesta_general_id'
     ];
 
     public function empresa()
@@ -39,8 +40,8 @@ class Encuesta extends Model
         return $this->belongsTo('App\User', 'edit_user_id');
     }
 
-    public function personas()
+    public function general()
     {
-        return $this->belongsToMany('App\Persona')->withPivot(["id"]);
+        return $this->belongsTo('App\EncuestaGeneral', 'encuesta_general_id');
     }
 }

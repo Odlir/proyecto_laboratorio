@@ -31,7 +31,7 @@ export class AlumnosComponent implements OnInit {
 	fetch() {
 		this.api.get('encuestas', this.id).subscribe(
 			(data) => {
-				this.personas = data.personas;
+				this.personas = data.general.personas;
 			}
 		);
 	}
@@ -57,9 +57,13 @@ export class AlumnosComponent implements OnInit {
 			confirmButtonText: 'Confirmar'
 		}).then((result) => {
 			if (result.value) {
-				this.api.delete('encuesta_persona', id).subscribe(
+				let form = {
+					id : id,
+					encuesta_id :this.id
+				}
+				this.api.put('encuesta_persona', id, form).subscribe(
 					(data) => {
-						this.personas = data.personas;
+						this.personas = data.general.personas;
 						this.personas = [...this.personas]
 					}
 				);

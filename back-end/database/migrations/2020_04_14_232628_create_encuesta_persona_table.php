@@ -21,8 +21,8 @@ class CreateEncuestaPersonaTable extends Migration
             $table->unsignedBigInteger('persona_id');
             $table->foreign('persona_id')->references('id')->on('personas');
 
-            $table->unsignedBigInteger('encuesta_id');
-            $table->foreign('encuesta_id')->references('id')->on('encuestas');
+            $table->unsignedBigInteger('encuesta_general_id');
+            $table->foreign('encuesta_general_id')->references('id')->on('encuesta_general');
 
             $table->unsignedBigInteger('insert_user_id')->comment('Usuario que hizo el registro');
             $table->foreign('insert_user_id')->references('id')->on('users');

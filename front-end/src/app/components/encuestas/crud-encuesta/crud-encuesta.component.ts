@@ -155,10 +155,7 @@ export class CrudEncuestaComponent implements OnInit {
 			this.api.post('encuestas', this.form).subscribe(
 				(data) => {
 					if (this.fileToUpload != null) {
-						// data.forEach((element, i) => {
-						// 	this.subirExcel(element, i);
-						// });
-						this.subirExcel(data, 0, true);
+						this.subirExcel(data.encuesta_general_id, 0);
 					}
 					else {
 						this.router.navigateByUrl('/encuestas');
@@ -169,7 +166,7 @@ export class CrudEncuestaComponent implements OnInit {
 			this.api.post('encuestas', this.form).subscribe(
 				(data) => {
 					if (this.fileToUpload != null) {
-						this.subirExcel(data.id, false);
+						this.subirExcel(data.encuesta_general_id, 0);
 					}
 					else {
 						this.router.navigateByUrl('/encuestas');
@@ -179,15 +176,12 @@ export class CrudEncuestaComponent implements OnInit {
 		}
 	}
 
-	subirExcel(encuesta_id, element, tipo?) {
+	subirExcel(encuesta_id, element,) {
 		const formData: FormData = new FormData();
 		formData.append('file', this.fileToUpload);
 		formData.append('user_id', this.user.me());
 		formData.append('campo', 'persona');
 		formData.append('encuesta_id', encuesta_id);
-		if (tipo) {
-			formData.append('tipo', tipo);
-		}
 
 		this.api.uploadFiles('importar', formData).subscribe(
 			(data) => {

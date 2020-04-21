@@ -39,18 +39,18 @@
 			{{ value }}
 		</ng-template>
 	</ngx-datatable-column>
-	<ngx-datatable-column name="Id" prop="pivot.id">
+	<ngx-datatable-column >
 		<ng-template let-column="column" ngx-datatable-header-template> Acciones </ng-template>
-		<ng-template let-value="value" ngx-datatable-cell-template>
+		<ng-template let-row="row" ngx-datatable-cell-template>
 			<div class="row justify-content-center">
 				<button class="btn border" [routerLink]="['/detalle-persona/']"
-					[queryParams]="{id:value,encuesta_id:id}">
+					[queryParams]="{id:row.id,encuesta_id:id}">
 					<fa-icon [icon]="['fas', 'eye']"></fa-icon>
 				</button>
-				<button class="btn border" [routerLink]="['/crud-persona/']" [queryParams]="{id:value,encuesta_id:id}">
+				<button class="btn border" [routerLink]="['/crud-persona/']" [queryParams]="{id:row.id,encuesta_id:id}">
 					<fa-icon [icon]="['fas', 'edit']"></fa-icon>
 				</button>
-				<button class="btn border" (click)="eliminarPersona(value)">
+				<button class="btn border" (click)="eliminarPersona(row.pivot.id)">
 					<fa-icon [icon]="['fas', 'trash']"></fa-icon>
 				</button>
 			</div>

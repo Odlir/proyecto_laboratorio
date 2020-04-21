@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Encuesta;
+use App\EncuestaGeneral;
 use App\TipoEncuesta;
 
 class EncuestaController extends Controller
@@ -63,7 +64,12 @@ class EncuestaController extends Controller
     {
         $data = $request->all();
 
-        $id = [];
+        // $id = [];
+
+        $general = EncuestaGeneral::create($data);
+
+        $data['encuesta_general_id'] = $general->id;
+        
         if ($request->todas) {
             $tipos = TipoEncuesta::where('estado', '1')
                 ->orderBy('id', 'DESC')
@@ -77,15 +83,17 @@ class EncuestaController extends Controller
 
                 $registro = Encuesta::create($data);
 
-                array_push($id, $registro['id']);
+                // array_push($id, $registro['id']);
             }
 
-            return response()->json($id, 200);
-            
+            // return response()->json($id, 200);
         } else {
+
             $registro = Encuesta::create($data);
-            return response()->json($registro, 200);
+            // return response()->json($registro, 200);
         }
+
+        return response()->json($registro, 200);
     }
 
     /**
@@ -99,9 +107,11 @@ class EncuestaController extends Controller
         $data = Encuesta::with('insert')
             ->with('edit')
             ->with('empresa')
-            ->with(['personas' => function ($query) {
-                $query->where('personas.estado', '1')
-                    ->orderBy('id', 'DESC');
+            ->with(['general' => function ($query) {
+                $query->with(['personas' => function ($query) {
+                    $query->wherePivot('estado', '1')
+                        ->orderBy('id', 'DESC');
+                }]);
             }])
             ->with('tipo')
             ->where('id', $id)
