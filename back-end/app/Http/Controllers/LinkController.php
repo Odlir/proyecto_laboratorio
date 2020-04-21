@@ -16,14 +16,20 @@ class LinkController extends Controller
     public function index(Request $request)
     {
         $tipo_encuesta = $request->input('tipo');
-        $sucursal = $request->input('sucursal');
-
-        $data = Encuesta::where('estado', '1')
-            ->where('tipo_encuesta_id', $tipo_encuesta)
-            ->whereHas('empresa', function ($q) use ($sucursal) {
-                $q->where('id', $sucursal);
-            })
-            ->get();
+        if ($request->input('general_id') != null) {
+            $data = Encuesta::where('estado', '1')
+                ->where('tipo_encuesta_id', $tipo_encuesta)
+                ->where('encuesta_general_id', $request->input('general_id'))
+                ->get();
+        } else {
+            $sucursal = $request->input('sucursal');
+            $data = Encuesta::where('estado', '1')
+                ->where('tipo_encuesta_id', $tipo_encuesta)
+                ->whereHas('empresa', function ($q) use ($sucursal) {
+                    $q->where('id', $sucursal);
+                })
+                ->get();
+        }
 
         return response()->json($data, 200);
     }

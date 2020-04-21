@@ -19,30 +19,29 @@ class LinkExport implements FromView, ShouldAutoSize, WithEvents
 
     private $personas;
 
-    private $encuesta_id;
+    private $interes_id;
 
-    private $url;
-
-    private $tipo;
+    private $temperamento_id;
 
     private $api;
 
-    public function __construct($personas, $id, $tipo)
+    private $todo = true;
+
+    public function __construct($personas, $interes_id, $temperamento_id)
     {
         $this->personas = $personas;
-        $this->encuesta_id = $id;
+        $this->interes_id = $interes_id;
+        $this->temperamento_id = $temperamento_id;
+
         $this->api = config('constants.front_end');
 
-        if ($tipo == 'int') {
-            $this->url = '/test-intereses/';
-            $this->tipo = 'INTERESES';
-        } else {
-            $this->url = '/test-temperamentos/';
-            $this->tipo = 'TEMPERAMENTOS';
+        if ($this->temperamento_id == "") {
+            $this->todo = false;
         }
 
         foreach ($this->personas as $p) {
-            $p->link = $this->api . $this->url . $this->encuesta_id . '/' . $p->id;
+            $p->link_intereses = $this->api . '/test-intereses/' . $this->interes_id . '/' . $p->id;
+            $p->link_temperamentos = $this->api . '/test-temperamentos/' . $this->temperamento_id . '/' . $p->id;
         }
     }
 
@@ -50,8 +49,7 @@ class LinkExport implements FromView, ShouldAutoSize, WithEvents
     {
         return view('links', [
             'personas' => $this->personas,
-            'encuesta_id' => $this->encuesta_id,
-            'tipo' => $this->tipo
+            'todo' => $this->todo,
         ]);
     }
 

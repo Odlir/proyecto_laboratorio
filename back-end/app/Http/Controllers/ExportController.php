@@ -36,29 +36,36 @@ class ExportController extends Controller
      */
     public function store(Request $request)
     {
-        $mensaje = '';
-        $tipo = "";
-        $data = $request->all();
+        $temperamento_id = '';
 
         if ($request->campo == "persona") {
             return response()->download(storage_path("app/public/importar-alumnos.xlsx"));
         } else if ($request->campo == "links") {
-            $encuesta = Encuesta::where('id', $request->encuesta_id)
-                ->with('personas')
+            $interes = Encuesta::where('id', $request->interes_id)
+                ->with(['general' => function ($query) {
+                    $query->with(['personas' => function ($query) {
+                        $query->wherePivot('estado', '1')
+                            ->orderBy('id', 'DESC');
+                    }]);
+                }])
                 ->first();
 
-            if ($encuesta['tipo_encuesta_id'] == 1) {
-                $mensaje = "No Hay Alumnos Registrados en la encuesta de Interés";
-                $tipo = 'int';
-            } else {
-                $mensaje = "No Hay Alumnos Registrados en la encuesta de Temperamentos";
-                $tipo = 'tem';
-            }
+            if ($request->temperamento_id != null) {
+                $temperamento = Encuesta::where('id', $request->temperamento_id)
+                    ->with(['general' => function ($query) {
+                        $query->with(['personas' => function ($query) {
+                            $query->wherePivot('estado', '1')
+                                ->orderBy('id', 'DESC');
+                        }]);
+                    }])
+                    ->first();
+                $temperamento_id = $temperamento['id'];
+            } 
 
-            if ($encuesta['personas']->isEmpty()) {
-                return response()->json(['error' => $mensaje], 401);
+            if ($interes['general']['personas']->isEmpty()) {
+                return response()->json(['error' => 'No hay alumnos registrados'], 401);
             } else {
-                return Excel::download(new LinkExport($encuesta['personas'], $encuesta['id'],$tipo), 'encuesta.xlsx');
+                return Excel::download(new LinkExport($interes['general']['personas'], $interes['id'], $temperamento_id), 'encuesta.xlsx');
             }
         }
     }

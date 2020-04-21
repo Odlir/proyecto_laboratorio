@@ -20,9 +20,11 @@
 
 ////////////////////////////////
 
-
-
-
+hay que agregar talentos en el modulo de reportes
+el orden debe ser
+intereses
+talentos
+temperamentos
 
 
 

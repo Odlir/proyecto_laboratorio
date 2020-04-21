@@ -6,7 +6,7 @@
 			<label class="col-sm-4 col-form-label w-100">Empresa <span class="text-danger">*</span></label>
 			<div class="col-sm-8">
 				<select name="empresa" class="form-control" [(ngModel)]="sucursal" required
-					(change)="obtenerEncuestas()">
+					(change)="obtenerIntereses()">
 					<option [ngValue]="item" *ngFor="let item of sucursales">{{item.nombre}}</option>
 				</select>
 			</div>
@@ -16,7 +16,8 @@
 		<div class="form-group row my-3">
 			<label class="col-sm-4 col-form-label w-100">Intereses <span class="text-danger">*</span></label>
 			<div class="col-sm-8">
-				<select name="intereses" class="form-control" [(ngModel)]="interes_id" required>
+				<select name="intereses" class="form-control" [(ngModel)]="form.interes_id" required
+					(change)="obtenerTemperamentos()">
 					<option [value]="item.id" *ngFor="let item of intereses">{{item.id}} - ENCUESTA INTERESES </option>
 				</select>
 			</div>
@@ -24,10 +25,11 @@
 		</div>
 
 		<div class="form-group row my-3">
-			<label class="col-sm-4 col-form-label w-100">Temperamentos <span class="text-danger">*</span></label>
+			<label class="col-sm-4 col-form-label w-100">Temperamentos</label>
 			<div class="col-sm-8">
-				<select name="temperamentos" class="form-control" [(ngModel)]="temperamento_id" required>
-					<option [value]="item.id" *ngFor="let item of temperamentos">{{item.id}} - ENCUESTA TEMPERAMENTOS</option>
+				<select name="temperamentos" class="form-control" [(ngModel)]="form.temperamento_id">
+					<option [value]="item.id" *ngFor="let item of temperamentos">{{item.id}} - ENCUESTA TEMPERAMENTOS
+					</option>
 				</select>
 			</div>
 			<hr>
@@ -35,7 +37,9 @@
 
 		<div class="form-group row">
 			<div class="col-12 row">
-				<button type="submit" class="btn btn-success d-flex"><fa-icon [icon]="['fas', 'file-download']"></fa-icon> LINKS PARA ENCUESTAS</button>
+				<button type="submit" class="btn btn-success d-flex">
+					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> LINKS PARA ENCUESTAS
+				</button>
 				<a (click)="return()" class="btn btn-info text-white">REGRESAR</a>
 			</div>
 		</div>

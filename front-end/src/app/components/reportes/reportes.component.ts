@@ -11,14 +11,11 @@ import Swal from 'sweetalert2';
 export class ReportesComponent implements OnInit {
 
 	public form = {
-		encuesta_id: null,
+		interes_id: null,
+		temperamento_id: null,
 		campo: 'links',
 		archivo: null
 	}
-
-	public interes_id: null;
-
-	public temperamento_id: null;
 
 	public sucursales = [];
 
@@ -45,17 +42,30 @@ export class ReportesComponent implements OnInit {
 		);
 	}
 
-	obtenerEncuestas() {
+	obtenerIntereses() {
+
 		this.intereses = [];
-		this.temperamentos = [];
 
 		this.api.get('links?tipo=1&sucursal=' + this.sucursal.id).subscribe(
 			(data) => {
 				this.intereses = data
 			}
 		);
+	}
 
-		this.api.get('links?tipo=3&sucursal=' + this.sucursal.id).subscribe(
+	obtenerTemperamentos() {
+
+		this.temperamentos = [];
+
+		let general_id;
+
+		this.intereses.forEach(element => {
+			if (element.id == this.form.interes_id) {
+				general_id = element.encuesta_general_id;
+			}
+		});
+
+		this.api.get('links?tipo=3&general_id=' + general_id).subscribe(
 			(data) => {
 				this.temperamentos = data
 			}
@@ -63,35 +73,24 @@ export class ReportesComponent implements OnInit {
 	}
 
 	limpiar() {
-		this.form.encuesta_id = null;
+		this.form.interes_id = null;
+		this.form.temperamento_id = null;
 		this.form.archivo = null;
+		this.temperamentos = [];
 	}
 
 	guardar() {
-		
-		this.form.archivo = this.sucursal.nombre + '-LINKS-INTERESES.xlsx';
-		this.form.encuesta_id = this.interes_id;
+		this.form.archivo = this.sucursal.nombre + '-LINKS-ENCUESTAS.xlsx';
 
 		this.api.downloadFile('exportar', this.form).subscribe(
 			(data) => {
 				this.limpiar();
-				this.temperamento();
 			},
-			async (error) => { 
-				this.mensaje('No hay alumnos registrados en la Encuesta de Intereses') 
+			async (error) => {
+				this.mensaje('No hay alumnos registrados en la Encuesta.')
 			}
 		);
-		
-	}
 
-	temperamento() {
-		this.form.archivo = this.sucursal.nombre + '-LINKS-TEMPERAMENTOS.xlsx';
-		this.form.encuesta_id = this.temperamento_id;
-
-		this.api.downloadFile('exportar', this.form).subscribe(
-			(data) => { this.limpiar() },
-			(error) => { this.mensaje('No hay alumnos registrados en la Encuesta de Temperamentos') }
-		);
 	}
 
 	mensaje(msj) {

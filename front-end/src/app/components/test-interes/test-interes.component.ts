@@ -68,7 +68,7 @@ export class TestInteresComponent implements OnInit {
 
 				this.sucursal = data.empresa.nombre;
 
-				data.personas.filter(obj => {
+				data.general.personas.filter(obj => {
 					if (obj.id == this.form.persona_id) {
 						this.alumno = obj.nombrecompleto;
 					}
