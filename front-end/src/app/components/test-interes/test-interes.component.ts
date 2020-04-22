@@ -21,7 +21,7 @@ export class TestInteresComponent implements OnInit {
 		subpregunta_id: null,
 		respuesta_id: null,
 		encuesta_id: null,
-		persona_id: null
+		persona_id: null,
 	};
 
 	respuestas1 = [];

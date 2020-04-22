@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Carrera;
 use App\Encuesta;
 use App\Exports\LinkExport;
 use Illuminate\Http\Request;
@@ -60,13 +61,27 @@ class ExportController extends Controller
                     }])
                     ->first();
                 $temperamento_id = $temperamento['id'];
-            } 
+            }
 
             if ($interes['general']['personas']->isEmpty()) {
                 return response()->json(['error' => 'No hay alumnos registrados'], 401);
             } else {
                 return Excel::download(new LinkExport($interes['general']['personas'], $interes['id'], $temperamento_id), 'encuesta.xlsx');
             }
+        } else if ($request->campo == "pdf") {
+            $carreras= Carrera::where('estado',1)->get();
+
+            $interes = Encuesta::where('id', $request->interes_id)
+                ->with(['general' => function ($query) {
+                    $query->with(['personas' => function ($query) {
+                        $query->wherePivot('estado', '1')
+                            ->orderBy('id', 'DESC');
+                    }]);
+                }])
+                ->first();
+
+            $pdf = \PDF::loadView('reporte_interes',array('carreras' => $carreras,'personas' => $interes['general']['personas'][0]));
+            return $pdf->download('reporte_interes.pdf');
         }
     }
 
