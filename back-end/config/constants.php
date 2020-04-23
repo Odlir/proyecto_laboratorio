@@ -14,4 +14,6 @@ return [
     */
 
     'front_end' => env('FRONT_END').'/#',
+
+    'back_end' => env('APP_URL').'/api/',
 ];

@@ -13,7 +13,7 @@ export class ReportesComponent implements OnInit {
 	public form = {
 		interes_id: null,
 		temperamento_id: null,
-		campo: 'links',
+		campo: null,
 		archivo: null
 	}
 
@@ -28,6 +28,8 @@ export class ReportesComponent implements OnInit {
 		nombre: null
 	}
 
+	public disabled: boolean = false;
+
 	constructor(private api: ApiBackRequestService, private router: Router) { }
 
 	ngOnInit(): void {
@@ -41,6 +43,61 @@ export class ReportesComponent implements OnInit {
 			}
 		);
 	}
+
+	links() {
+		if (this.sucursal.nombre == null || this.form.interes_id == null) {
+			this.mensaje('Por Favor Complete los campos requeridos')
+		}
+		else {
+			this.disabled = true;
+			this.form.campo = 'links';
+			this.form.archivo = this.sucursal.nombre + '-LINKS-ENCUESTAS.xlsx';
+
+			this.api.downloadFile('exportar', this.form).subscribe(
+				(data) => {
+					this.disabled = false;
+					this.limpiar();
+				},
+				async (error) => {
+					this.disabled = false;
+					this.mensaje('No hay alumnos registrados en la Encuesta.')
+				}
+			);
+		}
+	}
+
+	excel() {
+		if (this.sucursal.nombre == null || this.form.interes_id == null) {
+			this.mensaje('Por Favor Complete los campos requeridos')
+		} else {
+			this.disabled = true;
+			this.form.campo = 'status';
+			this.form.archivo = this.sucursal.nombre + '-LINKS-ENCUESTAS-STATUS.xlsx';
+
+			this.api.downloadFile('exportar', this.form).subscribe(
+				(data) => {
+					this.disabled = false;
+					this.limpiar();
+				},
+				async (error) => {
+					this.disabled = false;
+					this.mensaje('No hay alumnos registrados en la Encuesta.')
+				}
+			);
+		}
+	}
+
+	// queue() {
+
+	// 	this.api.get('queues').subscribe(
+	// 		(data) => {
+	// 			console.log('hola');
+	// 		}
+	// 	);
+
+	// 	this.disabled = false;
+	// 	this.limpiar();
+	// }
 
 	obtenerIntereses() {
 
@@ -76,21 +133,8 @@ export class ReportesComponent implements OnInit {
 		this.form.interes_id = null;
 		this.form.temperamento_id = null;
 		this.form.archivo = null;
+		this.form.campo = null;
 		this.temperamentos = [];
-	}
-
-	guardar() {
-		this.form.archivo = this.sucursal.nombre + '-LINKS-ENCUESTAS.xlsx';
-
-		this.api.downloadFile('exportar', this.form).subscribe(
-			(data) => {
-				this.limpiar();
-			},
-			async (error) => {
-				this.mensaje('No hay alumnos registrados en la Encuesta.')
-			}
-		);
-
 	}
 
 	mensaje(msj) {

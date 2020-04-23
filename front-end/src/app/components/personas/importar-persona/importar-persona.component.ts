@@ -16,6 +16,8 @@ export class ImportarPersonaComponent implements OnInit {
 	fileToUpload: File = null;
 	public encuesta_id;
 
+	public encuesta_general_id;
+
 	previousUrl: string;
 
 
@@ -25,6 +27,14 @@ export class ImportarPersonaComponent implements OnInit {
 		this.activatedRoute.queryParams.subscribe(async params => {
 			this.encuesta_id = params.encuesta_id;
 		});
+
+		this.api.get('encuestas', this.encuesta_id).subscribe(
+			(data) => {
+				this.encuesta_general_id = data.encuesta_general_id
+				this.encuesta_general_id = [...this.encuesta_general_id];
+			},
+			(error) => { }
+		);
 
 		this.previousUrl = this.routingState.getPreviousUrl();
 	}
@@ -36,10 +46,11 @@ export class ImportarPersonaComponent implements OnInit {
 	}
 
 	guardar() {
+	
 		const formData: FormData = new FormData();
 		formData.append('file', this.fileToUpload);
 		formData.append('user_id', this.user.me());
-		formData.append('encuesta_id', this.encuesta_id);
+		formData.append('encuesta_id', this.encuesta_general_id);
 		formData.append('campo', 'persona');
 
 		this.api.uploadFiles('importar', formData).subscribe(

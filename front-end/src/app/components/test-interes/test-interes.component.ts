@@ -13,7 +13,6 @@ import * as moment from 'moment';
 export class TestInteresComponent implements OnInit {
 
 	preguntas = [];
-
 	subpreguntas = [];
 
 	form = {
@@ -21,7 +20,7 @@ export class TestInteresComponent implements OnInit {
 		subpregunta_id: null,
 		respuesta_id: null,
 		encuesta_id: null,
-		persona_id: null
+		persona_id: null,
 	};
 
 	respuestas1 = [];
@@ -53,6 +52,14 @@ export class TestInteresComponent implements OnInit {
 	}
 
 	obtenerDatos() {
+		this.api.get('encuesta_puntaje?encuesta_id=' + this.form.encuesta_id + '&persona_id=' + this.form.persona_id).subscribe(
+			(data) => {
+				if (data.length != 0) {
+					this.show = false;
+				}
+			}
+		);
+
 		this.api.get('encuestas', this.form.encuesta_id).subscribe(
 			(data) => {
 
@@ -77,16 +84,7 @@ export class TestInteresComponent implements OnInit {
 		);
 
 		if (this.show) {
-			this.api.post('respuestas', this.form).subscribe(
-				(data) => {
-					if (Object.keys(data).length === 0) {
-						this.fetch();
-					}
-					else {
-						this.show = false;
-					}
-				}
-			);
+			this.fetch();
 		}
 	}
 

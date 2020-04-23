@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Carrera;
+use App\CarreraPuntaje;
 use App\Encuesta;
 use App\EncuestaPersona;
+use App\EncuestaPuntaje;
 use App\EncuestaRespuesta;
 use App\Persona;
+use App\Pregunta;
+use App\Respuesta;
 use Illuminate\Http\Request;
+use stdClass;
 
 class EncuestaPersonaController extends Controller
 {
@@ -63,11 +69,66 @@ class EncuestaPersonaController extends Controller
     {
         $data = $request->all();
 
-        foreach ($data as $d) {
-            EncuestaRespuesta::create($d);
+        $puntajes_preguntas = [];
+
+        $puntajes_carreras = [];
+
+        $encuesta_puntaje = EncuestaPuntaje::create(['encuesta_id' => $data[0]['encuesta_id'], 'persona_id' => $data[0]['persona_id']]); //TABLA PRINCIPAL
+
+        foreach ($data as $d) { //CREO LAS RESPUESTAS
+            EncuestaRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
         }
 
-        return response()->json($data, 200);
+        $preguntas = Pregunta::where('tipo_encuesta_id', 1)
+            ->where('estado', '1')
+            ->get();
+
+        $carreras = Carrera::where('estado', '1')
+            ->get();
+
+        foreach ($preguntas as $p) {
+            $object = new stdClass();
+            $object->pregunta_id = $p['id'];
+            $object->carrera_id = $p['carrera_id'];
+            $object->puntaje = 0;
+            array_push($puntajes_preguntas, $object);
+        }
+
+        foreach ($carreras as $c) {
+            $object2 = new stdClass();
+            $object2->carrera_id = $c['id'];
+            $object2->puntaje = 0;
+            array_push($puntajes_carreras, $object2);
+        }
+
+        foreach ($data as $d) { //SUMO TODAS LOS PUNTAJES DE LAS RESPUESTAS
+            $respuesta = Respuesta::find($d['respuesta_id']);
+            foreach ($puntajes_preguntas as $p) {
+                if ($d['pregunta_id'] == $p->pregunta_id) {
+                    $p->puntaje = $p->puntaje + $respuesta['puntaje'];
+                }
+            }
+        }
+
+        foreach ($puntajes_carreras as $c) { //SUMO TODOS LOS PUNTAJES DE LAS PREGUNTAS PARA ASIGNARLE A LA CARRERA
+            foreach ($puntajes_preguntas as $p) {
+                if ($p->carrera_id == $c->carrera_id) {
+                    $c->puntaje = $c->puntaje + $p->puntaje;
+                }
+            }
+        }
+
+        foreach ($puntajes_carreras as $c) { //VERIFICO SI LA CARRERA ES SALUD, PORQUE SU PUNTAJE SE CALCULA DIFERENTE
+            if ($c->carrera_id == 16) {
+                $c->puntaje = ($c->puntaje/6)*4;
+            }
+        }
+
+        foreach ($puntajes_carreras as $c) {
+            CarreraPuntaje::create(array_merge((array) $c, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
+        }
+
+        return response()->json($puntajes_carreras, 200);
     }
 
     /**

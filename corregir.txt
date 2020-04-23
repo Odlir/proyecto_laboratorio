@@ -1,6 +1,4 @@
-- LOS TEST DEBEN PODER AVANZARSE CON LOS TABS
-
-- TODOS LOS CRUS DEBEN TENER EL PRIMER INPUT CON UN FOCUS
+- PONER PROGRESS BAR A LAS ENCUESTAS
 
 - en reportes va estar el modulo de reporte consejero el cual va a tener los porcentajes de avance de todo
 
@@ -9,10 +7,6 @@
 - llenar los seeders de la empresa con su sucursal
 
 - EL IMPORTAR EN EXCEL EN CELULAR ESTÁ FALLANDO
-
-- ver si le puedo poner seguridad a las rutas de los test
-
-- la libreria que se usaria para los graficos seria lavacharts
 
 - cuando programo la encuesta debe generarse los links automaticamente en caso haya un excel
 

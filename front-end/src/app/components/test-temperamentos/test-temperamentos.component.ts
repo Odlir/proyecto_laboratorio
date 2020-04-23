@@ -29,6 +29,8 @@ export class TestTemperamentosComponent implements OnInit {
 	public show: boolean = true;
 	public rango: boolean = false;
 
+	// public progreso = 0;
+
 	constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder, private route: ActivatedRoute) {
 		this.formGroup = new FormGroup(this.group);
 	}
@@ -40,7 +42,44 @@ export class TestTemperamentosComponent implements OnInit {
 		this.obtenerDatos();
 	}
 
+	// async progress() {
+	// 	this.progreso = 0;
+	// 	await Object.entries(this.formGroup.controls).every(a => {
+	// 		// if (a[1].value === "") {
+	// 		// 	console.log('vacio');
+	// 		// 	return false;
+	// 		// }
+	// 		// else {
+	// 		// 	console.log('lleno');
+	// 		// 	this.progreso++;
+	// 		// 	return true;			
+	// 		// }
+	// 		if (a[1].value != "") {
+	// 			console.log('lleno',a[1].value);
+	// 			this.progreso++;
+	// 			return true;
+	// 		}
+	// 		else {
+	// 			console.log('vacio',a[1]);
+	// 			return false;
+	// 		}
+	// 		// console.log(a[1].value);
+	// 		// return false;
+	// 	});
+
+	// 	console.log(this.progreso);
+	// }
+
 	obtenerDatos() {
+
+		this.api.get('encuesta_puntaje?encuesta_id=' + this.form.encuesta_id + '&persona_id=' + this.form.persona_id).subscribe(
+			(data) => {
+				if (data.length != 0) {
+					this.show = false;
+				}
+			}
+		);
+		
 		this.api.get('encuestas', this.form.encuesta_id).subscribe(
 			(data) => {
 
@@ -65,16 +104,7 @@ export class TestTemperamentosComponent implements OnInit {
 		);
 
 		if (this.show) {
-			this.api.post('respuestas', this.form).subscribe(
-				(data) => {
-					if (Object.keys(data).length === 0) {
-						this.fetch();
-					}
-					else {
-						this.show = false;
-					}
-				}
-			);
+			this.fetch();
 		}
 	}
 

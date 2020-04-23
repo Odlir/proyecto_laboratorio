@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePreguntasTable extends Migration
+class CreateCarrerasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,12 @@ class CreatePreguntasTable extends Migration
      */
     public function up()
     {
-        Schema::create('preguntas', function (Blueprint $table) {
+        Schema::create('carreras', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('tipo_encuesta_id');
-            $table->foreign('tipo_encuesta_id')->references('id')->on('tipo_encuesta');
-
-            $table->unsignedBigInteger('carrera_id')->nullable();
-            $table->foreign('carrera_id')->references('id')->on('carreras');
-
             $table->string('nombre');
+            $table->string('siglas');
             $table->char('estado', 1)->comment('0-Inactivo/1-Activo')->default(1);
-
+            $table->text('interes');
             $table->timestamps();
         });
     }
@@ -36,6 +30,6 @@ class CreatePreguntasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('preguntas');
+        Schema::dropIfExists('carreras');
     }
 }
