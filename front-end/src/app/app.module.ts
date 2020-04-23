@@ -54,6 +54,8 @@ import { TestTemperamentosComponent } from './components/test-temperamentos/test
 import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressHttpModule } from 'ngx-progressbar/http';
 import { NgProgressRouterModule } from 'ngx-progressbar/router';
+import { TestTalentosComponent } from './components/test-talentos/test-talentos.component';
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -81,7 +83,8 @@ import { NgProgressRouterModule } from 'ngx-progressbar/router';
 		SucursalComponent,
 		HeaderEncuestaComponent,
 		ReportesComponent,
-		TestTemperamentosComponent
+		TestTemperamentosComponent,
+		TestTalentosComponent
 	],
 	imports: [
 		BrowserModule,
