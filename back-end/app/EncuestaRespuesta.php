@@ -13,7 +13,6 @@ class EncuestaRespuesta extends Model
         'pregunta_id',
         'subpregunta_id',
         'respuesta_id',
-        'persona_id',
-        'encuesta_id'
+        'encuesta_puntaje_id',
     ];
 }

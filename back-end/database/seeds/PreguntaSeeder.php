@@ -90,7 +90,11 @@ class PreguntaSeeder extends Seeder
             ['carrera_id'=>18,'tipo_encuesta_id'=>1,'nombre'=> 'Traducir las conversaciones de las películas.'],
             ['carrera_id'=>19,'tipo_encuesta_id'=>1,'nombre'=> 'Coordinar los servicios turísticos ofrecidos a un grupo de personas.'],
             ['carrera_id'=>16,'tipo_encuesta_id'=>1,'nombre'=> 'Corregir las alteraciones en la posición de los dientes para mejorar la sonrisa de las personas.'],
-            ['carrera_id'=>16,'tipo_encuesta_id'=>1,'nombre'=> 'Tratar las limitaciones funcionales y discapacidades de las personas.']
+            ['carrera_id'=>16,'tipo_encuesta_id'=>1,'nombre'=> 'Tratar las limitaciones funcionales y discapacidades de las personas.'],
+            ['carrera_id'=>20,'tipo_encuesta_id'=>1,'nombre'=> 'Cuidar la salud física de los animales.'],
+            ['carrera_id'=>20,'tipo_encuesta_id'=>1,'nombre'=> 'Crear tratamientos médicos en bienestar de los animales.'],
+            ['carrera_id'=>20,'tipo_encuesta_id'=>1,'nombre'=> 'Investigar sobre temas de producción de animales (pollos, cerdos, vacas).'],
+            ['carrera_id'=>20,'tipo_encuesta_id'=>1,'nombre'=> 'Realizar estudios sobre distintas especies animales (animales exóticos).']
         ];
 
         Pregunta::insert($intereses);

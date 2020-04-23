@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Carrera;
+use App\CarreraPuntaje;
 use App\Encuesta;
 use App\EncuestaPersona;
 use App\EncuestaPuntaje;
@@ -72,8 +73,10 @@ class EncuestaPersonaController extends Controller
 
         $puntajes_carreras = [];
 
-        foreach ($data as $d) {
-            EncuestaRespuesta::create($d);
+        $encuesta_puntaje = EncuestaPuntaje::create(['encuesta_id' => $data[0]['encuesta_id'], 'persona_id' => $data[0]['persona_id']]); //TABLA PRINCIPAL
+
+        foreach ($data as $d) { //CREO LAS RESPUESTAS
+            EncuestaRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
         }
 
         $preguntas = Pregunta::where('tipo_encuesta_id', 1)
@@ -95,12 +98,10 @@ class EncuestaPersonaController extends Controller
             $object2 = new stdClass();
             $object2->carrera_id = $c['id'];
             $object2->puntaje = 0;
-            $object2->encuesta_id = $data[0]['encuesta_id'];
-            $object2->persona_id = $data[0]['persona_id'];
             array_push($puntajes_carreras, $object2);
         }
 
-        foreach ($data as $d) {
+        foreach ($data as $d) { //SUMO TODAS LOS PUNTAJES DE LAS RESPUESTAS
             $respuesta = Respuesta::find($d['respuesta_id']);
             foreach ($puntajes_preguntas as $p) {
                 if ($d['pregunta_id'] == $p->pregunta_id) {
@@ -109,7 +110,7 @@ class EncuestaPersonaController extends Controller
             }
         }
 
-        foreach ($puntajes_carreras as $c) {
+        foreach ($puntajes_carreras as $c) { //SUMO TODOS LOS PUNTAJES DE LAS PREGUNTAS PARA ASIGNARLE A LA CARRERA
             foreach ($puntajes_preguntas as $p) {
                 if ($p->carrera_id == $c->carrera_id) {
                     $c->puntaje = $c->puntaje + $p->puntaje;
@@ -117,8 +118,14 @@ class EncuestaPersonaController extends Controller
             }
         }
 
+        foreach ($puntajes_carreras as $c) { //VERIFICO SI LA CARRERA ES SALUD, PORQUE SU PUNTAJE SE CALCULA DIFERENTE
+            if ($c->carrera_id == 16) {
+                $c->puntaje = ($c->puntaje/6)*4;
+            }
+        }
+
         foreach ($puntajes_carreras as $c) {
-            EncuestaPuntaje::create((array) $c);
+            CarreraPuntaje::create(array_merge((array) $c, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
         }
 
         return response()->json($puntajes_carreras, 200);

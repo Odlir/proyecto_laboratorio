@@ -27,11 +27,8 @@ class CreateEncuestaRespuestaTable extends Migration
             $table->unsignedBigInteger('respuesta_id');
             $table->foreign('respuesta_id')->references('id')->on('respuestas');
 
-            $table->unsignedBigInteger('encuesta_id');
-            $table->foreign('encuesta_id')->references('id')->on('encuestas');
-
-            $table->unsignedBigInteger('persona_id');
-            $table->foreign('persona_id')->references('id')->on('personas');
+            $table->unsignedBigInteger('encuesta_puntaje_id');
+            $table->foreign('encuesta_puntaje_id')->references('id')->on('encuesta_puntaje');
 
             $table->timestamps();
         });

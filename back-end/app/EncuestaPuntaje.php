@@ -10,8 +10,21 @@ class EncuestaPuntaje extends Model
 
     protected $fillable = [
         'persona_id',
-        'encuesta_id',
-        'carrera_id',
-        'puntaje'
+        'encuesta_id'
     ];
+
+    public function encuesta()
+    {
+        return $this->belongsTo('App\Encuesta');
+    }
+
+    public function persona()
+    {
+        return $this->belongsTo('App\Persona');
+    }
+
+    public function puntajes()
+    {
+        return $this->hasMany('App\CarreraPuntaje','encuesta_puntaje_id');
+    }
 }

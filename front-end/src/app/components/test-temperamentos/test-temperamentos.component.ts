@@ -48,8 +48,6 @@ export class TestTemperamentosComponent implements OnInit {
 		this.form.persona_id = parseInt(this.route.snapshot.params.persona_id);
 
 		this.obtenerDatos();
-
-		console.log(this.formGroup.controls);
 	}
 
 	// async progress() {
@@ -81,6 +79,15 @@ export class TestTemperamentosComponent implements OnInit {
 	// }
 
 	obtenerDatos() {
+
+		this.api.get('encuesta_puntaje?encuesta_id=' + this.form.encuesta_id + '&persona_id=' + this.form.persona_id).subscribe(
+			(data) => {
+				if (data.length != 0) {
+					this.show = false;
+				}
+			}
+		);
+		
 		this.api.get('encuestas', this.form.encuesta_id).subscribe(
 			(data) => {
 
@@ -105,16 +112,7 @@ export class TestTemperamentosComponent implements OnInit {
 		);
 
 		if (this.show) {
-			this.api.post('respuestas', this.form).subscribe(
-				(data) => {
-					if (Object.keys(data).length === 0) {
-						this.fetch();
-					}
-					else {
-						this.show = false;
-					}
-				}
-			);
+			this.fetch();
 		}
 	}
 

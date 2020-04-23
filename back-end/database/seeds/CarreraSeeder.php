@@ -70,7 +70,10 @@ class CarreraSeeder extends Seeder
             grupos sociales como una manifestación de su cultura.'],
 
             ['nombre'=>'TURISMO','siglas'=>'TUR','interes'=>'Interés por la promoción y realización de la actividad turística y hotelera
-            de un país.']       
+            de un país.'],
+            
+            ['nombre'=>'MEDICINA VETERINARIA','siglas'=>'VET','interes'=>'Interés en técnicas quirúrgicas, fisioterapia y rehabilitación animal. 
+            Capaz de prevenir, diagnosticar y tratar enfermedades en pequeñas y grandes especies. Administrar tu propio consultorio o clínica veterinaria.'] 
         ];
 
         Carrera::insert($carreras);

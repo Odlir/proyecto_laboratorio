@@ -43,6 +43,7 @@ Route::group([
     Route::resource('respuestas','RespuestaController');
     Route::resource('links','LinkController');
     Route::resource('exportar','ExportController');
+    Route::resource('encuesta_puntaje','EncuestaPuntajeController');
 });
 
     // Route::get('/migrate', function() {

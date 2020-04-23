@@ -22,11 +22,6 @@ class CreateEncuestaPuntajeTable extends Migration
             $table->unsignedBigInteger('persona_id');
             $table->foreign('persona_id')->references('id')->on('personas');
 
-            $table->unsignedBigInteger('carrera_id');
-            $table->foreign('carrera_id')->references('id')->on('carreras');
-
-            $table->double('puntaje');
-
             $table->timestamps();
         });
     }

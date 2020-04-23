@@ -86,21 +86,56 @@
     </head>
     <body>
         <div class="text-center">
-            <h1 class="text-secondary">Test de Intereses</h1>
+            <h1 class="text-secondary">TEST DE INTERESES</h1>
          
           <div class="mt">
-            {{-- <img class="img-width" src="{{ asset('storage/logo_upc_red.png') }}" alt=""> --}}
             <img class="img-width" src="{{ 'storage/logo_upc_red.png' }}" alt="">
 
-            <h2 class="text-secondary">Reporte de Resultados</h2>
-            <h2 class="text-secondary">Evaluación de <br> Gutierrez, Luis <br> @php
+            <h2 class="text-secondary">REPORTE DE RESULTADOS</h2>
+            {{-- <h2 class="text-secondary">EVALUACIÓN DE <br> GUTIERREZ, LUIS <br> @php
+                echo date('d-m-Y');
+            @endphp </h2> --}}
+            <h2 class="text-secondary">EVALUACIÓN DE <br> {{$persona->apellido_paterno}}, {{$persona->nombres}} <br> @php
                 echo date('d-m-Y');
             @endphp </h2>
-
           </div>     
         </div>
 
-        {{ $personas }}
+        <table class="page_break">
+            <thead>
+                <tr>
+                    <th rowspan="2">
+                        ÁREA DE INTERÉS
+                    </th>
+                    <th>
+                        Puntaje
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        PD
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($puntajes as $p)
+                    <tr>
+                        <td class="text-center">
+                            {{$p->carrera->nombre}}
+                        </td>
+                        <td class="text-justify p-2">
+                            {{$p->puntaje}}
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>      
+
+        @foreach ($puntajes as $p)
+            <div>
+
+            </div>
+        @endforeach
         
         <div class="page_break">
             <div>

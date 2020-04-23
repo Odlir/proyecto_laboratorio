@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Carrera;
 use App\Encuesta;
+use App\EncuestaPuntaje;
 use App\Exports\LinkExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -69,19 +70,20 @@ class ExportController extends Controller
                 return Excel::download(new LinkExport($interes['general']['personas'], $interes['id'], $temperamento_id), 'encuesta.xlsx');
             }
         } else if ($request->campo == "pdf") {
-            $carreras= Carrera::where('estado',1)->get();
+            $carreras = Carrera::where('estado', 1)->get();
 
-            $interes = Encuesta::where('id', $request->interes_id)
-                ->with(['general' => function ($query) {
-                    $query->with(['personas' => function ($query) {
-                        $query->wherePivot('estado', '1')
-                            ->orderBy('id', 'DESC');
-                    }]);
-                }])
-                ->first();
+            $personas = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
+                ->with('persona')
+                ->with('puntajes.carrera')
+                ->get();
 
-            $pdf = \PDF::loadView('reporte_interes',array('carreras' => $carreras,'personas' => $interes['general']['personas'][0]));
-            return $pdf->download('reporte_interes.pdf');
+            foreach ($personas as $p) {
+                $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $p['persona'], 'puntajes' => $p['puntajes']));
+                return $pdf->download('reporte_interes.pdf');
+            }
+
+            // $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'personas' => $personas));
+            // return $pdf->download('reporte_interes.pdf');
         }
     }
 
