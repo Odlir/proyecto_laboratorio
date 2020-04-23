@@ -66,7 +66,7 @@ export class ReportesComponent implements OnInit {
 		}
 	}
 
-	pdf() {
+	excel() {
 		if (this.sucursal.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por Favor Complete los campos requeridos')
 		} else {

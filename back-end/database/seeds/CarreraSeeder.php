@@ -72,7 +72,7 @@ class CarreraSeeder extends Seeder
             ['nombre'=>'TURISMO','siglas'=>'TUR','interes'=>'Interés por la promoción y realización de la actividad turística y hotelera
             de un país.'],
             
-            ['nombre'=>'MEDICINA VETERINARIA','siglas'=>'VET','interes'=>'Interés en técnicas quirúrgicas, fisioterapia y rehabilitación animal. 
+            ['nombre'=>'VETERINARIA','siglas'=>'VET','interes'=>'Interés en técnicas quirúrgicas, fisioterapia y rehabilitación animal. 
             Capaz de prevenir, diagnosticar y tratar enfermedades en pequeñas y grandes especies. Administrar tu propio consultorio o clínica veterinaria.'] 
         ];
 

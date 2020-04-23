@@ -73,13 +73,13 @@ class ExportController extends Controller
             }
         } else if ($request->campo == "pdf") {
 
-            $carreras = Carrera::where('estado', 1)->get();
+            $carreras = Carrera::where('estado', 1)->orderBy('nombre', 'asc')
+                ->get();
 
             $personas = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
                 ->with('persona')
                 ->with('puntajes.carrera')
                 ->get();
-
 
 
             // foreach ($personas as $p) {
@@ -92,24 +92,9 @@ class ExportController extends Controller
             // }
 
             foreach ($personas as $p) {
-                $lava = new Lavacharts; // See note below for Laravel
-
-                $votes  = $lava->DataTable();
-
-                $votes->addStringColumn('Food Poll')
-                    ->addNumberColumn('Votes')
-                    ->addRow(['Tacos',  rand(1000, 5000)])
-                    ->addRow(['Salad',  rand(1000, 5000)])
-                    ->addRow(['Pizza',  rand(1000, 5000)])
-                    ->addRow(['Apples', rand(1000, 5000)])
-                    ->addRow(['Fish',   rand(1000, 5000)]);
-
-                $lava->BarChart('Votes', $votes,[
-                    'png' => true
-                ]);
-
-                $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $p['persona'], 'puntajes' => $p['puntajes'], 'lava' => $lava))
-                ->setOption('javascript-delay', 5000);
+            
+                $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $p['persona'], 'puntajes' => $p['puntajes']));
+                // ->setOption('javascript-delay', 5000);
                 return $pdf->download('reporte_interes.pdf');
             }
 

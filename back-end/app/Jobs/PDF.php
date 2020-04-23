@@ -34,7 +34,8 @@ class PDF implements ShouldQueue
      */
     public function handle()
     {
-        $carreras = Carrera::where('estado', 1)->get();
+        $carreras = Carrera::where('estado', 1)->orderBy('nombre', 'asc')
+            ->get();
 
         $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $this->persona, 'puntajes' => $this->puntajes));
         return $pdf->download('reporte_interes.pdf');

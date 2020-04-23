@@ -87,6 +87,17 @@
             padding: 0.5rem !important;
         }
 
+        .height-graph
+        {
+            height: 60px;
+            margin: 10px;
+            background: rgb(2,0,36);
+            background: -moz-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,173,255,1) 100%);
+            background: -webkit-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,173,255,1) 100%);
+            background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,173,255,1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#00adff",GradientType=1);
+        }
+
     </style>
     </head>
     <body>
@@ -172,14 +183,15 @@
                         <td class="text-center p-2">
                             {{$p->puntaje}}
                         </td>
+                        <td colspan="4">
+                            <div class="height-graph" style="width: {{$p->puntaje}}%">
+
+                            </div>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>     
-        
-        <div id="poll_div"></div>
-
-        {!! $lava->render('BarChart', 'Votes', 'poll_div') !!}
 
 
         <div class="page_break">    
