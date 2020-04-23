@@ -13,28 +13,20 @@ import * as moment from 'moment';
 export class TestTemperamentosComponent implements OnInit {
 
 	preguntas = [];
-
 	form = {
 		pregunta_id: null,
 		respuesta_id: null,
 		encuesta_id: null,
 		persona_id: null
 	};
-
 	respuestas = [];
-
 	data = [];
 	formGroup: FormGroup;
 	group: any = {};
-
 	public sucursal = null;
-
 	public alumno = null;
-
 	public save: boolean = null;
-
 	public show: boolean = true;
-
 	public rango: boolean = false;
 
 	constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder, private route: ActivatedRoute) {
@@ -51,7 +43,7 @@ export class TestTemperamentosComponent implements OnInit {
 	obtenerDatos() {
 		this.api.get('encuestas', this.form.encuesta_id).subscribe(
 			(data) => {
-			
+
 				if (moment(new Date()).format('YYYY-MM-DD') < data.fecha_inicio) {
 					this.show = false;
 					this.rango = true;

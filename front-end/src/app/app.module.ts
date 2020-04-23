@@ -51,7 +51,7 @@ import { SucursalComponent } from './components/empresas/sucursal/sucursal.compo
 import { HeaderEncuestaComponent } from './components/partials/header-encuesta/header-encuesta.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
 import { TestTemperamentosComponent } from './components/test-temperamentos/test-temperamentos.component';
-
+import { TestTalentosComponent } from './components/test-talentos/test-talentos.component';
 
 @NgModule({
 	declarations: [
@@ -80,7 +80,8 @@ import { TestTemperamentosComponent } from './components/test-temperamentos/test
 		SucursalComponent,
 		HeaderEncuestaComponent,
 		ReportesComponent,
-		TestTemperamentosComponent
+		TestTemperamentosComponent,
+		TestTalentosComponent
 	],
 	imports: [
 		BrowserModule,
