@@ -28,7 +28,7 @@ export class ReportesComponent implements OnInit {
 		nombre: null
 	}
 
-	public disabled : boolean = false;
+	public disabled: boolean = false;
 
 	constructor(private api: ApiBackRequestService, private router: Router) { }
 
@@ -49,17 +49,17 @@ export class ReportesComponent implements OnInit {
 			this.mensaje('Por Favor Complete los campos requeridos')
 		}
 		else {
-			this.disabled=true;
+			this.disabled = true;
 			this.form.campo = 'links';
 			this.form.archivo = this.sucursal.nombre + '-LINKS-ENCUESTAS.xlsx';
 
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
-					this.disabled=false;
+					this.disabled = false;
 					this.limpiar();
 				},
 				async (error) => {
-					this.disabled=false;
+					this.disabled = false;
 					this.mensaje('No hay alumnos registrados en la Encuesta.')
 				}
 			);
@@ -70,21 +70,32 @@ export class ReportesComponent implements OnInit {
 		if (this.sucursal.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por Favor Complete los campos requeridos')
 		} else {
-			this.disabled=true;
+			this.disabled = true;
 			this.form.campo = 'pdf';
 			this.form.archivo = this.sucursal.nombre + '-PDF.pdf';
 
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
-					this.disabled=false;
-					this.limpiar();
+					this.queue();
 				},
 				async (error) => {
-					this.disabled=false;
+					this.disabled = false;
 					this.mensaje('Hubo un problema al descargar el pdf.')
 				}
 			);
 		}
+	}
+
+	queue() {
+
+		this.api.get('queues').subscribe(
+			(data) => {
+				console.log('hola');
+			}
+		);
+
+		this.disabled = false;
+		this.limpiar();
 	}
 
 	obtenerIntereses() {

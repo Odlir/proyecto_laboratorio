@@ -24,6 +24,11 @@
             width:100%;
         }
 
+        .w-100
+        {
+            width:100%;
+        }
+
         .text-secondary {
             color: #6c757d!important;
         }
@@ -100,42 +105,6 @@
             @endphp </h2>
           </div>     
         </div>
-
-        <table class="page_break">
-            <thead>
-                <tr>
-                    <th rowspan="2">
-                        ÁREA DE INTERÉS
-                    </th>
-                    <th>
-                        Puntaje
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        PD
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($puntajes as $p)
-                    <tr>
-                        <td class="text-center">
-                            {{$p->carrera->nombre}}
-                        </td>
-                        <td class="text-justify p-2">
-                            {{$p->puntaje}}
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>      
-
-        @foreach ($puntajes as $p)
-            <div>
-
-            </div>
-        @endforeach
         
         <div class="page_break">
             <div>
@@ -165,6 +134,54 @@
                 una mayor descripción de las áreas de interés, ver la última tabla.
             </div>
         </div>
+
+        <table class="page_break w-100">
+            <thead>
+                <tr>
+                    <th width="40%" rowspan="2">
+                        ÁREA DE INTERÉS
+                    </th>
+                    <th width="60%" colspan="5">
+                        Puntaje
+                    </th>
+                </tr>
+                <tr>
+                    <th width="12%">
+                        PD
+                    </th>
+                    <th width="22%">
+                        Muy Bajo
+                    </th>
+                    <th width="22%">
+                        Bajo
+                    </th>
+                    <th width="22%">
+                        Alto
+                    </th>
+                    <th width="22%">
+                        Muy Alto
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($puntajes as $p)
+                    <tr>
+                        <td class="text-center">
+                            {{$p->carrera->nombre}}
+                        </td>
+                        <td class="text-center p-2">
+                            {{$p->puntaje}}
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>     
+        
+        <div id="poll_div"></div>
+
+        {!! $lava->render('BarChart', 'Votes', 'poll_div') !!}
+
+
         <div class="page_break">    
             <table>
                 <thead>

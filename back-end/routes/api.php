@@ -44,6 +44,7 @@ Route::group([
     Route::resource('links','LinkController');
     Route::resource('exportar','ExportController');
     Route::resource('encuesta_puntaje','EncuestaPuntajeController');
+    Route::resource('queues','QueuesController');
 });
 
     // Route::get('/migrate', function() {

@@ -6,8 +6,10 @@ use App\Carrera;
 use App\Encuesta;
 use App\EncuestaPuntaje;
 use App\Exports\LinkExport;
+use App\Jobs\PDF;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Khill\Lavacharts\Lavacharts;
 
 class ExportController extends Controller
 {
@@ -70,6 +72,7 @@ class ExportController extends Controller
                 return Excel::download(new LinkExport($interes['general']['personas'], $interes['id'], $temperamento_id), 'encuesta.xlsx');
             }
         } else if ($request->campo == "pdf") {
+
             $carreras = Carrera::where('estado', 1)->get();
 
             $personas = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
@@ -77,8 +80,36 @@ class ExportController extends Controller
                 ->with('puntajes.carrera')
                 ->get();
 
+
+
+            // foreach ($personas as $p) {
+            //     PDF::dispatch($p['persona'],$p['puntajes']);
+            // }
+
+            // foreach ($personas as $p) {
+            //     $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $p['persona'], 'puntajes' => $p['puntajes'], 'lava' => $lava));
+            //     return $pdf->download('reporte_interes.pdf');
+            // }
+
             foreach ($personas as $p) {
-                $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $p['persona'], 'puntajes' => $p['puntajes']));
+                $lava = new Lavacharts; // See note below for Laravel
+
+                $votes  = $lava->DataTable();
+
+                $votes->addStringColumn('Food Poll')
+                    ->addNumberColumn('Votes')
+                    ->addRow(['Tacos',  rand(1000, 5000)])
+                    ->addRow(['Salad',  rand(1000, 5000)])
+                    ->addRow(['Pizza',  rand(1000, 5000)])
+                    ->addRow(['Apples', rand(1000, 5000)])
+                    ->addRow(['Fish',   rand(1000, 5000)]);
+
+                $lava->BarChart('Votes', $votes,[
+                    'png' => true
+                ]);
+
+                $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $p['persona'], 'puntajes' => $p['puntajes'], 'lava' => $lava))
+                ->setOption('javascript-delay', 5000);
                 return $pdf->download('reporte_interes.pdf');
             }
 
