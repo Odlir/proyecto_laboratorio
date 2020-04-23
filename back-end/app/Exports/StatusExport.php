@@ -2,53 +2,52 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromView;
+use App\EncuestaPuntaje;
 use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class LinkExport implements FromView, ShouldAutoSize, WithEvents
+class StatusExport implements FromView, ShouldAutoSize, WithEvents
 {
     /**
      * @return \Illuminate\Support\Collection
      */
-    use Exportable;
-
     private $personas;
-
     private $interes_id;
 
-    private $temperamento_id;
+    private $front;
+    private $back;
 
-    private $api;
-
-    private $todo = true;
-
-    public function __construct($personas, $interes_id, $temperamento_id)
+    public function __construct($personas, $interes_id)
     {
         $this->personas = $personas;
         $this->interes_id = $interes_id;
-        $this->temperamento_id = $temperamento_id;
 
-        $this->api = config('constants.front_end');
-
-        if ($this->temperamento_id == "") {
-            $this->todo = false;
-        }
+        $this->front = config('constants.front_end');
+        $this->back = config('constants.back_end');
 
         foreach ($this->personas as $p) {
-            $p->link_intereses = $this->api . '/test-intereses/' . $this->interes_id . '/' . $p->id;
-            $p->link_temperamentos = $this->api . '/test-temperamentos/' . $this->temperamento_id . '/' . $p->id;
+
+            $data = EncuestaPuntaje::where('encuesta_id', $this->interes_id)
+                ->where('persona_id', $p->id)
+                ->get();
+
+            if (!$data->isEmpty()) {
+                $p->link_intereses = $this->back . 'exportar' . '/' . $this->interes_id . '/' . $p->id;
+                $p->status = "Completado";
+            } else {
+                $p->link_intereses = $this->front . '/test-intereses/' . $this->interes_id . '/' . $p->id;
+                $p->status = "Pendiente";
+            }
         }
     }
 
     public function view(): View
     {
-        return view('links', [
-            'personas' => $this->personas,
-            'todo' => $this->todo,
+        return view('status', [
+            'personas' => $this->personas
         ]);
     }
 

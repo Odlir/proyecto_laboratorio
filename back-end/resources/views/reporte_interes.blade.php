@@ -160,13 +160,13 @@
                     <th width="12%">
                         PD
                     </th>
-                    <th width="22%">
+                    <th width="21%">
                         Muy Bajo
                     </th>
-                    <th width="22%">
+                    <th width="21%">
                         Bajo
                     </th>
-                    <th width="22%">
+                    <th width="21%">
                         Alto
                     </th>
                     <th width="22%">

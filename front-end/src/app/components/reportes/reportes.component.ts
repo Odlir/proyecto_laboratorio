@@ -71,32 +71,33 @@ export class ReportesComponent implements OnInit {
 			this.mensaje('Por Favor Complete los campos requeridos')
 		} else {
 			this.disabled = true;
-			this.form.campo = 'pdf';
-			this.form.archivo = this.sucursal.nombre + '-PDF.pdf';
+			this.form.campo = 'status';
+			this.form.archivo = this.sucursal.nombre + '-LINKS-ENCUESTAS-STATUS.xlsx';
 
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
-					this.queue();
+					this.disabled = false;
+					this.limpiar();
 				},
 				async (error) => {
 					this.disabled = false;
-					this.mensaje('Hubo un problema al descargar el pdf.')
+					this.mensaje('No hay alumnos registrados en la Encuesta.')
 				}
 			);
 		}
 	}
 
-	queue() {
+	// queue() {
 
-		this.api.get('queues').subscribe(
-			(data) => {
-				console.log('hola');
-			}
-		);
+	// 	this.api.get('queues').subscribe(
+	// 		(data) => {
+	// 			console.log('hola');
+	// 		}
+	// 	);
 
-		this.disabled = false;
-		this.limpiar();
-	}
+	// 	this.disabled = false;
+	// 	this.limpiar();
+	// }
 
 	obtenerIntereses() {
 

@@ -6,7 +6,9 @@ use App\Carrera;
 use App\Encuesta;
 use App\EncuestaPuntaje;
 use App\Exports\LinkExport;
+use App\Exports\StatusExport;
 use App\Jobs\PDF;
+use App\Persona;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Khill\Lavacharts\Lavacharts;
@@ -71,35 +73,45 @@ class ExportController extends Controller
             } else {
                 return Excel::download(new LinkExport($interes['general']['personas'], $interes['id'], $temperamento_id), 'encuesta.xlsx');
             }
+        } else if ($request->campo == "status") {
+            return $this->status($request);
         } else if ($request->campo == "pdf") {
-
-            $carreras = Carrera::where('estado', 1)->orderBy('nombre', 'asc')
-                ->get();
-
-            $personas = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
-                ->with('persona')
-                ->with('puntajes.carrera')
-                ->get();
-
-
-            // foreach ($personas as $p) {
-            //     PDF::dispatch($p['persona'],$p['puntajes']);
-            // }
-
-            // foreach ($personas as $p) {
-            //     $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $p['persona'], 'puntajes' => $p['puntajes'], 'lava' => $lava));
-            //     return $pdf->download('reporte_interes.pdf');
-            // }
-
-            foreach ($personas as $p) {
             
-                $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $p['persona'], 'puntajes' => $p['puntajes']));
-                // ->setOption('javascript-delay', 5000);
-                return $pdf->download('reporte_interes.pdf');
-            }
+        }
+    }
 
-            // $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'personas' => $personas));
-            // return $pdf->download('reporte_interes.pdf');
+    public function pdf($interes_id, $persona_id)
+    {
+        $carreras = Carrera::where('estado', 1)->orderBy('nombre', 'asc')
+            ->get();
+
+        $persona = Persona::where('id', $persona_id)
+            ->first();
+
+        $encuesta = EncuestaPuntaje::where('encuesta_id', $interes_id)
+            ->where('persona_id', $persona_id)
+            ->with('puntajes.carrera')
+            ->first();
+
+        $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $persona, 'puntajes' => $encuesta['puntajes']));
+        return $pdf->download('Reporte-Interes-'.$persona->nombres.''.$persona->apellido_paterno.'.pdf');
+    }
+
+    public function status(Request $request)
+    {
+        $interes = Encuesta::where('id', $request->interes_id)
+            ->with(['general' => function ($query) {
+                $query->with(['personas' => function ($query) {
+                    $query->wherePivot('estado', '1')
+                        ->orderBy('id', 'DESC');
+                }]);
+            }])
+            ->first();
+
+        if ($interes['general']['personas']->isEmpty()) {
+            return response()->json(['error' => 'No hay alumnos registrados'], 401);
+        } else {
+            return Excel::download(new StatusExport($interes['general']['personas'], $interes['id']), 'encuesta.xlsx');
         }
     }
 

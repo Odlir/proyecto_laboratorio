@@ -43,9 +43,12 @@ Route::group([
     Route::resource('respuestas','RespuestaController');
     Route::resource('links','LinkController');
     Route::resource('exportar','ExportController');
+    Route::get('exportar/{interes_id}/{persona_id}', 'ExportController@pdf');
     Route::resource('encuesta_puntaje','EncuestaPuntajeController');
     Route::resource('queues','QueuesController');
 });
+
+
 
     // Route::get('/migrate', function() {
     //     $exitCode = Artisan::call('migrate');
