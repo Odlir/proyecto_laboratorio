@@ -39,7 +39,9 @@ export class TestTemperamentosComponent implements OnInit {
 
 	public disabled: boolean = false;
 
-	// public progreso = 0;
+	public progreso = 0;
+
+	public porcentaje: number = 0;
 
 	constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder, private route: ActivatedRoute) {
 		this.formGroup = new FormGroup(this.group);
@@ -52,33 +54,16 @@ export class TestTemperamentosComponent implements OnInit {
 		this.obtenerDatos();
 	}
 
-	// async progress() {
-	// 	this.progreso = 0;
-	// 	await Object.entries(this.formGroup.controls).every(a => {
-	// 		// if (a[1].value === "") {
-	// 		// 	console.log('vacio');
-	// 		// 	return false;
-	// 		// }
-	// 		// else {
-	// 		// 	console.log('lleno');
-	// 		// 	this.progreso++;
-	// 		// 	return true;			
-	// 		// }
-	// 		if (a[1].value != "") {
-	// 			console.log('lleno',a[1].value);
-	// 			this.progreso++;
-	// 			return true;
-	// 		}
-	// 		else {
-	// 			console.log('vacio',a[1]);
-	// 			return false;
-	// 		}
-	// 		// console.log(a[1].value);
-	// 		// return false;
-	// 	});
-
-	// 	console.log(this.progreso);
-	// }
+	async progress() {
+		this.progreso = 0;
+		await Object.entries(this.formGroup.controls).every(a => {
+			if (a[1].value != "") {
+				this.progreso++;
+			}
+			return true;
+		});
+		this.porcentaje = parseFloat(((this.progreso / this.preguntas.length)*100).toFixed(1));
+	}
 
 	obtenerDatos() {
 

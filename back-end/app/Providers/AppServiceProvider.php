@@ -24,6 +24,10 @@ class   AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // $this->app->bind('path.public',function(){
+        //     return'/home/gafcom1/public_html/back-encuesta';
+        // });
+
         Builder::defaultStringLength(191);
     }
 }

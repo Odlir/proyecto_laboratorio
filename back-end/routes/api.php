@@ -67,6 +67,7 @@ Route::group([
 
     // Route::get('/storage-link', function() {
     //     $exitCode = Artisan::call('storage:link');
+    //     return 'DONE'; //Return anything
     // });
 
     Route::get('/cache_clear', function() {

@@ -130,7 +130,7 @@ export class ReportesComponent implements OnInit {
 
 	obtenerIntereses() {
 
-		this.intereses = [];
+		this.limpiar();
 
 		this.api.get('links?tipo=1&sucursal=' + this.sucursal.id).subscribe(
 			(data) => {

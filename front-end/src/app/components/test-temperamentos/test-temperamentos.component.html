@@ -6,17 +6,17 @@
     <br> Los resultados lo ayudarán a conocerse mejor, lo cual puede favorecer su interacción con los demás.</p>
 <br>
 
-<!-- <div class="row bg-test py-3 my-2">
+<div class="row bg-test py-3 my-2" *ngIf="show">
 	<div class="col-4">
 		<p>Avance de la Encuesta</p>
 	</div>
 	<div class="col-8 bg-test">
         <div class="progress">
-            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar progress-bar-striped" role="progressbar" [style]="'width:'+porcentaje+'%'" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
-        <p class="w-100">0% | Has respondido 0 preguntas de 78</p>
+        <p class="w-100">{{porcentaje}}% | Has respondido {{progreso}} preguntas de {{preguntas.length}}</p>
     </div>
-</div> -->
+</div>
 
 <form [formGroup]="formGroup" (ngSubmit)="guardar()" *ngIf="show;else two">
     <div class="row">
@@ -26,7 +26,7 @@
                 <div class="row py-3">
                     <div class="col-12 align-items-center mt-3" *ngFor="let item2 of item.respuestas; let i2=index;">
                         <label>
-                            <input type="radio" [name]="item.id" [value]="item2.id" [formControlName]="item.id">
+                            <input type="radio" [name]="item.id" [value]="item2.id" [formControlName]="item.id" (change)="progress()">
                             {{ item2.nombre }}
                         </label>
                     </div>
