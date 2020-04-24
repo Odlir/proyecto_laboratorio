@@ -11,7 +11,7 @@ use App\Jobs\PDF;
 use App\Persona;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use Khill\Lavacharts\Lavacharts;
+use App\Http\Controllers\QueuesController;
 
 class ExportController extends Controller
 {
@@ -70,7 +70,30 @@ class ExportController extends Controller
             foreach ($personas as $p) {
                 PDF::dispatchNow($p['persona'], $p['puntajes'], $encuesta['empresa']['nombre']);
             }
+
+            return $this->descargarZip();
         }
+    }
+
+    public function descargarZip()
+    {
+        $zip_file = 'PDF.zip';
+        $zip = new \ZipArchive();
+        $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+        $path = storage_path('app/public/PDF');
+        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
+        foreach ($files as $name => $file) {
+            if (!$file->isDir()) {
+                $filePath = $file->getRealPath();
+
+                $relativePath = substr($filePath, strlen($path));
+
+                $zip->addFile($filePath, $relativePath);
+            }
+        }
+        $zip->close();
+
+        return response()->download($zip_file);
     }
 
 
@@ -183,6 +206,6 @@ class ExportController extends Controller
      */
     public function destroy($id)
     {
-        //
+     
     }
 }

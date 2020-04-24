@@ -35,23 +35,7 @@ class QueuesController extends Controller
      */
     public function store(Request $request)
     {
-        $zip_file = 'PDF.zip';
-        $zip = new \ZipArchive();
-        $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
-        $path = storage_path('app/public/PDF');
-        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
-        foreach ($files as $name => $file) {
-            if (!$file->isDir()) {
-                $filePath = $file->getRealPath();
 
-                $relativePath = substr($filePath, strlen($path));
-
-                $zip->addFile($filePath, $relativePath);
-            }
-        }
-        $zip->close();
-
-        return response()->download($zip_file);
     }
 
     /**

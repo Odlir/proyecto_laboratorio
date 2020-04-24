@@ -94,10 +94,10 @@ export class ReportesComponent implements OnInit {
 		} else {
 			this.disabled = true;
 			this.form.campo = 'pdf';
-
-			this.api.post('exportar', this.form).subscribe(
+			this.form.archivo = this.sucursal.nombre + '-REPORTES.zip';
+			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
-					this.queue();
+					this.eliminarZip();
 				},
 				(error) => {
 					this.disabled = false;
@@ -107,24 +107,9 @@ export class ReportesComponent implements OnInit {
 		}
 	}
 
-	queue() {
-		const form = {
-			archivo: this.sucursal.nombre + '-REPORTES.zip',
-			sucursal: this.sucursal.nombre
-		}
+	eliminarZip() {
 
-		this.api.downloadFile('queues', form).subscribe(
-			(data) => {
-				this.eliminarQueue();
-			}
-		);
-	}
-
-	eliminarQueue() {
-
-		var a: HttpParams;
-
-		this.api.delete('queues', a).subscribe(
+		this.api.delete('queues', this.sucursal.nombre).subscribe(
 			(data) => {
 				this.disabled = false;
 				this.limpiar();
