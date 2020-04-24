@@ -1,5 +1,3 @@
-- PONER PROGRESS BAR A LAS ENCUESTAS
-
 - en reportes va estar el modulo de reporte consejero el cual va a tener los porcentajes de avance de todo
 
 - EL SISTEMA DEBE SER RESPONSIVE
@@ -20,11 +18,15 @@ intereses
 talentos
 temperamentos
 
-ponerle arriba un progress bar con las encuestas
+el zip que te arroja el sistema, botara 4 carpetas que son intereses, talentos y temperamentos
+y aparte una carpeta para consolidados que es la que contendra los 3 reportes juntos en un solo
+pdf.
+
+ver como puedo poner los backgrounds gradients a las barra del reporte interes
 
 
+--------------------------
+
+libreria para graficos jpgraph
 
 <base href="/front-encuesta/">
-
-
-http://talentoslinux.eastus2.cloudapp.azure.com/dashboard/report/result/json/evaluation/id?token

@@ -43,6 +43,9 @@
 				<button type="submit" class="btn btn-primary d-flex" (click)="excel()" [disabled]="disabled">
 					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXCEL STATUS
 				</button>
+				<button type="submit" class="btn btn-secondary d-flex" (click)="pdf()" [disabled]="disabled">
+					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXPORTAR PDFS
+				</button>
 				<a (click)="return()" class="btn btn-info text-white">REGRESAR</a>
 			</div>
 		</div>

@@ -16,3 +16,7 @@ ENCUESTAS
 - TODAS LAS PREGUNTAS EN UNA SOLA HOJA, NO PONER BOTONES PARA IR A LA SIGUIENTE SECCION
 
 - REPORTE consolidado significa que en un solo pdf están los 3 resultados de las 3 encuestas
+
+- el zip que te arroja el sistema, botara 4 carpetas que son intereses, talentos y temperamentos
+y aparte una carpeta para consolidados que es la que contendra los 3 reportes juntos en un solo
+pdf.

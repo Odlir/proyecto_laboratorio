@@ -64,8 +64,6 @@ class EncuestaController extends Controller
     {
         $data = $request->all();
 
-        // $id = [];
-
         $general = EncuestaGeneral::create($data);
 
         $data['encuesta_general_id'] = $general->id;
@@ -82,15 +80,10 @@ class EncuestaController extends Controller
                 $data['tipo_encuesta_id'] = $t->id;
 
                 $registro = Encuesta::create($data);
-
-                // array_push($id, $registro['id']);
             }
-
-            // return response()->json($id, 200);
         } else {
 
             $registro = Encuesta::create($data);
-            // return response()->json($registro, 200);
         }
 
         return response()->json($registro, 200);

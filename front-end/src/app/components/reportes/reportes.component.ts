@@ -87,17 +87,46 @@ export class ReportesComponent implements OnInit {
 		}
 	}
 
-	// queue() {
+	pdf() {
+		if (this.sucursal.nombre == null || this.form.interes_id == null) {
+			this.mensaje('Por Favor Complete los campos requeridos')
+		} else {
+			this.disabled = true;
+			this.form.campo = 'pdf';
 
-	// 	this.api.get('queues').subscribe(
-	// 		(data) => {
-	// 			console.log('hola');
-	// 		}
-	// 	);
+			this.api.post('exportar', this.form).subscribe(
+				(data) => {
+					this.queue();
+				},
+				(error) => {
+					this.disabled = false;
+					this.mensaje(error.error.error)
+				}
+			);
+		}
+	}
 
-	// 	this.disabled = false;
-	// 	this.limpiar();
-	// }
+	queue() {
+		const form = {
+			archivo : this.sucursal.nombre + '-REPORTES.zip',
+			sucursal : this.sucursal.nombre
+		}
+
+		this.api.downloadFile('queues',form).subscribe(
+			(data) => {
+
+			}
+		);
+
+		this.api.delete('queues',form.sucursal).subscribe(
+			(data) => {
+				
+			}
+		);
+
+		this.disabled = false;
+		this.limpiar();
+	}
 
 	obtenerIntereses() {
 

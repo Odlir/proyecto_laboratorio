@@ -39,6 +39,8 @@ export class TestInteresComponent implements OnInit {
 
 	public rango: boolean = false;
 
+	public disabled: boolean = false;
+
 	constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder, private route: ActivatedRoute) {
 		this.formGroup = new FormGroup(this.group);
 	}
@@ -145,8 +147,7 @@ export class TestInteresComponent implements OnInit {
 				Swal.fire({
 					title: 'El Test debe ser completado al 100%.',
 					icon: 'warning',
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
+					timer: 3000
 				});
 				this.data = [];
 				this.save = false;
@@ -167,13 +168,18 @@ export class TestInteresComponent implements OnInit {
 		});
 
 		if (this.save) {
+			this.disabled = true;
+			Swal.fire({
+				title: 'Enviando encuesta, porfavor espere un momento.',
+				icon: 'info',
+				timer: 5000
+			});
 			this.api.post('encuesta_persona', this.data).subscribe(
 				(data) => {
 					Swal.fire({
 						title: 'Test Enviado Correctamente.',
 						icon: 'success',
-						confirmButtonColor: '#3085d6',
-						cancelButtonColor: '#d33',
+						timer: 4000
 					});
 
 					this.show = false;

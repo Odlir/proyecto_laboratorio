@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
+use ZipArchive;
 
 class QueuesController extends Controller
 {
@@ -14,7 +16,6 @@ class QueuesController extends Controller
      */
     public function index()
     {
-        // Artisan::call('queue:work');
     }
 
     /**
@@ -35,7 +36,23 @@ class QueuesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $zip_file = 'PDF.zip';
+        $zip = new \ZipArchive();
+        $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+        $path = storage_path('app/public/PDF');
+        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
+        foreach ($files as $name => $file) {
+            if (!$file->isDir()) {
+                $filePath = $file->getRealPath();
+
+                $relativePath = substr($filePath, strlen($path));
+
+                $zip->addFile($filePath, $relativePath);
+            }
+        }
+        $zip->close();
+
+        return response()->download($zip_file);
     }
 
     /**
@@ -46,7 +63,7 @@ class QueuesController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -80,6 +97,8 @@ class QueuesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        unlink(public_path('PDF.zip'));
+
+        Storage::deleteDirectory('public/PDF');
     }
 }

@@ -42,12 +42,53 @@ class ExportController extends Controller
      */
     public function store(Request $request)
     {
-        $temperamento_id = '';
-
         if ($request->campo == "persona") {
             return response()->download(storage_path("app/public/importar-alumnos.xlsx"));
         } else if ($request->campo == "links") {
-            $interes = Encuesta::where('id', $request->interes_id)
+            return $this->links($request);
+        } else if ($request->campo == "status") {
+            return $this->status($request);
+        } else if ($request->campo == "pdf") {
+            return $this->jobs($request);
+        }
+    }
+
+    public function jobs(Request $request)
+    {
+        $encuesta = Encuesta::where('id', $request->interes_id)
+            ->with('empresa')
+            ->first();
+
+        $personas = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
+            ->with('persona')
+            ->with('puntajes.carrera')
+            ->get();
+
+        if ($personas->isEmpty()) {
+            return response()->json(['error' => 'No hay encuestas resueltas.'], 401);
+        } else {
+            foreach ($personas as $p) {
+                PDF::dispatchNow($p['persona'], $p['puntajes'], $encuesta['empresa']['nombre']);
+            }
+        }
+    }
+
+
+    public function links(Request $request)
+    {
+        $temperamento_id = '';
+
+        $interes = Encuesta::where('id', $request->interes_id)
+            ->with(['general' => function ($query) {
+                $query->with(['personas' => function ($query) {
+                    $query->wherePivot('estado', '1')
+                        ->orderBy('id', 'DESC');
+                }]);
+            }])
+            ->first();
+
+        if ($request->temperamento_id != null) {
+            $temperamento = Encuesta::where('id', $request->temperamento_id)
                 ->with(['general' => function ($query) {
                     $query->with(['personas' => function ($query) {
                         $query->wherePivot('estado', '1')
@@ -55,28 +96,13 @@ class ExportController extends Controller
                     }]);
                 }])
                 ->first();
+            $temperamento_id = $temperamento['id'];
+        }
 
-            if ($request->temperamento_id != null) {
-                $temperamento = Encuesta::where('id', $request->temperamento_id)
-                    ->with(['general' => function ($query) {
-                        $query->with(['personas' => function ($query) {
-                            $query->wherePivot('estado', '1')
-                                ->orderBy('id', 'DESC');
-                        }]);
-                    }])
-                    ->first();
-                $temperamento_id = $temperamento['id'];
-            }
-
-            if ($interes['general']['personas']->isEmpty()) {
-                return response()->json(['error' => 'No hay alumnos registrados'], 401);
-            } else {
-                return Excel::download(new LinkExport($interes['general']['personas'], $interes['id'], $temperamento_id), 'encuesta.xlsx');
-            }
-        } else if ($request->campo == "status") {
-            return $this->status($request);
-        } else if ($request->campo == "pdf") {
-            
+        if ($interes['general']['personas']->isEmpty()) {
+            return response()->json(['error' => 'No hay alumnos registrados'], 401);
+        } else {
+            return Excel::download(new LinkExport($interes['general']['personas'], $interes['id'], $temperamento_id), 'encuesta.xlsx');
         }
     }
 
@@ -94,7 +120,7 @@ class ExportController extends Controller
             ->first();
 
         $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $persona, 'puntajes' => $encuesta['puntajes']));
-        return $pdf->download('Reporte-Interes-'.$persona->nombres.''.$persona->apellido_paterno.'.pdf');
+        return $pdf->download('Reporte-Interes-' . $persona->nombres . '' . $persona->apellido_paterno . '.pdf');
     }
 
     public function status(Request $request)
