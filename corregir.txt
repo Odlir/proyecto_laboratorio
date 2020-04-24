@@ -10,20 +10,21 @@
 
 - validar que en programar encuesta, en caso hay un excel que se envie un correo al colegio con los links.
 
+- ver como puedo poner los backgrounds gradients a las barra del reporte interes
+
 ////////////////////////////////
 
-hay que agregar talentos en el modulo de reportes
+- hay que agregar talentos en el modulo de reportes
 el orden debe ser
 intereses
 talentos
 temperamentos
 
-el zip que te arroja el sistema, botara 4 carpetas que son intereses, talentos y temperamentos
+- el zip que te arroja el sistema, botara 4 carpetas que son intereses, talentos y temperamentos
 y aparte una carpeta para consolidados que es la que contendra los 3 reportes juntos en un solo
 pdf.
 
-ver como puedo poner los backgrounds gradients a las barra del reporte interes
-
+- progress bar al test de interes
 
 --------------------------
 

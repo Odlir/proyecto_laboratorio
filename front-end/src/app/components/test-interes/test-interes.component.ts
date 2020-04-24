@@ -29,8 +29,6 @@ export class TestInteresComponent implements OnInit {
 	formGroup: FormGroup;
 	group: any = {};
 
-
-
 	public sucursal = null;
 
 	public alumno = null;
@@ -58,16 +56,7 @@ export class TestInteresComponent implements OnInit {
 
 		this.obtenerDatos();
 
-		// this.cargarArrayProgreso();
 	}
-
-	// cargarArrayProgreso()
-	// {
-	// 	await Object.entries(this.formGroup.controls).every(a => {
-			
-	// 		return true;
-	// 	});
-	// }
 
 	// async progress() {
 	// 	this.progreso = 0;

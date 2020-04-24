@@ -89,6 +89,7 @@
 
         .height-graph
         {
+            display:inline-block;
             height: 60px;
             margin: 10px;
             background: rgb(2,0,36);

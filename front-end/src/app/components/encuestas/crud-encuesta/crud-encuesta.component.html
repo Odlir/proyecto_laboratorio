@@ -90,7 +90,7 @@
 	</mat-step>
 	<mat-step [stepControl]="secondFormGroup">
 		<ng-template matStepLabel>ALUMNOS</ng-template>
-		<app-alumnos [id]="this.id"></app-alumnos>
+		<app-alumnos [id]="this.id" *ngIf="id"></app-alumnos>
 		<div class="form-group row mt-3">
 			<div class="col-12">
 				<a routerLink="/encuestas" class="btn btn-info">REGRESAR A LA LISTA</a>

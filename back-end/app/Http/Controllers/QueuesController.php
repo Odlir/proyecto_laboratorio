@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use ZipArchive;
 
 class QueuesController extends Controller
 {
@@ -97,7 +96,7 @@ class QueuesController extends Controller
      */
     public function destroy($id)
     {
-        unlink(public_path('PDF.zip'));
+        File::delete('PDF.zip');
 
         Storage::deleteDirectory('public/PDF');
     }

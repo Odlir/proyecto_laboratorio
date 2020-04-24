@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { ApiBackRequestService } from './../../Services/api-back-request.service';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
 	selector: 'app-reportes',
@@ -108,24 +109,27 @@ export class ReportesComponent implements OnInit {
 
 	queue() {
 		const form = {
-			archivo : this.sucursal.nombre + '-REPORTES.zip',
-			sucursal : this.sucursal.nombre
+			archivo: this.sucursal.nombre + '-REPORTES.zip',
+			sucursal: this.sucursal.nombre
 		}
 
-		this.api.downloadFile('queues',form).subscribe(
+		this.api.downloadFile('queues', form).subscribe(
 			(data) => {
-
+				this.eliminarQueue();
 			}
 		);
+	}
 
-		this.api.delete('queues',form.sucursal).subscribe(
+	eliminarQueue() {
+
+		var a: HttpParams;
+
+		this.api.delete('queues', a).subscribe(
 			(data) => {
-				
+				this.disabled = false;
+				this.limpiar();
 			}
 		);
-
-		this.disabled = false;
-		this.limpiar();
 	}
 
 	obtenerIntereses() {
