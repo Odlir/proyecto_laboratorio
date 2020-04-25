@@ -12,6 +12,7 @@ use App\Persona;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\QueuesController;
+use Illuminate\Support\Facades\Artisan;
 
 class ExportController extends Controller
 {
@@ -73,11 +74,11 @@ class ExportController extends Controller
     //         foreach ($personas as $p) {
     //             $content = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $p['persona'], 'puntajes' => $p['puntajes']))->output();
 
-    //             $name = 'PDF/' . $encuesta['empresa']['nombre'] . '/INTERESES/' . $p['persona']['nombres'] . '-' . $p['persona']['apellido_paterno'] . '.pdf';
+    //             $name = 'PDF-'.$request->hour.'/'. $encuesta['empresa']['nombre'] . '/INTERESES/' . $p['persona']['nombres'] . '-' . $p['persona']['apellido_paterno'] . '.pdf';
     //             \Storage::disk('public')->put($name,  $content);
     //         }
 
-    //         return $this->descargarZip();
+    //         return $this->descargarZip($request->hour);
     //     }
     // }
 
@@ -96,19 +97,41 @@ class ExportController extends Controller
             return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
         } else {
             foreach ($personas as $p) {
-                PDF::dispatchNow($p['persona'], $p['puntajes'], $encuesta['empresa']['nombre']);
+                PDF::dispatchNow($p['persona'], $p['puntajes'], $encuesta['empresa']['nombre'],$request->hour);
             }
 
-            return $this->descargarZip();
+            return $this->descargarZip($request->hour);
         }
     }
 
-    public function descargarZip()
+    // public function jobs(Request $request)
+    // {
+    //     $encuesta = Encuesta::where('id', $request->interes_id)
+    //         ->with('empresa')
+    //         ->first();
+
+    //     $personas = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
+    //         ->with('persona')
+    //         ->with('puntajes.carrera')
+    //         ->get();
+
+    //     if ($personas->isEmpty()) {
+    //         return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
+    //     } else {
+    //         foreach ($personas as $p) {
+    //             PDF::dispatch($p['persona'], $p['puntajes'], $encuesta['empresa']['nombre'],$request->hour);
+    //         }
+
+    //         return $this->descargarZip($request->hour);
+    //     }
+    // }
+
+    public function descargarZip($hour)
     {
-        $zip_file = 'PDF.zip';
+        $zip_file = 'PDF-'.$hour.'.zip';
         $zip = new \ZipArchive();
         $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
-        $path = storage_path('app/public/PDF');
+        $path = storage_path('app/public/PDF-'.$hour);
         $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
         foreach ($files as $name => $file) {
             if (!$file->isDir()) {

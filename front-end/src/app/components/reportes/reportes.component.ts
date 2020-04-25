@@ -15,7 +15,8 @@ export class ReportesComponent implements OnInit {
 		interes_id: null,
 		temperamento_id: null,
 		campo: null,
-		archivo: null
+		archivo: null,
+		hour : null,
 	}
 
 	public sucursales = [];
@@ -92,6 +93,9 @@ export class ReportesComponent implements OnInit {
 		if (this.sucursal.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por Favor Complete los campos requeridos')
 		} else {
+			var d = new Date();
+			this.form.hour = d.getHours() + '-' + d.getMinutes() + '-' + d.getSeconds();
+
 			this.disabled = true;
 			this.form.campo = 'pdf';
 			this.form.archivo = this.sucursal.nombre + '-REPORTES.zip';
@@ -109,7 +113,7 @@ export class ReportesComponent implements OnInit {
 
 	eliminarZip() {
 
-		this.api.delete('queues', this.sucursal.nombre).subscribe(
+		this.api.delete('queues', this.form.hour).subscribe(
 			(data) => {
 				this.disabled = false;
 				this.limpiar();
@@ -153,6 +157,7 @@ export class ReportesComponent implements OnInit {
 		this.form.archivo = null;
 		this.form.campo = null;
 		this.temperamentos = [];
+		this.form.hour = null;
 	}
 
 	mensaje(msj) {

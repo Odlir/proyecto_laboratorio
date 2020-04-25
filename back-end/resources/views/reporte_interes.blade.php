@@ -34,7 +34,7 @@
         }
 
         .mt{
-            margin-top:250px;
+            margin-top:150px;
         }
 
         .img-width{
@@ -92,11 +92,20 @@
             display:inline-block;
             height: 60px;
             margin: 10px;
-            background: rgb(2,0,36);
+            /* background: rgb(2,0,36);
             background: -moz-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,173,255,1) 100%);
             background: -webkit-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,173,255,1) 100%);
             background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,173,255,1) 100%);
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#00adff",GradientType=1);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#00adff",GradientType=1); */
+
+            background: rgba(179,220,237,1);
+            background: -moz-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 99%, rgba(188,224,238,1) 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, rgba(179,220,237,1)), color-stop(99%, rgba(41,184,229,1)), color-stop(100%, rgba(188,224,238,1)));
+            background: -webkit-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 99%, rgba(188,224,238,1) 100%);
+            background: -o-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 99%, rgba(188,224,238,1) 100%);
+            background: -ms-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 99%, rgba(188,224,238,1) 100%);
+            background: linear-gradient(to right, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 99%, rgba(188,224,238,1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3dced', endColorstr='#bce0ee', GradientType=1 );
         }
 
         .titulo{
@@ -104,7 +113,7 @@
         }
 
         .mt-persona{
-            margin-top: 15px;
+            margin-top: 70px;
         }
 
         .mt-text{
@@ -118,29 +127,31 @@
         .text-table{
             color: rgb(104,104,104);
         }
+
+        #footer {
+        text-align: right;
+        position: fixed;
+        left: 0;
+        right: 15px;
+        color: #aaa;
+        font-size: 20px;
+        bottom: 15px;
+        }
+
+        .page-number:before {
+        content: counter(page);
+        }
+
     </style>
     </head>
     <body>
-        <script type="text/php">
-            if (isset($pdf)) {
-                $x = 250;
-                $y = 10;
-                $text = "Page {PAGE_NUM} of {PAGE_COUNT}";
-                $font = null;
-                $size = 14;
-                $color = array(255,0,0);
-                $word_space = 0.0;  //  default
-                $char_space = 0.0;  //  default
-                $angle = 0.0;   //  default
-                $pdf->page_text($x, $y, $text, $font, $size, $color, $word_space, $char_space, $angle);
-            }
-        </script>
         <div class="text-center">
             <h1 class="titulo text-secondary">Test de Intereses</h1>
          
           <div class="mt">
             <img class="img-width" src="{{ 'storage/logo_upc_red.png' }}" alt="">
 
+            <br><br><br><br>
             <h1 class="text-secondary">Reporte de resultados</h1>
 
             <div class="mt-persona text-secondary">
@@ -156,6 +167,10 @@
                 @endphp</h1>
             </div>
           </div>     
+        </div>
+
+        <div id="footer">
+            <div class="page-number"></div>
         </div>
         
         <div class="page_break">
@@ -201,16 +216,16 @@
                     <th width="12%">
                         PD
                     </th>
-                    <th width="21%">
+                    <th width="20%">
                         Muy Bajo
                     </th>
-                    <th width="21%">
+                    <th width="20%">
                         Bajo
                     </th>
-                    <th width="21%">
+                    <th width="20%">
                         Alto
                     </th>
-                    <th width="22%">
+                    <th width="24%">
                         Muy Alto
                     </th>
                 </tr>
@@ -249,7 +264,7 @@
                     @foreach ($carreras as $c)
                         <tr>
                             <td class="text-center font-weight-bold" width="30%">
-                                {{$c->nombre}}({{$c->siglas}})
+                                {{$c->nombre}} ({{$c->siglas}})
                             </td>
                             <td class="text-justify p-2" width="70%">
                                 {{$c->interes}}

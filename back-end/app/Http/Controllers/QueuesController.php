@@ -80,8 +80,8 @@ class QueuesController extends Controller
      */
     public function destroy($id)
     {
-        File::delete('PDF.zip');
+        File::delete('PDF-'.$id.'.zip');
 
-        Storage::deleteDirectory('public/PDF');
+        Storage::deleteDirectory('public/PDF-'.$id);
     }
 }
