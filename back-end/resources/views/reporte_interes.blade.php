@@ -34,11 +34,11 @@
         }
 
         .mt{
-            margin-top:400px;
+            margin-top:250px;
         }
 
         .img-width{
-            width:400px;
+            width:375px;
         }
 
         .page_break { 
@@ -99,22 +99,62 @@
             filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#00adff",GradientType=1);
         }
 
+        .titulo{
+            font-size: 45px;
+        }
+
+        .mt-persona{
+            margin-top: 15px;
+        }
+
+        .mt-text{
+            margin-top: 5px;
+        }
+
+        .font-weight-bold{
+            font-weight: bold;
+        }
+
+        .text-table{
+            color: rgb(104,104,104);
+        }
     </style>
     </head>
     <body>
+        <script type="text/php">
+            if (isset($pdf)) {
+                $x = 250;
+                $y = 10;
+                $text = "Page {PAGE_NUM} of {PAGE_COUNT}";
+                $font = null;
+                $size = 14;
+                $color = array(255,0,0);
+                $word_space = 0.0;  //  default
+                $char_space = 0.0;  //  default
+                $angle = 0.0;   //  default
+                $pdf->page_text($x, $y, $text, $font, $size, $color, $word_space, $char_space, $angle);
+            }
+        </script>
         <div class="text-center">
-            <h1 class="text-secondary">TEST DE INTERESES</h1>
+            <h1 class="titulo text-secondary">Test de Intereses</h1>
          
           <div class="mt">
             <img class="img-width" src="{{ 'storage/logo_upc_red.png' }}" alt="">
 
-            <h2 class="text-secondary">REPORTE DE RESULTADOS</h2>
-            {{-- <h2 class="text-secondary">EVALUACIÓN DE <br> GUTIERREZ, LUIS <br> @php
-                echo date('d-m-Y');
-            @endphp </h2> --}}
-            <h2 class="text-secondary">EVALUACIÓN DE <br> {{$persona->apellido_paterno}}, {{$persona->nombres}} <br> @php
-                echo date('d-m-Y');
-            @endphp </h2>
+            <h1 class="text-secondary">Reporte de resultados</h1>
+
+            <div class="mt-persona text-secondary">
+                {{-- <h1 class="text-secondary">Evaluación de <br> <span class="mt-text">{{$persona->apellido_paterno}}</span>, {{$persona->nombres}} <br> 
+                <span class="mt-text">@php
+                    echo date('d-m-Y');
+                @endphp</span>
+                </h1> --}}
+                <h1>Evaluación de</h1>
+                <h1 class="mt-text">{{$persona->apellido_paterno}}, {{$persona->nombres}}</h1>
+                <h1 class="mt-text">@php
+                    echo date('d-m-Y');
+                @endphp</h1>
+            </div>
           </div>     
         </div>
         
@@ -147,7 +187,7 @@
             </div>
         </div>
 
-        <table class="page_break w-100">
+        <table class="page_break w-100 text-table font-weight-bold">
             <thead>
                 <tr>
                     <th width="40%" rowspan="2">
@@ -195,8 +235,9 @@
         </table>     
 
 
-        <div class="page_break">    
-            <table>
+        <div class="page_break">
+            <h1 class="text-secondary">DESCRIPCIÓN DE LAS ÁREAS</h1>    
+            <table class="text-table">
                 <thead>
                     <tr>
                         <th colspan="2">
@@ -207,10 +248,10 @@
                 <tbody>
                     @foreach ($carreras as $c)
                         <tr>
-                            <td class="text-center">
+                            <td class="text-center font-weight-bold" width="30%">
                                 {{$c->nombre}}({{$c->siglas}})
                             </td>
-                            <td class="text-justify p-2">
+                            <td class="text-justify p-2" width="70%">
                                 {{$c->interes}}
                             </td>
                         </tr>

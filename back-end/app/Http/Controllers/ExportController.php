@@ -73,7 +73,7 @@ class ExportController extends Controller
     //         foreach ($personas as $p) {
     //             $content = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $p['persona'], 'puntajes' => $p['puntajes']))->output();
 
-    //             $name = 'PDF/' . $encuesta['empresa']['nombre'] . '/INTERESES/' . $p['persona']['nombres'] . '' . $p['persona']['apellido_paterno'] . '.pdf';
+    //             $name = 'PDF/' . $encuesta['empresa']['nombre'] . '/INTERESES/' . $p['persona']['nombres'] . '-' . $p['persona']['apellido_paterno'] . '.pdf';
     //             \Storage::disk('public')->put($name,  $content);
     //         }
 
@@ -171,7 +171,7 @@ class ExportController extends Controller
             ->first();
 
         $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $persona, 'puntajes' => $encuesta['puntajes']));
-        return $pdf->download('Reporte-Interes-' . $persona->nombres . '' . $persona->apellido_paterno . '.pdf');
+        return $pdf->download('Reporte-Interes-' . $persona->nombres . '-' . $persona->apellido_paterno . '.pdf');
     }
 
     public function status(Request $request)
