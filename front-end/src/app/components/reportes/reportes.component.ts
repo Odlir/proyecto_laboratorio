@@ -101,7 +101,7 @@ export class ReportesComponent implements OnInit {
 				},
 				(error) => {
 					this.disabled = false;
-					this.mensaje(error.error.error)
+					this.mensaje('No hay encuestas resueltas.')
 				}
 			);
 		}

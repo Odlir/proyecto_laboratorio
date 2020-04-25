@@ -53,6 +53,34 @@ class ExportController extends Controller
         }
     }
 
+    // public function jobs(Request $request)
+    // {
+    //     $carreras = Carrera::where('estado', 1)->orderBy('nombre', 'asc')
+    //         ->get();
+
+    //     $encuesta = Encuesta::where('id', $request->interes_id)
+    //         ->with('empresa')
+    //         ->first();
+
+    //     $personas = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
+    //         ->with('persona')
+    //         ->with('puntajes.carrera')
+    //         ->get();
+
+    //     if ($personas->isEmpty()) {
+    //         return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
+    //     } else {
+    //         foreach ($personas as $p) {
+    //             $content = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $p['persona'], 'puntajes' => $p['puntajes']))->output();
+
+    //             $name = 'PDF/' . $encuesta['empresa']['nombre'] . '/INTERESES/' . $p['persona']['nombres'] . '' . $p['persona']['apellido_paterno'] . '.pdf';
+    //             \Storage::disk('public')->put($name,  $content);
+    //         }
+
+    //         return $this->descargarZip();
+    //     }
+    // }
+
     public function jobs(Request $request)
     {
         $encuesta = Encuesta::where('id', $request->interes_id)
@@ -65,7 +93,7 @@ class ExportController extends Controller
             ->get();
 
         if ($personas->isEmpty()) {
-            return response()->json(['error' => 'No hay encuestas resueltas.'], 401);
+            return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
         } else {
             foreach ($personas as $p) {
                 PDF::dispatchNow($p['persona'], $p['puntajes'], $encuesta['empresa']['nombre']);
@@ -123,7 +151,7 @@ class ExportController extends Controller
         }
 
         if ($interes['general']['personas']->isEmpty()) {
-            return response()->json(['error' => 'No hay alumnos registrados'], 401);
+            return response()->json(['error' => 'No hay alumnos registrados'], 404);
         } else {
             return Excel::download(new LinkExport($interes['general']['personas'], $interes['id'], $temperamento_id), 'encuesta.xlsx');
         }
@@ -158,7 +186,7 @@ class ExportController extends Controller
             ->first();
 
         if ($interes['general']['personas']->isEmpty()) {
-            return response()->json(['error' => 'No hay alumnos registrados'], 401);
+            return response()->json(['error' => 'No hay alumnos registrados'], 404);
         } else {
             return Excel::download(new StatusExport($interes['general']['personas'], $interes['id']), 'encuesta.xlsx');
         }
@@ -206,6 +234,5 @@ class ExportController extends Controller
      */
     public function destroy($id)
     {
-     
     }
 }
