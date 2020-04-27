@@ -23,6 +23,7 @@ class CreateTalentosTable extends Migration
             $table->string('descripcion');
             $table->string('imagen');
             $table->string('imagen_espalda');
+            $table->char('estado', 1)->comment('0-Inactivo/1-Activo')->default(1);
             $table->timestamps();
         });
     }
