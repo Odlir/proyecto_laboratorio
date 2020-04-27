@@ -52,7 +52,7 @@ class CarreraSeeder extends Seeder
             ['nombre'=>'MARKETING','siglas'=>'MAR','interes'=>'Interés en la identificación de las necesidades de los clientes para
             ofrecerles productos y servicios competitivos en el mercado.'],
 
-            ['nombre'=>'MECANICO/ELECTRONICO','siglas'=>'MEC','interes'=>'Interés en el funcionamiento y manejo de sistemas, máquinas y
+            ['nombre'=>'MECANICO / ELECTRONICO','siglas'=>'MEC','interes'=>'Interés en el funcionamiento y manejo de sistemas, máquinas y
             herramientas de tipo mecánico, eléctrico o electrónico.'],
 
             ['nombre'=>'MINERO','siglas'=>'MIN','interes'=>'Interés por el estudio, la búsqueda y la extracción de los recursos

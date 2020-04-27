@@ -15,7 +15,7 @@
             <td>{{ $p->status }}</td>
             <td>{{ $p->link_intereses }}</td>
             <td></td>
-            <td></td>
+            <td>{{ $p->link_temperamentos }}</td>
         </tr>
       @endforeach
     </tbody>

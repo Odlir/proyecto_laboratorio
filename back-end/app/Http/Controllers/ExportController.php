@@ -97,7 +97,7 @@ class ExportController extends Controller
             return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
         } else {
             foreach ($personas as $p) {
-                PDF::dispatchNow($p['persona'], $p['puntajes'], $encuesta['empresa']['nombre'],$request->hour);
+                PDF::dispatchNow($p['persona'], $p['puntajes'], $encuesta['empresa']['nombre'], $request->hour);
             }
 
             return $this->descargarZip($request->hour);
@@ -128,10 +128,10 @@ class ExportController extends Controller
 
     public function descargarZip($hour)
     {
-        $zip_file = 'PDF-'.$hour.'.zip';
+        $zip_file = 'PDF-' . $hour . '.zip';
         $zip = new \ZipArchive();
         $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
-        $path = storage_path('app/public/PDF-'.$hour);
+        $path = storage_path('app/public/PDF-' . $hour);
         $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
         foreach ($files as $name => $file) {
             if (!$file->isDir()) {
@@ -199,6 +199,8 @@ class ExportController extends Controller
 
     public function status(Request $request)
     {
+        $temperamento_id = '';
+
         $interes = Encuesta::where('id', $request->interes_id)
             ->with(['general' => function ($query) {
                 $query->with(['personas' => function ($query) {
@@ -208,10 +210,23 @@ class ExportController extends Controller
             }])
             ->first();
 
+        if ($request->temperamento_id != null) {
+            $temperamento = Encuesta::where('id', $request->temperamento_id)
+                ->with(['general' => function ($query) {
+                    $query->with(['personas' => function ($query) {
+                        $query->wherePivot('estado', '1')
+                            ->orderBy('id', 'DESC');
+                    }]);
+                }])
+                ->first();
+
+            $temperamento_id = $temperamento['id'];
+        }
+
         if ($interes['general']['personas']->isEmpty()) {
             return response()->json(['error' => 'No hay alumnos registrados'], 404);
         } else {
-            return Excel::download(new StatusExport($interes['general']['personas'], $interes['id']), 'encuesta.xlsx');
+            return Excel::download(new StatusExport($interes['general']['personas'], $interes['id'],$temperamento_id), 'encuesta.xlsx');
         }
     }
 

@@ -41,9 +41,14 @@ class PDF implements ShouldQueue
         $carreras = Carrera::where('estado', 1)->orderBy('nombre', 'asc')
             ->get();
 
-        $content = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $this->persona, 'puntajes' => $this->puntajes))->output();
+        $intereses = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $this->persona, 'puntajes' => $this->puntajes))->output();
 
         $name = 'PDF-'.$this->hour.'/'.$this->empresa . '/INTERESES/' . $this->persona->nombres . '-' . $this->persona->apellido_paterno . '.pdf';
-        \Storage::disk('public')->put($name,  $content);
+        \Storage::disk('public')->put($name,  $intereses);
+
+        $consolidados = \PDF::loadView('reporte_consolidados', array('persona' => $this->persona))->output();
+
+        $name = 'PDF-'.$this->hour.'/'.$this->empresa . '/CONSOLIDADOS/' . $this->persona->nombres . '-' . $this->persona->apellido_paterno . '.pdf';
+        \Storage::disk('public')->put($name,  $consolidados);
     }
 }

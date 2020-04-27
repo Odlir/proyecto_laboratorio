@@ -4,9 +4,14 @@
         <meta charset="UTF-8">
         <style>
 
+        @page{    
+            margin: 0;
+            padding:0;
+        }
+
         body
         {
-            padding: 40px;
+            padding: 70px;
         }
 
         .text-center
@@ -38,7 +43,7 @@
         }
 
         .img-width{
-            width:375px;
+            width:170px;
         }
 
         .page_break { 
@@ -67,6 +72,12 @@
             margin-top: 1.5rem !important;
         }
 
+        .mx-1
+        {
+            margin-left: 0.25rem !important;
+            margin-right: 0.25rem !important;
+        }
+
         table {
         border-collapse: collapse;
         }
@@ -89,23 +100,13 @@
 
         .height-graph
         {
-            display:inline-block;
             height: 60px;
             margin: 10px;
-            /* background: rgb(2,0,36);
+            background: rgb(2,0,36);
             background: -moz-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,173,255,1) 100%);
             background: -webkit-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,173,255,1) 100%);
             background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,173,255,1) 100%);
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#00adff",GradientType=1); */
-
-            background: rgba(179,220,237,1);
-            background: -moz-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 99%, rgba(188,224,238,1) 100%);
-            background: -webkit-gradient(left top, right top, color-stop(0%, rgba(179,220,237,1)), color-stop(99%, rgba(41,184,229,1)), color-stop(100%, rgba(188,224,238,1)));
-            background: -webkit-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 99%, rgba(188,224,238,1) 100%);
-            background: -o-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 99%, rgba(188,224,238,1) 100%);
-            background: -ms-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 99%, rgba(188,224,238,1) 100%);
-            background: linear-gradient(to right, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 99%, rgba(188,224,238,1) 100%);
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3dced', endColorstr='#bce0ee', GradientType=1 );
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#00adff",GradientType=1);
         }
 
         .titulo{
@@ -132,16 +133,15 @@
         text-align: right;
         position: fixed;
         left: 0;
-        right: 15px;
-        color: #aaa;
+        right: 70px;
+        color: black;
         font-size: 20px;
-        bottom: 15px;
+        bottom: 70px;
         }
 
         .page-number:before {
         content: counter(page);
         }
-
     </style>
     </head>
     <body>
@@ -263,7 +263,7 @@
                 <tbody>
                     @foreach ($carreras as $c)
                         <tr>
-                            <td class="text-center font-weight-bold" width="30%">
+                            <td class="text-center font-weight-bold mx-1" width="30%">
                                 {{$c->nombre}} ({{$c->siglas}})
                             </td>
                             <td class="text-justify p-2" width="70%">
