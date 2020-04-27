@@ -4,9 +4,14 @@
         <meta charset="UTF-8">
         <style>
 
+        @page{    
+            margin: 0;
+            padding:0;
+        }
+
         body
         {
-            padding: 40px;
+            padding: 70px;
         }
 
         .text-center
@@ -34,11 +39,11 @@
         }
 
         .mt{
-            margin-top:400px;
+            margin-top:150px;
         }
 
         .img-width{
-            width:400px;
+            width:170px;
         }
 
         .page_break { 
@@ -65,6 +70,12 @@
 
         .mt-4{
             margin-top: 1.5rem !important;
+        }
+
+        .mx-1
+        {
+            margin-left: 0.25rem !important;
+            margin-right: 0.25rem !important;
         }
 
         table {
@@ -98,23 +109,68 @@
             filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#00adff",GradientType=1);
         }
 
+        .titulo{
+            font-size: 45px;
+        }
+
+        .mt-persona{
+            margin-top: 70px;
+        }
+
+        .mt-text{
+            margin-top: 5px;
+        }
+
+        .font-weight-bold{
+            font-weight: bold;
+        }
+
+        .text-table{
+            color: rgb(104,104,104);
+        }
+
+        #footer {
+        text-align: right;
+        position: fixed;
+        left: 0;
+        right: 70px;
+        color: black;
+        font-size: 20px;
+        bottom: 70px;
+        }
+
+        .page-number:before {
+        content: counter(page);
+        }
     </style>
     </head>
     <body>
         <div class="text-center">
-            <h1 class="text-secondary">TEST DE INTERESES</h1>
+            <h1 class="titulo text-secondary">Test de Intereses</h1>
          
           <div class="mt">
             <img class="img-width" src="{{ 'storage/logo_upc_red.png' }}" alt="">
 
-            <h2 class="text-secondary">REPORTE DE RESULTADOS</h2>
-            {{-- <h2 class="text-secondary">EVALUACIÓN DE <br> GUTIERREZ, LUIS <br> @php
-                echo date('d-m-Y');
-            @endphp </h2> --}}
-            <h2 class="text-secondary">EVALUACIÓN DE <br> {{$persona->apellido_paterno}}, {{$persona->nombres}} <br> @php
-                echo date('d-m-Y');
-            @endphp </h2>
+            <br><br><br><br>
+            <h1 class="text-secondary">Reporte de resultados</h1>
+
+            <div class="mt-persona text-secondary">
+                {{-- <h1 class="text-secondary">Evaluación de <br> <span class="mt-text">{{$persona->apellido_paterno}}</span>, {{$persona->nombres}} <br> 
+                <span class="mt-text">@php
+                    echo date('d-m-Y');
+                @endphp</span>
+                </h1> --}}
+                <h1>Evaluación de</h1>
+                <h1 class="mt-text">{{$persona->apellido_paterno}}, {{$persona->nombres}}</h1>
+                <h1 class="mt-text">@php
+                    echo date('d-m-Y');
+                @endphp</h1>
+            </div>
           </div>     
+        </div>
+
+        <div id="footer">
+            <div class="page-number"></div>
         </div>
         
         <div class="page_break">
@@ -146,7 +202,7 @@
             </div>
         </div>
 
-        <table class="page_break w-100">
+        <table class="page_break w-100 text-table font-weight-bold">
             <thead>
                 <tr>
                     <th width="40%" rowspan="2">
@@ -160,16 +216,16 @@
                     <th width="12%">
                         PD
                     </th>
-                    <th width="21%">
+                    <th width="20%">
                         Muy Bajo
                     </th>
-                    <th width="21%">
+                    <th width="20%">
                         Bajo
                     </th>
-                    <th width="21%">
+                    <th width="20%">
                         Alto
                     </th>
-                    <th width="22%">
+                    <th width="24%">
                         Muy Alto
                     </th>
                 </tr>
@@ -194,8 +250,9 @@
         </table>     
 
 
-        <div class="page_break">    
-            <table>
+        <div class="page_break">
+            <h1 class="text-secondary">DESCRIPCIÓN DE LAS ÁREAS</h1>    
+            <table class="text-table">
                 <thead>
                     <tr>
                         <th colspan="2">
@@ -206,10 +263,10 @@
                 <tbody>
                     @foreach ($carreras as $c)
                         <tr>
-                            <td class="text-center">
-                                {{$c->nombre}}({{$c->siglas}})
+                            <td class="text-center font-weight-bold mx-1" width="30%">
+                                {{$c->nombre}} ({{$c->siglas}})
                             </td>
-                            <td class="text-justify p-2">
+                            <td class="text-justify p-2" width="70%">
                                 {{$c->interes}}
                             </td>
                         </tr>

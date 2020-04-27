@@ -24,7 +24,7 @@ class LinkExport implements FromView, ShouldAutoSize, WithEvents
 
     private $api;
 
-    private $todo = true;
+    private $show = true;
 
     public function __construct($personas, $interes_id, $temperamento_id)
     {
@@ -35,7 +35,7 @@ class LinkExport implements FromView, ShouldAutoSize, WithEvents
         $this->api = config('constants.front_end');
 
         if ($this->temperamento_id == "") {
-            $this->todo = false;
+            $this->show = false;
         }
 
         foreach ($this->personas as $p) {
@@ -48,7 +48,7 @@ class LinkExport implements FromView, ShouldAutoSize, WithEvents
     {
         return view('links', [
             'personas' => $this->personas,
-            'todo' => $this->todo,
+            'show' => $this->show,
         ]);
     }
 

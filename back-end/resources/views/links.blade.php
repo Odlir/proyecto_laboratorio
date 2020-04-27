@@ -3,7 +3,7 @@
     <tr>
         <th>NOMBRE</th>
         <th>INTERESES</th>
-        @if ($todo)
+        @if ($show)
             <th>TALENTOS</th>
             <th>TEMPERAMENTOS</th>
         @endif
@@ -15,11 +15,10 @@
         <tr>
             <td>{{ $p->nombres }} {{ $p->apellido_paterno }} {{ $p->apellido_materno }}</td>
             <td>{{ $p->link_intereses }}</td>
-            @if ($todo)
+            @if ($show)
             <td></td>
             <td>{{ $p->link_temperamentos }}</td>
-            @endif
-            
+            @endif       
         </tr>
       @endforeach
     </tbody>

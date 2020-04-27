@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { ApiBackRequestService } from './../../Services/api-back-request.service';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
 	selector: 'app-reportes',
@@ -14,7 +15,8 @@ export class ReportesComponent implements OnInit {
 		interes_id: null,
 		temperamento_id: null,
 		campo: null,
-		archivo: null
+		archivo: null,
+		hour : null,
 	}
 
 	public sucursales = [];
@@ -87,21 +89,41 @@ export class ReportesComponent implements OnInit {
 		}
 	}
 
-	// queue() {
+	pdf() {
+		if (this.sucursal.nombre == null || this.form.interes_id == null) {
+			this.mensaje('Por Favor Complete los campos requeridos')
+		} else {
+			var d = new Date();
+			this.form.hour = d.getHours() + '-' + d.getMinutes() + '-' + d.getSeconds();
 
-	// 	this.api.get('queues').subscribe(
-	// 		(data) => {
-	// 			console.log('hola');
-	// 		}
-	// 	);
+			this.disabled = true;
+			this.form.campo = 'pdf';
+			this.form.archivo = this.sucursal.nombre + '-REPORTES.zip';
+			this.api.downloadFile('exportar', this.form).subscribe(
+				(data) => {
+					this.eliminarZip();
+				},
+				(error) => {
+					this.disabled = false;
+					this.mensaje('No hay encuestas resueltas.')
+				}
+			);
+		}
+	}
 
-	// 	this.disabled = false;
-	// 	this.limpiar();
-	// }
+	eliminarZip() {
+
+		this.api.delete('queues', this.form.hour).subscribe(
+			(data) => {
+				this.disabled = false;
+				this.limpiar();
+			}
+		);
+	}
 
 	obtenerIntereses() {
 
-		this.intereses = [];
+		this.limpiar();
 
 		this.api.get('links?tipo=1&sucursal=' + this.sucursal.id).subscribe(
 			(data) => {
@@ -135,6 +157,7 @@ export class ReportesComponent implements OnInit {
 		this.form.archivo = null;
 		this.form.campo = null;
 		this.temperamentos = [];
+		this.form.hour = null;
 	}
 
 	mensaje(msj) {

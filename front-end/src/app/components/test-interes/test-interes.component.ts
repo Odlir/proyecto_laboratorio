@@ -39,6 +39,12 @@ export class TestInteresComponent implements OnInit {
 
 	public rango: boolean = false;
 
+	public disabled: boolean = false;
+
+	public progreso = 0;
+
+	public porcentaje: number = 0;
+
 	constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder, private route: ActivatedRoute) {
 		this.formGroup = new FormGroup(this.group);
 	}
@@ -49,7 +55,38 @@ export class TestInteresComponent implements OnInit {
 		this.form.persona_id = parseInt(this.route.snapshot.params.persona_id);
 
 		this.obtenerDatos();
+
 	}
+
+	// async progress() {
+	// 	this.progreso = 0;
+	// 	// await Object.entries(this.formGroup.controls).every(a => {
+	// 	// 	if (a[1].value != "") {
+	// 	// 		this.progreso++;
+	// 	// 		return true;
+	// 	// 	}
+	// 	// 	else {
+	// 	// 		return false;
+	// 	// 	}
+	// 	// });
+	// 	// this.porcentaje = parseFloat(((this.progreso / this.preguntas.length)*100).toFixed(1));
+
+	// 	await Object.entries(this.formGroup.controls).every(a => {
+	// 		if (a[1].value != "") {
+	// 			console.log(a);
+	// 			// this.progreso++;
+	// 			// let ids = a[0].split('-');
+	// 			// this.form.pregunta_id = ids[0];
+	// 			// this.form.subpregunta_id = ids[1];
+	// 			// this.form.respuesta_id = a[1].value;
+
+	// 			// this.data.push({ ...this.form });
+	// 		}
+	// 		return true;
+	// 	});
+	// 	// this.porcentaje = parseFloat(((this.progreso / this.preguntas.length) * 100).toFixed(1));
+	// 	console.log(this.preguntas);
+	// }
 
 	obtenerDatos() {
 		this.api.get('encuesta_puntaje?encuesta_id=' + this.form.encuesta_id + '&persona_id=' + this.form.persona_id).subscribe(
@@ -145,8 +182,7 @@ export class TestInteresComponent implements OnInit {
 				Swal.fire({
 					title: 'El Test debe ser completado al 100%.',
 					icon: 'warning',
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
+					timer: 3000
 				});
 				this.data = [];
 				this.save = false;
@@ -167,13 +203,18 @@ export class TestInteresComponent implements OnInit {
 		});
 
 		if (this.save) {
+			this.disabled = true;
+			Swal.fire({
+				title: 'Enviando encuesta, porfavor espere un momento.',
+				icon: 'info',
+				timer: 5000
+			});
 			this.api.post('encuesta_persona', this.data).subscribe(
 				(data) => {
 					Swal.fire({
 						title: 'Test Enviado Correctamente.',
 						icon: 'success',
-						confirmButtonColor: '#3085d6',
-						cancelButtonColor: '#d33',
+						timer: 4000
 					});
 
 					this.show = false;

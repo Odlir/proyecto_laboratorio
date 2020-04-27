@@ -14,7 +14,19 @@
 
 <br>
 
-<form [formGroup]="formGroup" (ngSubmit)="guardar()" class="px-4" *ngIf="show;else two">
+<!-- <div class="row bg-test py-3 my-2" *ngIf="show">
+	<div class="col-4">
+		<p>Avance de la Encuesta</p>
+	</div>
+	<div class="col-8 bg-test">
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped" role="progressbar" [style]="'width:'+porcentaje+'%'" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <p class="w-100">{{porcentaje}}% | Has respondido {{progreso}} preguntas de {{preguntas.length}}</p>
+    </div>
+</div> -->
+
+<form [formGroup]="formGroup" (ngSubmit)="guardar()" *ngIf="show;else two">
 	<div class="widget clearfix mb-2" *ngFor="let item of preguntas; let i = index;">
 		<div class="whead clearfix">
 			<p class="font-weight-bold text-uppercase">{{ +i+1 }}. {{ item.nombre }}</p>
@@ -38,7 +50,7 @@
 	</div>
 	<div class="form-group row">
 		<div class="col-12 text-right">
-			<button type="submit" class="btn btn-success">ENVIAR LA ENCUESTA</button>
+			<button type="submit" class="btn btn-success" [disabled]="disabled">ENVIAR LA ENCUESTA</button>
 		</div>
 	</div>
 </form>

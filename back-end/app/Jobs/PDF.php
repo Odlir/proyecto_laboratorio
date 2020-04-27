@@ -15,16 +15,20 @@ class PDF implements ShouldQueue
 
     protected $persona;
     protected $puntajes;
+    protected $empresa;
+    protected $hour;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($persona, $puntajes)
+    public function __construct($persona, $puntajes, $empresa,$hour)
     {
         $this->persona = $persona;
         $this->puntajes = $puntajes;
+        $this->empresa = $empresa;
+        $this->hour = $hour;
     }
 
     /**
@@ -37,7 +41,14 @@ class PDF implements ShouldQueue
         $carreras = Carrera::where('estado', 1)->orderBy('nombre', 'asc')
             ->get();
 
-        $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $this->persona, 'puntajes' => $this->puntajes));
-        return $pdf->download('reporte_interes.pdf');
+        $intereses = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $this->persona, 'puntajes' => $this->puntajes))->output();
+
+        $name = 'PDF-'.$this->hour.'/'.$this->empresa . '/INTERESES/' . $this->persona->nombres . '-' . $this->persona->apellido_paterno . '.pdf';
+        \Storage::disk('public')->put($name,  $intereses);
+
+        $consolidados = \PDF::loadView('reporte_consolidados', array('persona' => $this->persona))->output();
+
+        $name = 'PDF-'.$this->hour.'/'.$this->empresa . '/CONSOLIDADOS/' . $this->persona->nombres . '-' . $this->persona->apellido_paterno . '.pdf';
+        \Storage::disk('public')->put($name,  $consolidados);
     }
 }

@@ -16,29 +16,45 @@ class StatusExport implements FromView, ShouldAutoSize, WithEvents
      */
     private $personas;
     private $interes_id;
+    private $temperamento_id;
 
     private $front;
     private $back;
 
-    public function __construct($personas, $interes_id)
+    public function __construct($personas, $interes_id, $temperamento_id)
     {
         $this->personas = $personas;
         $this->interes_id = $interes_id;
+        $this->temperamento_id = $temperamento_id;
 
         $this->front = config('constants.front_end');
         $this->back = config('constants.back_end');
 
         foreach ($this->personas as $p) {
 
-            $data = EncuestaPuntaje::where('encuesta_id', $this->interes_id)
+            $data_interes = EncuestaPuntaje::where('encuesta_id', $this->interes_id)
                 ->where('persona_id', $p->id)
                 ->get();
 
-            if (!$data->isEmpty()) {
+            $data_temperamento = EncuestaPuntaje::where('encuesta_id', $this->temperamento_id)
+                ->where('persona_id', $p->id)
+                ->get();
+
+            if (!$data_interes->isEmpty()) {
                 $p->link_intereses = $this->back . 'exportar' . '/' . $this->interes_id . '/' . $p->id;
-                $p->status = "Completado";
             } else {
                 $p->link_intereses = $this->front . '/test-intereses/' . $this->interes_id . '/' . $p->id;
+            }
+
+            if (!$data_temperamento->isEmpty()) {
+                $p->link_temperamentos = "";
+            } else {
+                $p->link_temperamentos = $this->front . '/test-temperamentos/' . $this->temperamento_id . '/' . $p->id;;
+            }
+
+            if (!$data_interes->isEmpty() && !$data_temperamento->isEmpty()) {
+                $p->status = "Completado";
+            } else {
                 $p->status = "Pendiente";
             }
         }

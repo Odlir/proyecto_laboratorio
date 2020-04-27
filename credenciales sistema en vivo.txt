@@ -1,5 +1,3 @@
-laravel queus funciones asyncronas
-
 credenciales sistema web
 
 http://talentoslinux.eastus2.cloudapp.azure.com/login
@@ -14,3 +12,8 @@ https://www.gaf.com.pe:2083/
 
 gafcom1
 wyLn{NB!yS5D
+
+
+cuenta aws
+humberto.gutierrezh@hotmail.com
+Gaf1234+

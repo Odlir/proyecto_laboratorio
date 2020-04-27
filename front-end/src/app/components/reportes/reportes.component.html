@@ -37,11 +37,14 @@
 
 		<div class="form-group row">
 			<div class="col-12 row">
-				<button type="submit" class="btn btn-success d-flex" (click)="links()" [disabled]="disabled">
-					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> LINKS PARA ENCUESTAS
-				</button>
-				<button type="submit" class="btn btn-primary d-flex" (click)="excel()" [disabled]="disabled">
+				<button type="submit" class="btn btn-success  d-flex" (click)="excel()" [disabled]="disabled">
 					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXCEL STATUS
+				</button>
+				<button type="submit" class="btn btn-primary  d-flex" (click)="pdf()" [disabled]="disabled">
+					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXPORTAR PDFS
+				</button>
+				<button type="submit" class="btn btn-secondary d-flex" (click)="links()" [disabled]="disabled">
+					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> LINKS PARA ENCUESTAS
 				</button>
 				<a (click)="return()" class="btn btn-info text-white">REGRESAR</a>
 			</div>

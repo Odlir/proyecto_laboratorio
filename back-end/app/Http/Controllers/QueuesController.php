@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class QueuesController extends Controller
 {
@@ -14,7 +15,6 @@ class QueuesController extends Controller
      */
     public function index()
     {
-        // Artisan::call('queue:work');
     }
 
     /**
@@ -35,7 +35,7 @@ class QueuesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -46,7 +46,7 @@ class QueuesController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -80,6 +80,8 @@ class QueuesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        File::delete('PDF-'.$id.'.zip');
+
+        Storage::deleteDirectory('public/PDF-'.$id);
     }
 }

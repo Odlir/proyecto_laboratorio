@@ -29,7 +29,11 @@ export class TestTemperamentosComponent implements OnInit {
 	public show: boolean = true;
 	public rango: boolean = false;
 
-	// public progreso = 0;
+	public disabled: boolean = false;
+
+	public progreso = 0;
+
+	public porcentaje: number = 0;
 
 	constructor(private api: ApiBackRequestService, public formBuilder: FormBuilder, private route: ActivatedRoute) {
 		this.formGroup = new FormGroup(this.group);
@@ -42,33 +46,16 @@ export class TestTemperamentosComponent implements OnInit {
 		this.obtenerDatos();
 	}
 
-	// async progress() {
-	// 	this.progreso = 0;
-	// 	await Object.entries(this.formGroup.controls).every(a => {
-	// 		// if (a[1].value === "") {
-	// 		// 	console.log('vacio');
-	// 		// 	return false;
-	// 		// }
-	// 		// else {
-	// 		// 	console.log('lleno');
-	// 		// 	this.progreso++;
-	// 		// 	return true;			
-	// 		// }
-	// 		if (a[1].value != "") {
-	// 			console.log('lleno',a[1].value);
-	// 			this.progreso++;
-	// 			return true;
-	// 		}
-	// 		else {
-	// 			console.log('vacio',a[1]);
-	// 			return false;
-	// 		}
-	// 		// console.log(a[1].value);
-	// 		// return false;
-	// 	});
-
-	// 	console.log(this.progreso);
-	// }
+	async progress() {
+		this.progreso = 0;
+		await Object.entries(this.formGroup.controls).every(a => {
+			if (a[1].value != "") {
+				this.progreso++;
+			}
+			return true;
+		});
+		this.porcentaje = parseFloat(((this.progreso / this.preguntas.length)*100).toFixed(1));
+	}
 
 	obtenerDatos() {
 
@@ -79,7 +66,7 @@ export class TestTemperamentosComponent implements OnInit {
 				}
 			}
 		);
-		
+
 		this.api.get('encuestas', this.form.encuesta_id).subscribe(
 			(data) => {
 
@@ -142,8 +129,7 @@ export class TestTemperamentosComponent implements OnInit {
 				Swal.fire({
 					title: 'El Test debe ser completado al 100%.',
 					icon: 'warning',
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
+					timer: 3000
 				});
 				this.data = [];
 				this.save = false;
@@ -161,13 +147,19 @@ export class TestTemperamentosComponent implements OnInit {
 		});
 
 		if (this.save) {
+			this.disabled = true;
+			Swal.fire({
+				title: 'Enviando encuesta, porfavor espere un momento.',
+				icon: 'info',
+				timer: 5000
+			});
+
 			this.api.post('encuesta_persona', this.data).subscribe(
 				(data) => {
 					Swal.fire({
 						title: 'Test Enviado Correctamente.',
 						icon: 'success',
-						confirmButtonColor: '#3085d6',
-						cancelButtonColor: '#d33',
+						timer: 4000
 					});
 
 					this.show = false;
