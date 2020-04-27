@@ -8,7 +8,6 @@ use App\Encuesta;
 use App\EncuestaPersona;
 use App\EncuestaPuntaje;
 use App\EncuestaRespuesta;
-use App\Persona;
 use App\Pregunta;
 use App\Respuesta;
 use Illuminate\Http\Request;
@@ -69,6 +68,15 @@ class EncuestaPersonaController extends Controller
     {
         $data = $request->all();
 
+        if ($data[0]['tipo_encuesta_id'] == 1) {
+            return $this->intereses($data);
+        } else if ($data[0]['tipo_encuesta_id'] == 3) {
+            return $this->temperamentos($data);
+        }
+    }
+
+    public function intereses($data)
+    {
         $puntajes_preguntas = [];
 
         $puntajes_carreras = [];
@@ -101,7 +109,7 @@ class EncuestaPersonaController extends Controller
             array_push($puntajes_carreras, $object2);
         }
 
-        foreach ($data as $d) { //SUMO TODAS LOS PUNTAJES DE LAS RESPUESTAS
+        foreach ($data as $d) { //SUMO TODOS LOS PUNTAJES DE LAS RESPUESTAS
             $respuesta = Respuesta::find($d['respuesta_id']);
             foreach ($puntajes_preguntas as $p) {
                 if ($d['pregunta_id'] == $p->pregunta_id) {
@@ -120,7 +128,7 @@ class EncuestaPersonaController extends Controller
 
         foreach ($puntajes_carreras as $c) { //VERIFICO SI LA CARRERA ES SALUD, PORQUE SU PUNTAJE SE CALCULA DIFERENTE
             if ($c->carrera_id == 16) {
-                $c->puntaje = ($c->puntaje/6)*4;
+                $c->puntaje = ($c->puntaje / 6) * 4;
             }
         }
 
@@ -129,6 +137,11 @@ class EncuestaPersonaController extends Controller
         }
 
         return response()->json($puntajes_carreras, 200);
+    }
+
+    public function temperamentos($data)
+    {
+        
     }
 
     /**

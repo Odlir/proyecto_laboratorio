@@ -46,6 +46,7 @@ Route::group([
     Route::get('exportar/{interes_id}/{persona_id}', 'ExportController@pdf');
     Route::resource('encuesta_puntaje','EncuestaPuntajeController');
     Route::resource('queues','QueuesController');
+    Route::resource('talentos','TalentoController');
 });
 
 

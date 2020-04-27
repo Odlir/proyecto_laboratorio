@@ -20,13 +20,13 @@ class RespuestasSeeder extends Seeder
             ['puntaje'=>'3','tipo_encuesta_id'=>1,'nombre'=> 'No','tipo_subpregunta'=> '2'],
             ['puntaje'=>'5','tipo_encuesta_id'=>1,'nombre'=> 'Si','tipo_subpregunta'=> '2'],
 
-            ['puntaje'=>'','tipo_encuesta_id'=>3,'nombre'=> 'Totalmente en Desacuerdo','tipo_subpregunta'=> null],
-            ['puntaje'=>'','tipo_encuesta_id'=>3,'nombre'=> 'Muy en Desacuerdo','tipo_subpregunta'=> null],
-            ['puntaje'=>'','tipo_encuesta_id'=>3,'nombre'=> 'En Desacuerdo','tipo_subpregunta'=> null],
-            ['puntaje'=>'','tipo_encuesta_id'=>3,'nombre'=> 'Ni de Acuerdo ni en Desacuerdo','tipo_subpregunta'=> null],
-            ['puntaje'=>'','tipo_encuesta_id'=>3,'nombre'=> 'De Acuerdo','tipo_subpregunta'=> null],
-            ['puntaje'=>'','tipo_encuesta_id'=>3,'nombre'=> 'Muy de Acuerdo','tipo_subpregunta'=> null],
-            ['puntaje'=>'','tipo_encuesta_id'=>3,'nombre'=> 'Totalmente de Acuerdo','tipo_subpregunta'=> null],
+            ['puntaje'=>'1','tipo_encuesta_id'=>3,'nombre'=> 'Totalmente en Desacuerdo','tipo_subpregunta'=> null],
+            ['puntaje'=>'2','tipo_encuesta_id'=>3,'nombre'=> 'Muy en Desacuerdo','tipo_subpregunta'=> null],
+            ['puntaje'=>'3','tipo_encuesta_id'=>3,'nombre'=> 'En Desacuerdo','tipo_subpregunta'=> null],
+            ['puntaje'=>'4','tipo_encuesta_id'=>3,'nombre'=> 'Ni de Acuerdo ni en Desacuerdo','tipo_subpregunta'=> null],
+            ['puntaje'=>'5','tipo_encuesta_id'=>3,'nombre'=> 'De Acuerdo','tipo_subpregunta'=> null],
+            ['puntaje'=>'6','tipo_encuesta_id'=>3,'nombre'=> 'Muy de Acuerdo','tipo_subpregunta'=> null],
+            ['puntaje'=>'7','tipo_encuesta_id'=>3,'nombre'=> 'Totalmente de Acuerdo','tipo_subpregunta'=> null],
         ];
 
         Respuesta::insert($respuestas);

@@ -16,7 +16,7 @@
 
             .pad-doc
             {
-                padding: 35px;
+                padding: 62px;
             }
 
             .p-0
@@ -111,10 +111,9 @@
             #header {
                 text-align: right;
                 position: fixed;
-                top:0px;
+                top:30px;
                 left: 0;
-                right: 20px;
-                color: #aaa;
+                right: 70px;
             }
 
             #header img {
@@ -125,10 +124,10 @@
                 text-align: right;
                 position: fixed;
                 left: 0;
-                right: 20px;
-                color: #aaa;
+                right: 70px;
+                color: black;;
                 font-size: 20px;
-                bottom: 15px;
+                bottom: 70px;
             }
 
             .page-number:before {
@@ -194,7 +193,7 @@
             </div>
             <br><br>
             <div>
-                <h1>ALUMNO:</h1>
+                <h1>Alumno:</h1>
                 <h1 class="mt-text">{{$persona->nombres}} {{$persona->apellido_paterno}} {{$persona->apellido_materno}}</h1>
                 <h1 class="mt-text">@php
                     echo date('d-m-Y');
@@ -202,17 +201,68 @@
             </div>
           </div>     
         </div>
-        
-        <div class="page_break text-secondary pad-doc">
-        
+
+        <div class="page_break pad-doc">
+            <h2 class="font-weight-bold">Descripción general de las evaluaciones:</h2>
+            <p class="ml-4 font-weight-bold">- Test de Preferencias del Temperamento</p>
+            <div>
+                <p>El objetivo de este test es brindar información acerca de las características más
+                    importantes de la personalidad. En primer lugar, encontrarás una descripción de los cuatro
+                    ejes de personalidad que se trabajan en este test: a) Extrovertido –Introvertido, b) Intuitivo -
+                    Sensorial, c) Racional -Emocional y d) Organizado-Casual. Posteriormente, te
+                    presentaremos una descripción de los elementos que conforman a cada uno de estos ejes.
+                    Este instrumento, ha sido desarrollado como una forma aplicativa de utilizar la teoría de la
+                    personalidad de Carl Jung. Los resultados te ayudarán a conocerte mejor, lo cual puede
+                    favorecer tu interacción con el entorno social.</p>
+            </div>
+
+            <p class="ml-4 font-weight-bold">- Test de Talentos</p>
+            <div>
+                <p>El talento es una forma innata de pensar, sentir y comportarse, que puede aplicarse,
+                    productivamente, para obtener resultados positivos. Todas las personas son poseedoras de
+                    talentos; el problema es que la mayoría los desconoce. Se sabe, luego de mucha
+                    investigación, que las personas más exitosas conocen sus talentos y construyen su vida en
+                    base a ellos. Entonces, el talento puede definirse como aquello que uno hace muy bien, en
+                    lo que destaca por encima de los demás y que, además, le genera placer.
+                    El test de Talentos, es una herramienta que permite identificar aquellos talentos, que con
+                    esfuerzo y perseverancia, pueden llegar a convertirse en nuestras fortalezas o atributos que
+                    nos hacen diferente de los demás en aquellas actividades que emprendamos o
+                    realicemos.</p>
+            </div>
+
+            <p class="ml-4 font-weight-bold">- Test de Intereses Profesionales</p>
+            <div>
+                <p>Una de las decisiones más importantes en la vida de una persona, es la relacionada a la
+                    elección de la carrera a seguir, pues su sentido de producción y felicidad futuras,
+                    dependerán de la satisfacción que logre frente a la actividad que realice en su vida.
+                    El test de intereses, evalúa los intereses profesionales a partir de tres aspectos: a. El gusto
+                    que tendrías por realizar alguna actividad en tu vida profesional, b. Las habilidades que
+                    tienes para aprender a realizar esta actividad, y c. La satisfacción que crees que te
+                    brindaría realizar esta actividad como parte de tu profesión.
+                    Los tres instrumentos han sido elaborados y estandarizados por la prestigiosa firma de
+                    Effectus Fischman Consultores, contando con los criterios de validez y confiabilidad que el
+                    programa demanda.</p>
+            </div>
         </div>
 
         <div id="header">
-            <img src="{{ 'storage/logo_temperamentos.png' }}" alt="">
+            <img src="{{ 'storage/logo_upc_red.png' }}" alt="">
         </div>
 
         <div id="footer">
             <div class="page-number"></div>
+        </div>
+
+        <div class="page_break pad-doc">
+            <h4 class="font-weight-bold text-secondary">I. TEST DE PREFERENCIAS DEL TEMPERAMENTO</h4>
+            <div>
+                <p>A continuación presentamos una rueda con tus resultados y la preferencia del
+                    temperamento que tienes en general. Aquí verás un perfil general de cómo eres tú. Este
+                    perfil general está compuesto por letras mayúsculas y minúsculas. Las mayúsculas reflejan
+                    las preferencias que más priman en ti y dirigen más tu forma de actuar. Por otro lado, las
+                    minúsculas también influyen en cómo eres tú pero no reflejan preferencias tan marcadas
+                    como las que aparecen en mayúsculas.</p>
+            </div>
         </div>
     </body>
 </html>

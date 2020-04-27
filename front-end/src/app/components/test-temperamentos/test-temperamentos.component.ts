@@ -17,7 +17,8 @@ export class TestTemperamentosComponent implements OnInit {
 		pregunta_id: null,
 		respuesta_id: null,
 		encuesta_id: null,
-		persona_id: null
+		persona_id: null,
+		tipo_encuesta_id:3
 	};
 	respuestas = [];
 	data = [];
