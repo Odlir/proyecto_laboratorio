@@ -1,0 +1,58 @@
+.mat-card {
+	display: flex;
+	align-items: center;
+}
+
+.contenedor {
+	width: 40%;
+	margin-bottom: 2em;
+}
+
+/*::ng-deep .carousel-control-prev-icon{
+	background-image: url('../../../assets/icons/arrow-left.svg') !important;
+}
+
+::ng-deep .carousel-control-next-icon{
+	background-image: url('../../../assets/icons/arrow-right.svg') !important;
+}*/
+
+.example-list {
+	border: solid 1px #ccc;
+	min-height: 60px;
+	background: white;
+	border-radius: 4px;
+	overflow: hidden;
+	display: block;
+}
+
+.example-box {
+	padding: 20px 10px;
+	border-bottom: solid 1px #ccc;
+	color: rgba(0, 0, 0, 0.87);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	box-sizing: border-box;
+	cursor: move;
+	background: white;
+	font-size: 14px;
+}
+
+.example-container {
+	width: 100%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.results {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.talents {
+	width: 32%;
+	background: #cccccc;
+	text-align: center;
+}
