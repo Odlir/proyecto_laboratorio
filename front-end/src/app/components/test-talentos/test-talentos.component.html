@@ -2,6 +2,86 @@
                      [sucursal]="sucursal">
 </app-header-encuesta>
 <br>
-<p>Esta encuesta se utiliza para describir sus preferencias con relación a su personalidad.
-	<br> Los resultados lo ayudarán a conocerse mejor, lo cual puede favorecer su interacción con los demás.</p>
+<p>
+	Esta encuesta se utiliza para describir sus preferencias con relación a su personalidad.
+	<br>
+	Los resultados lo ayudarán a conocerse mejor, lo cual puede favorecer su interacción con los demás.
+</p>
 <br>
+
+<mat-card class="card">
+	<div
+			cdkDropList
+			#todoList="cdkDropList"
+			[cdkDropListData]="images"
+			[cdkDropListConnectedTo]="[doneList]"
+			(cdkDropListDropped)="drop($event)"
+			class="contenedor">
+
+		<ngb-carousel *ngIf="images">
+			<ng-template ngbSlide>
+				<div class="picsum-img-wrapper" cdkDrag>
+					<img [src]="images[0]" width="100%" alt="Random first slide">
+				</div>
+				<div class="carousel-caption">
+					<h3>First slide label</h3>
+					<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+				</div>
+			</ng-template>
+			<ng-template ngbSlide>
+				<div class="picsum-img-wrapper" cdkDrag>
+					<img [src]="images[1]" width="100%" alt="Random second slide">
+				</div>
+				<div class="carousel-caption">
+					<h3>Second slide label</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+				</div>
+			</ng-template>
+			<ng-template ngbSlide>
+				<div class="picsum-img-wrapper" cdkDrag>
+					<img [src]="images[2]" width="100%" alt="Random third slide">
+				</div>
+				<div class="carousel-caption">
+					<h3>Third slide label</h3>
+					<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+				</div>
+			</ng-template>
+		</ngb-carousel>
+	</div>
+
+	<div class="results">
+		<div class="talents">
+			<div class="example-container">
+				<h4>(+) Talento más desarrollado</h4>
+				<div cdkDropList #doneList="cdkDropList" [cdkDropListData]="list2" [cdkDropListConnectedTo]="[todoList]"
+				     class="example-list" (cdkDropListDropped)="drop($event)">
+					<div class="example-box" *ngFor="let url of list2" cdkDrag>
+						<img [src]="url" alt="your image"  width="50%"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="talents">
+			<div class="example-container">
+				<h4>Talento Intermedio</h4>
+				<div cdkDropList #doneList="cdkDropList" [cdkDropListData]="list2" [cdkDropListConnectedTo]="[todoList]"
+				     class="example-list" (cdkDropListDropped)="drop($event)">
+					<div class="example-box" *ngFor="let url of list2" cdkDrag>
+						<img [src]="url" alt="your image"  width="50%"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="talents">
+			<div class="example-container">
+				<h4>(-) Talento menos desarrollado</h4>
+				<div cdkDropList #doneList="cdkDropList" [cdkDropListData]="list2" [cdkDropListConnectedTo]="[todoList]"
+				     class="example-list" (cdkDropListDropped)="drop($event)">
+					<div class="example-box" *ngFor="let url of list2" cdkDrag>
+						<img [src]="url" alt="your image"  width="50%"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</mat-card>

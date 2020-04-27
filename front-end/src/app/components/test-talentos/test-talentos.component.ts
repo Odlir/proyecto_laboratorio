@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'app-test-talentos',
@@ -15,11 +17,34 @@ export class TestTalentosComponent implements OnInit {
 		encuesta_id: null,
 		persona_id: null
 	};
+	images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+	list2 = [];
+	con: any;
 
-	constructor() {
+	constructor(config: NgbCarouselConfig) {
+		this.con = config;
+		config.showNavigationIndicators = true;
+		config.interval = 10000;
 	}
 
 	ngOnInit(): void {
+
+	}
+
+	drop(event: CdkDragDrop<string[]>) {
+		if (event.previousContainer === event.container) {
+			moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+		} else {
+			transferArrayItem(event.previousContainer.data,
+				event.container.data,
+				event.previousIndex,
+				event.currentIndex);
+		}
+	}
+
+	show() {
+		this.con.showNavigationArrows = true;
+		this.con.showNavigationIndicators = true;
 	}
 
 }

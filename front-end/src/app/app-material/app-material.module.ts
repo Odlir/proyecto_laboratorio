@@ -11,6 +11,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatCardModule } from '@angular/material/card';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
@@ -30,7 +32,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 		MatAutocompleteModule,
 		MatStepperModule,
-
+		MatCardModule,
+		DragDropModule,
 		MatProgressBarModule
 	],
 	exports: [
@@ -48,7 +51,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 		MatAutocompleteModule,
 		MatStepperModule,
-
+		MatCardModule,
+		DragDropModule,
 		MatProgressBarModule
 	]
 })
