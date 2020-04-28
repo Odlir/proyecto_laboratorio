@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <style>
-
             @page{    
                 margin: 0;
                 padding:0;
@@ -263,6 +262,20 @@
                     minúsculas también influyen en cómo eres tú pero no reflejan preferencias tan marcadas
                     como las que aparecen en mayúsculas.</p>
             </div>
+        </div>
+
+        <div>
+            <h4 class="font-weight-bold text-secondary">1.2 Descripción de los Elementos</h4>
+            <div>
+                <p>A continuación se presentan 4 gráficos de barras donde aparecen tus elementos
+                    predominantes. La barra más alta representa el elemento que describe de manera más
+                    precisa cómo eres tú, de acuerdo con tus respuestas.
+                    En este gráfico de barras se muestran características específicas. Las barras pueden ir
+                    hacia arriba o hacia abajo. Las barras hacia arriba expresan las características de las
+                    personas extrovertidas, intuitivas, racionales y organizadas. Las barras hacia abajo
+                    representan las características de las personas introvertidas, sensoriales, emocionales y
+                    casuales.</p>
+            </div>   
         </div>
     </body>
 </html>

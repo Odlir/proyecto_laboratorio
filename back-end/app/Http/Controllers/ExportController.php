@@ -104,28 +104,6 @@ class ExportController extends Controller
         }
     }
 
-    // public function jobs(Request $request)
-    // {
-    //     $encuesta = Encuesta::where('id', $request->interes_id)
-    //         ->with('empresa')
-    //         ->first();
-
-    //     $personas = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
-    //         ->with('persona')
-    //         ->with('puntajes.carrera')
-    //         ->get();
-
-    //     if ($personas->isEmpty()) {
-    //         return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
-    //     } else {
-    //         foreach ($personas as $p) {
-    //             PDF::dispatch($p['persona'], $p['puntajes'], $encuesta['empresa']['nombre'],$request->hour);
-    //         }
-
-    //         return $this->descargarZip($request->hour);
-    //     }
-    // }
-
     public function descargarZip($hour)
     {
         $zip_file = 'PDF-' . $hour . '.zip';

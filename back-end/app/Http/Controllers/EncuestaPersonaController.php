@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\AreaPuntaje;
 use App\Carrera;
 use App\CarreraPuntaje;
 use App\Encuesta;
 use App\EncuestaPersona;
 use App\EncuestaPuntaje;
 use App\EncuestaRespuesta;
+use App\Formula;
+use App\FormulaItem;
 use App\Pregunta;
 use App\Respuesta;
 use Illuminate\Http\Request;
@@ -130,6 +133,8 @@ class EncuestaPersonaController extends Controller
             if ($c->carrera_id == 16) {
                 $c->puntaje = ($c->puntaje / 6) * 4;
             }
+
+            $c->puntaje = round($c->puntaje); //REDONDEANDO
         }
 
         foreach ($puntajes_carreras as $c) {
@@ -141,7 +146,114 @@ class EncuestaPersonaController extends Controller
 
     public function temperamentos($data)
     {
-        
+        $puntajes_preguntas = [];
+
+        $puntajes_items = [];
+
+        $puntajes_formulas = [];
+
+        $encuesta_puntaje = EncuestaPuntaje::create(['encuesta_id' => $data[0]['encuesta_id'], 'persona_id' => $data[0]['persona_id']]); //TABLA PRINCIPAL
+
+        foreach ($data as $d) { //CREO LAS RESPUESTAS
+            EncuestaRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
+        }
+
+        $formulas = Formula::where('estado', '1')
+            ->get();
+
+        $formulas_items = FormulaItem::where('estado', '1')
+            ->get();
+
+        $preguntas = Pregunta::where('tipo_encuesta_id', 3)
+            ->where('estado', '1')
+            ->get();
+
+
+        foreach ($preguntas as $p) {
+            $object = new stdClass();
+            $object->pregunta_id = $p['id'];
+            $object->formula_item_id = $p['formula_item_id'];
+            $object->puntaje = 0;
+            $object->inversa = $p['inversa'];
+            array_push($puntajes_preguntas, $object);
+        }
+
+        foreach ($formulas_items as $i) {
+            $object2 = new stdClass();
+            $object2->formula_item_id = $i['id'];
+            $object2->formula_id = $i['formula_id'];
+            $object2->puntaje = 0;
+            $object2->cantidad = 0;
+            array_push($puntajes_items, $object2);
+        }
+
+        foreach ($formulas as $f) {
+            $object3 = new stdClass();
+            $object3->formula_id = $f['id'];
+            $object3->puntaje = 0;
+            $object3->cantidad = 0;
+            $object3->transformacion = 0;
+            array_push($puntajes_formulas, $object3);
+        }
+
+        foreach ($data as $d) { //ASIGNO LOS PUNTAJES A LAS PREGUNTAS
+            $respuesta = Respuesta::find($d['respuesta_id']);
+            $puntaje = 0;
+
+            foreach ($puntajes_preguntas as $p) {
+                if ($d['pregunta_id'] == $p->pregunta_id) {
+
+                    if ($p->inversa == '1') { //HAGO EL CAMBIO DE PUNTAJE EN CASO LA PREGUNTA SEA INVERSA
+                        $puntaje = $respuesta['inversa'];
+                    } else {
+                        $puntaje = $respuesta['puntaje'];
+                    }
+
+                    $p->puntaje = $puntaje;
+                }
+            }
+        }
+
+        foreach ($puntajes_items as $i) { //SUMO TODOS LOS PUNTAJES DE LAS PREGUNTAS PARA ASIGNARLE AL ITEM
+            foreach ($puntajes_preguntas as $p) {
+                if ($p->formula_item_id == $i->formula_item_id) {
+                    $i->puntaje = $i->puntaje + $p->puntaje;
+                    $i->cantidad++;
+                }
+            }
+        }
+
+        foreach ($puntajes_formulas as $f) { //SUMO TODOS LOS PUNTAJES DE LOS ITEMS PARA ASIGNARLE A LA FORMULA
+            foreach ($puntajes_items as $i) {
+                if ($f->formula_id == $i->formula_id) {
+                    $f->puntaje = $f->puntaje + $i->puntaje;
+                    $f->cantidad = $f->cantidad + $i->cantidad;
+                }
+            }
+        }
+
+        foreach ($puntajes_formulas as $f) { //SACO EL PROMEDIO DIVIDIENDOLO ENTRE LA CANTIDAD Y LO REDONDEO
+            $f->puntaje = $f->puntaje / $f->cantidad;
+            $f->puntaje = round($f->puntaje);
+
+            if ($f->puntaje == 7) { //HAGO LA TRANSFORMACIÓN DE LOS PUNTAJES
+                $f->transformacion = 3;
+            } else if ($f->puntaje == 6) {
+                $f->transformacion = 2;
+            } else if ($f->puntaje == 5) {
+                $f->transformacion = 1;
+            } else if ($f->puntaje == 4) {
+                $f->transformacion = 0;
+            } else if ($f->puntaje == 3) {
+                $f->transformacion = -1;
+            } else if ($f->puntaje == 2) {
+                $f->transformacion = -2;
+            } else if ($f->puntaje == 1) {
+                $f->transformacion = -3;
+            }
+        }
+
+        return response()->json($puntajes_formulas, 200);
     }
 
     /**

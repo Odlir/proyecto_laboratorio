@@ -213,20 +213,17 @@
                     </th>
                 </tr>
                 <tr>
-                    <th width="12%">
-                        PD
+                    <th width="10%">
+                        Valor
                     </th>
-                    <th width="20%">
-                        Muy Bajo
+                    <th width="30%">
+                        Bajo 
                     </th>
-                    <th width="20%">
-                        Bajo
+                    <th width="30%">
+                        Medio
                     </th>
-                    <th width="20%">
+                    <th width="30%">
                         Alto
-                    </th>
-                    <th width="24%">
-                        Muy Alto
                     </th>
                 </tr>
             </thead>
@@ -239,7 +236,7 @@
                         <td class="text-center p-2">
                             {{$p->puntaje}}
                         </td>
-                        <td colspan="4">
+                        <td colspan="3">
                             <div class="height-graph" style="width: {{$p->puntaje}}%">
 
                             </div>

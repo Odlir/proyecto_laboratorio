@@ -6,10 +6,6 @@
 
 - EL IMPORTAR EN EXCEL EN CELULAR ESTÁ FALLANDO
 
-- cuando programo la encuesta debe generarse los links automaticamente en caso haya un excel
-
-- validar que en programar encuesta, en caso hay un excel que se envie un correo al colegio con los links.
-
 ////////////////////////////////
 
 - hay que agregar talentos en el modulo de reportes
@@ -18,12 +14,9 @@ intereses
 talentos
 temperamentos
 
-- el zip que te arroja el sistema, botara 4 carpetas que son intereses, talentos y temperamentos
-y aparte una carpeta para consolidados que es la que contendra los 3 reportes juntos en un solo
-pdf.
-
 - progress bar al test de interes
 
+- cuando las encuestas falten responder, se debe colocar en que pregunta falta.
 --------------------------
 
 libreria para graficos jpgraph

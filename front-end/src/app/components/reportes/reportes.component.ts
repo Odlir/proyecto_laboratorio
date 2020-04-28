@@ -44,12 +44,6 @@ export class ReportesComponent implements OnInit {
 				this.sucursales = data
 			}
 		);
-
-		this.api.get('talentos').subscribe(
-			(data) => {
-				console.log(data);
-			}
-		);
 	}
 
 	links() {
