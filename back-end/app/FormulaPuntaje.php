@@ -11,6 +11,12 @@ class FormulaPuntaje extends Model
     protected $fillable = [
         'encuesta_puntaje_id',
         'formula_id',
-        'puntaje'
+        'puntaje',
+        'transformacion'
     ];
+
+    public function formula()
+    {
+        return $this->belongsTo('App\Formula');
+    }
 }

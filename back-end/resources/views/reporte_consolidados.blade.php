@@ -264,7 +264,7 @@
             </div>
         </div>
 
-        <div>
+        <div class="pad-doc">
             <h4 class="font-weight-bold text-secondary">1.2 Descripción de los Elementos</h4>
             <div>
                 <p>A continuación se presentan 4 gráficos de barras donde aparecen tus elementos
@@ -275,7 +275,18 @@
                     personas extrovertidas, intuitivas, racionales y organizadas. Las barras hacia abajo
                     representan las características de las personas introvertidas, sensoriales, emocionales y
                     casuales.</p>
-            </div>   
+            </div>
+
+            @foreach ($areas as $a)
+            <div>
+                <h4 class="font-weight-bold text-secondary">1.2.{{$loop->index +1}} Descripciones de los elementos del área {{$a->nombre}}</h4>
+                @foreach ($puntajes as $p)
+                    @if ($a->id == $p->formula->area->id)
+                        {{$p->formula->nombre }} : puntaje {{$p->puntaje}} / transformacion {{$p->transformacion}}
+                    @endif
+                @endforeach
+            </div>
+            @endforeach
         </div>
     </body>
 </html>

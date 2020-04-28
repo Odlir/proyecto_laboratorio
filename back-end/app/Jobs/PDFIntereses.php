@@ -9,7 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class PDF implements ShouldQueue
+class PDFIntereses implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -45,10 +45,5 @@ class PDF implements ShouldQueue
 
         $name = 'PDF-'.$this->hour.'/'.$this->empresa . '/INTERESES/' . $this->persona->nombres . '-' . $this->persona->apellido_paterno . '.pdf';
         \Storage::disk('public')->put($name,  $intereses);
-
-        $consolidados = \PDF::loadView('reporte_consolidados', array('persona' => $this->persona))->output();
-
-        $name = 'PDF-'.$this->hour.'/'.$this->empresa . '/CONSOLIDADOS/' . $this->persona->nombres . '-' . $this->persona->apellido_paterno . '.pdf';
-        \Storage::disk('public')->put($name,  $consolidados);
     }
 }

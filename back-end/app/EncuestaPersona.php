@@ -24,11 +24,6 @@ class EncuestaPersona extends Model
         return $this->belongsTo('App\Persona');
     }
 
-    public function encuesta()
-    {
-        return $this->belongsTo('App\Encuesta');
-    }
-
     public function insert()
     {
         return $this->belongsTo('App\User', 'insert_user_id');

@@ -11,6 +11,7 @@ use App\EncuestaPuntaje;
 use App\EncuestaRespuesta;
 use App\Formula;
 use App\FormulaItem;
+use App\FormulaPuntaje;
 use App\Pregunta;
 use App\Respuesta;
 use Illuminate\Http\Request;
@@ -251,6 +252,8 @@ class EncuestaPersonaController extends Controller
             } else if ($f->puntaje == 1) {
                 $f->transformacion = -3;
             }
+
+            FormulaPuntaje::create(array_merge((array) $f, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
         }
 
         return response()->json($puntajes_formulas, 200);

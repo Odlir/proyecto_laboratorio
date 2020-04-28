@@ -7,12 +7,11 @@ use App\Encuesta;
 use App\EncuestaPuntaje;
 use App\Exports\LinkExport;
 use App\Exports\StatusExport;
-use App\Jobs\PDF;
+use App\Jobs\PDFConsolidados;
+use App\Jobs\PDFIntereses;
 use App\Persona;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Http\Controllers\QueuesController;
-use Illuminate\Support\Facades\Artisan;
 
 class ExportController extends Controller
 {
@@ -65,14 +64,14 @@ class ExportController extends Controller
 
     //     $personas = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
     //         ->with('persona')
-    //         ->with('puntajes.carrera')
+    //         ->with('punintereses.carrera')
     //         ->get();
 
     //     if ($personas->isEmpty()) {
     //         return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
     //     } else {
     //         foreach ($personas as $p) {
-    //             $content = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $p['persona'], 'puntajes' => $p['puntajes']))->output();
+    //             $content = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $p['persona'], 'puntajes' => $p['punintereses']))->output();
 
     //             $name = 'PDF-'.$request->hour.'/'. $encuesta['empresa']['nombre'] . '/INTERESES/' . $p['persona']['nombres'] . '-' . $p['persona']['apellido_paterno'] . '.pdf';
     //             \Storage::disk('public')->put($name,  $content);
@@ -88,16 +87,31 @@ class ExportController extends Controller
             ->with('empresa')
             ->first();
 
-        $personas = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
+        $personas_intereses = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
             ->with('persona')
-            ->with('puntajes.carrera')
+            ->with('punintereses.carrera')
             ->get();
 
-        if ($personas->isEmpty()) {
+        $personas_temperamentos = EncuestaPuntaje::where('encuesta_id', $request->temperamento_id)
+            ->with('persona')
+            ->with('puntemperamentos.formula')
+            ->get();
+
+
+        if ($personas_intereses->isEmpty() && $personas_temperamentos->isEmpty()) {
             return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
         } else {
-            foreach ($personas as $p) {
-                PDF::dispatchNow($p['persona'], $p['puntajes'], $encuesta['empresa']['nombre'], $request->hour);
+
+            if (!$personas_intereses->isEmpty()) {
+                foreach ($personas_intereses as $i) {
+                    PDFIntereses::dispatchNow($i['persona'], $i['punintereses'], $encuesta['empresa']['nombre'], $request->hour);
+                }
+            }
+
+            if (!$personas_temperamentos->isEmpty()) {
+                foreach ($personas_temperamentos as $t) {
+                    PDFConsolidados::dispatchNow($t['persona'], $t['puntemperamentos'], $encuesta['empresa']['nombre'], $request->hour);
+                }
             }
 
             return $this->descargarZip($request->hour);
@@ -168,11 +182,11 @@ class ExportController extends Controller
 
         $encuesta = EncuestaPuntaje::where('encuesta_id', $interes_id)
             ->where('persona_id', $persona_id)
-            ->with('puntajes.carrera')
+            ->with('punintereses.carrera')
             ->first();
 
-        $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $persona, 'puntajes' => $encuesta['puntajes']));
-        return $pdf->download('Reporte-Interes-' . $persona->nombres . '-' . $persona->apellido_paterno . '.pdf');
+        $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $persona, 'puntajes' => $encuesta['punintereses']));
+        return $pdf->download('Reporte-Intereses-' . $persona->nombres . '-' . $persona->apellido_paterno . '.pdf');
     }
 
     public function status(Request $request)
@@ -204,7 +218,7 @@ class ExportController extends Controller
         if ($interes['general']['personas']->isEmpty()) {
             return response()->json(['error' => 'No hay alumnos registrados'], 404);
         } else {
-            return Excel::download(new StatusExport($interes['general']['personas'], $interes['id'],$temperamento_id), 'encuesta.xlsx');
+            return Excel::download(new StatusExport($interes['general']['personas'], $interes['id'], $temperamento_id), 'encuesta.xlsx');
         }
     }
 

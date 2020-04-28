@@ -103,10 +103,10 @@
             height: 60px;
             margin: 10px;
             background: rgb(2,0,36);
-            background: -moz-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,173,255,1) 100%);
-            background: -webkit-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,173,255,1) 100%);
-            background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,173,255,1) 100%);
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#00adff",GradientType=1);
+            background: -moz-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,108,255,1) 100%);
+            background: -webkit-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,108,255,1) 100%);
+            background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,108,255,1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#006cff",GradientType=1);
         }
 
         .titulo{
@@ -155,11 +155,6 @@
             <h1 class="text-secondary">Reporte de resultados</h1>
 
             <div class="mt-persona text-secondary">
-                {{-- <h1 class="text-secondary">Evaluación de <br> <span class="mt-text">{{$persona->apellido_paterno}}</span>, {{$persona->nombres}} <br> 
-                <span class="mt-text">@php
-                    echo date('d-m-Y');
-                @endphp</span>
-                </h1> --}}
                 <h1>Evaluación de</h1>
                 <h1 class="mt-text">{{$persona->apellido_paterno}}, {{$persona->nombres}}</h1>
                 <h1 class="mt-text">@php
@@ -208,7 +203,7 @@
                     <th width="40%" rowspan="2">
                         ÁREA DE INTERÉS
                     </th>
-                    <th width="60%" colspan="5">
+                    <th width="60%" colspan="4">
                         Puntaje
                     </th>
                 </tr>

@@ -60,23 +60,6 @@ class PersonaImport implements ToCollection, WithHeadingRow
                 'insert_user_id' => $this->user
             ]);
 
-            // if ($this->todas) {
-            //     $var=explode(',',$this->encuesta_id);
-            //     foreach ($var as $e) {
-            //         EncuestaPersona::create([
-            //             'persona_id'     => $persona->id,
-            //             'encuesta_id'    => $e,
-            //             'insert_user_id' => $this->user
-            //         ]);
-            //     }
-            // } else {
-            //     EncuestaPersona::create([
-            //         'persona_id'     => $persona->id,
-            //         'encuesta_id'    => $this->encuesta_id,
-            //         'insert_user_id' => $this->user
-            //     ]);
-            // }
-
             EncuestaPersona::create([
                 'persona_id'     => $persona->id,
                 'encuesta_general_id'    => $this->encuesta_id,
