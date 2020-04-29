@@ -10,4 +10,9 @@ class Formula extends Model
     {
         return $this->belongsTo('App\Area');
     }
+
+    public function items()
+    {
+        return $this->hasMany('App\FormulaItem');
+    }
 }

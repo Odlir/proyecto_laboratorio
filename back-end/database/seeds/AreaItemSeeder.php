@@ -13,14 +13,14 @@ class AreaItemSeeder extends Seeder
     public function run()
     {
         $items=[
-            ['nombre'=>'Extrovertido','area_id'=>1],
-            ['nombre'=>'Introvertido','area_id'=>1],
-            ['nombre'=>'Intiutivo','area_id'=>2],
-            ['nombre'=>'Sensorial','area_id'=>2],
-            ['nombre'=>'Racional','area_id'=>3],
-            ['nombre'=>'Emocional','area_id'=>3],
-            ['nombre'=>'Organizado','area_id'=>4],
-            ['nombre'=>'Casual','area_id'=>4],
+            ['nombre'=>'Extrovertido','area_id'=>1,'posicion'=>'1'],
+            ['nombre'=>'Introvertido','area_id'=>1,'posicion'=>'0'],
+            ['nombre'=>'Intiutivo','area_id'=>2,'posicion'=>'1'],
+            ['nombre'=>'Sensorial','area_id'=>2,'posicion'=>'0'],
+            ['nombre'=>'Racional','area_id'=>3,'posicion'=>'1'],
+            ['nombre'=>'Emocional','area_id'=>3,'posicion'=>'0'],
+            ['nombre'=>'Organizado','area_id'=>4,'posicion'=>'1'],
+            ['nombre'=>'Casual','area_id'=>4,'posicion'=>'0'],
         ];
 
         AreaItem::insert($items);

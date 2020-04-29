@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <style>
-            @page{    
+            @page :first{    
                 margin: 0;
                 padding:0;
             }
@@ -15,7 +15,7 @@
 
             .pad-doc
             {
-                padding: 62px;
+                padding: 30px;
             }
 
             .p-0
@@ -99,10 +99,6 @@
                 font-weight: bold;
             }
 
-            .text-table{
-                color: rgb(104,104,104);
-            }
-
             .text-right{
                 text-align: right;
             }
@@ -110,9 +106,9 @@
             #header {
                 text-align: right;
                 position: fixed;
-                top:30px;
+                top:0px;
                 left: 0;
-                right: 70px;
+                right: 0px;
             }
 
             #header img {
@@ -123,10 +119,10 @@
                 text-align: right;
                 position: fixed;
                 left: 0;
-                right: 70px;
+                right: 50px;
                 color: black;;
-                font-size: 20px;
-                bottom: 70px;
+                font-size: 15px;
+                bottom: 50px;
             }
 
             .page-number:before {
@@ -168,7 +164,72 @@
 
             .titulo{
             font-size: 20px;
-            margin-top: -20px;
+            margin-top: -30px;
+            }
+
+            .barra_tabla{
+                height: 220px;
+                width: 8px;
+                background: #6c757d;
+                margin-left: -1px;
+            }
+
+            .table{
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .w-20{
+                width: 20%;
+            }
+
+            .h-100{
+                height:100%;
+            }
+    
+
+            /* th,td,tr{
+                border: 1px solid;
+            } */
+
+            .w-95{
+                width:95%;
+            }
+
+            .w-5{
+                width: 5%;
+            }
+        
+
+            .mb-1 {
+                margin-bottom: 0.25rem !important;
+            }
+
+            .height-graph
+            {   
+                height: 93px;
+                margin: 10px;
+            }
+
+            .linea
+            {   margin-left: -17px;
+                width: 100%;
+                height:10px;
+                background: #6c757d;
+            }
+
+            .border-0 {
+                border: 0!important;
+            }
+
+            .barra{
+                position: relative;
+                width: 100%;
+                background: rgb(2,0,36);
+                background: -moz-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,108,255,1) 100%);
+                background: -webkit-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,108,255,1) 100%);
+                background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,108,255,1) 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#006cff",GradientType=1);
             }
         </style>
     </head>
@@ -185,7 +246,7 @@
                 <h1>Reporte de Resultados UPC</h1>
             </div>
           <div class="pad-doc">
-            <div>
+            <div style="margin-top:-10px;">
                 <h1 class="m-0">Test de preferencias del Temperamentos</h1>
                 <h1 class="m-0">Test de Talentos</h1>
                 <h1 class="m-0">Test de Intereses</h1>
@@ -193,8 +254,8 @@
             <br><br>
             <div>
                 <h1>Alumno:</h1>
-                <h1 class="mt-text">{{$persona->nombres}} {{$persona->apellido_paterno}} {{$persona->apellido_materno}}</h1>
-                <h1 class="mt-text">@php
+                <h1>{{$persona->nombres}} {{$persona->apellido_paterno}} {{$persona->apellido_materno}}</h1>
+                <h1>@php
                     echo date('d-m-Y');
                 @endphp</h1>
             </div>
@@ -262,31 +323,128 @@
                     minúsculas también influyen en cómo eres tú pero no reflejan preferencias tan marcadas
                     como las que aparecen en mayúsculas.</p>
             </div>
-        </div>
-
-        <div class="pad-doc">
-            <h4 class="font-weight-bold text-secondary">1.2 Descripción de los Elementos</h4>
+            <br><br>
             <div>
-                <p>A continuación se presentan 4 gráficos de barras donde aparecen tus elementos
-                    predominantes. La barra más alta representa el elemento que describe de manera más
-                    precisa cómo eres tú, de acuerdo con tus respuestas.
-                    En este gráfico de barras se muestran características específicas. Las barras pueden ir
-                    hacia arriba o hacia abajo. Las barras hacia arriba expresan las características de las
-                    personas extrovertidas, intuitivas, racionales y organizadas. Las barras hacia abajo
-                    representan las características de las personas introvertidas, sensoriales, emocionales y
-                    casuales.</p>
-            </div>
+                <h4 class="font-weight-bold text-secondary">1.2 Descripción de los Elementos</h4>
+                <div>
+                    <p>A continuación se presentan 4 gráficos de barras donde aparecen tus elementos
+                        predominantes. La barra más alta representa el elemento que describe de manera más
+                        precisa cómo eres tú, de acuerdo con tus respuestas.
+                        En este gráfico de barras se muestran características específicas. Las barras pueden ir
+                        hacia arriba o hacia abajo. Las barras hacia arriba expresan las características de las
+                        personas extrovertidas, intuitivas, racionales y organizadas. Las barras hacia abajo
+                        representan las características de las personas introvertidas, sensoriales, emocionales y
+                        casuales.</p>
+                </div>
+    
+                @foreach ($areas as $a)
+                <div>
+                    <h4 class="font-weight-bold text-secondary">1.2.{{$loop->index +1}} Descripciones de los elementos del área {{$a->nombre}}</h4>
+    
+                    <table class="w-100 table text-secondary text-center">
+                        <tr>
+                            <th>
+                                @foreach ($a->items as $i)
+                                    @if ($i->posicion == '1')
+                                        {{$i->nombre }}
+                                    @endif
+                                @endforeach 
+                            </th>
+                            @foreach ($a->items as $a_i)
+                                @foreach ($a_i->items as $i_i)
+                                    @if ($i_i->posicion=='1')
+                                        <td width="120px;">{{$i_i->nombre}}</td>
+                                    @endif
+                                @endforeach
+                            @endforeach 
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                               <table class="text-secondary w-100">
+                                   <tr class="w-100">
+                                       <td class="w-95 text-right p-0">
+                                           <p class="mb-2">3 -</p>
+                                           <p class="mb-2">2 -</p>
+                                           <p class="mb-2">1 -</p>
+                                           <p class="mb-2">0 -</p>
+                                           <p class="mb-2">1 -</p>
+                                           <p class="mb-2">2 -</p>
+                                           <p>3 -</p>
+                                       </td>
+                                       <td class="w-5 p-0">
+                                            <div class="barra_tabla">
+    
+                                            </div>
+                                       </td>
+                                   </tr>
+                               </table>
+                            </td>
+                            @foreach ($puntajes as $p)
+                                @if ($a->id == $p->formula->area->id)
+                                    <td class="p-0 m-0">
+                                        <div class="height-graph">
+                                            @if ($p->transformacion>0)
+                                                @php
+                                                    $tamaño= (abs($p->transformacion)*31);
+                                                    $top = 100 - $tamaño;
+                                                @endphp
+                                                <div class="barra"  style="height: {{$tamaño}}px;top:{{$top}}px">
+                                                    
+                                                </div>
+                                            @endif  
+                                            
+                                            @if ($p->transformacion==0)
+                                                <div class="barra"  style="height: 15px;top:85px;">
+                                                    
+                                                </div>
+                                            @endif 
+                                        </div>
+                                                           
+                                        <div class="linea">
 
-            @foreach ($areas as $a)
-            <div>
-                <h4 class="font-weight-bold text-secondary">1.2.{{$loop->index +1}} Descripciones de los elementos del área {{$a->nombre}}</h4>
-                @foreach ($puntajes as $p)
-                    @if ($a->id == $p->formula->area->id)
-                        {{$p->formula->nombre }} : puntaje {{$p->puntaje}} / transformacion {{$p->transformacion}}
-                    @endif
+                                        </div>
+
+                                        <div class="height-graph">
+                                            @if ($p->transformacion<0)
+                                                @php
+                                                    $tamaño= (abs($p->transformacion)*31);
+                                                @endphp
+                                                <div class="barra" style="height: {{$tamaño}}px;top:-7px;">
+                                                    
+                                                </div>
+                                            @endif
+                                            @if ($p->transformacion==0)
+                                                <div class="barra"  style="height: 15px;top:-7px;">
+                                                    
+                                                </div>
+                                            @endif      
+                                        </div>        
+                                    </td>
+                                @endif
+                            @endforeach
+                        </tr>
+                        <tr>
+                            <th>
+                                @foreach ($a->items as $i)
+                                    @if ($i->posicion == '0')
+                                        {{$i->nombre }}
+                                    @endif
+                                @endforeach 
+                            </th>
+                            @foreach ($a->items as $a_i)
+                                @foreach ($a_i->items as $i_i)
+                                    @if ($i_i->posicion=='0')
+                                        <td>{{$i_i->nombre}}</td>
+                                    @endif
+                                @endforeach
+                            @endforeach 
+                        </tr>
+                    </table>
+                </div>
                 @endforeach
             </div>
-            @endforeach
         </div>
+
+        
     </body>
 </html>
