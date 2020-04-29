@@ -18,3 +18,5 @@ ENCUESTAS
 - REPORTE consolidado significa que en un solo pdf están los 3 resultados de las 3 encuestas
 
 - el zip que te arroja el sistema, botara 2 carpetas que son intereses consolidados que es la que contendra los 3 reportes juntos en un solo.
+
+- si no se completaron las 3 encuestas, no debe arrojar consolidado

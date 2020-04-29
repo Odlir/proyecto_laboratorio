@@ -39,7 +39,7 @@
         }
 
         .mt{
-            margin-top:150px;
+            margin-top:250px;
         }
 
         .img-width{
@@ -102,11 +102,7 @@
         {
             height: 60px;
             margin: 10px;
-            background: rgb(2,0,36);
-            background: -moz-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,108,255,1) 100%);
-            background: -webkit-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,108,255,1) 100%);
-            background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,108,255,1) 100%);
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#006cff",GradientType=1);
+            background: #0386E1;
         }
 
         .titulo{
@@ -151,7 +147,7 @@
           <div class="mt">
             <img class="img-width" src="{{ 'storage/logo_upc_red.png' }}" alt="">
 
-            <br><br><br><br>
+            <br><br><br><br><br>
             <h1 class="text-secondary">Reporte de resultados</h1>
 
             <div class="mt-persona text-secondary">

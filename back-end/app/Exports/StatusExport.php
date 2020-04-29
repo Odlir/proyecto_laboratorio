@@ -52,10 +52,16 @@ class StatusExport implements FromView, ShouldAutoSize, WithEvents
                 $p->link_temperamentos = $this->front . '/test-temperamentos/' . $this->temperamento_id . '/' . $p->id;;
             }
 
-            if (!$data_interes->isEmpty() && !$data_temperamento->isEmpty()) {
-                $p->status = "Completado";
+            if (!$data_interes->isEmpty()) {
+                $p->status_int = "Completado";
             } else {
-                $p->status = "Pendiente";
+                $p->status_int = "Pendiente";
+            }
+
+            if (!$data_temperamento->isEmpty()) {
+                $p->status_temp = "Completado";
+            } else {
+                $p->status_temp = "Pendiente";
             }
         }
     }

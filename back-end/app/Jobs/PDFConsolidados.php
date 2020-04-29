@@ -14,7 +14,7 @@ class PDFConsolidados implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $persona;
-    protected $puntajes;
+    protected $p_temperamentos;
     protected $empresa;
     protected $hour;
 
@@ -23,10 +23,10 @@ class PDFConsolidados implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($persona, $puntajes, $empresa, $hour)
+    public function __construct($persona, $p_temperamentos, $empresa, $hour)
     {
         $this->persona = $persona;
-        $this->puntajes = $puntajes;
+        $this->p_temperamentos = $p_temperamentos;
         $this->empresa = $empresa;
         $this->hour = $hour;
     }
@@ -42,7 +42,7 @@ class PDFConsolidados implements ShouldQueue
             ->with('formulas')
             ->where('estado', '1')->get();
 
-        $consolidados = \PDF::loadView('reporte_consolidados', array('areas' => $areas, 'persona' => $this->persona, 'puntajes' => $this->puntajes))->output();
+        $consolidados = \PDF::loadView('reporte_consolidados', array('areas' => $areas, 'persona' => $this->persona, 'p_temperamentos' => $this->p_temperamentos))->output();
 
         $name = 'PDF-' . $this->hour . '/' . $this->empresa . '/CONSOLIDADOS/' . $this->persona->nombres . '-' . $this->persona->apellido_paterno . '.pdf';
         \Storage::disk('public')->put($name,  $consolidados);

@@ -8,6 +8,10 @@
                 padding:0;
             }
 
+            @page{    
+                margin: 70px;
+            }
+
             body
             {           
                 font-family: 'Verdana, Geneva, sans-serif';
@@ -106,9 +110,9 @@
             #header {
                 text-align: right;
                 position: fixed;
-                top:0px;
+                top:-50px;
                 left: 0;
-                right: 0px;
+                right: -20px;
             }
 
             #header img {
@@ -119,10 +123,10 @@
                 text-align: right;
                 position: fixed;
                 left: 0;
-                right: 50px;
+                right: 10px;
                 color: black;;
                 font-size: 15px;
-                bottom: 50px;
+                bottom: 10px;
             }
 
             .page-number:before {
@@ -164,7 +168,7 @@
 
             .titulo{
             font-size: 20px;
-            margin-top: -30px;
+            margin-top: -20px;
             }
 
             .barra_tabla{
@@ -186,11 +190,6 @@
             .h-100{
                 height:100%;
             }
-    
-
-            /* th,td,tr{
-                border: 1px solid;
-            } */
 
             .w-95{
                 width:95%;
@@ -225,11 +224,11 @@
             .barra{
                 position: relative;
                 width: 100%;
-                background: rgb(2,0,36);
-                background: -moz-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,108,255,1) 100%);
-                background: -webkit-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,108,255,1) 100%);
-                background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(0,108,255,1) 100%);
-                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#006cff",GradientType=1);
+                background: #0386E1;
+            }
+
+            .table-temperamento{
+                page-break-inside: avoid;
             }
         </style>
     </head>
@@ -262,7 +261,7 @@
           </div>     
         </div>
 
-        <div class="page_break pad-doc">
+        <div class="page_break">
             <h2 class="font-weight-bold">Descripción general de las evaluaciones:</h2>
             <p class="ml-4 font-weight-bold">- Test de Preferencias del Temperamento</p>
             <div>
@@ -313,7 +312,7 @@
             <div class="page-number"></div>
         </div>
 
-        <div class="page_break pad-doc">
+        <div class="page_break">
             <h4 class="font-weight-bold text-secondary">I. TEST DE PREFERENCIAS DEL TEMPERAMENTO</h4>
             <div>
                 <p>A continuación presentamos una rueda con tus resultados y la preferencia del
@@ -339,112 +338,175 @@
     
                 @foreach ($areas as $a)
                 <div>
-                    <h4 class="font-weight-bold text-secondary">1.2.{{$loop->index +1}} Descripciones de los elementos del área {{$a->nombre}}</h4>
-    
-                    <table class="w-100 table text-secondary text-center">
-                        <tr>
-                            <th>
-                                @foreach ($a->items as $i)
-                                    @if ($i->posicion == '1')
-                                        {{$i->nombre }}
-                                    @endif
+
+                    <div class="table-temperamento">
+                        <h4 class="font-weight-bold text-secondary">1.2.{{$loop->index +1}} Descripciones de los elementos del área {{$a->nombre}}</h4>
+                    
+                        <table class="w-100 table text-secondary text-center table-temperamento">
+                            <tr>
+                                <th>
+                                    @foreach ($a->items as $i)
+                                        @if ($i->posicion == '1')
+                                            {{$i->nombre }}
+                                        @endif
+                                    @endforeach 
+                                </th>
+                                @foreach ($a->items as $a_i)
+                                    @foreach ($a_i->items as $i_i)
+                                        @if ($i_i->posicion=='1')
+                                            <td width="120px;">{{$i_i->nombre}}</td>
+                                        @endif
+                                    @endforeach
                                 @endforeach 
-                            </th>
-                            @foreach ($a->items as $a_i)
-                                @foreach ($a_i->items as $i_i)
-                                    @if ($i_i->posicion=='1')
-                                        <td width="120px;">{{$i_i->nombre}}</td>
-                                    @endif
-                                @endforeach
-                            @endforeach 
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                               <table class="text-secondary w-100">
-                                   <tr class="w-100">
-                                       <td class="w-95 text-right p-0">
-                                           <p class="mb-2">3 -</p>
-                                           <p class="mb-2">2 -</p>
-                                           <p class="mb-2">1 -</p>
-                                           <p class="mb-2">0 -</p>
-                                           <p class="mb-2">1 -</p>
-                                           <p class="mb-2">2 -</p>
-                                           <p>3 -</p>
-                                       </td>
-                                       <td class="w-5 p-0">
-                                            <div class="barra_tabla">
+                            </tr>
+                            <tr>
+                                <td class="text-right">
+                                    <table class="text-secondary w-100">
+                                        <tr class="w-100">
+                                            <td class="w-95 text-right p-0">
+                                                <p class="mb-2">3 -</p>
+                                                <p class="mb-2">2 -</p>
+                                                <p class="mb-2">1 -</p>
+                                                <p class="mb-2">0 -</p>
+                                                <p class="mb-2">1 -</p>
+                                                <p class="mb-2">2 -</p>
+                                                <p>3 -</p>
+                                            </td>
+                                            <td class="w-5 p-0">
+                                                <div class="barra_tabla">
+        
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                @foreach ($p_temperamentos as $p)
+                                    @if ($a->id == $p->formula->area->id)
+                                        <td class="p-0 m-0">
+                                            <div class="height-graph">
+                                                @if ($p->transformacion>0)
+                                                    @php
+                                                        $tamaño= (abs($p->transformacion)*31);
+                                                        $top = 100 - $tamaño;
+                                                    @endphp
+                                                    <div class="barra"  style="height: {{$tamaño}}px;top:{{$top}}px">
+                                                        
+                                                    </div>
+                                                @endif  
+                                                
+                                                @if ($p->transformacion==0)
+                                                    <div class="barra"  style="height: 15px;top:85px;">
+                                                        
+                                                    </div>
+                                                @endif 
+                                            </div>
+                                                                
+                                            <div class="linea">
     
                                             </div>
-                                       </td>
-                                   </tr>
-                               </table>
-                            </td>
-                            @foreach ($puntajes as $p)
-                                @if ($a->id == $p->formula->area->id)
-                                    <td class="p-0 m-0">
-                                        <div class="height-graph">
-                                            @if ($p->transformacion>0)
-                                                @php
-                                                    $tamaño= (abs($p->transformacion)*31);
-                                                    $top = 100 - $tamaño;
-                                                @endphp
-                                                <div class="barra"  style="height: {{$tamaño}}px;top:{{$top}}px">
-                                                    
-                                                </div>
-                                            @endif  
-                                            
-                                            @if ($p->transformacion==0)
-                                                <div class="barra"  style="height: 15px;top:85px;">
-                                                    
-                                                </div>
-                                            @endif 
-                                        </div>
-                                                           
-                                        <div class="linea">
-
-                                        </div>
-
-                                        <div class="height-graph">
-                                            @if ($p->transformacion<0)
-                                                @php
-                                                    $tamaño= (abs($p->transformacion)*31);
-                                                @endphp
-                                                <div class="barra" style="height: {{$tamaño}}px;top:-7px;">
-                                                    
-                                                </div>
-                                            @endif
-                                            @if ($p->transformacion==0)
-                                                <div class="barra"  style="height: 15px;top:-7px;">
-                                                    
-                                                </div>
-                                            @endif      
-                                        </div>        
-                                    </td>
-                                @endif
-                            @endforeach
-                        </tr>
-                        <tr>
-                            <th>
-                                @foreach ($a->items as $i)
-                                    @if ($i->posicion == '0')
-                                        {{$i->nombre }}
-                                    @endif
-                                @endforeach 
-                            </th>
-                            @foreach ($a->items as $a_i)
-                                @foreach ($a_i->items as $i_i)
-                                    @if ($i_i->posicion=='0')
-                                        <td>{{$i_i->nombre}}</td>
+    
+                                            <div class="height-graph">
+                                                @if ($p->transformacion<0)
+                                                    @php
+                                                        $tamaño= (abs($p->transformacion)*31);
+                                                    @endphp
+                                                    <div class="barra" style="height: {{$tamaño}}px;top:-7px;">
+                                                        
+                                                    </div>
+                                                @endif
+                                                @if ($p->transformacion==0)
+                                                    <div class="barra"  style="height: 15px;top:-7px;">
+                                                        
+                                                    </div>
+                                                @endif      
+                                            </div>        
+                                        </td>
                                     @endif
                                 @endforeach
-                            @endforeach 
-                        </tr>
-                    </table>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @foreach ($a->items as $i)
+                                        @if ($i->posicion == '0')
+                                            {{$i->nombre }}
+                                        @endif
+                                    @endforeach 
+                                </th>
+                                @foreach ($a->items as $a_i)
+                                    @foreach ($a_i->items as $i_i)
+                                        @if ($i_i->posicion=='0')
+                                            <td>{{$i_i->nombre}}</td>
+                                        @endif
+                                    @endforeach
+                                @endforeach 
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <br>
+                    @foreach ($p_temperamentos as $p)
+                        @if ($a->id == $p->formula->area->id)
+                            @if ($p->transformacion>0)
+                                @foreach ($p->formula->items as $i)
+                                    @if ($i->posicion=='1')
+                                    <div class="table-temperamento">
+                                        <p class="font-weight-bold">- {{$i->nombre}}</p>
+                                        <p>{{$i->descripcion}}</p>
+                                    </div> 
+                                    @endif
+                                @endforeach
+                            @endif
+
+                            @if ($p->transformacion<0)
+                                @foreach ($p->formula->items as $i)
+                                    @if ($i->posicion=='0')
+                                    <div class="table-temperamento">
+                                        <p class="font-weight-bold">- {{$i->nombre}}</p>
+                                        <p>{{$i->descripcion}}</p>
+                                    </div>                
+                                    @endif
+                                @endforeach
+                            @endif  
+                                    
+                            @if ($p->transformacion==0)
+                                <div class="table-temperamento">
+                                    <p class="font-weight-bold">- {{$p->formula->nombre}}</p>
+                                    <p>{{$p->formula->descripcion}}</p>
+                                </div>
+                            @endif 
+                        @endif
+                    @endforeach
                 </div>
                 @endforeach
             </div>
         </div>
 
-        
+        <div class="page_break">
+            <h4 class="font-weight-bold text-secondary">III. TEST DE INTERESES PROFESIONALES</h4>
+            <div>
+                <p>Esta evaluación permite recoger información sobre sus principales intereses, tanto
+                    en referencia a las profesiones o carreras, así como las actividades que podría
+                    realizar en una carrera determinada.</p>
+
+                <p>A continuación encontrarás un perfil de tus intereses profesionales, agrupado por
+                    áreas de acuerdo a tus respuestas del test.</p>
+            </div>
+
+            <div class="mt-2">
+                <p>• Áreas de alto interés. Son aquellas áreas en las que la puntuación se encuentra
+                    por encima de 75, significa que tienes muy desarrollado este interés y sería
+                    recomendable que la profesión que elijas se vincule a las carreras que estas
+                    áreas incluyen.</p>
+
+                <p>• Áreas de mediano interés. Son aquellas áreas con puntuaciones entre 26 y 75.
+                    Significa que tu interés no es tan desarrollado hacia estas actividades. En este
+                    caso es recomendable que explores más las actividades relacionadas con estas
+                    áreas.</p>
+
+                <p>• Áreas de bajo interés. Son aquellas áreas con puntuaciones de 25 o menos,
+                    significa que no has desarrollado interés por este tipo de actividades.</p>
+            </div>
+
+        </div>        
     </body>
 </html>

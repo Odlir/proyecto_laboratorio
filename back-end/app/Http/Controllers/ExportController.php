@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Carrera;
 use App\Encuesta;
+use App\EncuestaGeneral;
 use App\EncuestaPuntaje;
 use App\Exports\LinkExport;
 use App\Exports\StatusExport;
@@ -83,6 +84,8 @@ class ExportController extends Controller
 
     public function jobs(Request $request)
     {
+        $descargar = false;
+
         $encuesta = Encuesta::where('id', $request->interes_id)
             ->with('empresa')
             ->first();
@@ -92,7 +95,11 @@ class ExportController extends Controller
             ->with('punintereses.carrera')
             ->get();
 
-        $personas_temperamentos = EncuestaPuntaje::where('encuesta_id', $request->temperamento_id)
+        $encuesta_temp = Encuesta::where('encuesta_general_id', $encuesta['encuesta_general_id'])
+            ->where('tipo_encuesta_id', 3)
+            ->first();
+
+        $personas_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
             ->with('persona')
             ->with('puntemperamentos.formula')
             ->get();
@@ -101,20 +108,27 @@ class ExportController extends Controller
         if ($personas_intereses->isEmpty() && $personas_temperamentos->isEmpty()) {
             return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
         } else {
-
             if (!$personas_intereses->isEmpty()) {
                 foreach ($personas_intereses as $i) {
                     PDFIntereses::dispatchNow($i['persona'], $i['punintereses'], $encuesta['empresa']['nombre'], $request->hour);
                 }
+
+                $descargar = true;
             }
 
-            if (!$personas_temperamentos->isEmpty()) {
+            if (!$personas_intereses->isEmpty() && !$personas_temperamentos->isEmpty()) {
                 foreach ($personas_temperamentos as $t) {
                     PDFConsolidados::dispatchNow($t['persona'], $t['puntemperamentos'], $encuesta['empresa']['nombre'], $request->hour);
                 }
+
+                $descargar = true;
             }
 
-            return $this->descargarZip($request->hour);
+            if ($descargar) {
+                return $this->descargarZip($request->hour);
+            } else {
+                return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
+            }
         }
     }
 
