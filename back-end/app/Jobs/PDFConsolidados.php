@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Area;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -16,7 +15,10 @@ class PDFConsolidados implements ShouldQueue
     protected $persona;
     protected $p_intereses;
     protected $p_temperamentos;
+    protected $a_temperamentos;
     protected $empresa;
+    protected $areas;
+    protected $ruedas;
     protected $hour;
 
     /**
@@ -24,13 +26,16 @@ class PDFConsolidados implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($persona,$p_intereses, $p_temperamentos, $empresa, $hour)
+    public function __construct($persona, $p_intereses, $p_temperamentos, $a_temperamentos, $empresa, $hour,$areas,$ruedas)
     {
         $this->persona = $persona;
         $this->p_intereses = $p_intereses;
         $this->p_temperamentos = $p_temperamentos;
+        $this->a_temperamentos = $a_temperamentos;
         $this->empresa = $empresa;
         $this->hour = $hour;
+        $this->areas = $areas;
+        $this->ruedas = $ruedas;
     }
 
     /**
@@ -40,11 +45,7 @@ class PDFConsolidados implements ShouldQueue
      */
     public function handle()
     {
-        $areas = Area::with('items.items')
-            ->with('formulas')
-            ->where('estado', '1')->get();
-
-        $consolidados = \PDF::loadView('reporte_consolidados', array('areas' => $areas, 'persona' => $this->persona, 'p_intereses' => $this->p_intereses,'p_temperamentos' => $this->p_temperamentos))->output();
+        $consolidados = \PDF::loadView('reporte_consolidados', array('areas' => $this->areas, 'ruedas' => $this->ruedas, 'persona' => $this->persona, 'p_intereses' => $this->p_intereses, 'p_temperamentos' => $this->p_temperamentos, 'a_temperamentos' => $this->a_temperamentos))->output();
 
         $name = 'PDF-' . $this->hour . '/' . $this->empresa . '/CONSOLIDADOS/' . $this->persona->nombres . '-' . $this->persona->apellido_paterno . '-' . $this->persona->apellido_materno . '.pdf';
         \Storage::disk('public')->put($name,  $consolidados);

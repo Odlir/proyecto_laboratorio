@@ -284,6 +284,20 @@
             .float-right {
                 float: right!important;
             }
+
+            .p-rueda{
+                border: 2.5px solid;
+                margin-left: 33%;
+                margin-right: 33%;
+                padding-top: 18px;
+                padding-bottom: 14px;
+                font-size: 25px;
+            }
+
+            .m-rueda{
+                margin-left:-3px;
+                margin-right: -3px;
+            }
         </style>
     </head>
     <body>
@@ -378,9 +392,60 @@
 
                    <div>
 
+                        @php
+                            $palabra="";
+                            $descripcion="";
+                            foreach ($a_temperamentos as $item) {
+                                $palabra = $palabra . $item->letra;
+                            }
+
+                            foreach ($ruedas as $r) {
+                                if(strcmp($r->nombre, $palabra) == 0)
+                                {
+                                    $descripcion =  $r->descripcion;
+                                }
+                            }
+                            
+                        @endphp
+
+                        <div>
+                            grafico
+                        </div>
+                        
+                        <div class="text-center w-100">
+                            <div class="p-rueda">
+                                @foreach ($a_temperamentos as $a)
+                                @if ($a->area_id==1)
+                                    <label class="m-rueda" style="color:#0A8DFF">{{$a->letra}}</label>
+                                @endif
+
+                                @if ($a->area_id==2)
+                                    <label class="m-rueda" style="color:#FF9100">{{$a->letra}}</label>
+                                @endif
+
+                                @if ($a->area_id==3)
+                                    <label class="m-rueda" style="color:#39AC00">{{$a->letra}}</label>
+                                @endif
+
+                                @if ($a->area_id==4)
+                                    <label class="m-rueda" style="color:black">{{$a->letra}}</label>
+                                @endif
+                            @endforeach
+                            </div>                 
+                        </div>
+
+                        <h4 class="font-weight-bold text-secondary">1.1 Descripción general del perfil:</h4>
+                        <h4 class="font-weight-bold text-secondary">@foreach ($a_temperamentos as $a)
+                            {{$a->palabra}}
+                        @endforeach @php
+                            echo '('.$palabra.')';
+                        @endphp</h4>
+                        <p>
+                            {{$descripcion}}
+                        </p>
                    </div>
             </div>
-            <br><br>
+            <br>
             <div>
                 <h4 class="font-weight-bold text-secondary">1.2 Descripción de los Elementos</h4>
                 <div>
@@ -675,7 +740,6 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-        
+        </div>   
     </body>
 </html>

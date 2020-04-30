@@ -32,4 +32,9 @@ class EncuestaPuntaje extends Model
     {
         return $this->hasMany('App\FormulaPuntaje','encuesta_puntaje_id');
     }
+
+    public function areatemperamentos()
+    {
+        return $this->hasMany('App\AreaPuntaje','encuesta_puntaje_id');
+    }
 }

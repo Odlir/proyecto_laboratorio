@@ -28,5 +28,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoTalentoSeeder::class);
         $this->call(TendenciaTalentoSeeder::class);
         $this->call(TalentosSeeder::class);
+        $this->call(RuedaSeeder::class);
     }
 }

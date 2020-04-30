@@ -12,4 +12,9 @@ class AreaItem extends Model
     {
         return $this->hasMany('App\FormulaItem');
     }
+
+    public function area()
+    {
+        return $this->belongsTo('App\Area');
+    }
 }

@@ -15,7 +15,7 @@ class AreaItemSeeder extends Seeder
         $items=[
             ['nombre'=>'Extrovertido','area_id'=>1,'posicion'=>'1'],
             ['nombre'=>'Introvertido','area_id'=>1,'posicion'=>'0'],
-            ['nombre'=>'Intiutivo','area_id'=>2,'posicion'=>'1'],
+            ['nombre'=>'Intuitivo','area_id'=>2,'posicion'=>'1'],
             ['nombre'=>'Sensorial','area_id'=>2,'posicion'=>'0'],
             ['nombre'=>'Racional','area_id'=>3,'posicion'=>'1'],
             ['nombre'=>'Emocional','area_id'=>3,'posicion'=>'0'],

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Area;
 use App\Carrera;
 use App\Encuesta;
 use App\EncuestaGeneral;
@@ -10,6 +11,7 @@ use App\Exports\LinkExport;
 use App\Exports\StatusExport;
 use App\Jobs\PDFConsolidados;
 use App\Persona;
+use App\Rueda;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -69,6 +71,12 @@ class ExportController extends Controller
             ->where('tipo_encuesta_id', 3)
             ->first();
 
+        $areas = Area::with('items.items')
+            ->with('formulas')
+            ->where('estado', '1')->get();
+
+        $ruedas = Rueda::where('estado', '1')->get();
+
 
         foreach ($general['personas'] as $p) { //PARA LOS CONSOLIDADOS
             $p_intereses = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
@@ -79,10 +87,11 @@ class ExportController extends Controller
             $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
                 ->where('persona_id', $p['id'])
                 ->with('puntemperamentos.formula')
+                ->with('areatemperamentos')
                 ->first();
 
             if ($p_intereses && $p_temperamentos) {
-                PDFConsolidados::dispatchNow($p, $p_intereses['punintereses'], $p_temperamentos['puntemperamentos'], $encuesta['empresa']['nombre'], $request->hour);
+                PDFConsolidados::dispatchNow($p, $p_intereses['punintereses'], $p_temperamentos['puntemperamentos'], $p_temperamentos['areatemperamentos'], $encuesta['empresa']['nombre'], $request->hour, $areas, $ruedas);
                 $descargar = true;
             }
         }

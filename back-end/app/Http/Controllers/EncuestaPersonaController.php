@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Area;
 use App\AreaPuntaje;
 use App\Carrera;
 use App\CarreraPuntaje;
@@ -35,17 +36,17 @@ class EncuestaPersonaController extends Controller
             ->with('edit')
             ->with('empresa')
             ->with('tipo')
-            ->with(['general' => function ($query) use ($searchValue){
-                $query->with(['personas' => function ($q) use ($searchValue){
+            ->with(['general' => function ($query) use ($searchValue) {
+                $query->with(['personas' => function ($q) use ($searchValue) {
                     $q->wherePivot('estado', '1')
-                    ->where(function ($query) use ($searchValue) {
-                        $query->where("personas.id", "LIKE", "%$searchValue%")
-                            ->orWhere("personas.nombres", "LIKE", "%$searchValue%")
-                            ->orWhere('personas.apellido_materno', "LIKE", "%$searchValue%")
-                            ->orWhere('personas.apellido_paterno', "LIKE", "%$searchValue%")
-                            ->orWhere('personas.sexo', "LIKE", "%$searchValue%")
-                            ->orWhere('personas.email', "LIKE", "%$searchValue%");
-                    });
+                        ->where(function ($query) use ($searchValue) {
+                            $query->where("personas.id", "LIKE", "%$searchValue%")
+                                ->orWhere("personas.nombres", "LIKE", "%$searchValue%")
+                                ->orWhere('personas.apellido_materno', "LIKE", "%$searchValue%")
+                                ->orWhere('personas.apellido_paterno', "LIKE", "%$searchValue%")
+                                ->orWhere('personas.sexo', "LIKE", "%$searchValue%")
+                                ->orWhere('personas.email', "LIKE", "%$searchValue%");
+                        });
                 }]);
             }])
             ->first();
@@ -154,16 +155,22 @@ class EncuestaPersonaController extends Controller
 
         $puntajes_formulas = [];
 
+        $puntajes_rueda = [];
+
         $encuesta_puntaje = EncuestaPuntaje::create(['encuesta_id' => $data[0]['encuesta_id'], 'persona_id' => $data[0]['persona_id']]); //TABLA PRINCIPAL
 
         foreach ($data as $d) { //CREO LAS RESPUESTAS
             EncuestaRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
         }
 
+        $areas = Area::where('estado', '1')
+            ->get();
+
         $formulas = Formula::where('estado', '1')
             ->get();
 
         $formulas_items = FormulaItem::where('estado', '1')
+            ->with('areaitem')
             ->get();
 
         $preguntas = Pregunta::where('tipo_encuesta_id', 3)
@@ -192,10 +199,20 @@ class EncuestaPersonaController extends Controller
         foreach ($formulas as $f) {
             $object3 = new stdClass();
             $object3->formula_id = $f['id'];
+            $object3->area_id = $f['areaitem']['area_id'];
             $object3->puntaje = 0;
             $object3->cantidad = 0;
             $object3->transformacion = 0;
             array_push($puntajes_formulas, $object3);
+        }
+
+        foreach ($areas as $a) {
+            $object4 = new stdClass();
+            $object4->area_id = $a['id'];
+            $object4->palabra = "";
+            $object4->puntaje = 0;
+            $object4->letra = "";
+            array_push($puntajes_rueda, $object4);
         }
 
         foreach ($data as $d) { //ASIGNO LOS PUNTAJES A LAS PREGUNTAS
@@ -234,8 +251,16 @@ class EncuestaPersonaController extends Controller
             }
         }
 
-        foreach ($puntajes_formulas as $f) { //SACO EL PROMEDIO DIVIDIENDOLO ENTRE LA CANTIDAD Y LO REDONDEO  //AQUI ES DONDE VOY A CAMBIAR PARA LA SUPERRUEDA
+        foreach ($puntajes_formulas as $f) { //SACO EL PROMEDIO POR FORMULA Y LUEGO LOS PUNTAJES POR AREA
             $f->puntaje = $f->puntaje / $f->cantidad;
+            foreach ($puntajes_rueda as $r) {
+                if ($r->area_id == $f->area_id) {
+                    $r->puntaje = $r->puntaje + $f->puntaje;
+                }
+            }
+        }
+
+        foreach ($puntajes_formulas as $f) { //REDONDEO PARA LOS GRAFICOS DE BARRA
             $f->puntaje = round($f->puntaje);
 
             if ($f->puntaje == 7) { //HAGO LA TRANSFORMACIÓN DE LOS PUNTAJES
@@ -255,6 +280,99 @@ class EncuestaPersonaController extends Controller
             }
 
             FormulaPuntaje::create(array_merge((array) $f, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
+        }
+
+        foreach ($puntajes_rueda as $r) { //SACO LOS PROMEDIOS POR  PARA LA SUPERRUEDA
+            $r->puntaje = $f->puntaje / 4;
+
+            if ($r->puntaje == 6.75) { //SE APLICA EL REDONDEO FINAL
+                $r->puntaje=7;
+            }else if($r->puntaje == 6.25){
+                $r->puntaje=6.5; 
+            }else if($r->puntaje == 5.75){
+                $r->puntaje=6; 
+            }else if($r->puntaje == 5.25){
+                $r->puntaje==5.5; 
+            }else if($r->puntaje == 4.75){
+                $r->puntaje=5; 
+            }else if($r->puntaje == 4.25){
+                $r->puntaje==4.5; 
+            }else if($r->puntaje == 3.75){
+                $r->puntaje=4; 
+            }else if($r->puntaje == 3.25){
+                $r->puntaje==3.5; 
+            }else if($r->puntaje == 2.75){
+                $r->puntaje=3; 
+            }else if($r->puntaje == 2.25){
+                $r->puntaje==2.5; 
+            }else if($r->puntaje == 1.75){
+                $r->puntaje=2; 
+            }else if($r->puntaje == 1.25){
+                $r->puntaje=1.5; 
+            }else if($r->puntaje == 0.75){
+                $r->puntaje=1; 
+            }
+
+            //SE SACA LAS LETRAS
+            if($r->area_id==1){
+                if($r->puntaje>=1 && $r->puntaje<=3.49){
+                    $r->letra="I";
+                    $r->palabra="Introvertido";
+                }else if($r->puntaje>=3.50 && $r->puntaje<=3.99){
+                    $r->letra="i";
+                    $r->palabra="introvertido";
+                }else if($r->puntaje>=4 && $r->puntaje<=4.49){
+                    $r->letra="e";
+                    $r->palabra="extrovertido";
+                }else if($r->puntaje>=4.5 && $r->puntaje<=7){
+                    $r->letra="E";
+                    $r->palabra="Extrovertido";
+                }
+            }else if($r->area_id==2){
+                if($r->puntaje>=1 && $r->puntaje<=3.49){
+                    $r->letra="S";
+                    $r->palabra="Sensorial";
+                }else if($r->puntaje>=3.50 && $r->puntaje<=3.99){
+                    $r->letra="s";
+                    $r->palabra="sensorial";
+                }else if($r->puntaje>=4 && $r->puntaje<=4.49){
+                    $r->letra="n";
+                    $r->palabra="intuitivo";
+                }else if($r->puntaje>=4.5 && $r->puntaje<=7){
+                    $r->letra="N";
+                    $r->palabra="Intuitivo";
+                }
+            }else if($r->area_id==3){
+                if($r->puntaje>=1 && $r->puntaje<=3.49){
+                    $r->letra="M";
+                    $r->palabra="Emotivo";
+                }else if($r->puntaje>=3.50 && $r->puntaje<=3.99){
+                    $r->letra="m";
+                    $r->palabra="emotivo";
+                }else if($r->puntaje>=4 && $r->puntaje<=4.49){
+                    $r->letra="r";
+                    $r->palabra="racional";
+                }else if($r->puntaje>=4.5 && $r->puntaje<=7){
+                    $r->letra="R";
+                    $r->palabra="Racional";
+                }
+            }else if($r->area_id==4){
+                if($r->puntaje>=1 && $r->puntaje<=3.49){
+                    $r->letra="C";
+                    $r->palabra="Casual";
+                }else if($r->puntaje>=3.50 && $r->puntaje<=3.99){
+                    $r->letra="c";
+                    $r->palabra="casual";
+                }else if($r->puntaje>=4 && $r->puntaje<=4.49){
+                    $r->letra="o";
+                    $r->palabra="organizado";
+                }else if($r->puntaje>=4.5 && $r->puntaje<=7){
+                    $r->letra="O";
+                    $r->palabra="Organizado";
+                }
+            }
+
+            AreaPuntaje::create(array_merge((array) $r, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
         }
 
         return response()->json($puntajes_formulas, 200);
