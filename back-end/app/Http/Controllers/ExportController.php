@@ -9,7 +9,6 @@ use App\EncuestaPuntaje;
 use App\Exports\LinkExport;
 use App\Exports\StatusExport;
 use App\Jobs\PDFConsolidados;
-use App\Jobs\PDFIntereses;
 use App\Persona;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -66,52 +65,32 @@ class ExportController extends Controller
             ->with('personas')
             ->first();
 
-        $personas_intereses = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
-            ->with('persona')
-            ->with('punintereses.carrera')
-            ->get();
-
         $encuesta_temp = Encuesta::where('encuesta_general_id', $general['id'])
             ->where('tipo_encuesta_id', 3)
             ->first();
 
-        $personas_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
-            ->get();
 
+        foreach ($general['personas'] as $p) { //PARA LOS CONSOLIDADOS
+            $p_intereses = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
+                ->where('persona_id', $p['id'])
+                ->with('punintereses.carrera.intereses')
+                ->first();
 
-        if ($personas_intereses->isEmpty() && $personas_temperamentos->isEmpty()) {
-            return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
-        } else {
-            if (!$personas_intereses->isEmpty()) {
-                foreach ($personas_intereses as $i) {
-                    PDFIntereses::dispatchNow($i['persona'], $i['punintereses'], $encuesta['empresa']['nombre'], $request->hour);
-                }
+            $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
+                ->where('persona_id', $p['id'])
+                ->with('puntemperamentos.formula')
+                ->first();
 
+            if ($p_intereses && $p_temperamentos) {
+                PDFConsolidados::dispatchNow($p, $p_intereses['punintereses'], $p_temperamentos['puntemperamentos'], $encuesta['empresa']['nombre'], $request->hour);
                 $descargar = true;
             }
+        }
 
-            foreach ($general['personas'] as $p) { //PARA LOS CONSOLIDADOS
-                $p_intereses = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
-                    ->where('persona_id', $p['id'])
-                    ->with('punintereses.carrera.intereses')
-                    ->first();
-
-                $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
-                    ->where('persona_id', $p['id'])
-                    ->with('puntemperamentos.formula')
-                    ->first();
-
-                if ($p_intereses && $p_temperamentos) {
-                    PDFConsolidados::dispatchNow($p, $p_intereses['punintereses'], $p_temperamentos['puntemperamentos'], $encuesta['empresa']['nombre'], $request->hour);
-                    $descargar = true;
-                }
-            }
-
-            if ($descargar) {
-                return $this->descargarZip($request->hour);
-            } else {
-                return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
-            }
+        if ($descargar) {
+            return $this->descargarZip($request->hour);
+        } else {
+            return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
         }
     }
 

@@ -617,22 +617,6 @@
             <p>A continuación encontrarás las áreas de interés que más has desarrollado y las
                 carreras asociadas:</p>
 
-
-            @php
-                $puntaje=0;
-                $carrera;
-                $carrera_id;
-                $interes;
-                foreach ($p_intereses as $p) {
-                    if($p->puntaje>$puntaje){
-                        $puntaje= $p->puntaje;
-                        $carrera= $p->carrera->nombre;
-                        $interes= $p->carrera->interes;
-                        $carrera_id= $p->carrera->id;
-                    }
-                }
-            @endphp   
-
             <table class="w-100 text-table table-resultado">
                 <thead class="font-weight-bold">
                     <tr>
@@ -645,23 +629,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td width="30%" class="font-weight-bold">
-                            {{ $carrera }} 
-                        </td>
-                        <td width="70%">
-                            {{ $interes }} 
-                        </td>
-                        <td>
-                            @foreach ($p_intereses as $p)
+                    @foreach ($p_intereses as $p)
+                        @if ($p->puntaje>75)
+                        <tr>
+                            <td width="30%" class="font-weight-bold">
+                                {{ $p->carrera->nombre }} 
+                            </td>
+                            <td width="70%">
+                                {{ $p->carrera->interes }} 
+                            </td>
+                            <td>
                                 @foreach ($p->carrera->intereses as $i)
-                                    @if ($i->carrera_id == $carrera_id)
+                                    @if ($i->carrera_id == $p->carrera->id)
                                         <p class="m-0">{{$i->nombre}}</p>
                                     @endif  
                                 @endforeach
-                            @endforeach
-                        </td>
-                    </tr>
+                            </td>
+                        </tr> 
+                        @endif          
+                    @endforeach            
                 </tbody>
             </table> 
 
