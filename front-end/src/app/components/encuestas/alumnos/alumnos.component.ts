@@ -41,7 +41,7 @@ export class AlumnosComponent implements OnInit {
 
 		this.api.get('encuesta_persona?search=' + val + '&id=' + this.id).subscribe(
 			(data) => {
-				this.personas = data.personas;
+				this.personas = data.general.personas;
 				this.personas = [...this.personas]
 			}
 		);

@@ -180,7 +180,7 @@
 
             <div class="mt-persona text-secondary">
                 <h1>Evaluación de</h1>
-                <h1 class="mt-text">{{$persona->apellido_paterno}}, {{$persona->nombres}}</h1>
+                <h1 class="mt-text">{{$persona->apellido_paterno}} {{$persona->apellido_materno}}, {{$persona->nombres}}</h1>
                 <h1 class="mt-text">@php
                     echo date('d-m-Y');
                 @endphp</h1>

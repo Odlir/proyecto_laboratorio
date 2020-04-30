@@ -144,8 +144,7 @@ class ExportController extends Controller
         $interes = Encuesta::where('id', $request->interes_id)
             ->with(['general' => function ($query) {
                 $query->with(['personas' => function ($query) {
-                    $query->wherePivot('estado', '1')
-                        ->orderBy('id', 'DESC');
+                    $query->wherePivot('estado', '1');
                 }]);
             }])
             ->first();
@@ -154,8 +153,7 @@ class ExportController extends Controller
             $temperamento = Encuesta::where('id', $request->temperamento_id)
                 ->with(['general' => function ($query) {
                     $query->with(['personas' => function ($query) {
-                        $query->wherePivot('estado', '1')
-                            ->orderBy('id', 'DESC');
+                        $query->wherePivot('estado', '1');
                     }]);
                 }])
                 ->first();
@@ -183,7 +181,7 @@ class ExportController extends Controller
             ->first();
 
         $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $persona, 'puntajes' => $encuesta['punintereses']));
-        return $pdf->download('Reporte-Intereses-' . $persona->nombres . '-' . $persona->apellido_paterno . '.pdf');
+        return $pdf->download('Reporte-Intereses-' . $persona->nombres . '-' . $persona->apellido_paterno . '-' . $persona->apellido_materno . '.pdf');
     }
 
     public function status(Request $request)
@@ -193,8 +191,7 @@ class ExportController extends Controller
         $interes = Encuesta::where('id', $request->interes_id)
             ->with(['general' => function ($query) {
                 $query->with(['personas' => function ($query) {
-                    $query->wherePivot('estado', '1')
-                        ->orderBy('id', 'DESC');
+                    $query->wherePivot('estado', '1');
                 }]);
             }])
             ->first();
@@ -203,8 +200,7 @@ class ExportController extends Controller
             $temperamento = Encuesta::where('id', $request->temperamento_id)
                 ->with(['general' => function ($query) {
                     $query->with(['personas' => function ($query) {
-                        $query->wherePivot('estado', '1')
-                            ->orderBy('id', 'DESC');
+                        $query->wherePivot('estado', '1');
                     }]);
                 }])
                 ->first();

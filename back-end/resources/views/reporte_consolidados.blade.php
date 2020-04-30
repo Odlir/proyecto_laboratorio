@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <style>
+               
             @page :first{    
                 margin: 0;
                 padding:0;
@@ -11,6 +12,7 @@
             @page{    
                 margin: 70px;
             }
+
 
             body
             {           

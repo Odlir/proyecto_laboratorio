@@ -89,6 +89,7 @@ class CarreraInteresSeeder extends Seeder
             ['carrera_id'=>19,'nombre'=>'Turismo'],
             ['carrera_id'=>19,'nombre'=>'Hotelería'],
             ['carrera_id'=>19,'nombre'=>'Hotelería y Administración'],
+            ['carrera_id'=>20,'nombre'=>'Medicina Veterinaria'],
         ];
 
         CarreraInteres::insert($carreras);

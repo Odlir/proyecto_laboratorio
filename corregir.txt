@@ -1,10 +1,20 @@
-- en reportes va estar el modulo de reporte consejero el cual va a tener los porcentajes de avance de todo
-
 - EL SISTEMA DEBE SER RESPONSIVE
 
 - llenar los seeders de la empresa con su sucursal
 
 - EL IMPORTAR EN EXCEL EN CELULAR ESTÁ FALLANDO
+
+- EN LA URL DEL FRONT PONERLE gaf.com.pe/encuesta
+
+- En el boton generar reporte debe haber como un status de cada alumno con
+circulos que indiquen, si intereses, talentos o temperamentos estan completados
+los circulos deben ser del color del semaforo, completado verde e
+incompleto rojo
+
+- Al entrar al sistema se debe redireccionar a programar encuestas
+
+- cuando las encuestas falten responder, se debe colocar en que pregunta falta, por ejemplo:
+nros de preguntas: 2,3,4,5,6
 
 ////////////////////////////////
 
@@ -14,9 +24,6 @@ intereses
 talentos
 temperamentos
 
-- progress bar al test de interes
-
-- cuando las encuestas falten responder, se debe colocar en que pregunta falta.
 --------------------------
 
 libreria para graficos jpgraph

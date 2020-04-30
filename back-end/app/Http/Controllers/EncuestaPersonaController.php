@@ -6,6 +6,7 @@ use App\AreaPuntaje;
 use App\Carrera;
 use App\CarreraPuntaje;
 use App\Encuesta;
+use App\EncuestaGeneral;
 use App\EncuestaPersona;
 use App\EncuestaPuntaje;
 use App\EncuestaRespuesta;
@@ -27,16 +28,16 @@ class EncuestaPersonaController extends Controller
     public function index(Request $request)
     {
         $searchValue = $request->input('search');
+
         $data = Encuesta::where('estado', '1')
             ->where('id', $request->input('id'))
             ->with('insert')
             ->with('edit')
             ->with('empresa')
             ->with('tipo')
-            ->with(['personas' => function ($q) use ($searchValue) {
-                $q->wherePivot('estado', '1')
-                    // ->with('insert')
-                    // ->with('edit')
+            ->with(['general' => function ($query) use ($searchValue){
+                $query->with(['personas' => function ($q) use ($searchValue){
+                    $q->wherePivot('estado', '1')
                     ->where(function ($query) use ($searchValue) {
                         $query->where("personas.id", "LIKE", "%$searchValue%")
                             ->orWhere("personas.nombres", "LIKE", "%$searchValue%")
@@ -44,8 +45,8 @@ class EncuestaPersonaController extends Controller
                             ->orWhere('personas.apellido_paterno', "LIKE", "%$searchValue%")
                             ->orWhere('personas.sexo', "LIKE", "%$searchValue%")
                             ->orWhere('personas.email', "LIKE", "%$searchValue%");
-                    })
-                    ->orderBy('id', 'DESC');
+                    });
+                }]);
             }])
             ->first();
 
@@ -233,7 +234,7 @@ class EncuestaPersonaController extends Controller
             }
         }
 
-        foreach ($puntajes_formulas as $f) { //SACO EL PROMEDIO DIVIDIENDOLO ENTRE LA CANTIDAD Y LO REDONDEO
+        foreach ($puntajes_formulas as $f) { //SACO EL PROMEDIO DIVIDIENDOLO ENTRE LA CANTIDAD Y LO REDONDEO  //AQUI ES DONDE VOY A CAMBIAR PARA LA SUPERRUEDA
             $f->puntaje = $f->puntaje / $f->cantidad;
             $f->puntaje = round($f->puntaje);
 
