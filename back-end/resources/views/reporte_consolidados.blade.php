@@ -43,11 +43,6 @@
                 text-align: justify;
             }
 
-            .img-fluid
-            {
-                width:100%;
-            }
-
             .w-100
             {
                 width:100%;
@@ -167,8 +162,8 @@
             }
 
             .titulo{
-            font-size: 20px;
-            margin-top: -20px;
+                font-size: 20px;
+                margin-top: -20px;
             }
 
             .barra_tabla{
@@ -199,7 +194,6 @@
                 width: 5%;
             }
         
-
             .mb-1 {
                 margin-bottom: 0.25rem !important;
             }
@@ -208,6 +202,16 @@
             {   
                 height: 93px;
                 margin: 10px;
+            }
+
+            .barra-interes
+            {
+                height: 30px;
+                margin-top: 4px;
+                margin-bottom: 4px;
+                margin-left: 5px;
+                margin-right: 5px;
+                background: #0386E1;
             }
 
             .linea
@@ -229,6 +233,54 @@
 
             .table-temperamento{
                 page-break-inside: avoid;
+            }
+
+            .table-intereses{
+                border-collapse: collapse;
+                border: 1px solid;
+            }
+
+            .table-intereses tbody{
+                font-size: 12px;
+            }
+
+            .table-intereses th{
+                border-top: 1px solid;
+                border-left: 1px solid;
+                border-right: 1px solid;
+            }
+
+            .table-intereses td{
+                border-left: 1px solid;
+                border-right: 1px solid;
+            }
+
+            .text-table{
+                color: rgb(104,104,104);
+            }
+
+            .table-resultado{
+                border-collapse: collapse;
+            }
+
+            .table-resultado thead{
+                font-size: 19px;
+            }
+
+            .table-resultado tbody{
+                font-size: 14px;
+            }
+
+            .table-resultado th, .table-resultado td, .table-resultado tr{
+                padding-left : 4px;
+                padding-right : 4px;
+                padding-top : 8px;
+                padding-bottom : 8px;
+                border: 1px solid;
+            }
+
+            .float-right {
+                float: right!important;
             }
         </style>
     </head>
@@ -321,6 +373,10 @@
                     las preferencias que más priman en ti y dirigen más tu forma de actuar. Por otro lado, las
                     minúsculas también influyen en cómo eres tú pero no reflejan preferencias tan marcadas
                     como las que aparecen en mayúsculas.</p>
+
+                   <div>
+
+                   </div>
             </div>
             <br><br>
             <div>
@@ -442,7 +498,7 @@
                             </tr>
                         </table>
                     </div>
-                    
+
                     <br>
                     @foreach ($p_temperamentos as $p)
                         @if ($a->id == $p->formula->area->id)
@@ -507,6 +563,131 @@
                     significa que no has desarrollado interés por este tipo de actividades.</p>
             </div>
 
-        </div>        
+        </div>      
+        
+        <div class="page_break ">
+            <h4 class="font-weight-bold text-table">3.1 Tabla general de áreas y valores.</h4>
+            <table class="w-100 table-intereses text-table">
+                <thead class="font-weight-bold">
+                    <tr>
+                        <th width="55%" rowspan="2">
+                            ÁREA DE INTERÉS
+                        </th>
+                        <th width="45%" colspan="4">
+                            Puntaje
+                        </th>
+                    </tr>
+                    <tr>
+                        <th width="13%">
+                            Valor
+                        </th>
+                        <th width="29%">
+                            Bajo 
+                        </th>
+                        <th width="29%">
+                            Medio
+                        </th>
+                        <th width="29%">
+                            Alto
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($p_intereses as $p)
+                        <tr>
+                            <td class="font-weight-bold p-2">
+                                {{$p->carrera->nombre}}
+                            </td>
+                            <td class="text-center p-2">
+                                {{$p->puntaje}}
+                            </td>
+                            <td colspan="3">
+                                <div class="barra-interes" style="width: {{$p->puntaje}}%">
+    
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table> 
+
+            <h4 class="font-weight-bold text-table">3.2 Tabla de resultados</h4>
+            <p>A continuación encontrarás las áreas de interés que más has desarrollado y las
+                carreras asociadas:</p>
+
+
+            @php
+                $puntaje=0;
+                $carrera;
+                $carrera_id;
+                $interes;
+                foreach ($p_intereses as $p) {
+                    if($p->puntaje>$puntaje){
+                        $puntaje= $p->puntaje;
+                        $carrera= $p->carrera->nombre;
+                        $interes= $p->carrera->interes;
+                        $carrera_id= $p->carrera->id;
+                    }
+                }
+            @endphp   
+
+            <table class="w-100 text-table table-resultado">
+                <thead class="font-weight-bold">
+                    <tr>
+                        <th width="60%" colspan="2">
+                            Área
+                        </th>
+                        <th width="60%">
+                            Carreras Asociadas
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td width="30%" class="font-weight-bold">
+                            {{ $carrera }} 
+                        </td>
+                        <td width="70%">
+                            {{ $interes }} 
+                        </td>
+                        <td>
+                            @foreach ($p_intereses as $p)
+                                @foreach ($p->carrera->intereses as $i)
+                                    @if ($i->carrera_id == $carrera_id)
+                                        <p class="m-0">{{$i->nombre}}</p>
+                                    @endif  
+                                @endforeach
+                            @endforeach
+                        </td>
+                    </tr>
+                </tbody>
+            </table> 
+
+            <p class="text-justify">El perfil de intereses profesionales te permite identificar carreras, tomando en
+                cuenta tus preferencias por realizar estas actividades, tu percepción de qué
+                puedes aprender al realizarlas y el beneficio que las mismas te podrían traer. <br><br>
+                Para consolidar la elección de tu carrera, es importante que la vincules con tus
+                características de personalidad y talentos, para así aprovechar el máximo de tu
+                potencial De igual modo, te invitamos a revisar más información sobre las
+                carreras y conversar con profesionales o con alumnos que se encuentren
+                estudiando estas carreras actualmente. <br><br>
+                Para mayor información sobre las carreras ingresa a: <a href="https://www.upc.edu.pe/">www.upc.edu.pe</a></p>
+
+            <table class="w-100">
+                <tbody>
+                    <tr>
+                        <td width="50%">
+                           
+                        </td>
+                        <td width="40%" class="float-right">
+                            <p class="font-weight-bold text-center">Coordinación de Colegios <br>
+                                Programa “Yo decido mi futuro” <br>
+                                UPC</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
     </body>
 </html>

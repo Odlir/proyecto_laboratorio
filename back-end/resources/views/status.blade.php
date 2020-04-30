@@ -4,10 +4,12 @@
             <th>NOMBRE</th>
             <th>STATUS INTERESES</th>
             <th>INTERESES</th>
-            <th>STATUS TALENTOS</th>
-            <th>TALENTOS</th>
-            <th>STATUS TEMPERAMENTOS</th>
-            <th>TEMPERAMENTOS</th>
+            @if ($show)
+                <th>STATUS TALENTOS</th>
+                <th>TALENTOS</th>
+                <th>STATUS TEMPERAMENTOS</th>
+                <th>TEMPERAMENTOS</th>
+            @endif          
         </tr>
     </thead>
     <tbody>
@@ -16,10 +18,12 @@
             <td>{{ $p->nombres }} {{ $p->apellido_paterno }} {{ $p->apellido_materno }}</td>
             <td>{{ $p->status_int }}</td>
             <td>{{ $p->link_intereses }}</td>
-            <td></td>
-            <td></td>
-            <td>{{ $p->status_temp }}</td>
-            <td>{{ $p->link_temperamentos }}</td>
+            @if ($show)
+                <td></td>
+                <td></td>
+                <td>{{ $p->status_temp }}</td>
+                <td>{{ $p->link_temperamentos }}</td>
+            @endif   
         </tr>
       @endforeach
     </tbody>

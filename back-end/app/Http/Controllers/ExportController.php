@@ -54,34 +54,6 @@ class ExportController extends Controller
         }
     }
 
-    // public function jobs(Request $request)
-    // {
-    //     $carreras = Carrera::where('estado', 1)->orderBy('nombre', 'asc')
-    //         ->get();
-
-    //     $encuesta = Encuesta::where('id', $request->interes_id)
-    //         ->with('empresa')
-    //         ->first();
-
-    //     $personas = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
-    //         ->with('persona')
-    //         ->with('punintereses.carrera')
-    //         ->get();
-
-    //     if ($personas->isEmpty()) {
-    //         return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
-    //     } else {
-    //         foreach ($personas as $p) {
-    //             $content = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $p['persona'], 'puntajes' => $p['punintereses']))->output();
-
-    //             $name = 'PDF-'.$request->hour.'/'. $encuesta['empresa']['nombre'] . '/INTERESES/' . $p['persona']['nombres'] . '-' . $p['persona']['apellido_paterno'] . '.pdf';
-    //             \Storage::disk('public')->put($name,  $content);
-    //         }
-
-    //         return $this->descargarZip($request->hour);
-    //     }
-    // }
-
     public function jobs(Request $request)
     {
         $descargar = false;
@@ -90,18 +62,20 @@ class ExportController extends Controller
             ->with('empresa')
             ->first();
 
+        $general =  EncuestaGeneral::where('id', $encuesta['encuesta_general_id'])
+            ->with('personas')
+            ->first();
+
         $personas_intereses = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
             ->with('persona')
             ->with('punintereses.carrera')
             ->get();
 
-        $encuesta_temp = Encuesta::where('encuesta_general_id', $encuesta['encuesta_general_id'])
+        $encuesta_temp = Encuesta::where('encuesta_general_id', $general['id'])
             ->where('tipo_encuesta_id', 3)
             ->first();
 
         $personas_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
-            ->with('persona')
-            ->with('puntemperamentos.formula')
             ->get();
 
 
@@ -116,12 +90,21 @@ class ExportController extends Controller
                 $descargar = true;
             }
 
-            if (!$personas_intereses->isEmpty() && !$personas_temperamentos->isEmpty()) {
-                foreach ($personas_temperamentos as $t) {
-                    PDFConsolidados::dispatchNow($t['persona'], $t['puntemperamentos'], $encuesta['empresa']['nombre'], $request->hour);
-                }
+            foreach ($general['personas'] as $p) { //PARA LOS CONSOLIDADOS
+                $p_intereses = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
+                    ->where('persona_id', $p['id'])
+                    ->with('punintereses.carrera.intereses')
+                    ->first();
 
-                $descargar = true;
+                $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
+                    ->where('persona_id', $p['id'])
+                    ->with('puntemperamentos.formula')
+                    ->first();
+
+                if ($p_intereses && $p_temperamentos) {
+                    PDFConsolidados::dispatchNow($p, $p_intereses['punintereses'], $p_temperamentos['puntemperamentos'], $encuesta['empresa']['nombre'], $request->hour);
+                    $descargar = true;
+                }
             }
 
             if ($descargar) {

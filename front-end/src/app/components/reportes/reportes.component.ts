@@ -63,6 +63,7 @@ export class ReportesComponent implements OnInit {
 				async (error) => {
 					this.disabled = false;
 					this.mensaje('No hay alumnos registrados en la Encuesta.')
+					this.limpiar();
 				}
 			);
 		}
@@ -84,6 +85,7 @@ export class ReportesComponent implements OnInit {
 				async (error) => {
 					this.disabled = false;
 					this.mensaje('No hay alumnos registrados en la Encuesta.')
+					this.limpiar();
 				}
 			);
 		}
@@ -106,6 +108,7 @@ export class ReportesComponent implements OnInit {
 				(error) => {
 					this.disabled = false;
 					this.mensaje('No hay encuestas resueltas.')
+					this.limpiar();
 				}
 			);
 		}

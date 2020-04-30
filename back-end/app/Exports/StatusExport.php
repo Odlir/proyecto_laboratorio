@@ -21,6 +21,8 @@ class StatusExport implements FromView, ShouldAutoSize, WithEvents
     private $front;
     private $back;
 
+    private $show = true;
+
     public function __construct($personas, $interes_id, $temperamento_id)
     {
         $this->personas = $personas;
@@ -34,34 +36,30 @@ class StatusExport implements FromView, ShouldAutoSize, WithEvents
 
             $data_interes = EncuestaPuntaje::where('encuesta_id', $this->interes_id)
                 ->where('persona_id', $p->id)
-                ->get();
+                ->first();
 
             $data_temperamento = EncuestaPuntaje::where('encuesta_id', $this->temperamento_id)
                 ->where('persona_id', $p->id)
-                ->get();
+                ->first();
 
-            if (!$data_interes->isEmpty()) {
+            if ($data_interes) {
                 $p->link_intereses = $this->back . 'exportar' . '/' . $this->interes_id . '/' . $p->id;
-            } else {
-                $p->link_intereses = $this->front . '/test-intereses/' . $this->interes_id . '/' . $p->id;
-            }
-
-            if (!$data_temperamento->isEmpty()) {
-                $p->link_temperamentos = "";
-            } else {
-                $p->link_temperamentos = $this->front . '/test-temperamentos/' . $this->temperamento_id . '/' . $p->id;;
-            }
-
-            if (!$data_interes->isEmpty()) {
                 $p->status_int = "Completado";
             } else {
+                $p->link_intereses = $this->front . '/test-intereses/' . $this->interes_id . '/' . $p->id;
                 $p->status_int = "Pendiente";
             }
 
-            if (!$data_temperamento->isEmpty()) {
+            if ($data_temperamento) {
+                $p->link_temperamentos = "";
                 $p->status_temp = "Completado";
             } else {
-                $p->status_temp = "Pendiente";
+                if ($this->temperamento_id != '') {
+                    $p->link_temperamentos = $this->front . '/test-temperamentos/' . $this->temperamento_id . '/' . $p->id;
+                    $p->status_temp = "Pendiente";
+                } else {
+                    $this->show = false;
+                }
             }
         }
     }
@@ -69,7 +67,8 @@ class StatusExport implements FromView, ShouldAutoSize, WithEvents
     public function view(): View
     {
         return view('status', [
-            'personas' => $this->personas
+            'personas' => $this->personas,
+            'show' => $this->show
         ]);
     }
 

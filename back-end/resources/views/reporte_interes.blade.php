@@ -72,6 +72,11 @@
             margin-top: 1.5rem !important;
         }
 
+        .my-1{
+            margin-top: 0.25rem !important;
+            margin-bottom: 0.25rem !important;
+        }
+
         .mx-1
         {
             margin-left: 0.25rem !important;
@@ -79,15 +84,35 @@
         }
 
         table {
-        border-collapse: collapse;
+            border-collapse: collapse;
+            border: 1px solid;
+        }
+
+        table tbody{
+            font-size: 12px;
         }
         
         .border{
             border: 1px solid;
         }
 
-        th,td,tr{
+        .table-areas th, .table-areas td, .table-areas tr{
             border: 1px solid;
+        }
+
+        .table-areas{
+            font-size: 14px;
+        }
+
+        th{
+            border-top: 1px solid;
+            border-left: 1px solid;
+            border-right: 1px solid;
+        }
+
+        td{
+            border-left: 1px solid;
+            border-right: 1px solid;
         }
 
         .p-3{
@@ -100,8 +125,11 @@
 
         .height-graph
         {
-            height: 60px;
-            margin: 10px;
+            height: 50px;
+            margin-top: 4px;
+            margin-bottom: 4px;
+            margin-left: 5px;
+            margin-right: 5px;
             background: #0386E1;
         }
 
@@ -193,27 +221,27 @@
             </div>
         </div>
 
-        <table class="page_break w-100 text-table font-weight-bold">
-            <thead>
+        <table class="w-100 text-table page_break ">
+            <thead class="font-weight-bold">
                 <tr>
-                    <th width="40%" rowspan="2">
+                    <th width="55%" rowspan="2">
                         ÁREA DE INTERÉS
                     </th>
-                    <th width="60%" colspan="4">
+                    <th width="45%" colspan="4">
                         Puntaje
                     </th>
                 </tr>
                 <tr>
-                    <th width="10%">
+                    <th width="13%">
                         Valor
                     </th>
-                    <th width="30%">
+                    <th width="29%">
                         Bajo 
                     </th>
-                    <th width="30%">
+                    <th width="29%">
                         Medio
                     </th>
-                    <th width="30%">
+                    <th width="29%">
                         Alto
                     </th>
                 </tr>
@@ -221,7 +249,7 @@
             <tbody>
                 @foreach ($puntajes as $p)
                     <tr>
-                        <td class="text-center">
+                        <td class="font-weight-bold p-2">
                             {{$p->carrera->nombre}}
                         </td>
                         <td class="text-center p-2">
@@ -237,30 +265,29 @@
             </tbody>
         </table>     
 
-
-        <div class="page_break">
-            <h1 class="text-secondary">DESCRIPCIÓN DE LAS ÁREAS</h1>    
-            <table class="text-table">
-                <thead>
+        <br>
+        
+        <h1 class="text-secondary">DESCRIPCIÓN DE LAS ÁREAS</h1>    
+        <table class="text-table table-areas">
+            <thead>
+                <tr>
+                    <th class="my-1" colspan="2">
+                        ÁREA
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($carreras as $c)
                     <tr>
-                        <th colspan="2">
-                            ÁREA
-                        </th>
+                        <td class="text-center font-weight-bold mx-1" width="30%">
+                            {{$c->nombre}} ({{$c->siglas}})
+                        </td>
+                        <td class="text-justify p-2" width="70%">
+                            {{$c->interes}}
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach ($carreras as $c)
-                        <tr>
-                            <td class="text-center font-weight-bold mx-1" width="30%">
-                                {{$c->nombre}} ({{$c->siglas}})
-                            </td>
-                            <td class="text-justify p-2" width="70%">
-                                {{$c->interes}}
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>      
-        </div>
+                @endforeach
+            </tbody>
+        </table>      
     </body>
 </html>

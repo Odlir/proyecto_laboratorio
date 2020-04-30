@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FormulaSeeder::class);
         $this->call(FormulaItemSeeder::class);
         $this->call(CarreraSeeder::class);
+        $this->call(CarreraInteresSeeder::class);
         $this->call(PaisSeeder::class);
         $this->call(CiudadSeeder::class);
         $this->call(RolSeeder::class);
