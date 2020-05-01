@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
         <meta charset="UTF-8">
         <style>
                
@@ -8,15 +9,15 @@
                 margin: 0;
                 padding:0;
             }
-
+         
             @page{    
-                margin: 70px;
+                margin: 80px;
             }
-
 
             body
             {           
-                font-family: 'Verdana, Geneva, sans-serif';
+                font-family: 'Comfortaa', cursive;
+                font-size: 14px;
             }
 
             .pad-doc
@@ -76,6 +77,11 @@
                 margin-top: 0.5rem !important;
             }
 
+            .mx-2 {
+                margin-right: 0.5rem !important;
+                margin-left: 0.5rem !important;
+            }
+
             .mt-3 {
                 margin-top: 1rem !important;
             }
@@ -107,9 +113,9 @@
             #header {
                 text-align: right;
                 position: fixed;
-                top:-50px;
+                top:-60px;
                 left: 0;
-                right: -20px;
+                right: -30px;
             }
 
             #header img {
@@ -195,6 +201,10 @@
             .w-5{
                 width: 5%;
             }
+
+            .mb-0 {
+                margin-bottom:0 !important;
+            }
         
             .mb-1 {
                 margin-bottom: 0.25rem !important;
@@ -208,12 +218,12 @@
 
             .barra-interes
             {
-                height: 30px;
+                height: 25px;
                 margin-top: 4px;
                 margin-bottom: 4px;
                 margin-left: 5px;
                 margin-right: 5px;
-                background: #0386E1;
+                background: red;
             }
 
             .linea
@@ -230,7 +240,7 @@
             .barra{
                 position: relative;
                 width: 100%;
-                background: #0386E1;
+                background: red;
             }
 
             .table-temperamento{
@@ -240,10 +250,7 @@
             .table-intereses{
                 border-collapse: collapse;
                 border: 1px solid;
-            }
-
-            .table-intereses tbody{
-                font-size: 12px;
+                font-size: 16px;
             }
 
             .table-intereses th{
@@ -258,7 +265,7 @@
             }
 
             .text-table{
-                color: rgb(104,104,104);
+                color: #404342 ;
             }
 
             .table-resultado{
@@ -318,8 +325,7 @@
                 <h1 class="m-0">Test de Talentos</h1>
                 <h1 class="m-0">Test de Intereses</h1>
             </div>
-            <br><br>
-            <div>
+            <div style="margin-top:5px;">
                 <h1>Alumno:</h1>
                 <h1>{{$persona->nombres}} {{$persona->apellido_paterno}} {{$persona->apellido_materno}}</h1>
                 <h1>@php
@@ -331,44 +337,53 @@
 
         <div class="page_break">
             <h2 class="font-weight-bold">Descripción general de las evaluaciones:</h2>
-            <p class="ml-4 font-weight-bold">- Test de Preferencias del Temperamento</p>
-            <div>
+            <h3 class="ml-4 font-weight-bold mb-0">- Test de Preferencias del Temperamento</h3>
+            <div class="text-justify">
                 <p>El objetivo de este test es brindar información acerca de las características más
                     importantes de la personalidad. En primer lugar, encontrarás una descripción de los cuatro
                     ejes de personalidad que se trabajan en este test: a) Extrovertido –Introvertido, b) Intuitivo -
                     Sensorial, c) Racional -Emocional y d) Organizado-Casual. Posteriormente, te
                     presentaremos una descripción de los elementos que conforman a cada uno de estos ejes.
-                    Este instrumento, ha sido desarrollado como una forma aplicativa de utilizar la teoría de la
+                    </p>
+                <p>Este instrumento, ha sido desarrollado como una forma aplicativa de utilizar la teoría de la
                     personalidad de Carl Jung. Los resultados te ayudarán a conocerte mejor, lo cual puede
                     favorecer tu interacción con el entorno social.</p>
             </div>
 
-            <p class="ml-4 font-weight-bold">- Test de Talentos</p>
-            <div>
+            <h3 class="ml-4 font-weight-bold mb-0">- Test de Talentos</h3>
+            <div class="text-justify">
                 <p>El talento es una forma innata de pensar, sentir y comportarse, que puede aplicarse,
                     productivamente, para obtener resultados positivos. Todas las personas son poseedoras de
                     talentos; el problema es que la mayoría los desconoce. Se sabe, luego de mucha
                     investigación, que las personas más exitosas conocen sus talentos y construyen su vida en
                     base a ellos. Entonces, el talento puede definirse como aquello que uno hace muy bien, en
                     lo que destaca por encima de los demás y que, además, le genera placer.
+                    </p>
+                <p>
                     El test de Talentos, es una herramienta que permite identificar aquellos talentos, que con
                     esfuerzo y perseverancia, pueden llegar a convertirse en nuestras fortalezas o atributos que
                     nos hacen diferente de los demás en aquellas actividades que emprendamos o
-                    realicemos.</p>
+                    realicemos.
+                </p>
             </div>
 
-            <p class="ml-4 font-weight-bold">- Test de Intereses Profesionales</p>
-            <div>
+            <h3 class="ml-4 font-weight-bold mb-0">- Test de Intereses Profesionales</h3>
+            <div class="text-justify">
                 <p>Una de las decisiones más importantes en la vida de una persona, es la relacionada a la
                     elección de la carrera a seguir, pues su sentido de producción y felicidad futuras,
-                    dependerán de la satisfacción que logre frente a la actividad que realice en su vida.
+                    dependerán de la satisfacción que logre frente a la actividad que realice en su vida.      
+                </p>
+                <p>
                     El test de intereses, evalúa los intereses profesionales a partir de tres aspectos: a. El gusto
                     que tendrías por realizar alguna actividad en tu vida profesional, b. Las habilidades que
                     tienes para aprender a realizar esta actividad, y c. La satisfacción que crees que te
                     brindaría realizar esta actividad como parte de tu profesión.
+                </p>
+                <p> 
                     Los tres instrumentos han sido elaborados y estandarizados por la prestigiosa firma de
                     Effectus Fischman Consultores, contando con los criterios de validez y confiabilidad que el
-                    programa demanda.</p>
+                    programa demanda.
+                </p>
             </div>
         </div>
 
@@ -381,9 +396,9 @@
         </div>
 
         <div class="page_break">
-            <h4 class="font-weight-bold text-secondary">I. TEST DE PREFERENCIAS DEL TEMPERAMENTO</h4>
+            <h2 class="font-weight-bold text-secondary">I. TEST DE PREFERENCIAS DEL TEMPERAMENTO</h2>
             <div>
-                <p>A continuación presentamos una rueda con tus resultados y la preferencia del
+                <p class="text-justify">A continuación presentamos una rueda con tus resultados y la preferencia del
                     temperamento que tienes en general. Aquí verás un perfil general de cómo eres tú. Este
                     perfil general está compuesto por letras mayúsculas y minúsculas. Las mayúsculas reflejan
                     las preferencias que más priman en ti y dirigen más tu forma de actuar. Por otro lado, las
@@ -409,7 +424,7 @@
                         @endphp
 
                         <div>
-                            grafico
+                            <img src="{{ 'storage/ruedas/pruebas.png' }}"/>
                         </div>
                         
                         <div class="text-center w-100">
@@ -434,43 +449,46 @@
                             </div>                 
                         </div>
 
-                        <h4 class="font-weight-bold text-secondary">1.1 Descripción general del perfil:</h4>
-                        <h4 class="font-weight-bold text-secondary">@foreach ($a_temperamentos as $a)
+                        <h2 class="font-weight-bold text-secondary">1.1 Descripción general del perfil:</h2>
+                        <h2 class="font-weight-bold text-secondary">@foreach ($a_temperamentos as $a)
                             {{$a->palabra}}
                         @endforeach @php
                             echo '('.$palabra.')';
-                        @endphp</h4>
-                        <p>
+                        @endphp</h2>
+                        <p class="text-justify">
                             {{$descripcion}}
                         </p>
                    </div>
             </div>
             <br>
             <div>
-                <h4 class="font-weight-bold text-secondary">1.2 Descripción de los Elementos</h4>
-                <div>
+                <h2 class="font-weight-bold text-secondary">1.2 Descripción de los Elementos</h2>
+                <div class="text-justify">
                     <p>A continuación se presentan 4 gráficos de barras donde aparecen tus elementos
                         predominantes. La barra más alta representa el elemento que describe de manera más
                         precisa cómo eres tú, de acuerdo con tus respuestas.
+                    </p>
+                    <p>
                         En este gráfico de barras se muestran características específicas. Las barras pueden ir
                         hacia arriba o hacia abajo. Las barras hacia arriba expresan las características de las
                         personas extrovertidas, intuitivas, racionales y organizadas. Las barras hacia abajo
                         representan las características de las personas introvertidas, sensoriales, emocionales y
-                        casuales.</p>
+                        casuales.
+                    </p>
                 </div>
     
                 @foreach ($areas as $a)
                 <div>
 
                     <div class="table-temperamento">
-                        <h4 class="font-weight-bold text-secondary">1.2.{{$loop->index +1}} Descripciones de los elementos del área {{$a->nombre}}</h4>
+                        <h2 class="font-weight-bold text-secondary">1.2.{{$loop->index +1}} Descripciones de los elementos del área {{$a->nombre}}</h2>
                     
                         <table class="w-100 table text-secondary text-center table-temperamento">
                             <tr>
                                 <th>
                                     @foreach ($a->items as $i)
                                         @if ($i->posicion == '1')
-                                            {{$i->nombre }}
+                                            <h3>{{$i->nombre }}</h3>
                                         @endif
                                     @endforeach 
                                 </th>
@@ -551,7 +569,7 @@
                                 <th>
                                     @foreach ($a->items as $i)
                                         @if ($i->posicion == '0')
-                                            {{$i->nombre }}
+                                            <h3>{{$i->nombre }}</h3> 
                                         @endif
                                     @endforeach 
                                 </th>
@@ -573,8 +591,8 @@
                                 @foreach ($p->formula->items as $i)
                                     @if ($i->posicion=='1')
                                     <div class="table-temperamento">
-                                        <p class="font-weight-bold">- {{$i->nombre}}</p>
-                                        <p>{{$i->descripcion}}</p>
+                                        <h3 class="font-weight-bold">- {{$i->nombre}}</h3>
+                                        <p class="text-justify">{{$i->descripcion}}</p>
                                     </div> 
                                     @endif
                                 @endforeach
@@ -584,8 +602,8 @@
                                 @foreach ($p->formula->items as $i)
                                     @if ($i->posicion=='0')
                                     <div class="table-temperamento">
-                                        <p class="font-weight-bold">- {{$i->nombre}}</p>
-                                        <p>{{$i->descripcion}}</p>
+                                        <h3 class="font-weight-bold">- {{$i->nombre}}</h3>
+                                        <p class="text-justify">{{$i->descripcion}}</p>
                                     </div>                
                                     @endif
                                 @endforeach
@@ -593,8 +611,8 @@
                                     
                             @if ($p->transformacion==0)
                                 <div class="table-temperamento">
-                                    <p class="font-weight-bold">- {{$p->formula->nombre}}</p>
-                                    <p>{{$p->formula->descripcion}}</p>
+                                    <h3 class="font-weight-bold">- {{$p->formula->nombre}}</h3>
+                                    <p class="text-justify">{{$p->formula->descripcion}}</p>
                                 </div>
                             @endif 
                         @endif
@@ -605,8 +623,8 @@
         </div>
 
         <div class="page_break">
-            <h4 class="font-weight-bold text-secondary">III. TEST DE INTERESES PROFESIONALES</h4>
-            <div>
+            <h2 class="font-weight-bold text-secondary ml-4">III. TEST DE INTERESES PROFESIONALES</h2>
+            <div class="text-justify">
                 <p>Esta evaluación permite recoger información sobre sus principales intereses, tanto
                     en referencia a las profesiones o carreras, así como las actividades que podría
                     realizar en una carrera determinada.</p>
@@ -615,25 +633,46 @@
                     áreas de acuerdo a tus respuestas del test.</p>
             </div>
 
-            <div class="mt-2">
-                <p>• Áreas de alto interés. Son aquellas áreas en las que la puntuación se encuentra
-                    por encima de 75, significa que tienes muy desarrollado este interés y sería
-                    recomendable que la profesión que elijas se vincule a las carreras que estas
-                    áreas incluyen.</p>
-
-                <p>• Áreas de mediano interés. Son aquellas áreas con puntuaciones entre 26 y 75.
-                    Significa que tu interés no es tan desarrollado hacia estas actividades. En este
-                    caso es recomendable que explores más las actividades relacionadas con estas
-                    áreas.</p>
-
-                <p>• Áreas de bajo interés. Son aquellas áreas con puntuaciones de 25 o menos,
-                    significa que no has desarrollado interés por este tipo de actividades.</p>
+            <div class="mt-2 text-justify">
+                <table class="text-justify">
+                    <tr>
+                        <td width="2%">
+                            <p style="position:absolute;top:-17px;">•</p>
+                        </td>
+                        <td width="98%">
+                            Áreas de alto interés. Son aquellas áreas en las que la puntuación se encuentra
+                            por encima de 75, significa que tienes muy desarrollado este interés y sería
+                            recomendable que la profesión que elijas se vincule a las carreras que estas
+                            áreas incluyen.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="2%">
+                            <p style="position:absolute;top:-17px;">•</p>
+                        </td>
+                        <td width="98%">
+                            Áreas de mediano interés. Son aquellas áreas con puntuaciones entre 26 y 75.
+                            Significa que tu interés no es tan desarrollado hacia estas actividades. En este
+                            caso es recomendable que explores más las actividades relacionadas con estas
+                            áreas.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="2%">
+                            <p style="position:absolute;top:-17px;">•</p>
+                        </td>
+                        <td width="98%">
+                            Áreas de bajo interés. Son aquellas áreas con puntuaciones de 25 o menos,
+                            significa que no has desarrollado interés por este tipo de actividades.
+                        </td>
+                    </tr>
+                </table>
             </div>
 
         </div>      
         
         <div class="page_break ">
-            <h4 class="font-weight-bold text-table">3.1 Tabla general de áreas y valores.</h4>
+            <h2 class="font-weight-bold text-table">3.1 Tabla general de áreas y valores.</h2>
             <table class="w-100 table-intereses text-table">
                 <thead class="font-weight-bold">
                     <tr>
@@ -678,7 +717,7 @@
                 </tbody>
             </table> 
 
-            <h4 class="font-weight-bold text-table">3.2 Tabla de resultados</h4>
+            <h2 class="font-weight-bold text-table">3.2 Tabla de resultados</h2>
             <p>A continuación encontrarás las áreas de interés que más has desarrollado y las
                 carreras asociadas:</p>
 
@@ -697,10 +736,10 @@
                     @foreach ($p_intereses as $p)
                         @if ($p->puntaje>75)
                         <tr>
-                            <td width="30%" class="font-weight-bold">
+                            <td width="30%" class="font-weight-bold text-center">
                                 {{ $p->carrera->nombre }} 
                             </td>
-                            <td width="70%">
+                            <td width="70%" class="text-center mx-2">
                                 {{ $p->carrera->interes }} 
                             </td>
                             <td>
@@ -716,30 +755,33 @@
                 </tbody>
             </table> 
 
-            <p class="text-justify">El perfil de intereses profesionales te permite identificar carreras, tomando en
-                cuenta tus preferencias por realizar estas actividades, tu percepción de qué
-                puedes aprender al realizarlas y el beneficio que las mismas te podrían traer. <br><br>
-                Para consolidar la elección de tu carrera, es importante que la vincules con tus
-                características de personalidad y talentos, para así aprovechar el máximo de tu
-                potencial De igual modo, te invitamos a revisar más información sobre las
-                carreras y conversar con profesionales o con alumnos que se encuentren
-                estudiando estas carreras actualmente. <br><br>
-                Para mayor información sobre las carreras ingresa a: <a href="https://www.upc.edu.pe/">www.upc.edu.pe</a></p>
-
-            <table class="w-100">
-                <tbody>
-                    <tr>
-                        <td width="50%">
-                           
-                        </td>
-                        <td width="40%" class="float-right">
-                            <p class="font-weight-bold text-center">Coordinación de Colegios <br>
-                                Programa “Yo decido mi futuro” <br>
-                                UPC</p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div style="page-break-inside: avoid;">
+                <div class="text-justify">
+                    <p>
+                        El perfil de intereses profesionales te permite identificar carreras, tomando en
+                        cuenta tus preferencias por realizar estas actividades, tu percepción de qué
+                        puedes aprender al realizarlas y el beneficio que las mismas te podrían traer. 
+                    </p>
+                    <p>
+                        Para mayor información sobre las carreras ingresa a: <a href="https://www.upc.edu.pe/">www.upc.edu.pe</a></p>
+                    </p>
+                </div>
+    
+                <table class="w-100">
+                    <tbody>
+                        <tr>
+                            <td width="50%">
+                               
+                            </td>
+                            <td width="40%" class="float-right">
+                                <p class="font-weight-bold text-center">Coordinación de Colegios <br>
+                                    Programa “Yo decido mi futuro” <br>
+                                    UPC</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>   
     </body>
 </html>

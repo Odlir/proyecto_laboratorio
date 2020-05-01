@@ -167,10 +167,10 @@ class EncuestaPersonaController extends Controller
             ->get();
 
         $formulas = Formula::where('estado', '1')
+            ->with('area')
             ->get();
 
         $formulas_items = FormulaItem::where('estado', '1')
-            ->with('areaitem')
             ->get();
 
         $preguntas = Pregunta::where('tipo_encuesta_id', 3)
@@ -199,7 +199,7 @@ class EncuestaPersonaController extends Controller
         foreach ($formulas as $f) {
             $object3 = new stdClass();
             $object3->formula_id = $f['id'];
-            $object3->area_id = $f['areaitem']['area_id'];
+            $object3->area_id = $f['area']['id'];
             $object3->puntaje = 0;
             $object3->cantidad = 0;
             $object3->transformacion = 0;

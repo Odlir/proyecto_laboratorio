@@ -16,7 +16,7 @@ export class ReportesComponent implements OnInit {
 		temperamento_id: null,
 		campo: null,
 		archivo: null,
-		hour : null,
+		hour: null,
 	}
 
 	public sucursales = [];
@@ -125,9 +125,9 @@ export class ReportesComponent implements OnInit {
 	}
 
 	obtenerIntereses() {
-
+		
 		this.limpiar();
-
+		this.intereses = [];
 		this.api.get('links?tipo=1&sucursal=' + this.sucursal.id).subscribe(
 			(data) => {
 				this.intereses = data

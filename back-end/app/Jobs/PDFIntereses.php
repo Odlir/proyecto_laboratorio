@@ -38,10 +38,7 @@ class PDFIntereses implements ShouldQueue
      */
     public function handle()
     {
-        $carreras = Carrera::where('estado', 1)->orderBy('nombre', 'asc')
-            ->get();
-
-        $intereses = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $this->persona, 'puntajes' => $this->puntajes))->output();
+        $intereses = \PDF::loadView('reporte_interes', array('persona' => $this->persona, 'puntajes' => $this->puntajes))->output();
 
         $name = 'PDF-'.$this->hour.'/'.$this->empresa . '/INTERESES/' . $this->persona->nombres . '-' . $this->persona->apellido_paterno . '-' . $this->persona->apellido_materno . '.pdf';
         \Storage::disk('public')->put($name,  $intereses);

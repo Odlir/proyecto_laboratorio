@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+        
         <meta charset="UTF-8">
         <style>
 
@@ -12,7 +14,7 @@
             body
             {
                 padding: 35px;
-                font-family: 'Verdana, Geneva, sans-serif';
+                font-family: 'Comfortaa', cursive;
             }
 
             .text-center
@@ -102,7 +104,7 @@
             }
 
             .text-table{
-                color: rgb(104,104,104);
+                color: #404342 ;
             }
 
             .text-right{
