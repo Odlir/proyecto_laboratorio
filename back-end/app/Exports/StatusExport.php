@@ -43,7 +43,7 @@ class StatusExport implements FromView, ShouldAutoSize, WithEvents
                 ->first();
 
             if ($data_interes) {
-                $p->link_intereses = $this->back . 'exportar' . '/' . $this->interes_id . '/' . $p->id;
+                $p->link_intereses = $this->back . 'exportar' . '/intereses/' . $this->interes_id . '/' . $p->id;
                 $p->status_int = "Completado";
             } else {
                 $p->link_intereses = $this->front . '/test-intereses/' . $this->interes_id . '/' . $p->id;
@@ -51,7 +51,7 @@ class StatusExport implements FromView, ShouldAutoSize, WithEvents
             }
 
             if ($data_temperamento) {
-                $p->link_temperamentos = "";
+                $p->link_temperamentos = $this->back . 'exportar' . '/temperamentos/' . $this->temperamento_id . '/' . $p->id;
                 $p->status_temp = "Completado";
             } else {
                 if ($this->temperamento_id != '') {

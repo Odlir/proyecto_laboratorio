@@ -2,6 +2,7 @@
 <html lang="es">
     <head>
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">
         <meta charset="UTF-8">
         <style>
                
@@ -53,6 +54,10 @@
 
             .text-secondary {
                 color: #404342 ;
+            }
+
+            .text-caratula{
+                color: #585E5C;
             }
 
             .img-width{
@@ -170,8 +175,17 @@
             }
 
             .titulo{
-                font-size: 20px;
+                font-family: 'Hammersmith One', sans-serif;
+                font-size: 40px;
                 margin-top: -20px;
+                font-weight:bolder;
+            }
+
+            .subtitulo{
+                font-family: 'Hammersmith One', sans-serif;
+                font-size: 35px;
+                margin-top: -20px;
+                font-weight:bolder;
             }
 
             .barra_tabla{
@@ -250,7 +264,7 @@
             .table-intereses{
                 border-collapse: collapse;
                 border: 1px solid;
-                font-size: 16px;
+                font-size: 15px;
             }
 
             .table-intereses th{
@@ -357,29 +371,29 @@
         </style>
     </head>
     <body>
-        <div class="text-center text-secondary mt-caratula">
+        <div class="text-center text-caratula mt-caratula">
             <img class="img-width" src="{{ 'storage/logo_upc_red.png' }}" alt="">
 
             <div class="titulo">
-                <h1>Programa de Orientación <br> Vocacional</h1>
-                <h1>“Yo Decido mi futuro”</h1>
+                <p>Programa de Orientación <br> Vocacional</p>
+                <p>“Yo Decido mi futuro”</p>
             </div>
         
-            <div class="bg-dark text-white py-3 px-0 mt-5">
-                <h1>Reporte de Resultados UPC</h1>
+            <div class="bg-dark text-white py-3 px-0 mt-5 subtitulo">
+                <p>Reporte de Resultados UPC</p>
             </div>
           <div class="pad-doc">
-            <div style="margin-top:-10px;">
-                <h1 class="m-0">Test de preferencias del Temperamentos</h1>
-                <h1 class="m-0">Test de Talentos</h1>
-                <h1 class="m-0">Test de Intereses</h1>
+            <div class="subtitulo" style="margin-top:-10px;">
+                <p class="m-0">Test de preferencias del Temperamentos</p>
+                <p class="m-0">Test de Talentos</p>
+                <p class="m-0">Test de Intereses</p>
             </div>
-            <div style="margin-top:5px;">
-                <h1>Alumno:</h1>
-                <h1>{{$persona->nombres}} {{$persona->apellido_paterno}} {{$persona->apellido_materno}}</h1>
-                <h1>@php
+            <div class="subtitulo" style="margin-top:5px;">
+                <p>Alumno:</p>
+                <p>{{$persona->nombres}} {{$persona->apellido_paterno}} {{$persona->apellido_materno}}</p>
+                <p>@php
                     echo date('d-m-Y');
-                @endphp</h1>
+                @endphp</p>
             </div>
           </div>     
         </div>
@@ -554,7 +568,7 @@
                             @endforeach
                             </div>                 
                         </div>
-
+                        <br>
                         <h2 class="font-weight-bold text-secondary">1.1 Descripción general del perfil:</h2>
                         <h2 class="font-weight-bold text-secondary">@foreach ($a_temperamentos as $a)
                             {{$a->palabra}}

@@ -2,6 +2,7 @@
 <html lang="es">
     <head>
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">
 
         <meta charset="UTF-8">
         <style>
@@ -113,7 +114,7 @@
         .table-interes {
             border-collapse: collapse;
             border: 1px solid;
-            font-size: 16px;
+            font-size: 15px;
         }
         
         .border{
@@ -198,10 +199,14 @@
             padding-bottom : 8px;
             border: 1px solid;
         }
+
+        .caratula{
+            font-family: 'Hammersmith One', sans-serif;
+        }
     </style>
     </head>
     <body>
-        <div class="text-center">
+        <div class="text-center caratula">
             <h1 class="titulo text-secondary">Test de Intereses</h1>
          
           <div class="mt">

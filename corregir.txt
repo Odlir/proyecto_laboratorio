@@ -4,8 +4,6 @@
 
 - EL IMPORTAR EN EXCEL EN CELULAR ESTÁ FALLANDO
 
-- EN LA URL DEL FRONT PONERLE gaf.com.pe/encuesta
-
 - En el boton generar reporte debe haber como un status de cada alumno con
 circulos que indiquen, si intereses, talentos o temperamentos estan completados
 los circulos deben ser del color del semaforo, completado verde e
@@ -28,4 +26,4 @@ temperamentos
 
 libreria para graficos jpgraph
 
-<base href="/front-encuesta/">
+<base href="/encuestas/">

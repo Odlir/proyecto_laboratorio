@@ -96,7 +96,7 @@ export class ReportesComponent implements OnInit {
 			this.mensaje('Por Favor Complete los campos requeridos')
 		} else {
 			var d = new Date();
-			this.form.hour = d.getHours() + '-' + d.getMinutes() + '-' + d.getSeconds();
+			this.form.hour = d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear() + '-' + d.getHours() + '-' + d.getMinutes() + '-' + d.getSeconds();
 
 			this.disabled = true;
 			this.form.campo = 'pdf';
@@ -125,7 +125,7 @@ export class ReportesComponent implements OnInit {
 	}
 
 	obtenerIntereses() {
-		
+
 		this.limpiar();
 		this.intereses = [];
 		this.api.get('links?tipo=1&sucursal=' + this.sucursal.id).subscribe(

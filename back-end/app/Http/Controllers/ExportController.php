@@ -102,7 +102,7 @@ class ExportController extends Controller
             $temperamento_id = $encuesta_temp['id'];
         }
 
-        Excel::store(new StatusExport($general['personas'], $encuesta['id'], $temperamento_id),'Consolidado-'.$request->hour.'/consolidado.xlsx','local');
+        Excel::store(new StatusExport($general['personas'], $encuesta['id'], $temperamento_id), 'Consolidado-' . $request->hour . '/consolidado.xlsx', 'local');
 
         if ($descargar) {
             return $this->descargarZip($request->hour);
@@ -174,7 +174,7 @@ class ExportController extends Controller
         }
     }
 
-    public function pdf($interes_id, $persona_id)
+    public function pdf_intereses($interes_id, $persona_id)
     {
         $carreras = Carrera::where('estado', 1)->orderBy('nombre', 'asc')
             ->get();
@@ -189,6 +189,28 @@ class ExportController extends Controller
 
         $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $persona, 'puntajes' => $encuesta['punintereses']));
         return $pdf->download('Reporte-Intereses-' . $persona->nombres . '-' . $persona->apellido_paterno . '-' . $persona->apellido_materno . '.pdf');
+    }
+
+    public function pdf_temperamentos($temperamento_id, $persona_id)
+    {
+        $areas = Area::with('items.items')
+            ->with('formulas')
+            ->where('estado', '1')->get();
+
+        $ruedas = Rueda::where('estado', '1')->get();
+
+        $persona = Persona::where('id', $persona_id)
+            ->first();
+
+        $encuesta = EncuestaPuntaje::where('encuesta_id', $temperamento_id)
+            ->where('persona_id', $persona_id)
+            ->with('puntemperamentos.formula')
+            ->with('areatemperamentos')
+            ->first();
+
+        $pdf = \PDF::loadView('reporte_temperamentos', array('ruedas' => $ruedas, 'persona' => $persona, 'p_temperamentos' => $encuesta['puntemperamentos'], 'a_temperamentos' => $encuesta['areatemperamentos'], 'areas' => $areas));
+
+        return $pdf->download('Reporte-Temperamentos-' . $persona->nombres . '-' . $persona->apellido_paterno . '-' . $persona->apellido_materno . '.pdf');
     }
 
     public function status(Request $request)
