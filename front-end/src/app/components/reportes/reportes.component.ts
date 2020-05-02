@@ -69,6 +69,29 @@ export class ReportesComponent implements OnInit {
 		}
 	}
 
+	zip_intereses() {
+		if (this.sucursal.nombre == null || this.form.interes_id == null) {
+			this.mensaje('Por Favor Complete los campos requeridos')
+		} else {
+			var d = new Date();
+			this.form.hour = d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear() + '-' + d.getHours() + '-' + d.getMinutes() + '-' + d.getSeconds();
+
+			this.disabled = true;
+			this.form.campo = 'intereses';
+			this.form.archivo = this.sucursal.nombre + '-INTERESES.zip';
+			this.api.downloadFile('exportar', this.form).subscribe(
+				(data) => {
+					this.eliminarZip();
+				},
+				(error) => {
+					this.disabled = false;
+					this.mensaje('No hay encuestas resueltas.')
+					this.limpiar();
+				}
+			);
+		}
+	}
+
 	excel() {
 		if (this.sucursal.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por Favor Complete los campos requeridos')

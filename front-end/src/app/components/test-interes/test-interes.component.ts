@@ -34,7 +34,7 @@ export class TestInteresComponent implements OnInit {
 
 	public alumno = null;
 
-	public save: boolean = null;
+	public save: boolean = true;
 
 	public show: boolean = true;
 
@@ -159,17 +159,13 @@ export class TestInteresComponent implements OnInit {
 	}
 
 	async guardar() {
-
-		Object.entries(this.formGroup.controls).every(a => {
+		let falta = "";
+		Object.entries(this.formGroup.controls).every(a=> {
 			if (a[1].value == '') {
-				Swal.fire({
-					title: 'El Test debe ser completado al 100%.',
-					icon: 'warning',
-					timer: 3000
-				});
+				let ids = a[0].split('-');
 				this.data = [];
+				falta = falta + (ids[0] +'-'+ids[1]) + ',';
 				this.save = false;
-				return false;
 			}
 			else {
 
@@ -179,10 +175,12 @@ export class TestInteresComponent implements OnInit {
 				this.form.respuesta_id = a[1].value;
 
 				this.data.push({ ...this.form });
-
-				this.save = true;
-				return true;
 			}
+
+			if(falta==""){
+				this.save = true;
+			}
+			return true;
 		});
 
 		if (this.save) {
@@ -206,6 +204,13 @@ export class TestInteresComponent implements OnInit {
 
 				}
 			);
+		}else {
+			Swal.fire({
+				title: 'El Test debe ser completado al 100%: ',
+				text: falta,
+				icon: 'warning',
+				timer: 3000
+			});
 		}
 	}
 }

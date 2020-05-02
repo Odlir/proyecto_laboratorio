@@ -10,6 +10,7 @@ use App\EncuestaPuntaje;
 use App\Exports\LinkExport;
 use App\Exports\StatusExport;
 use App\Jobs\PDFConsolidados;
+use App\Jobs\PDFIntereses;
 use App\Persona;
 use App\Rueda;
 use Illuminate\Http\Request;
@@ -52,7 +53,47 @@ class ExportController extends Controller
             return $this->status($request);
         } else if ($request->campo == "pdf") {
             return $this->jobs($request);
+        } else if ($request->campo == "intereses") {
+            return $this->intereses($request);
         }
+    }
+
+    public function intereses(Request $request)
+    {
+        $temperamento_id = "";
+
+        $encuesta = Encuesta::where('id', $request->interes_id)
+            ->with('empresa')
+            ->first();
+
+        $general =  EncuestaGeneral::where('id', $encuesta['encuesta_general_id'])
+            ->with('personas')
+            ->first();
+
+        $encuesta_temp = Encuesta::where('encuesta_general_id', $general['id'])
+            ->where('tipo_encuesta_id', 3)
+            ->first();
+
+        $personas = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
+            ->with('persona')
+            ->with('punintereses.carrera')
+            ->get();
+
+        if ($encuesta_temp) {
+            $temperamento_id = $encuesta_temp['id'];
+        }
+
+        if ($personas->isEmpty()) {
+            return response()->json(['error' => 'No hay encuestas resueltas.'], 401);
+        } else {
+            foreach ($personas as $p) {
+                PDFIntereses::dispatchNow($p['persona'], $p['punintereses'], $encuesta['empresa']['nombre'], $request->hour);
+            }
+        }
+
+        Excel::store(new StatusExport($general['personas'], $encuesta['id'], $temperamento_id), 'Consolidado-' . $request->hour . '/consolidado.xlsx', 'local');
+
+        return $this->descargarZip($request->hour);
     }
 
     public function jobs(Request $request)

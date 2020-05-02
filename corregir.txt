@@ -4,15 +4,7 @@
 
 - EL IMPORTAR EN EXCEL EN CELULAR ESTÁ FALLANDO
 
-- En el boton generar reporte debe haber como un status de cada alumno con
-circulos que indiquen, si intereses, talentos o temperamentos estan completados
-los circulos deben ser del color del semaforo, completado verde e
-incompleto rojo
-
 - Al entrar al sistema se debe redireccionar a programar encuestas
-
-- cuando las encuestas falten responder, se debe colocar en que pregunta falta, por ejemplo:
-nros de preguntas: 2,3,4,5,6
 
 ////////////////////////////////
 
