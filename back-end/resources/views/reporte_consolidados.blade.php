@@ -52,7 +52,7 @@
             }
 
             .text-secondary {
-                color: #6c757d!important;
+                color: #404342 ;
             }
 
             .img-width{
@@ -305,6 +305,55 @@
                 margin-left:-3px;
                 margin-right: -3px;
             }
+
+            .cont-rueda{
+                width: 100%;
+                text-align: center;
+                position: absolute;
+            }
+
+            .rueda{
+                width: 600px;
+                height: 380px;
+            }
+
+            .minuscula{
+                width:50px;
+                height: 50px;
+            }
+
+            .mayuscula{
+                width:100px;
+                height:100px;
+            }
+
+            .table-letras{
+                position: relative;
+                z-index: 1;
+                width: 100%;
+                height: 380px;
+            }
+
+            .bottom{
+                position: relative;
+                vertical-align: bottom;
+            }
+
+            .top{
+                position: relative;
+                vertical-align: top;
+            }
+
+            .table-letras td{
+                height: 190px;
+            }
+
+            .m-2{
+                margin-left: 0.5rem !important;
+                margin-right: 0.5rem !important;
+                margin-top: 0.5rem !important;
+                margin-bottom: 0.5rem !important;
+            }
         </style>
     </head>
     <body>
@@ -423,10 +472,67 @@
                             
                         @endphp
 
+                        <div class="cont-rueda">
+                            <img class="rueda" src="{{ 'storage/ruedas/pruebas.png' }}"/>
+                        </div>
+
+                        <table class="table-letras">
+                            <tr>
+                                <td width="50%" class="bottom text-right">
+                                    @foreach ($a_temperamentos as $a)
+                                        @if ($a->area_id==1)
+                                            @if (ctype_lower($a->letra))
+                                                <img class="minuscula m-2" src="{{ 'storage/ruedas/minuscula/'.$a->letra.'.png' }}"/>     
+                                            @else
+                                                <img class="mayuscula m-2" src="{{ 'storage/ruedas/mayuscula/'.$a->letra.'.png' }}"/>     
+                                            @endif
+                                        @endif
+                                    @endforeach                        
+                                                                               
+                                </td>
+                                <td width="50%" class="bottom"> 
+                                    @foreach ($a_temperamentos as $a)
+                                        @if ($a->area_id==4)
+                                            @if (ctype_lower($a->letra))
+                                                <img class="minuscula m-2" src="{{ 'storage/ruedas/minuscula/'.$a->letra.'.png' }}"/>     
+                                            @else
+                                                <img class="mayuscula m-2" src="{{ 'storage/ruedas/mayuscula/'.$a->letra.'.png' }}"/>     
+                                            @endif
+                                        @endif
+                                    @endforeach                
+                                </td>                         
+                            </tr>
+                            <tr>
+                                <td width="50%" class="top text-right">
+                                    @foreach ($a_temperamentos as $a)
+                                        @if ($a->area_id==3)
+                                            @if (ctype_lower($a->letra))
+                                                <img class="minuscula m-2" src="{{ 'storage/ruedas/minuscula/'.$a->letra.'.png' }}"/>     
+                                            @else
+                                                <img class="mayuscula m-2" src="{{ 'storage/ruedas/mayuscula/'.$a->letra.'.png' }}"/>     
+                                            @endif
+                                        @endif
+                                    @endforeach           
+                                </td>
+                                <td width="50%" class="top">
+                                    @foreach ($a_temperamentos as $a)
+                                        @if ($a->area_id==2)
+                                            @if (ctype_lower($a->letra))
+                                                <img class="minuscula m-2" src="{{ 'storage/ruedas/minuscula/'.$a->letra.'.png' }}"/>     
+                                            @else
+                                                <img class="mayuscula m-2" src="{{ 'storage/ruedas/mayuscula/'.$a->letra.'.png' }}"/>     
+                                            @endif
+                                        @endif
+                                    @endforeach     
+                                </td>
+                            </tr>
+                        </table>
+
                         <div>
-                            <img src="{{ 'storage/ruedas/pruebas.png' }}"/>
+                            
                         </div>
                         
+                        <br><br>
                         <div class="text-center w-100">
                             <div class="p-rueda">
                                 @foreach ($a_temperamentos as $a)
