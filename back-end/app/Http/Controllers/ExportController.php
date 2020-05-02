@@ -77,6 +77,8 @@ class ExportController extends Controller
 
         $ruedas = Rueda::where('estado', '1')->get();
 
+        $temperamento_id = "";
+
 
         foreach ($general['personas'] as $p) { //PARA LOS CONSOLIDADOS
             $p_intereses = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
@@ -95,6 +97,12 @@ class ExportController extends Controller
                 $descargar = true;
             }
         }
+
+        if ($encuesta_temp) {
+            $temperamento_id = $encuesta_temp['id'];
+        }
+
+        Excel::store(new StatusExport($general['personas'], $encuesta['id'], $temperamento_id),'Consolidado-'.$request->hour.'/consolidado.xlsx','local');
 
         if ($descargar) {
             return $this->descargarZip($request->hour);
@@ -117,6 +125,17 @@ class ExportController extends Controller
                 $relativePath = substr($filePath, strlen($path));
 
                 $zip->addFile($filePath, $relativePath);
+            }
+        }
+        $path2 = storage_path('app/Consolidado-' . $hour);
+        $files2 = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path2));
+        foreach ($files2 as $name => $file) {
+            if (!$file->isDir()) {
+                $filePath2 = $file->getRealPath();
+
+                $relativePath2 = substr($filePath2, strlen($path2));
+
+                $zip->addFile($filePath2, $relativePath2);
             }
         }
         $zip->close();

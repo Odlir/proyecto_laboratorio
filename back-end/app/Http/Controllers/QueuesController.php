@@ -83,5 +83,7 @@ class QueuesController extends Controller
         File::delete('PDF-'.$id.'.zip');
 
         Storage::deleteDirectory('public/PDF-'.$id);
+
+        Storage::deleteDirectory('Consolidado-'.$id);
     }
 }
