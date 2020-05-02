@@ -55,7 +55,56 @@ class ExportController extends Controller
             return $this->jobs($request);
         } else if ($request->campo == "intereses") {
             return $this->intereses($request);
+        } else if ($request->campo == "reportes") {
+            return $this->reportes($request);
         }
+    }
+
+    public function reportes(Request $request)
+    {
+        $interes = Encuesta::where('id', $request->interes_id)
+            ->with(['general' => function ($query) {
+                $query->with(['personas' => function ($query) {
+                    $query->wherePivot('estado', '1');
+                }]);
+            }])
+            ->first();
+
+        $general =  EncuestaGeneral::where('id', $interes['encuesta_general_id'])
+            ->with('personas')
+            ->first();
+
+        $temperamento = Encuesta::where('encuesta_general_id', $general['id'])
+            ->where('tipo_encuesta_id', 3)
+            ->first();
+
+        if ($interes['general']['personas']->isEmpty()) {
+            return response()->json(['error' => 'No hay alumnos registrados'], 404);
+        } else {
+            foreach ($general['personas'] as $p) {
+                $data_interes = EncuestaPuntaje::where('encuesta_id', $interes['id'])
+                    ->where('persona_id', $p->id)
+                    ->first();
+
+                $data_temperamento = EncuestaPuntaje::where('encuesta_id', $temperamento['id'])
+                    ->where('persona_id', $p->id)
+                    ->first();
+
+                if ($data_interes) {
+                    $p->status_int = "1"; //COMPLETADO
+                } else {
+                    $p->status_int = "0"; //PENDIENTE
+                }
+
+                if ($data_temperamento) {
+                    $p->status_temp = "1"; //COMPLETADO
+                } else {
+                    $p->status_temp = "0"; //PENDIENTE
+                }
+            }
+        }
+
+        return response()->json($general['personas'], 200);
     }
 
     public function intereses(Request $request)

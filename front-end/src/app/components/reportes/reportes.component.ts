@@ -19,6 +19,8 @@ export class ReportesComponent implements OnInit {
 		hour: null,
 	}
 
+	public showReporte = false;
+
 	public sucursales = [];
 
 	public intereses = [];
@@ -29,6 +31,8 @@ export class ReportesComponent implements OnInit {
 		id: null,
 		nombre: null
 	}
+
+	public reportes = [];
 
 	public disabled: boolean = false;
 
@@ -47,6 +51,7 @@ export class ReportesComponent implements OnInit {
 	}
 
 	links() {
+		this.showReporte=false;
 		if (this.sucursal.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por Favor Complete los campos requeridos')
 		}
@@ -70,6 +75,7 @@ export class ReportesComponent implements OnInit {
 	}
 
 	zip_intereses() {
+		this.showReporte=false;
 		if (this.sucursal.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por Favor Complete los campos requeridos')
 		} else {
@@ -93,6 +99,7 @@ export class ReportesComponent implements OnInit {
 	}
 
 	excel() {
+		this.showReporte=false;
 		if (this.sucursal.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por Favor Complete los campos requeridos')
 		} else {
@@ -115,6 +122,7 @@ export class ReportesComponent implements OnInit {
 	}
 
 	pdf() {
+		this.showReporte=false;
 		if (this.sucursal.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por Favor Complete los campos requeridos')
 		} else {
@@ -131,6 +139,28 @@ export class ReportesComponent implements OnInit {
 				(error) => {
 					this.disabled = false;
 					this.mensaje('No hay encuestas resueltas.')
+					this.limpiar();
+				}
+			);
+		}
+	}
+
+	reporte(){
+		this.showReporte=false;
+		this.form.campo = 'reportes';
+		if (this.sucursal.nombre == null || this.form.interes_id == null) {
+			this.mensaje('Por Favor Complete los campos requeridos')
+		} else {
+			this.disabled = true;
+			this.api.post('exportar', this.form).subscribe(
+				(data) => {
+					this.showReporte=true;
+					this.reportes = data;
+					this.disabled = false;
+				},
+				(error) => {
+					this.disabled = false;
+					this.mensaje(error)
 					this.limpiar();
 				}
 			);
@@ -184,6 +214,7 @@ export class ReportesComponent implements OnInit {
 		this.form.campo = null;
 		this.temperamentos = [];
 		this.form.hour = null;
+		this.reportes = [];
 	}
 
 	mensaje(msj) {

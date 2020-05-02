@@ -1,10 +1,10 @@
 <app-header nombre="LINK DE ENCUESTAS" icono="poll"></app-header>
 
 <div class="w-100 row">
-	<form class="col-7" ngNativeValidate>
+	<form class="col-9" ngNativeValidate>
 		<div class="form-group row my-3">
-			<label class="col-sm-3 col-form-label w-100">Empresa <span class="text-danger">*</span></label>
-			<div class="col-sm-9">
+			<label class="col-sm-2 col-form-label w-100">Empresa <span class="text-danger">*</span></label>
+			<div class="col-sm-6">
 				<select name="empresa" class="form-control" [(ngModel)]="sucursal"
 					(change)="obtenerIntereses()">
 					<option [ngValue]="item" *ngFor="let item of sucursales">{{item.nombre}}</option>
@@ -14,8 +14,8 @@
 		</div>
 
 		<div class="form-group row my-3">
-			<label class="col-sm-3 col-form-label w-100">Intereses <span class="text-danger">*</span></label>
-			<div class="col-sm-9">
+			<label class="col-sm-2 col-form-label w-100">Intereses <span class="text-danger">*</span></label>
+			<div class="col-sm-6">
 				<select name="intereses" class="form-control" [(ngModel)]="form.interes_id"
 					(change)="obtenerTemperamentos()">
 					<option [value]="item.id" *ngFor="let item of intereses">{{item.id}} - ENCUESTA INTERESES </option>
@@ -25,8 +25,8 @@
 		</div>
 
 		<div class="form-group row my-3">
-			<label class="col-sm-3 col-form-label w-100">Temperamentos</label>
-			<div class="col-sm-9">
+			<label class="col-sm-2 col-form-label w-100">Temperamentos</label>
+			<div class="col-sm-6">
 				<select name="temperamentos" class="form-control" [(ngModel)]="form.temperamento_id">
 					<option [value]="item.id" *ngFor="let item of temperamentos">{{item.id}} - ENCUESTA TEMPERAMENTOS
 					</option>
@@ -37,22 +37,49 @@
 
 		<div class="form-group row">
 			<div class="col-12 row">
-				<button type="submit" class="btn btn-success  d-flex" (click)="excel()" [disabled]="disabled">
+				<button type="submit" class="btn btn-success d-flex" (click)="excel()" [disabled]="disabled">
 					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXCEL STATUS
 				</button>
-				<button type="submit" class="btn btn-primary  d-flex" (click)="pdf()" [disabled]="disabled">
+				<button type="submit" class="btn btn-primary d-flex" (click)="pdf()" [disabled]="disabled">
 					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXPORTAR PDFS
+				</button>
+				<button type="button" class="btn btn-light d-flex" (click)="reporte()" [disabled]="disabled">
+					<fa-icon [icon]="['fas', 'file-download']"></fa-icon>GENERAR REPORTE
 				</button>
 				<button type="submit" class="btn btn-secondary d-flex" (click)="links()" [disabled]="disabled">
 					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> LINKS PARA ENCUESTAS
+				</button>
+				<button type="submit" class="btn btn-success d-flex" (click)="zip_intereses()" [disabled]="disabled">
+					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> INTERESES
 				</button>
 				<a (click)="return()" class="btn btn-info text-white">REGRESAR</a>
 			</div>
 		</div>
 	</form>
-	<div class="col-5 mt-5 pt-4 pl-0">
-		<button type="submit" class="btn btn-success d-flex" (click)="zip_intereses()" [disabled]="disabled">
-			<fa-icon [icon]="['fas', 'file-download']"></fa-icon> INTERESES
-		</button>
-	</div>
+</div>
+
+<div class="table-responsive mt-5" *ngIf="showReporte">
+	<table class="table table-hover text-center">
+		<thead>
+		  <tr>
+			<th scope="col">NOMBRE</th>
+			<th scope="col">INTERESES</th>
+			<th scope="col">TALENTOS</th>
+			<th scope="col">TEMPERAMENTOS</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr *ngFor="let item of reportes">
+			<td>{{item.nombrecompleto}}</td>
+			<td>
+				<span class="dot bg-danger" *ngIf="item.status_int=='0'"></span>
+				<span class="dot bg-success" *ngIf="item.status_int=='1'"></span>
+			</td>
+			<td></td>
+			<td><span class="dot bg-danger" *ngIf="item.status_temp=='0'"></span>
+				<span class="dot bg-success" *ngIf="item.status_temp=='1'"></span>
+			</td>
+		  </tr>
+		</tbody>
+	</table>
 </div>
