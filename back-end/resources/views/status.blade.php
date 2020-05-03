@@ -9,7 +9,8 @@
                 <th>TALENTOS</th>
                 <th>STATUS TEMPERAMENTOS</th>
                 <th>TEMPERAMENTOS</th>
-            @endif          
+            @endif   
+            <th>CONSOLIDADO</th>       
         </tr>
     </thead>
     <tbody>
@@ -23,7 +24,8 @@
                 <td></td>
                 <td>{{ $p->status_temp }}</td>
                 <td>{{ $p->link_temperamentos }}</td>
-            @endif   
+            @endif  
+            <td>{{ $p->link_consolidado }}</td> 
         </tr>
       @endforeach
     </tbody>

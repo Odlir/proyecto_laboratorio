@@ -9,25 +9,22 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class StatusExport implements FromView, ShouldAutoSize, WithEvents
+
+class StatusInteresesExport implements FromView, ShouldAutoSize, WithEvents
 {
     /**
-     * @return \Illuminate\Support\Collection
-     */
+    * @return \Illuminate\Support\Collection
+    */
     private $personas;
     private $interes_id;
-    private $temperamento_id;
 
     private $front;
     private $back;
 
-    private $show = true;
-
-    public function __construct($personas, $interes_id, $temperamento_id)
+    public function __construct($personas, $interes_id)
     {
         $this->personas = $personas;
         $this->interes_id = $interes_id;
-        $this->temperamento_id = $temperamento_id;
 
         $this->front = config('constants.front_end');
         $this->back = config('constants.back_end');
@@ -38,43 +35,20 @@ class StatusExport implements FromView, ShouldAutoSize, WithEvents
                 ->where('persona_id', $p->id)
                 ->first();
 
-            $data_temperamento = EncuestaPuntaje::where('encuesta_id', $this->temperamento_id)
-                ->where('persona_id', $p->id)
-                ->first();
-
             if ($data_interes) {
-                // $p->link_intereses = $this->back . 'exportar' . '/intereses/' . $this->interes_id . '/' . $p->id;
-                $p->link_intereses = "En archivo";
+                $p->link_intereses = $this->back . 'exportar' . '/intereses/' . $this->interes_id . '/' . $p->id;
                 $p->status_int = "Completado";
             } else {
                 $p->link_intereses = $this->front . '/test-intereses/' . $this->interes_id . '/' . $p->id;
                 $p->status_int = "Pendiente";
-            }
-
-            if ($data_temperamento) {
-                // $p->link_temperamentos = $this->back . 'exportar' . '/temperamentos/' . $this->temperamento_id . '/' . $p->id;
-                $p->link_temperamentos = "En archivo";
-                $p->status_temp = "Completado";
-            } else {
-                if ($this->temperamento_id != '') {
-                    $p->link_temperamentos = $this->front . '/test-temperamentos/' . $this->temperamento_id . '/' . $p->id;
-                    $p->status_temp = "Pendiente";
-                } else {
-                    $this->show = false;
-                }
-            }
-
-            if ($data_interes && $data_temperamento) {
-                $p->link_consolidado = $this->back . 'exportar' . '/consolidados/' .  $this->interes_id . '/' . $p->id;
             }
         }
     }
 
     public function view(): View
     {
-        return view('status', [
-            'personas' => $this->personas,
-            'show' => $this->show
+        return view('status_intereses', [
+            'personas' => $this->personas
         ]);
     }
 

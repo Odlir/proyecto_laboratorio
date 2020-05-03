@@ -199,7 +199,7 @@ class EncuestaPersonaController extends Controller
         foreach ($formulas as $f) {
             $object3 = new stdClass();
             $object3->formula_id = $f['id'];
-            $object3->area_id = $f['area']['id'];
+            $object3->area_id = $f['area_id'];
             $object3->puntaje = 0;
             $object3->cantidad = 0;
             $object3->transformacion = 0;
@@ -282,8 +282,8 @@ class EncuestaPersonaController extends Controller
             FormulaPuntaje::create(array_merge((array) $f, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
         }
 
-        foreach ($puntajes_rueda as $r) { //SACO LOS PROMEDIOS POR  PARA LA SUPERRUEDA
-            $r->puntaje = $f->puntaje / 4;
+        foreach ($puntajes_rueda as $r) { //SACO LOS PROMEDIOS PARA LA SUPERRUEDA
+            $r->puntaje = $r->puntaje / 4;
 
             if ($r->puntaje == 6.75) { //SE APLICA EL REDONDEO FINAL
                 $r->puntaje=7;
@@ -292,19 +292,19 @@ class EncuestaPersonaController extends Controller
             }else if($r->puntaje == 5.75){
                 $r->puntaje=6; 
             }else if($r->puntaje == 5.25){
-                $r->puntaje==5.5; 
+                $r->puntaje=5.5; 
             }else if($r->puntaje == 4.75){
                 $r->puntaje=5; 
             }else if($r->puntaje == 4.25){
-                $r->puntaje==4.5; 
+                $r->puntaje=4.5; 
             }else if($r->puntaje == 3.75){
                 $r->puntaje=4; 
             }else if($r->puntaje == 3.25){
-                $r->puntaje==3.5; 
+                $r->puntaje=3.5; 
             }else if($r->puntaje == 2.75){
                 $r->puntaje=3; 
             }else if($r->puntaje == 2.25){
-                $r->puntaje==2.5; 
+                $r->puntaje=2.5; 
             }else if($r->puntaje == 1.75){
                 $r->puntaje=2; 
             }else if($r->puntaje == 1.25){
@@ -375,7 +375,7 @@ class EncuestaPersonaController extends Controller
             AreaPuntaje::create(array_merge((array) $r, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
         }
 
-        return response()->json($puntajes_formulas, 200);
+        return response()->json($puntajes_rueda, 200);
     }
 
     /**

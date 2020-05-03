@@ -391,7 +391,7 @@
                             }
 
                             foreach ($ruedas as $r) {
-                                if(strcmp($r->nombre, $palabra) == 0)
+                                if(strnatcasecmp($r->nombre, $palabra) == 0)
                                 {
                                     $descripcion =  $r->descripcion;
                                 }

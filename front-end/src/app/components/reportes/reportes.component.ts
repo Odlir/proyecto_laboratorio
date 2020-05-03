@@ -32,6 +32,8 @@ export class ReportesComponent implements OnInit {
 		nombre: null
 	}
 
+	public show = null;
+
 	public reportes = [];
 
 	public disabled: boolean = false;
@@ -155,8 +157,9 @@ export class ReportesComponent implements OnInit {
 			this.api.post('exportar', this.form).subscribe(
 				(data) => {
 					this.showReporte=true;
-					this.reportes = data;
+					this.reportes = data[0];
 					this.disabled = false;
+					this.show= data.show;
 				},
 				(error) => {
 					this.disabled = false;
@@ -215,6 +218,7 @@ export class ReportesComponent implements OnInit {
 		this.temperamentos = [];
 		this.form.hour = null;
 		this.reportes = [];
+		this.show = null;
 	}
 
 	mensaje(msj) {

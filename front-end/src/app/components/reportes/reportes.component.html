@@ -21,6 +21,11 @@
 					<option [value]="item.id" *ngFor="let item of intereses">{{item.id}} - ENCUESTA INTERESES </option>
 				</select>
 			</div>
+			<div class="col-sm-4">
+				<button type="submit" class="btn btn-success d-flex" (click)="zip_intereses()" [disabled]="disabled">
+					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXPORTAR REP INTERESES
+				</button>
+			</div>
 			<hr>
 		</div>
 
@@ -41,17 +46,15 @@
 					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXCEL STATUS
 				</button>
 				<button type="submit" class="btn btn-primary d-flex" (click)="pdf()" [disabled]="disabled">
-					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXPORTAR PDFS
+					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXPORTAR REP CONSOLIDADOS
 				</button>
 				<button type="button" class="btn btn-light d-flex" (click)="reporte()" [disabled]="disabled">
-					<fa-icon [icon]="['fas', 'file-download']"></fa-icon>GENERAR REPORTE
+					<fa-icon [icon]="['fas', 'file-download']"></fa-icon>VER STATUS
 				</button>
 				<button type="submit" class="btn btn-secondary d-flex" (click)="links()" [disabled]="disabled">
 					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> LINKS PARA ENCUESTAS
 				</button>
-				<button type="submit" class="btn btn-success d-flex" (click)="zip_intereses()" [disabled]="disabled">
-					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> INTERESES
-				</button>
+			
 				<a (click)="return()" class="btn btn-info text-white">REGRESAR</a>
 			</div>
 		</div>
@@ -64,8 +67,8 @@
 		  <tr>
 			<th scope="col">NOMBRE</th>
 			<th scope="col">INTERESES</th>
-			<th scope="col">TALENTOS</th>
-			<th scope="col">TEMPERAMENTOS</th>
+			<th scope="col" *ngIf="show">TALENTOS</th>
+			<th scope="col" *ngIf="show">TEMPERAMENTOS</th>
 		  </tr>
 		</thead>
 		<tbody>
@@ -75,8 +78,8 @@
 				<span class="dot bg-danger" *ngIf="item.status_int=='0'"></span>
 				<span class="dot bg-success" *ngIf="item.status_int=='1'"></span>
 			</td>
-			<td></td>
-			<td><span class="dot bg-danger" *ngIf="item.status_temp=='0'"></span>
+			<td *ngIf="show"></td>
+			<td *ngIf="show"><span class="dot bg-danger" *ngIf="item.status_temp=='0'"></span>
 				<span class="dot bg-success" *ngIf="item.status_temp=='1'"></span>
 			</td>
 		  </tr>

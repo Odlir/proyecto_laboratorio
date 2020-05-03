@@ -384,7 +384,7 @@
             </div>
           <div class="pad-doc">
             <div class="subtitulo" style="margin-top:-10px;">
-                <p class="m-0">Test de preferencias del Temperamentos</p>
+                <p class="m-0">Test de Preferencias de Temperamentos</p>
                 <p class="m-0">Test de Talentos</p>
                 <p class="m-0">Test de Intereses</p>
             </div>
@@ -478,7 +478,7 @@
                             }
 
                             foreach ($ruedas as $r) {
-                                if(strcmp($r->nombre, $palabra) == 0)
+                                if(strnatcasecmp($r->nombre, $palabra) == 0)
                                 {
                                     $descripcion =  $r->descripcion;
                                 }

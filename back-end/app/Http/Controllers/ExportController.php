@@ -9,6 +9,7 @@ use App\EncuestaGeneral;
 use App\EncuestaPuntaje;
 use App\Exports\LinkExport;
 use App\Exports\StatusExport;
+use App\Exports\StatusInteresesExport;
 use App\Jobs\PDFConsolidados;
 use App\Jobs\PDFIntereses;
 use App\Persona;
@@ -62,6 +63,8 @@ class ExportController extends Controller
 
     public function reportes(Request $request)
     {
+        $show = false;
+
         $interes = Encuesta::where('id', $request->interes_id)
             ->with(['general' => function ($query) {
                 $query->with(['personas' => function ($query) {
@@ -77,6 +80,10 @@ class ExportController extends Controller
         $temperamento = Encuesta::where('encuesta_general_id', $general['id'])
             ->where('tipo_encuesta_id', 3)
             ->first();
+
+        if ($temperamento) {
+            $show = true;
+        }
 
         if ($interes['general']['personas']->isEmpty()) {
             return response()->json(['error' => 'No hay alumnos registrados'], 404);
@@ -104,14 +111,51 @@ class ExportController extends Controller
             }
         }
 
-        return response()->json($general['personas'], 200);
+        return response()->json([$general['personas'],"show"=>$show], 200);
     }
 
     public function intereses(Request $request)
     {
-        $temperamento_id = "";
-
         $encuesta = Encuesta::where('id', $request->interes_id)
+            ->with('empresa')
+            ->first();
+
+        $general =  EncuestaGeneral::where('id', $encuesta['encuesta_general_id'])
+            ->with('personas')
+            ->first();
+
+        $personas = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
+            ->with('persona')
+            ->with('punintereses.carrera')
+            ->get();
+
+
+        if ($personas->isEmpty()) {
+            return response()->json(['error' => 'No hay encuestas resueltas.'], 401);
+        } else {
+            foreach ($personas as $p) {
+                PDFIntereses::dispatchNow($p['persona'], $p['punintereses'], $encuesta['empresa']['nombre'], $request->hour);
+            }
+        }
+
+        Excel::store(new StatusInteresesExport($general['personas'], $encuesta['id']), 'Consolidado-' . $request->hour . '/Consolidado.xlsx', 'local');
+
+        return $this->descargarZip($request->hour);
+    }
+
+    public function pdf_consolidado($interes_id, $persona_id)
+    {
+        $ruedas = Rueda::where('estado', '1')->get();
+
+        $areas = Area::with('items.items')
+            ->with('formulas')
+            ->where('estado', '1')
+            ->get();
+
+        $persona = Persona::where('id', $persona_id)
+            ->first();
+
+        $encuesta = Encuesta::where('id', $interes_id)
             ->with('empresa')
             ->first();
 
@@ -123,26 +167,20 @@ class ExportController extends Controller
             ->where('tipo_encuesta_id', 3)
             ->first();
 
-        $personas = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
-            ->with('persona')
-            ->with('punintereses.carrera')
-            ->get();
+        $p_intereses = EncuestaPuntaje::where('encuesta_id', $interes_id)
+            ->where('persona_id', $persona_id)
+            ->with('punintereses.carrera.intereses')
+            ->first();
 
-        if ($encuesta_temp) {
-            $temperamento_id = $encuesta_temp['id'];
-        }
+        $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
+            ->where('persona_id', $persona_id)
+            ->with('puntemperamentos.formula')
+            ->with('areatemperamentos')
+            ->first();
 
-        if ($personas->isEmpty()) {
-            return response()->json(['error' => 'No hay encuestas resueltas.'], 401);
-        } else {
-            foreach ($personas as $p) {
-                PDFIntereses::dispatchNow($p['persona'], $p['punintereses'], $encuesta['empresa']['nombre'], $request->hour);
-            }
-        }
+        $pdf = \PDF::loadView('reporte_consolidados', array('areas' => $areas, 'ruedas' => $ruedas, 'persona' => $persona, 'p_intereses' => $p_intereses['punintereses'], 'p_temperamentos' => $p_temperamentos['puntemperamentos'], 'a_temperamentos' => $p_temperamentos['areatemperamentos']));
 
-        Excel::store(new StatusExport($general['personas'], $encuesta['id'], $temperamento_id), 'Consolidado-' . $request->hour . '/consolidado.xlsx', 'local');
-
-        return $this->descargarZip($request->hour);
+        return $pdf->download('Reporte-Consolidado-' . $persona->nombres . '-' . $persona->apellido_paterno . '-' . $persona->apellido_materno . '.pdf');
     }
 
     public function jobs(Request $request)
@@ -246,15 +284,16 @@ class ExportController extends Controller
             }])
             ->first();
 
-        if ($request->temperamento_id != null) {
-            $temperamento = Encuesta::where('id', $request->temperamento_id)
-                ->with(['general' => function ($query) {
-                    $query->with(['personas' => function ($query) {
-                        $query->wherePivot('estado', '1');
-                    }]);
-                }])
-                ->first();
-            $temperamento_id = $temperamento['id'];
+        $general =  EncuestaGeneral::where('id', $interes['encuesta_general_id'])
+            ->with('personas')
+            ->first();
+
+        $encuesta_temp = Encuesta::where('encuesta_general_id', $general['id'])
+            ->where('tipo_encuesta_id', 3)
+            ->first();
+
+        if ($encuesta_temp) {
+            $temperamento_id = $encuesta_temp['id'];
         }
 
         if ($interes['general']['personas']->isEmpty()) {
@@ -315,16 +354,16 @@ class ExportController extends Controller
             }])
             ->first();
 
-        if ($request->temperamento_id != null) {
-            $temperamento = Encuesta::where('id', $request->temperamento_id)
-                ->with(['general' => function ($query) {
-                    $query->with(['personas' => function ($query) {
-                        $query->wherePivot('estado', '1');
-                    }]);
-                }])
-                ->first();
+        $general =  EncuestaGeneral::where('id', $interes['encuesta_general_id'])
+            ->with('personas')
+            ->first();
 
-            $temperamento_id = $temperamento['id'];
+        $encuesta_temp = Encuesta::where('encuesta_general_id', $general['id'])
+            ->where('tipo_encuesta_id', 3)
+            ->first();
+
+        if ($encuesta_temp) {
+            $temperamento_id = $encuesta_temp['id'];
         }
 
         if ($interes['general']['personas']->isEmpty()) {
