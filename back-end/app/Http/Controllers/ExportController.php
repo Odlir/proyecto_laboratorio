@@ -138,7 +138,7 @@ class ExportController extends Controller
             }
         }
 
-        Excel::store(new StatusInteresesExport($general['personas'], $encuesta['id']), 'Consolidado-' . $request->hour . '/Consolidado.xlsx', 'local');
+        Excel::store(new StatusInteresesExport($general['personas'], $encuesta['id']), 'Consolidado-' . $request->hour . '/'.$encuesta['empresa']['nombre'].'-'.$request->interes_id.'.xlsx', 'local');
 
         return $this->descargarZip($request->hour);
     }
@@ -230,7 +230,7 @@ class ExportController extends Controller
             $temperamento_id = $encuesta_temp['id'];
         }
 
-        Excel::store(new StatusExport($general['personas'], $encuesta['id'], $temperamento_id), 'Consolidado-' . $request->hour . '/consolidado.xlsx', 'local');
+        Excel::store(new StatusExport($general['personas'], $encuesta['id'], $temperamento_id), 'Consolidado-' . $request->hour . '/'.$encuesta['empresa']['nombre'].'-'.$request->interes_id.'.xlsx', 'local');
 
         if ($descargar) {
             return $this->descargarZip($request->hour);

@@ -47,7 +47,7 @@ class PDFConsolidados implements ShouldQueue
     {
         $consolidados = \PDF::loadView('reporte_consolidados', array('areas' => $this->areas, 'ruedas' => $this->ruedas, 'persona' => $this->persona, 'p_intereses' => $this->p_intereses, 'p_temperamentos' => $this->p_temperamentos, 'a_temperamentos' => $this->a_temperamentos))->output();
 
-        $name = 'PDF-' . $this->hour . '/' . $this->empresa . '/CONSOLIDADOS/' . $this->persona->nombres . '-' . $this->persona->apellido_paterno . '-' . $this->persona->apellido_materno . '.pdf';
+        $name = 'PDF-' . $this->hour . '/CONSOLIDADO-'  . $this->persona->nombres .  $this->persona->apellido_paterno . $this->persona->apellido_materno . '.pdf';
         \Storage::disk('public')->put($name,  $consolidados);
     }
 }

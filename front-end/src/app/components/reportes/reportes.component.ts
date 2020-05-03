@@ -55,7 +55,7 @@ export class ReportesComponent implements OnInit {
 	links() {
 		this.showReporte=false;
 		if (this.sucursal.nombre == null || this.form.interes_id == null) {
-			this.mensaje('Por Favor Complete los campos requeridos')
+			this.mensaje('Por favor complete los campos requeridos')
 		}
 		else {
 			this.disabled = true;
@@ -79,14 +79,14 @@ export class ReportesComponent implements OnInit {
 	zip_intereses() {
 		this.showReporte=false;
 		if (this.sucursal.nombre == null || this.form.interes_id == null) {
-			this.mensaje('Por Favor Complete los campos requeridos')
+			this.mensaje('Por favor complete los campos requeridos')
 		} else {
 			var d = new Date();
 			this.form.hour = d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear() + '-' + d.getHours() + '-' + d.getMinutes() + '-' + d.getSeconds();
 
 			this.disabled = true;
 			this.form.campo = 'intereses';
-			this.form.archivo = this.sucursal.nombre + '-INTERESES.zip';
+			this.form.archivo = 'REPINTERESES-'+this.sucursal.nombre+'-'+this.form.interes_id + '.zip';
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
 					this.eliminarZip();
@@ -103,7 +103,7 @@ export class ReportesComponent implements OnInit {
 	excel() {
 		this.showReporte=false;
 		if (this.sucursal.nombre == null || this.form.interes_id == null) {
-			this.mensaje('Por Favor Complete los campos requeridos')
+			this.mensaje('Por favor complete los campos requeridos')
 		} else {
 			this.disabled = true;
 			this.form.campo = 'status';
@@ -126,14 +126,14 @@ export class ReportesComponent implements OnInit {
 	pdf() {
 		this.showReporte=false;
 		if (this.sucursal.nombre == null || this.form.interes_id == null) {
-			this.mensaje('Por Favor Complete los campos requeridos')
+			this.mensaje('Por favor complete los campos requeridos')
 		} else {
 			var d = new Date();
 			this.form.hour = d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear() + '-' + d.getHours() + '-' + d.getMinutes() + '-' + d.getSeconds();
 
 			this.disabled = true;
 			this.form.campo = 'pdf';
-			this.form.archivo = this.sucursal.nombre + '-REPORTES.zip';
+			this.form.archivo = 'REPCONSOLIDADO-'+this.sucursal.nombre+'-'+this.form.interes_id+ '.zip';
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
 					this.eliminarZip();
@@ -151,7 +151,7 @@ export class ReportesComponent implements OnInit {
 		this.showReporte=false;
 		this.form.campo = 'reportes';
 		if (this.sucursal.nombre == null || this.form.interes_id == null) {
-			this.mensaje('Por Favor Complete los campos requeridos')
+			this.mensaje('Por favor complete los campos requeridos')
 		} else {
 			this.disabled = true;
 			this.api.post('exportar', this.form).subscribe(
