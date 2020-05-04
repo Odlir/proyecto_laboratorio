@@ -2,7 +2,6 @@
 <html lang="es">
     <head>
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">
 
         <meta charset="UTF-8">
         <style>
@@ -10,11 +9,11 @@
             @page{    
                 margin: 0;
                 padding:0;
+                font-family: 'Comfortaa', cursive;
             }
             
             body
             {
-                font-family: 'Comfortaa', cursive;
                 padding: 70px;         
             }
 
@@ -97,15 +96,13 @@
             }
 
             .titulo{
-                font-family: 'Hammersmith One', sans-serif;
-                font-size: 40px;
+                font-size: 35px;
                 margin-top: -20px;
                 font-weight:bolder;
             }
 
             .subtitulo{
-                font-family: 'Hammersmith One', sans-serif;
-                font-size: 35px;
+                font-size: 30px;
                 margin-top: -20px;
                 font-weight:bolder;
             }

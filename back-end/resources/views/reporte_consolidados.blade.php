@@ -2,7 +2,6 @@
 <html lang="es">
     <head>
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">
         <meta charset="UTF-8">
         <style>
                
@@ -13,11 +12,11 @@
          
             @page{    
                 margin: 80px;
+                font-family: 'Comfortaa', cursive;
             }
 
             body
             {           
-                font-family: 'Comfortaa', cursive;
                 font-size: 14px;
             }
 
@@ -175,15 +174,13 @@
             }
 
             .titulo{
-                font-family: 'Hammersmith One', sans-serif;
-                font-size: 40px;
+                font-size: 35px;
                 margin-top: -20px;
                 font-weight:bolder;
             }
 
             .subtitulo{
-                font-family: 'Hammersmith One', sans-serif;
-                font-size: 35px;
+                font-size: 30px;
                 margin-top: -20px;
                 font-weight:bolder;
             }
@@ -872,10 +869,10 @@
                             <td width="30%" class="font-weight-bold text-center">
                                 {{ $p->carrera->nombre }} 
                             </td>
-                            <td width="70%" class="text-center mx-2">
+                            <td width="70%" class="text-justify mx-2">
                                 {{ $p->carrera->interes }} 
                             </td>
-                            <td>
+                            <td class="text-center">
                                 @foreach ($p->carrera->intereses as $i)
                                     @if ($i->carrera_id == $p->carrera->id)
                                         <p class="m-0">{{$i->nombre}}</p>
@@ -903,7 +900,7 @@
                     </p>
                 </div>
     
-                <table class="w-100">
+                <table class="w-100 mt-5">
                     <tbody>
                         <tr>
                             <td width="50%">

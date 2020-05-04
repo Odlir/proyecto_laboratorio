@@ -2,7 +2,6 @@
 <html lang="es">
     <head>
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">
 
         <meta charset="UTF-8">
         <style>
@@ -67,7 +66,7 @@
         }
 
         .mt{
-            margin-top:250px;
+            margin-top:110px;
         }
 
         .img-width{
@@ -100,21 +99,29 @@
             margin-top: 1.5rem !important;
         }
 
+        .mt-5{
+            margin-top: 3rem !important;
+        }
+
+
+        .pt-4{
+            padding-top: 1.5rem !important;
+        }
+
         .my-1{
             margin-top: 0.25rem !important;
             margin-bottom: 0.25rem !important;
         }
 
-        .mx-1
+        .mx-2
         {
-            margin-left: 0.25rem !important;
-            margin-right: 0.25rem !important;
+            margin-left: 0.5rem !important;
+            margin-right: 0.5rem !important;
         }
 
         .table-interes {
             border-collapse: collapse;
             border: 1px solid;
-            font-size: 15px;
         }
         
         .border{
@@ -151,7 +158,7 @@
         }
 
         .titulo{
-            font-size: 45px;
+            font-size: 35px;
         }
 
         .mt-persona{
@@ -199,26 +206,19 @@
             padding-bottom : 8px;
             border: 1px solid;
         }
-
-        .caratula{
-            font-family: 'Hammersmith One', sans-serif;
-        }
     </style>
     </head>
     <body>
-        <div class="text-center caratula">
-            <h1 class="titulo text-secondary">Test de Intereses</h1>
-         
+        <div class="text-center font-weight-bold">
+            <h1 class="titulo text-secondary">TEST DE INTERESES</h1>
+            <img class="img-width mt-5 pt-4" src="{{ 'storage/logo_upc_red.png' }}" alt="">
           <div class="mt">
-            <img class="img-width" src="{{ 'storage/logo_upc_red.png' }}" alt="">
-
-            <br><br><br><br><br>
             <h1 class="text-secondary">Reporte de resultados</h1>
 
             <div class="mt-persona text-secondary">
                 <h1>Evaluación de</h1>
                 <h1 class="mt-text">{{$persona->apellido_paterno}} {{$persona->apellido_materno}}, {{$persona->nombres}}</h1>
-                <h1 class="mt-text">@php
+                <h1 class="mt-text" style="bottom: 0;position:absolute;margin-left:240px;">@php
                     echo date('d-m-Y');
                 @endphp</h1>
             </div>
@@ -380,10 +380,10 @@
                             <td width="30%" class="font-weight-bold text-center">
                                 {{ $p->carrera->nombre }} 
                             </td>
-                            <td width="70%" class="mx-2 text-center">
+                            <td width="70%" class="mx-2 text-justify">
                                 {{ $p->carrera->interes }} 
                             </td>
-                            <td>
+                            <td class="text-center">
                                 @foreach ($p->carrera->intereses as $i)
                                     @if ($i->carrera_id == $p->carrera->id)
                                         <p class="m-0">{{$i->nombre}}</p>
@@ -413,7 +413,7 @@
                     </p>
                 </div>
     
-                <table class="w-100">
+                <table class="w-100 mt-5">
                     <tbody>
                         <tr>
                             <td width="50%">
