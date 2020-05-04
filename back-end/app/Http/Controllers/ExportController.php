@@ -180,7 +180,7 @@ class ExportController extends Controller
 
         $pdf = \PDF::loadView('reporte_consolidados', array('areas' => $areas, 'ruedas' => $ruedas, 'persona' => $persona, 'p_intereses' => $p_intereses['punintereses'], 'p_temperamentos' => $p_temperamentos['puntemperamentos'], 'a_temperamentos' => $p_temperamentos['areatemperamentos']));
 
-        return $pdf->download('Reporte-Consolidado-' . $persona->nombres . '-' . $persona->apellido_paterno . '-' . $persona->apellido_materno . '.pdf');
+        return $pdf->download('Reporte-Consolidado-' . str_replace(' ', '',$persona->nombres) . str_replace(' ', '',$persona->apellido_paterno) . str_replace(' ', '',$persona->apellido_materno) . '.pdf');
     }
 
     public function jobs(Request $request)
@@ -317,7 +317,7 @@ class ExportController extends Controller
             ->first();
 
         $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $persona, 'puntajes' => $encuesta['punintereses']));
-        return $pdf->download('Reporte-Intereses-' . $persona->nombres . '-' . $persona->apellido_paterno . '-' . $persona->apellido_materno . '.pdf');
+        return $pdf->download('Reporte-Intereses-' . str_replace(' ', '',$persona->nombres) . str_replace(' ', '',$persona->apellido_paterno) . str_replace(' ', '',$persona->apellido_materno) . '.pdf');
     }
 
     public function pdf_temperamentos($temperamento_id, $persona_id)
@@ -339,7 +339,7 @@ class ExportController extends Controller
 
         $pdf = \PDF::loadView('reporte_temperamentos', array('ruedas' => $ruedas, 'persona' => $persona, 'p_temperamentos' => $encuesta['puntemperamentos'], 'a_temperamentos' => $encuesta['areatemperamentos'], 'areas' => $areas));
 
-        return $pdf->download('Reporte-Temperamentos-' . $persona->nombres . '-' . $persona->apellido_paterno . '-' . $persona->apellido_materno . '.pdf');
+        return $pdf->download('Reporte-Temperamentos-' . str_replace(' ', '',$persona->nombres) .  str_replace(' ', '',$persona->apellido_paterno) . str_replace(' ', '',$persona->apellido_materno) . '.pdf');
     }
 
     public function status(Request $request)
