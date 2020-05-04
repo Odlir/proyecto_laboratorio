@@ -837,10 +837,23 @@
                 </tbody>
             </table> 
 
+            @php
+            $show=false;
+            @endphp
+
+            @foreach ($p_intereses as $p)
+                @if ($p->puntaje>=75)
+                    @php
+                        $show=true;
+                    @endphp
+                @endif          
+            @endforeach
+
             <h2 class="font-weight-bold text-table">3.2 Tabla de resultados</h2>
             <p>A continuación encontrarás las áreas de interés que más has desarrollado y las
                 carreras asociadas:</p>
 
+            @if ($show)
             <table class="w-100 text-table table-resultado">
                 <thead class="font-weight-bold">
                     <tr>
@@ -854,7 +867,7 @@
                 </thead>
                 <tbody>
                     @foreach ($p_intereses as $p)
-                        @if ($p->puntaje>75)
+                        @if ($p->puntaje>=75)
                         <tr>
                             <td width="30%" class="font-weight-bold text-center">
                                 {{ $p->carrera->nombre }} 
@@ -874,6 +887,9 @@
                     @endforeach            
                 </tbody>
             </table> 
+            @else
+            <h3 class="font-weight-bold ml-4">No tiene áreas de alto interes.</h3>     
+            @endif
 
             <div style="page-break-inside: avoid;">
                 <div class="text-justify">

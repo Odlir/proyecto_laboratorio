@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
 	declarations: [],
@@ -29,6 +30,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 
 		MatAutocompleteModule,
 		MatStepperModule,
+
+		MatProgressBarModule
 	],
 	exports: [
 		MatFormFieldModule,
@@ -44,7 +47,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 		MatTabsModule,
 
 		MatAutocompleteModule,
-		MatStepperModule
+		MatStepperModule,
+
+		MatProgressBarModule
 	]
 })
 export class AppMaterialModule {

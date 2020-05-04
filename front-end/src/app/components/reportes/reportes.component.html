@@ -61,6 +61,15 @@
 	</form>
 </div>
 
+<div *ngIf="showProgress">
+	<div class="alert alert-primary" role="alert">
+		<h4 class="alert-heading">Esto puede tardar algunos minutos...</h4>
+	</div>
+	<ng-container *ngIf="progressRef.state | async; let state">
+		<mat-progress-bar *ngIf="state.active" [value]="state.value"></mat-progress-bar>
+	</ng-container>
+</div>
+
 <div class="table-responsive mt-5" *ngIf="showReporte">
 	<table class="table table-hover text-center">
 		<thead>

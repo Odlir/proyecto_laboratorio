@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { ApiBackRequestService } from './../../Services/api-back-request.service';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
-import { HttpParams } from '@angular/common/http';
+import { NgProgress, NgProgressRef } from 'ngx-progressbar';
 
 @Component({
 	selector: 'app-reportes',
@@ -38,7 +38,13 @@ export class ReportesComponent implements OnInit {
 
 	public disabled: boolean = false;
 
-	constructor(private api: ApiBackRequestService, private router: Router) { }
+	public progressRef: NgProgressRef;
+
+	public showProgress: boolean = false;
+
+	constructor(private api: ApiBackRequestService, private router: Router, public ngProgress: NgProgress) {
+		this.progressRef= ngProgress.ref();
+	 }
 
 	ngOnInit(): void {
 		this.fetch();
@@ -81,6 +87,9 @@ export class ReportesComponent implements OnInit {
 		if (this.sucursal.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
 		} else {
+			this.showProgress=true;		
+			this.progressRef.start();
+
 			var d = new Date();
 			this.form.hour = d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear() + '-' + d.getHours() + '-' + d.getMinutes() + '-' + d.getSeconds();
 
@@ -90,6 +99,7 @@ export class ReportesComponent implements OnInit {
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
 					this.eliminarZip();
+					this.progressRef.complete();
 				},
 				(error) => {
 					this.disabled = false;
@@ -128,15 +138,17 @@ export class ReportesComponent implements OnInit {
 		if (this.sucursal.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
 		} else {
+			this.showProgress=true;		
+			this.progressRef.start();
 			var d = new Date();
 			this.form.hour = d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear() + '-' + d.getHours() + '-' + d.getMinutes() + '-' + d.getSeconds();
-
 			this.disabled = true;
 			this.form.campo = 'pdf';
 			this.form.archivo = 'REPCONSOLIDADO-'+this.sucursal.nombre+'-'+this.form.interes_id+ '.zip';
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
 					this.eliminarZip();
+					this.progressRef.complete();
 				},
 				(error) => {
 					this.disabled = false;
@@ -219,6 +231,7 @@ export class ReportesComponent implements OnInit {
 		this.form.hour = null;
 		this.reportes = [];
 		this.show = null;
+		this.showProgress=false;
 	}
 
 	mensaje(msj) {
