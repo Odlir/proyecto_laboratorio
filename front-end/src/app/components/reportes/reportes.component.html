@@ -62,7 +62,7 @@
 </div>
 
 <div *ngIf="showProgress">
-	<div class="alert alert-primary" role="alert">
+	<div class="alert alert-danger" role="alert">
 		<h4 class="alert-heading">Esto puede tardar algunos minutos...</h4>
 	</div>
 	<ng-container *ngIf="progressRef.state | async; let state">

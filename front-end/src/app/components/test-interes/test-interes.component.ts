@@ -207,7 +207,7 @@ export class TestInteresComponent implements OnInit {
 		}else {
 			Swal.fire({
 				title: 'El Test debe ser completado al 100%: ',
-				text: falta,
+				text: falta.substring(0, falta.length - 1),
 				icon: 'warning',
 				timer: 3000
 			});

@@ -38,7 +38,7 @@
         body
         {
             padding: 70px;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .text-center
@@ -51,18 +51,13 @@
             text-align: justify;
         }
 
-        .img-fluid
-        {
-            width:100%;
-        }
-
         .w-100
         {
             width:100%;
         }
 
         .text-secondary {
-            color: #6c757d!important;
+            color: #404342 ;
         }
 
         .mt{
@@ -77,40 +72,21 @@
             page-break-before: always; 
         }
 
-        .ml-5
-        {
-            margin-left: 3rem !important;
-        }
-
         .ml-4
         {
             margin-left: 1.5rem !important;
-        }
-
-        .mt-2 {
-            margin-top: 0.5rem !important;
         }
 
         .mt-3 {
             margin-top: 1rem !important;
         }
 
-        .mt-4{
-            margin-top: 1.5rem !important;
-        }
-
         .mt-5{
             margin-top: 3rem !important;
         }
 
-
         .pt-4{
             padding-top: 1.5rem !important;
-        }
-
-        .my-1{
-            margin-top: 0.25rem !important;
-            margin-bottom: 0.25rem !important;
         }
 
         .mx-2
@@ -137,10 +113,6 @@
         .table-interes td{
             border-left: 1px solid;
             border-right: 1px solid;
-        }
-
-        .p-3{
-            padding: 1rem !important;
         }
 
         .p-2 {
@@ -171,10 +143,6 @@
 
         .font-weight-bold{
             font-weight: bold;
-        }
-
-        .text-table{
-            color: #404342 ;
         }
 
         #footer {
@@ -297,9 +265,9 @@
         </div>
 
         <div class="page_break">
-            <h2 class="font-weight-bold text-table">Tabla general de áreas y valores.</h2>
+            <h2 class="font-weight-bold text-secondary">Tabla general de áreas y valores.</h2>
 
-            <table class="w-100 text-table table-interes">
+            <table class="w-100 text-secondary table-interes">
                 <thead class="font-weight-bold">
                     <tr>
                         <th width="55%" rowspan="2">
@@ -357,12 +325,12 @@
         @endforeach
 
         <div class="page_break">
-            <h2 class="font-weight-bold text-table">Tabla de resultados</h2>
+            <h2 class="font-weight-bold text-secondary">Tabla de resultados</h2>
             <p>A continuación encontrarás las áreas de interés que más has desarrollado y las
                 carreras asociadas:</p>
 
             @if ($show)
-            <table class="w-100 text-table table-resultado">
+            <table class="w-100 text-secondary table-resultado">
                 <thead class="font-weight-bold">
                     <tr>
                         <th width="60%" colspan="2">

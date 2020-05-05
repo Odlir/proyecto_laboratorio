@@ -67,11 +67,6 @@
                 page-break-before: always; 
             }
 
-            .ml-5
-            {
-                margin-left: 3rem !important;
-            }
-
             .ml-4
             {
                 margin-left: 1.5rem !important;
@@ -85,21 +80,9 @@
                 margin-right: 0.5rem !important;
                 margin-left: 0.5rem !important;
             }
-
-            .mt-3 {
-                margin-top: 1rem !important;
-            }
-
-            .mt-4{
-                margin-top: 1.5rem !important;
-            }
             
             .border{
                 border: 1px solid;
-            }
-
-            .p-3{
-                padding: 1rem !important;
             }
 
             .p-2 {
@@ -131,17 +114,13 @@
                 position: fixed;
                 left: 0;
                 right: 10px;
-                color: black;;
+                color: black;
                 font-size: 15px;
                 bottom: 10px;
             }
 
             .page-number:before {
                 content: counter(page);
-            }
-
-            .border-bottom{
-                border-bottom: 1px solid #6c757d!important;
             }
 
             .bg-dark {
@@ -197,28 +176,12 @@
                 padding-right: 20px;
             }
 
-            .w-20{
-                width: 20%;
-            }
-
-            .h-100{
-                height:100%;
-            }
-
             .w-95{
                 width:95%;
             }
 
             .w-5{
                 width: 5%;
-            }
-
-            .mb-0 {
-                margin-bottom:0 !important;
-            }
-        
-            .mb-1 {
-                margin-bottom: 0.25rem !important;
             }
 
             .height-graph
@@ -242,10 +205,6 @@
                 width: 100%;
                 height:10px;
                 background: #6c757d;
-            }
-
-            .border-0 {
-                border: 0!important;
             }
 
             .barra{
@@ -275,20 +234,12 @@
                 border-right: 1px solid;
             }
 
-            .text-table{
-                color: #404342 ;
-            }
-
             .table-resultado{
                 border-collapse: collapse;
             }
 
             .table-resultado thead{
                 font-size: 19px;
-            }
-
-            .table-resultado tbody{
-                font-size: 14px;
             }
 
             .table-resultado th, .table-resultado td, .table-resultado tr{
@@ -364,6 +315,10 @@
                 margin-right: 0.5rem !important;
                 margin-top: 0.5rem !important;
                 margin-bottom: 0.5rem !important;
+            }
+
+            .mb-0{
+                margin-bottom: 0;
             }
         </style>
     </head>
@@ -484,7 +439,7 @@
                         @endphp
 
                         <div class="cont-rueda">
-                            <img class="rueda" src="{{ 'storage/ruedas/pruebas.png' }}"/>
+                            <img class="rueda" src="{{ 'storage/ruedas/pruebas.jpg' }}"/>
                         </div>
 
                         <table class="table-letras">
@@ -493,9 +448,9 @@
                                     @foreach ($a_temperamentos as $a)
                                         @if ($a->area_id==1)
                                             @if (ctype_lower($a->letra))
-                                                <img class="minuscula m-2" src="{{ 'storage/ruedas/minuscula/'.$a->letra.'.png' }}"/>     
+                                                <img class="minuscula m-2" src="{{ 'storage/ruedas/minuscula/'.$a->letra.'.jpg' }}"/>     
                                             @else
-                                                <img class="mayuscula m-2" src="{{ 'storage/ruedas/mayuscula/'.$a->letra.'.png' }}"/>     
+                                                <img class="mayuscula m-2" src="{{ 'storage/ruedas/mayuscula/'.$a->letra.'.jpg' }}"/>     
                                             @endif
                                         @endif
                                     @endforeach                        
@@ -505,9 +460,9 @@
                                     @foreach ($a_temperamentos as $a)
                                         @if ($a->area_id==4)
                                             @if (ctype_lower($a->letra))
-                                                <img class="minuscula m-2" src="{{ 'storage/ruedas/minuscula/'.$a->letra.'.png' }}"/>     
+                                                <img class="minuscula m-2" src="{{ 'storage/ruedas/minuscula/'.$a->letra.'.jpg' }}"/>     
                                             @else
-                                                <img class="mayuscula m-2" src="{{ 'storage/ruedas/mayuscula/'.$a->letra.'.png' }}"/>     
+                                                <img class="mayuscula m-2" src="{{ 'storage/ruedas/mayuscula/'.$a->letra.'.jpg' }}"/>     
                                             @endif
                                         @endif
                                     @endforeach                
@@ -518,9 +473,9 @@
                                     @foreach ($a_temperamentos as $a)
                                         @if ($a->area_id==3)
                                             @if (ctype_lower($a->letra))
-                                                <img class="minuscula m-2" src="{{ 'storage/ruedas/minuscula/'.$a->letra.'.png' }}"/>     
+                                                <img class="minuscula m-2" src="{{ 'storage/ruedas/minuscula/'.$a->letra.'.jpg' }}"/>     
                                             @else
-                                                <img class="mayuscula m-2" src="{{ 'storage/ruedas/mayuscula/'.$a->letra.'.png' }}"/>     
+                                                <img class="mayuscula m-2" src="{{ 'storage/ruedas/mayuscula/'.$a->letra.'.jpg' }}"/>     
                                             @endif
                                         @endif
                                     @endforeach           
@@ -529,9 +484,9 @@
                                     @foreach ($a_temperamentos as $a)
                                         @if ($a->area_id==2)
                                             @if (ctype_lower($a->letra))
-                                                <img class="minuscula m-2" src="{{ 'storage/ruedas/minuscula/'.$a->letra.'.png' }}"/>     
+                                                <img class="minuscula m-2" src="{{ 'storage/ruedas/minuscula/'.$a->letra.'.jpg' }}"/>     
                                             @else
-                                                <img class="mayuscula m-2" src="{{ 'storage/ruedas/mayuscula/'.$a->letra.'.png' }}"/>     
+                                                <img class="mayuscula m-2" src="{{ 'storage/ruedas/mayuscula/'.$a->letra.'.jpg' }}"/>     
                                             @endif
                                         @endif
                                     @endforeach     
@@ -789,8 +744,8 @@
         </div>      
         
         <div class="page_break ">
-            <h2 class="font-weight-bold text-table">3.1 Tabla general de áreas y valores.</h2>
-            <table class="w-100 table-intereses text-table">
+            <h2 class="font-weight-bold text-secondary">3.1 Tabla general de áreas y valores.</h2>
+            <table class="w-100 table-intereses text-secondary">
                 <thead class="font-weight-bold">
                     <tr>
                         <th width="55%" rowspan="2">
@@ -846,12 +801,12 @@
                 @endif          
             @endforeach
 
-            <h2 class="font-weight-bold text-table">3.2 Tabla de resultados</h2>
+            <h2 class="font-weight-bold text-secondary">3.2 Tabla de resultados</h2>
             <p>A continuación encontrarás las áreas de interés que más has desarrollado y las
                 carreras asociadas:</p>
 
             @if ($show)
-            <table class="w-100 text-table table-resultado">
+            <table class="w-100 text-secondary table-resultado">
                 <thead class="font-weight-bold">
                     <tr>
                         <th width="60%" colspan="2">

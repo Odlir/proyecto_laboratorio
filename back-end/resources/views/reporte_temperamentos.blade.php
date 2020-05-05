@@ -35,18 +35,13 @@
                 text-align: justify;
             }
 
-            .img-fluid
-            {
-                width:100%;
-            }
-
             .w-100
             {
                 width:100%;
             }
 
             .text-secondary {
-                color: #6c757d!important;
+                color: #404342 ;
             }
 
             .mt{
@@ -60,39 +55,9 @@
             .page_break { 
                 page-break-before: always; 
             }
-
-            .ml-5
-            {
-                margin-left: 3rem !important;
-            }
-
-            .ml-4
-            {
-                margin-left: 1.5rem !important;
-            }
-
-            .mt-2 {
-                margin-top: 0.5rem !important;
-            }
-
-            .mt-3 {
-                margin-top: 1rem !important;
-            }
-
-            .mt-4{
-                margin-top: 1.5rem !important;
-            }
             
             .border{
                 border: 1px solid;
-            }
-
-            .p-3{
-                padding: 1rem !important;
-            }
-
-            .p-2 {
-                padding: 0.5rem !important;
             }
 
             .titulo{
@@ -109,10 +74,6 @@
 
             .font-weight-bold{
                 font-weight: bold;
-            }
-
-            .text-table{
-                color: #404342 ;
             }
 
             .text-right{
@@ -147,14 +108,6 @@
 
             .mt-persona{
                 margin-top: 220px;
-            }
-
-            .border-bottom{
-                border-bottom: 1px solid #6c757d!important;
-            }
-
-            .text-caratula{
-                color: #585E5C;
             }
 
             .mt-text{
@@ -267,7 +220,7 @@
         </style>
     </head>
     <body>
-        <div class="text-center text-caratula mt-caratula">
+        <div class="text-center text-secondary mt-caratula">
             <p class="titulo">Evaluación de las Preferencias del Temperamento (EPT)</p>
          
           <div class="mt">
@@ -282,69 +235,6 @@
             </div>
           </div>     
         </div>
-
-        {{-- <div class="page_break text-secondary">
-            <h2 class="text-center"><span class="border-bottom">Tabla de contenidos</span></h2>    
-            <br><br><br>
-            <table class="w-100">
-                <tr>
-                    <td width="98%">
-                        Descripción general de la evaluación de preferencias del Temperamento……………………………………………………………….
-                    </td>
-                    <td class="text-right" width="2%">
-                        3
-                    </td>
-                </tr>
-                <tr>
-                    <td width="98%">
-                        Resultados generales del EPT………………………………………………
-                    </td>
-                    <td class="text-right" width="2%">
-                        6
-                    </td>
-                </tr>
-                <tr>
-                    <td width="98%">
-                        Descripción general del perfil……..……………………………………..
-                    </td>
-                    <td class="text-right" width="2%">
-                        7
-                    </td>
-                </tr>
-                <tr>
-                    <td width="98%">
-                        Elementos de cada eje del temperamento........................................
-                    </td>
-                    <td class="text-right" width="2%">
-                        8
-                    </td>
-                </tr>
-                <tr>
-                    <td width="98%">
-                        Cómo leer los resultados de los elementos…………………………….
-                    </td>
-                    <td class="text-right" width="2%">
-                        8
-                    </td>
-                </tr>
-                <tr>
-                    <td width="98%">
-                        Descripción de las fortalezas………………………………………………
-                    </td>
-                    <td class="text-right" width="2%">
-                        16
-                    </td>
-                </tr>
-                <tr>
-                    <td width="98%">
-                        Referencias bibliográficas…………………………………………………
-                    </td>
-                    <td class="text-right" width="2%">
-                        17
-                    </td>
-                </tr>
-            </table>
-        </div> --}}
 
         <div class="page_break text-justify">
             <br>
