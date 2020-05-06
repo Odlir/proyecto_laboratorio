@@ -9,12 +9,15 @@
             @page{    
                 margin: 0;
                 padding:0;
-                font-family: 'Comfortaa', cursive;
             }
             
             body
             {
-                padding: 70px;         
+                padding: 70px;
+            }
+
+            *{
+                font-family: 'Comfortaa', cursive!important;
             }
 
             .w-95{

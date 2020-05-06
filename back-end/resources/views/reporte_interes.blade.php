@@ -15,7 +15,35 @@
             margin:0;    
             margin-top: 30px;
             padding:0;
-            font-family: 'Comfortaa', cursive;
+        }     
+
+        *{
+            font-family: 'Comfortaa', cursive!important;
+        }
+
+        .h1{
+            font-size: 2em;
+            margin: 0!important;
+        }
+
+        .h2{
+            font-size: 1.5em;
+            margin: 0!important;
+        }
+
+        .h3{
+            font-size: 1.17em;
+            margin: 0!important;
+        }
+
+        .h4{
+            font-size: 1em;
+            margin: 0!important;
+        }
+
+        .h5{
+            font-size: .83em;
+            margin: 0!important;
         }
 
         #header {
@@ -141,9 +169,9 @@
             margin-top: 5px;
         }
 
-        .font-weight-bold{
+        /* .font-weight-bold{
             font-weight: bold;
-        }
+        } */
 
         #footer {
         text-align: right;
@@ -178,17 +206,17 @@
     </head>
     <body>
         <div class="text-center font-weight-bold">
-            <h1 class="titulo text-secondary">TEST DE INTERESES</h1>
+            <p class="titulo text-secondary h1">TEST DE INTERESES</p>
             <img class="img-width mt-5 pt-4" src="{{ 'storage/logo_upc_red.png' }}" alt="">
           <div class="mt">
-            <h1 class="text-secondary">Reporte de resultados</h1>
+            <p class="text-secondary h1">Reporte de resultados</p>
 
             <div class="mt-persona text-secondary">
-                <h1>Evaluación de</h1>
-                <h1 class="mt-text">{{$persona->apellido_paterno}} {{$persona->apellido_materno}}, {{$persona->nombres}}</h1>
-                <h1 class="mt-text" style="bottom: 0;position:absolute;margin-left:240px;">@php
+                <p class="h1">Evaluación de</p>
+                <p class="h1 mt-text">{{$persona->apellido_paterno}} {{$persona->apellido_materno}}, {{$persona->nombres}}</p>
+                <p class="h1 mt-text" style="bottom: 0;position:absolute;margin-left:240px!important;">@php
                     echo date('d-m-Y');
-                @endphp</h1>
+                @endphp</p>
             </div>
           </div>     
         </div>
@@ -198,7 +226,7 @@
         </div>
         
         <div class="page_break text-justify">
-            <h2 class="font-weight-bold text-secondary">TEST DE INTERESES PROFESIONALES</h2>
+            <p class="font-weight-bold text-secondary h2">TEST DE INTERESES PROFESIONALES</p>
             <div>
                 <p>
                     Una de las decisiones más importantes en la vida de una persona, es la relacionada a la elección de la carrera a seguir, pues su sentido de producción y felicidad futuras,
@@ -265,31 +293,31 @@
         </div>
 
         <div class="page_break">
-            <h2 class="font-weight-bold text-secondary">Tabla general de áreas y valores.</h2>
-
+            <p class="font-weight-bold text-secondary h2">Tabla general de áreas y valores.</p>
+            <br>
             <table class="w-100 text-secondary table-interes">
                 <thead class="font-weight-bold">
                     <tr>
-                        <th width="55%" rowspan="2">
+                        <td width="55%" rowspan="2">
                             ÁREA DE INTERÉS
-                        </th>
-                        <th width="45%" colspan="4">
+                        </td>
+                        <td width="45%" colspan="4">
                             Puntaje
-                        </th>
+                        </td>
                     </tr>
                     <tr>
-                        <th width="13%">
+                        <td width="13%">
                             Valor
-                        </th>
-                        <th width="29%">
+                        </td>
+                        <td width="29%">
                             Bajo 
-                        </th>
-                        <th width="29%">
+                        </td>
+                        <td width="29%">
                             Medio
-                        </th>
-                        <th width="29%">
+                        </td>
+                        <td width="29%">
                             Alto
-                        </th>
+                        </td>
                     </tr>
                 </thead>
                 <tbody>
@@ -325,7 +353,7 @@
         @endforeach
 
         <div class="page_break">
-            <h2 class="font-weight-bold text-secondary">Tabla de resultados</h2>
+            <p class="font-weight-bold text-secondary h2">Tabla de resultados</p>
             <p>A continuación encontrarás las áreas de interés que más has desarrollado y las
                 carreras asociadas:</p>
 
@@ -333,12 +361,12 @@
             <table class="w-100 text-secondary table-resultado">
                 <thead class="font-weight-bold">
                     <tr>
-                        <th width="60%" colspan="2">
+                        <td width="60%" colspan="2" class="text-center">
                             Área
-                        </th>
-                        <th width="60%">
+                        </td>
+                        <td width="60%" class="text-center">
                             Carreras Asociadas
-                        </th>
+                        </td>
                     </tr>
                 </thead>
                 <tbody>
@@ -364,7 +392,7 @@
                 </tbody>
             </table> 
             @else
-            <h3 class="font-weight-bold ml-4">No tiene áreas de alto interes.</h3>
+            <p class="font-weight-bold ml-4 h3">No tiene áreas de alto interes.</p>
             @endif
              
             <br>

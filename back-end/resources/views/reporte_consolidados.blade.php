@@ -12,12 +12,40 @@
          
             @page{    
                 margin: 80px;
-                font-family: 'Comfortaa', cursive;
             }
 
             body
             {           
                 font-size: 14px;
+            }
+
+            *{
+                font-family: 'Comfortaa', cursive!important;
+            }
+
+            .h1{
+                font-size: 2em;
+                margin: 0!important;
+            }
+
+            .h2{
+                font-size: 1.5em;
+                margin: 0!important;
+            }
+
+            .h3{
+                font-size: 1.17em;
+                margin: 0!important;
+            }
+
+            .h4{
+                font-size: 1em;
+                margin: 0!important;
+            }
+
+            .h5{
+                font-size: .83em;
+                margin: 0!important;
             }
 
             .pad-doc
@@ -89,9 +117,9 @@
                 padding: 0.5rem !important;
             }
 
-            .font-weight-bold{
+            /* .font-weight-bold{
                 font-weight: bold;
-            }
+            } */
 
             .text-right{
                 text-align: right;
@@ -149,19 +177,17 @@
 
             .mt-caratula
             {
-                margin-top: 120px;
+                margin-top: 60px;
             }
 
             .titulo{
                 font-size: 35px;
                 margin-top: -20px;
-                font-weight:bolder;
             }
 
             .subtitulo{
                 font-size: 30px;
                 margin-top: -20px;
-                font-weight:bolder;
             }
 
             .barra_tabla{
@@ -325,7 +351,7 @@
     <body>
         <div class="text-center text-caratula mt-caratula">
             <img class="img-width" src="{{ 'storage/logo_upc_red.png' }}" alt="">
-
+            <br><br>
             <div class="titulo">
                 <p>Programa de Orientación <br> Vocacional</p>
                 <p>“Yo Decido mi futuro”</p>
@@ -336,6 +362,7 @@
             </div>
           <div class="pad-doc">
             <div class="subtitulo" style="margin-top:-10px;">
+                <br>
                 <p class="m-0">Test de Preferencias de Temperamentos</p>
                 <p class="m-0">Test de Talentos</p>
                 <p class="m-0">Test de Intereses</p>
@@ -351,8 +378,9 @@
         </div>
 
         <div class="page_break">
-            <h2 class="font-weight-bold">Descripción general de las evaluaciones:</h2>
-            <h3 class="ml-4 font-weight-bold mb-0">- Test de Preferencias del Temperamento</h3>
+            <p class="font-weight-bold h2">Descripción general de las evaluaciones:</p>
+            <br>
+            <p class="ml-4 font-weight-bold mb-0 h3">- Test de Preferencias del Temperamento</p>
             <div class="text-justify">
                 <p>El objetivo de este test es brindar información acerca de las características más
                     importantes de la personalidad. En primer lugar, encontrarás una descripción de los cuatro
@@ -365,7 +393,7 @@
                     favorecer tu interacción con el entorno social.</p>
             </div>
 
-            <h3 class="ml-4 font-weight-bold mb-0">- Test de Talentos</h3>
+            <p class="ml-4 font-weight-bold mb-0 h3">- Test de Talentos</p>
             <div class="text-justify">
                 <p>El talento es una forma innata de pensar, sentir y comportarse, que puede aplicarse,
                     productivamente, para obtener resultados positivos. Todas las personas son poseedoras de
@@ -382,7 +410,7 @@
                 </p>
             </div>
 
-            <h3 class="ml-4 font-weight-bold mb-0">- Test de Intereses Profesionales</h3>
+            <p class="ml-4 font-weight-bold mb-0 h3">- Test de Intereses Profesionales</p>
             <div class="text-justify">
                 <p>Una de las decisiones más importantes en la vida de una persona, es la relacionada a la
                     elección de la carrera a seguir, pues su sentido de producción y felicidad futuras,
@@ -411,7 +439,7 @@
         </div>
 
         <div class="page_break">
-            <h2 class="font-weight-bold text-secondary">I. TEST DE PREFERENCIAS DEL TEMPERAMENTO</h2>
+            <p class="font-weight-bold text-secondary h2">I. TEST DE PREFERENCIAS DEL TEMPERAMENTO</p>
             <div>
                 <p class="text-justify">A continuación presentamos una rueda con tus resultados y la preferencia del
                     temperamento que tienes en general. Aquí verás un perfil general de cómo eres tú. Este
@@ -521,12 +549,12 @@
                             </div>                 
                         </div>
                         <br>
-                        <h2 class="font-weight-bold text-secondary">1.1 Descripción general del perfil:</h2>
-                        <h2 class="font-weight-bold text-secondary">@foreach ($a_temperamentos as $a)
+                        <p class="font-weight-bold text-secondary h2">1.1 Descripción general del perfil:</p>
+                        <p class="font-weight-bold text-secondary h2">@foreach ($a_temperamentos as $a)
                             {{$a->palabra}}
                         @endforeach @php
                             echo '('.$palabra.')';
-                        @endphp</h2>
+                        @endphp</p>
                         <p class="text-justify">
                             {{$descripcion}}
                         </p>
@@ -534,7 +562,7 @@
             </div>
             <br>
             <div>
-                <h2 class="font-weight-bold text-secondary">1.2 Descripción de los Elementos</h2>
+                <p class="font-weight-bold text-secondary h2">1.2 Descripción de los Elementos</p>
                 <div class="text-justify">
                     <p>A continuación se presentan 4 gráficos de barras donde aparecen tus elementos
                         predominantes. La barra más alta representa el elemento que describe de manera más
@@ -553,17 +581,17 @@
                 <div>
 
                     <div class="table-temperamento">
-                        <h2 class="font-weight-bold text-secondary">1.2.{{$loop->index +1}} Descripciones de los elementos del área {{$a->nombre}}</h2>
-                    
+                        <p class="font-weight-bold text-secondary h2">1.2.{{$loop->index +1}} Descripciones de los elementos del área {{$a->nombre}}</p>
+                        <br>
                         <table class="w-100 table text-secondary text-center table-temperamento">
                             <tr>
-                                <th>
+                                <td>
                                     @foreach ($a->items as $i)
                                         @if ($i->posicion == '1')
-                                            <h3>{{$i->nombre }}</h3>
+                                            <p class="h3">{{$i->nombre }}</p>
                                         @endif
                                     @endforeach 
-                                </th>
+                                </td>
                                 @foreach ($a->items as $a_i)
                                     @foreach ($a_i->items as $i_i)
                                         @if ($i_i->posicion=='1')
@@ -638,13 +666,13 @@
                                 @endforeach
                             </tr>
                             <tr>
-                                <th>
+                                <td>
                                     @foreach ($a->items as $i)
                                         @if ($i->posicion == '0')
-                                            <h3>{{$i->nombre }}</h3> 
+                                            <p class="h3">{{$i->nombre }}</p> 
                                         @endif
                                     @endforeach 
-                                </th>
+                                </td>
                                 @foreach ($a->items as $a_i)
                                     @foreach ($a_i->items as $i_i)
                                         @if ($i_i->posicion=='0')
@@ -663,7 +691,7 @@
                                 @foreach ($p->formula->items as $i)
                                     @if ($i->posicion=='1')
                                     <div class="table-temperamento">
-                                        <h3 class="font-weight-bold">- {{$i->nombre}}</h3>
+                                        <p class="font-weight-bold h3">- {{$i->nombre}}</p>
                                         <p class="text-justify">{{$i->descripcion}}</p>
                                     </div> 
                                     @endif
@@ -674,7 +702,7 @@
                                 @foreach ($p->formula->items as $i)
                                     @if ($i->posicion=='0')
                                     <div class="table-temperamento">
-                                        <h3 class="font-weight-bold">- {{$i->nombre}}</h3>
+                                        <p class="font-weight-bold h3">- {{$i->nombre}}</p>
                                         <p class="text-justify">{{$i->descripcion}}</p>
                                     </div>                
                                     @endif
@@ -683,7 +711,7 @@
                                     
                             @if ($p->transformacion==0)
                                 <div class="table-temperamento">
-                                    <h3 class="font-weight-bold">- {{$p->formula->nombre}}</h3>
+                                    <p class="font-weight-bold h3">- {{$p->formula->nombre}}</p>
                                     <p class="text-justify">{{$p->formula->descripcion}}</p>
                                 </div>
                             @endif 
@@ -695,7 +723,7 @@
         </div>
 
         <div class="page_break">
-            <h2 class="font-weight-bold text-secondary ml-4">III. TEST DE INTERESES PROFESIONALES</h2>
+            <p class="font-weight-bold text-secondary ml-4 h2">III. TEST DE INTERESES PROFESIONALES</p>
             <div class="text-justify">
                 <p>Esta evaluación permite recoger información sobre sus principales intereses, tanto
                     en referencia a las profesiones o carreras, así como las actividades que podría
@@ -743,31 +771,32 @@
 
         </div>      
         
-        <div class="page_break ">
-            <h2 class="font-weight-bold text-secondary">3.1 Tabla general de áreas y valores.</h2>
+        <div class="page_break">
+            <p class="font-weight-bold text-secondary h2">3.1 Tabla general de áreas y valores.</p>
+            <br>
             <table class="w-100 table-intereses text-secondary">
                 <thead class="font-weight-bold">
                     <tr>
-                        <th width="55%" rowspan="2">
+                        <td width="55%" rowspan="2">
                             ÁREA DE INTERÉS
-                        </th>
-                        <th width="45%" colspan="4">
+                        </td>
+                        <td width="45%" colspan="4">
                             Puntaje
-                        </th>
+                        </td>
                     </tr>
                     <tr>
-                        <th width="13%">
+                        <td width="13%">
                             Valor
-                        </th>
-                        <th width="29%">
+                        </td>
+                        <td width="29%">
                             Bajo 
-                        </th>
-                        <th width="29%">
+                        </td>
+                        <td width="29%">
                             Medio
-                        </th>
-                        <th width="29%">
+                        </td>
+                        <td width="29%">
                             Alto
-                        </th>
+                        </td>
                     </tr>
                 </thead>
                 <tbody>
@@ -800,8 +829,10 @@
                     @endphp
                 @endif          
             @endforeach
+        </div>
 
-            <h2 class="font-weight-bold text-secondary">3.2 Tabla de resultados</h2>
+        <div class="page_break">
+            <p class="font-weight-bold text-secondary h2">3.2 Tabla de resultados</p>
             <p>A continuación encontrarás las áreas de interés que más has desarrollado y las
                 carreras asociadas:</p>
 
@@ -809,12 +840,12 @@
             <table class="w-100 text-secondary table-resultado">
                 <thead class="font-weight-bold">
                     <tr>
-                        <th width="60%" colspan="2">
+                        <td width="60%" colspan="2" class="text-center">
                             Área
-                        </th>
-                        <th width="60%">
+                        </td>
+                        <td width="60%" class="text-center">
                             Carreras Asociadas
-                        </th>
+                        </td>
                     </tr>
                 </thead>
                 <tbody>
@@ -840,7 +871,7 @@
                 </tbody>
             </table> 
             @else
-            <h3 class="font-weight-bold ml-4">No tiene áreas de alto interes.</h3>     
+            <p class="font-weight-bold ml-4 h3">No tiene áreas de alto interes.</p>     
             @endif
 
             <div style="page-break-inside: avoid;">
@@ -859,7 +890,7 @@
                     <tbody>
                         <tr>
                             <td width="50%">
-                               
+                            
                             </td>
                             <td width="40%" class="float-right">
                                 <p class="font-weight-bold text-center">Coordinación de Colegios <br>
@@ -870,6 +901,7 @@
                     </tbody>
                 </table>
             </div>
+        </div>
         </div>   
     </body>
 </html>
