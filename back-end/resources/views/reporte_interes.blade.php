@@ -296,7 +296,7 @@
             <p class="font-weight-bold text-secondary h2">Tabla general de áreas y valores.</p>
             <br>
             <table class="w-100 text-secondary table-interes">
-                <thead class="font-weight-bold">
+                <thead class="font-weight-bold text-center" style="font-weight:bold; font-size: 17px;">
                     <tr>
                         <td width="55%" rowspan="2">
                             ÁREA DE INTERÉS
@@ -344,7 +344,7 @@
             $show=false;
         @endphp
 
-        @foreach ($puntajes as $p)
+        @foreach ($puntajes_sort as $p)
             @if ($p->puntaje>=75)
                 @php
                     $show=true;
@@ -359,18 +359,18 @@
 
             @if ($show)
             <table class="w-100 text-secondary table-resultado">
-                <thead class="font-weight-bold">
+                <thead class="font-weight-bold text-center">
                     <tr>
-                        <td width="60%" colspan="2" class="text-center">
+                        <td width="60%" colspan="2">
                             Área
                         </td>
-                        <td width="60%" class="text-center">
+                        <td width="60%">
                             Carreras Asociadas
                         </td>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($puntajes as $p)
+                    @foreach ($puntajes_sort as $p)
                         @if ($p->puntaje>=75)
                         <tr>
                             <td width="30%" class="font-weight-bold text-center">

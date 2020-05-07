@@ -15,6 +15,7 @@ class PDFIntereses implements ShouldQueue
 
     protected $persona;
     protected $puntajes;
+    protected $puntajes_sort;
     protected $empresa;
     protected $hour;
 
@@ -23,10 +24,11 @@ class PDFIntereses implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($persona, $puntajes, $empresa,$hour)
+    public function __construct($persona, $puntajes,$puntajes_sort, $empresa,$hour)
     {
         $this->persona = $persona;
         $this->puntajes = $puntajes;
+        $this->puntajes_sort = $puntajes_sort;
         $this->empresa = $empresa;
         $this->hour = $hour;
     }
@@ -38,7 +40,7 @@ class PDFIntereses implements ShouldQueue
      */
     public function handle()
     {
-        $intereses = \PDF::loadView('reporte_interes', array('persona' => $this->persona, 'puntajes' => $this->puntajes))->output();
+        $intereses = \PDF::loadView('reporte_interes', array('persona' => $this->persona, 'puntajes' => $this->puntajes,'puntajes_sort'=>$this->puntajes_sort))->output();
 
         $name = 'PDF-' . $this->hour . '/INTERESES-'  . str_replace(' ', '', $this->persona->nombres) .  str_replace(' ', '',$this->persona->apellido_paterno) . str_replace(' ', '',$this->persona->apellido_materno) . '.pdf';
         \Storage::disk('public')->put($name,  $intereses);

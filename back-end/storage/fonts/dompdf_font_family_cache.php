@@ -77,14 +77,7 @@
     'italic' => $rootDir . '/lib/fonts/DejaVuSerif-Italic',
     'normal' => $rootDir . '/lib/fonts/DejaVuSerif',
   ),
-  'inconsolata' => array(
-    '300' => $fontDir . '/inconsolata-300_77b1785bdc4465d3c85bf46bb8fadca1',
-  ),
   'comfortaa' => array(
     'normal' => $fontDir . '/comfortaa-normal_b4af81eef03593849e088698ac710cb0',
-    'bold' => $fontDir . '/comfortaa-bold_49c3b16ab87283604d702a5bcde63b65',
-  ),
-  'hammersmith one' => array(
-    'normal' => $fontDir . '/hammersmith-one-normal_ca7eb7f4768ef6ea7a863b20a6f3d103',
   ),
 ) ?>

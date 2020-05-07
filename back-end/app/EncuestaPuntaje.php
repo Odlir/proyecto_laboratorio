@@ -28,6 +28,11 @@ class EncuestaPuntaje extends Model
         return $this->hasMany('App\CarreraPuntaje','encuesta_puntaje_id');
     }
 
+    public function puninteresessort()
+    {
+        return $this->hasMany('App\CarreraPuntaje','encuesta_puntaje_id');
+    }
+
     public function puntemperamentos()
     {
         return $this->hasMany('App\FormulaPuntaje','encuesta_puntaje_id');

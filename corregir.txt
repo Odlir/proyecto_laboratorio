@@ -6,8 +6,6 @@
 
 - Al entrar al sistema se debe redireccionar a programar encuestas
 
-- En el excel status debe aver color rojo y verde para pendiente y completado.
-
 ////////////////////////////////
 
 - hay que agregar talentos en el modulo de reportes
@@ -15,6 +13,9 @@ el orden debe ser
 intereses
 talentos
 temperamentos
+
+- en la vista del semaforo tengo que ponerle los links para que se baje el reporte
+de consolidado o intereses
 
 --------------------------
 

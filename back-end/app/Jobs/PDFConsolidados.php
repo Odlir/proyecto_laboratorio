@@ -14,6 +14,7 @@ class PDFConsolidados implements ShouldQueue
 
     protected $persona;
     protected $p_intereses;
+    protected $p_intereses_sort;
     protected $p_temperamentos;
     protected $a_temperamentos;
     protected $empresa;
@@ -26,10 +27,11 @@ class PDFConsolidados implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($persona, $p_intereses, $p_temperamentos, $a_temperamentos, $empresa, $hour,$areas,$ruedas)
+    public function __construct($persona, $p_intereses,$p_intereses_sort, $p_temperamentos, $a_temperamentos, $empresa, $hour,$areas,$ruedas)
     {
         $this->persona = $persona;
         $this->p_intereses = $p_intereses;
+        $this->p_intereses_sort = $p_intereses_sort;
         $this->p_temperamentos = $p_temperamentos;
         $this->a_temperamentos = $a_temperamentos;
         $this->empresa = $empresa;
@@ -45,7 +47,7 @@ class PDFConsolidados implements ShouldQueue
      */
     public function handle()
     {
-        $consolidados = \PDF::loadView('reporte_consolidados', array('areas' => $this->areas, 'ruedas' => $this->ruedas, 'persona' => $this->persona, 'p_intereses' => $this->p_intereses, 'p_temperamentos' => $this->p_temperamentos, 'a_temperamentos' => $this->a_temperamentos))->output();
+        $consolidados = \PDF::loadView('reporte_consolidados', array('areas' => $this->areas, 'ruedas' => $this->ruedas, 'persona' => $this->persona, 'p_intereses' => $this->p_intereses,'p_intereses_sort' => $this->p_intereses_sort, 'p_temperamentos' => $this->p_temperamentos, 'a_temperamentos' => $this->a_temperamentos))->output();
 
         $name = 'PDF-' . $this->hour . '/CONSOLIDADO-'  . str_replace(' ', '',$this->persona->nombres) .  str_replace(' ', '',$this->persona->apellido_paterno) . str_replace(' ', '',$this->persona->apellido_materno) . '.pdf';
         \Storage::disk('public')->put($name,  $consolidados);
