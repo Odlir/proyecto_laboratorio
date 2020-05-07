@@ -6,6 +6,8 @@
 
 - Al entrar al sistema se debe redireccionar a programar encuestas
 
+- En el excel status debe aver color rojo y verde para pendiente y completado.
+
 ////////////////////////////////
 
 - hay que agregar talentos en el modulo de reportes
