@@ -47,7 +47,6 @@ Route::group([
     Route::get('exportar/temperamentos/{temperamento_id}/{persona_id}', 'ExportController@pdf_temperamentos');
     Route::get('exportar/consolidados/{interes_id}/{persona_id}', 'ExportController@pdf_consolidado');
     Route::resource('encuesta_puntaje','EncuestaPuntajeController');
-    Route::resource('queues','QueuesController');
     Route::resource('talentos','TalentoController');
 });
 

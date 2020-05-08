@@ -296,7 +296,7 @@
             <p class="font-weight-bold text-secondary h2">Tabla general de áreas y valores.</p>
             <br>
             <table class="w-100 text-secondary table-interes">
-                <thead class="font-weight-bold text-center" style="font-weight:bold; font-size: 17px;">
+                <thead class="text-center" style="font-weight:bold; font-size: 17px;">
                     <tr>
                         <td width="55%" rowspan="2">
                             ÁREA DE INTERÉS

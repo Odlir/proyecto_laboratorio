@@ -98,7 +98,8 @@ export class ReportesComponent implements OnInit {
 			this.form.archivo = 'REPINTERESES-'+this.sucursal.nombre+'-'+this.form.interes_id + '.zip';
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
-					this.eliminarZip();
+					this.disabled = false;
+					this.limpiar();
 					this.progressRef.complete();
 				},
 				(error) => {
@@ -147,7 +148,8 @@ export class ReportesComponent implements OnInit {
 			this.form.archivo = 'REPCONSOLIDADO-'+this.sucursal.nombre+'-'+this.form.interes_id+ '.zip';
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
-					this.eliminarZip();
+					this.disabled = false;
+					this.limpiar();
 					this.progressRef.complete();
 				},
 				(error) => {
@@ -180,16 +182,6 @@ export class ReportesComponent implements OnInit {
 				}
 			);
 		}
-	}
-
-	eliminarZip() {
-
-		this.api.delete('queues', this.form.hour).subscribe(
-			(data) => {
-				this.disabled = false;
-				this.limpiar();
-			}
-		);
 	}
 
 	obtenerIntereses() {
