@@ -31,6 +31,10 @@
                 color: #404342 ;
             }
 
+            .text-white {
+                color: white;
+            }
+
             #header {
                 text-align: right;
                 position: fixed;
@@ -53,12 +57,9 @@
                 bottom: 10px;
             }
 
-            table,tr,td{
-                border: 1px solid;
-            }
-
-            .p-2{
-                padding: 0.5rem !important;
+            .py-2{
+                padding-top: 0.5rem !important;
+                padding-bottom: 0.5rem !important;
             }
 
             .border{
@@ -66,15 +67,24 @@
             }
 
             .tabla-resultado{
-                font-size: 11px;
+                margin-left: 10px;
+                margin-right: 10px;
             }
 
             .text-center{
                 text-align: center;
             }
 
-            .pr-2{
-                padding-right: 0.5rem !important;
+            .font-11{
+                font-size: 11px;
+            }
+
+            .mt-1{
+                margin-top: 0.25rem!important;
+            }
+
+            .mt-5{
+                margin-top: 3rem !important;
             }
         </style>
     </head>
@@ -96,19 +106,24 @@
 
             <p class="text-secondary h1">2.3 Talentos más desarrollados por categorías</p>
 
-            <div>
+            <div style="height:300px;">
 
             </div>
         </div>
 
-        {{-- <table class="tabla-resultado w-100">
+        <table class="tabla-resultado">
             <tr>
                 @foreach ($tendencias as $ten)
-                <td class="pr-2">
+                <td>
                     <table>
                         <tr>
-                            <td class="border p-2" style="width: 20px!important;border-color:{{$ten->color}}">
-                                {{$ten->nombre}}
+                            <td class="border text-center py-2 font-11" style="border-color:{{$ten->color}}">
+                                {{$ten->nombre}}            
+                            </td>          
+                        </tr>
+                        <tr class="">
+                            <td class="text-center py-2 font-11 mt-1 text-white" style="background:{{$ten->color}}">
+                                %    
                             </td>
                         </tr>
                     </table>   
@@ -116,6 +131,6 @@
             @endforeach
             </tr>
         </table>
-        <span class="pad-doc">*En este gráfico, no se incluyen los talentos específicos ni las virtudes.</span> --}}
+        <p class="pad-doc mt-5">*En este gráfico, no se incluyen los talentos específicos ni las virtudes.</p>
     </body>
 </html>
