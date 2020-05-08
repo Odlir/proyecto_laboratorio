@@ -14,9 +14,6 @@ intereses
 talentos
 temperamentos
 
-- en la vista del semaforo tengo que ponerle los links para que se baje el reporte
-de consolidado o intereses
-
 --------------------------
 
 libreria para graficos jpgraph

@@ -66,7 +66,9 @@ class ExportController extends Controller
     }
 
     public function reportes(Request $request)
-    {
+    {   
+        $back = config('constants.back_end');
+    
         $show = false;
 
         $interes = Encuesta::where('id', $request->interes_id)
@@ -100,6 +102,20 @@ class ExportController extends Controller
                 $data_temperamento = EncuestaPuntaje::where('encuesta_id', $temperamento['id'])
                     ->where('persona_id', $p->id)
                     ->first();
+
+                if($show){
+                    if ($data_interes && $data_temperamento) {
+                        $p->link= $back . 'exportar' . '/consolidados/' .  $request->interes_id . '/' . $p->id;
+                    }else{
+                        $p->link= "";
+                    }
+                }else{
+                    if ($data_interes) {
+                        $p->link = $back . 'exportar' . '/intereses/' . $request->interes_id . '/' . $p->id;
+                    } else {
+                        $p->link= "";
+                    }
+                }
 
                 if ($data_interes) {
                     $p->status_int = "1"; //COMPLETADO
