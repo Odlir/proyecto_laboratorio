@@ -59,7 +59,7 @@ class StatusInteresesExport implements FromView, ShouldAutoSize, WithEvents
                 $cellRange = 'A1:W1'; // All headers
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFill()
                     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                    ->getStartColor()->setARGB('007DD5');
+                    ->getStartColor()->setARGB('FF0000');
 
                 $event->sheet->getDelegate()->getStyle($cellRange)
                     ->getFont()->getColor()->setARGB('FFFFFF');

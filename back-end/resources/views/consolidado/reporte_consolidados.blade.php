@@ -723,6 +723,69 @@
         </div>
 
         <div class="page_break">
+            <p class="font-weight-bold text-secondary ml-4 h2">II. TEST DE TALENTOS</p>
+            <div class="text-justify">
+                <p>En la actualidad, está científicamente comprobado que las personas que estudian y
+                    luego trabajan en sus talentos son más felices, motivadas, comprometidas y aportan
+                    al máximo su potencial (Snyder & Shane, 2008).</p>
+
+                <p>Sin embargo, la mayoría de alumnos que elige una carrera no toma en cuenta la
+                    compatibilidad entre esta y sus talentos. La Universidad Peruana de Ciencias
+                    Aplicadas (UPC) viene trabajando, desde hace más de cinco años, con la ciencia
+                    de la psicología positiva, que permite tomar en cuenta los talentos de los alumnos y
+                    los ayuda a conocerse mejor. De acuerdo con Seligman (1998), el tema fundamental
+                    de la psicología positiva “es la búsqueda y la construcción de la expresión total del
+                    gran talento”.</p>
+
+                <p>El talento es una forma innata de pensar, sentir y comportarse, que puede aplicarse,
+                    productivamente, para obtener resultados positivos. Todas las personas son
+                    poseedoras de talentos; el problema es que la mayoría los desconoce (Clifton,
+                    Anderson & Schreiner, 2006). Se puede afirmar, luego de mucha investigación, que
+                    las personas más exitosas conocen sus talentos y construyen su vida en base a ellos
+                    (Gallup, 2009).</p>
+
+                <p>El talento puede definirse como aquello que uno hace muy bien, en lo que destaca
+                    por encima de los demás y que, además, genera placer.</p>
+            </div>
+
+            <div>
+                <p class="font-weight-bold text-secondary h2">2.1 El enfoque tradicional vs. el enfoque moderno</p>
+
+                <p>
+                    En el enfoque tradicional de la educación, los profesores, los padres y los propios
+                    alumnos se enfocan en desarrollar sus debilidades y descuidan el desarrollo de sus
+                    talentos. Sin embargo, es el desarrollo de talentos lo que sostiene el éxito de una
+                    persona (Buckingham, 2007; Gallup, 2009).
+                </p>
+                <p>
+                    Resulta clave ayudar a los estudiantes a pensar en sus talentos, para que sepan
+                    emplearlos en el aula y en su vida. La premisa es que se enfoquen en lo que hacen
+                    mejor y que solo dediquen esfuerzo en llevar sus debilidades a una valla mínima (si un
+                    alumno, por ejemplo, es desordenado, en general, no puede ser totalmente
+                    desordenado, debe alcanzar una valla mínima de orden para destacar con sus
+                    talentos).
+                </p>
+                <p>
+                    La revolución de los talentos y fortalezas ha trascendido las fronteras del ambiente
+                    académico y se aplica hoy en el contexto laboral: muchas empresas buscan
+                    conocer los talentos de los empleados con mejores desempeños y, de ese modo, fijar
+                    sus expectativas.
+                </p>
+            </div>
+        </div>
+
+        <div class="page_break">
+            <p>
+                De acuerdo a la evaluación que completaste, te presentamos los talentos que tienes
+                más desarrollados.
+                Primero los veremos por categoría y luego a más detalle
+            </p>
+
+            <p class="font-weight-bold text-secondary h2">2.3 Talentos más desarrollados por categorías</p>
+        </div>
+
+
+        <div class="page_break">
             <p class="font-weight-bold text-secondary ml-4 h2">III. TEST DE INTERESES PROFESIONALES</p>
             <div class="text-justify">
                 <p>Esta evaluación permite recoger información sobre sus principales intereses, tanto

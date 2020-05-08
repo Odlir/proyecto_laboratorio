@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TendenciaTalentoSeeder::class);
         $this->call(TalentosSeeder::class);
         $this->call(RuedaSeeder::class);
+        $this->call(DescripcionTalentoSeeder::class);
     }
 }

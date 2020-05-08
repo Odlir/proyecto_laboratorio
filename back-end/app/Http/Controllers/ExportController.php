@@ -14,6 +14,8 @@ use App\Jobs\PDFConsolidados;
 use App\Jobs\PDFIntereses;
 use App\Persona;
 use App\Rueda;
+use App\Talento;
+use App\TendenciaTalento;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -111,7 +113,7 @@ class ExportController extends Controller
             }
         }
 
-        return response()->json([$general['personas'],"show"=>$show], 200);
+        return response()->json([$general['personas'], "show" => $show], 200);
     }
 
     public function intereses(Request $request)
@@ -129,7 +131,7 @@ class ExportController extends Controller
             ->with('punintereses.carrera')
             ->with(['puninteresessort' => function ($query) {
                 $query->with('carrera');
-                $query->orderBy('puntaje','DESC');
+                $query->orderBy('puntaje', 'DESC');
             }])
             ->get();
 
@@ -138,11 +140,11 @@ class ExportController extends Controller
             return response()->json(['error' => 'No hay encuestas resueltas.'], 401);
         } else {
             foreach ($personas as $p) {
-                PDFIntereses::dispatchNow($p['persona'], $p['punintereses'],$p['puninteresessort'], $encuesta['empresa']['nombre'], $request->hour);
+                PDFIntereses::dispatchNow($p['persona'], $p['punintereses'], $p['puninteresessort'], $encuesta['empresa']['nombre'], $request->hour);
             }
         }
 
-        Excel::store(new StatusInteresesExport($general['personas'], $encuesta['id']), 'Consolidado-' . $request->hour . '/'.$encuesta['empresa']['nombre'].'-'.$request->interes_id.'.xlsx', 'local');
+        Excel::store(new StatusInteresesExport($general['personas'], $encuesta['id']), 'Consolidado-' . $request->hour . '/' . $encuesta['empresa']['nombre'] . '-' . $request->interes_id . '.xlsx', 'local');
 
         return $this->descargarZip($request->hour);
     }
@@ -176,7 +178,7 @@ class ExportController extends Controller
             ->with('punintereses.carrera.intereses')
             ->with(['puninteresessort' => function ($query) {
                 $query->with('carrera');
-                $query->orderBy('puntaje','DESC');
+                $query->orderBy('puntaje', 'DESC');
             }])
             ->first();
 
@@ -186,9 +188,15 @@ class ExportController extends Controller
             ->with('areatemperamentos')
             ->first();
 
-        $pdf = \PDF::loadView('reporte_consolidados', array('areas' => $areas, 'ruedas' => $ruedas, 'persona' => $persona, 'p_intereses' => $p_intereses['punintereses'],'p_intereses_sort' => $p_intereses['puninteresessort'], 'p_temperamentos' => $p_temperamentos['puntemperamentos'], 'a_temperamentos' => $p_temperamentos['areatemperamentos']));
+        $talentos = Talento::where('tendencia_id', "!=", null)
+            ->with('tendencia')
+            ->get();
 
-        return $pdf->download('Reporte-Consolidado-' . str_replace(' ', '',$persona->nombres) . str_replace(' ', '',$persona->apellido_paterno) . str_replace(' ', '',$persona->apellido_materno) . '.pdf');
+        $tendencias = TendenciaTalento::all();
+
+        $pdf = \PDF::loadView('consolidado/reporte_consolidados', array('areas' => $areas, 'ruedas' => $ruedas, 'persona' => $persona, 'p_intereses' => $p_intereses['punintereses'], 'p_intereses_sort' => $p_intereses['puninteresessort'], 'p_temperamentos' => $p_temperamentos['puntemperamentos'], 'a_temperamentos' => $p_temperamentos['areatemperamentos']));
+        $pdf2 = \PDF::loadView('consolidado/talentos1', array('talentos' => $talentos, 'tendencias' => $tendencias))->setPaper('a4', 'landscape');
+        return $pdf2->download('Reporte-Consolidado-' . str_replace(' ', '', $persona->nombres) . str_replace(' ', '', $persona->apellido_paterno) . str_replace(' ', '', $persona->apellido_materno) . '.pdf');
     }
 
     public function jobs(Request $request)
@@ -222,7 +230,7 @@ class ExportController extends Controller
                 ->with('punintereses.carrera.intereses')
                 ->with(['puninteresessort' => function ($query) {
                     $query->with('carrera');
-                    $query->orderBy('puntaje','DESC');
+                    $query->orderBy('puntaje', 'DESC');
                 }])
                 ->first();
 
@@ -233,7 +241,7 @@ class ExportController extends Controller
                 ->first();
 
             if ($p_intereses && $p_temperamentos) {
-                PDFConsolidados::dispatchNow($p, $p_intereses['punintereses'],$p_intereses['puninteresessort'], $p_temperamentos['puntemperamentos'], $p_temperamentos['areatemperamentos'], $encuesta['empresa']['nombre'], $request->hour, $areas, $ruedas);
+                PDFConsolidados::dispatchNow($p, $p_intereses['punintereses'], $p_intereses['puninteresessort'], $p_temperamentos['puntemperamentos'], $p_temperamentos['areatemperamentos'], $encuesta['empresa']['nombre'], $request->hour, $areas, $ruedas);
                 $descargar = true;
             }
         }
@@ -242,7 +250,7 @@ class ExportController extends Controller
             $temperamento_id = $encuesta_temp['id'];
         }
 
-        Excel::store(new StatusExport($general['personas'], $encuesta['id'], $temperamento_id), 'Consolidado-' . $request->hour . '/'.$encuesta['empresa']['nombre'].'-'.$request->interes_id.'.xlsx', 'local');
+        Excel::store(new StatusExport($general['personas'], $encuesta['id'], $temperamento_id), 'Consolidado-' . $request->hour . '/' . $encuesta['empresa']['nombre'] . '-' . $request->interes_id . '.xlsx', 'local');
 
         if ($descargar) {
             return $this->descargarZip($request->hour);
@@ -328,12 +336,12 @@ class ExportController extends Controller
             ->with('punintereses.carrera')
             ->with(['puninteresessort' => function ($query) {
                 $query->with('carrera');
-                $query->orderBy('puntaje','DESC');
+                $query->orderBy('puntaje', 'DESC');
             }])
             ->first();
 
-        $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $persona, 'puntajes' => $encuesta['punintereses'],'puntajes_sort' => $encuesta['puninteresessort']));
-        return $pdf->download('Reporte-Intereses-' . str_replace(' ', '',$persona->nombres) . str_replace(' ', '',$persona->apellido_paterno) . str_replace(' ', '',$persona->apellido_materno) . '.pdf');
+        $pdf = \PDF::loadView('reporte_interes', array('carreras' => $carreras, 'persona' => $persona, 'puntajes' => $encuesta['punintereses'], 'puntajes_sort' => $encuesta['puninteresessort']));
+        return $pdf->download('Reporte-Intereses-' . str_replace(' ', '', $persona->nombres) . str_replace(' ', '', $persona->apellido_paterno) . str_replace(' ', '', $persona->apellido_materno) . '.pdf');
     }
 
     public function pdf_temperamentos($temperamento_id, $persona_id)
@@ -355,7 +363,7 @@ class ExportController extends Controller
 
         $pdf = \PDF::loadView('reporte_temperamentos', array('ruedas' => $ruedas, 'persona' => $persona, 'p_temperamentos' => $encuesta['puntemperamentos'], 'a_temperamentos' => $encuesta['areatemperamentos'], 'areas' => $areas));
 
-        return $pdf->download('Reporte-Temperamentos-' . str_replace(' ', '',$persona->nombres) .  str_replace(' ', '',$persona->apellido_paterno) . str_replace(' ', '',$persona->apellido_materno) . '.pdf');
+        return $pdf->download('Reporte-Temperamentos-' . str_replace(' ', '', $persona->nombres) .  str_replace(' ', '', $persona->apellido_paterno) . str_replace(' ', '', $persona->apellido_materno) . '.pdf');
     }
 
     public function status(Request $request)
