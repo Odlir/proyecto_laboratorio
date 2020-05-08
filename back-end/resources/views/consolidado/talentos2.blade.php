@@ -6,7 +6,11 @@
         <style>
                    
             @page{    
-                margin: 80px;
+                margin: 0px;
+            }
+
+            .pad-doc{
+                margin:80px;
             }
 
             body
@@ -48,6 +52,30 @@
                 font-size: 15px;
                 bottom: 10px;
             }
+
+            table,tr,td{
+                border: 1px solid;
+            }
+
+            .p-2{
+                padding: 0.5rem !important;
+            }
+
+            .border{
+                border: 4px solid;
+            }
+
+            .tabla-resultado{
+                font-size: 11px;
+            }
+
+            .text-center{
+                text-align: center;
+            }
+
+            .pr-2{
+                padding-right: 0.5rem !important;
+            }
         </style>
     </head>
     <body>
@@ -59,7 +87,7 @@
             12
         </div>
         
-        <div>
+        <div class="pad-doc">
             <p>
                 De acuerdo a la evaluación que completaste, te presentamos los talentos que tienes
                 más desarrollados.
@@ -67,7 +95,27 @@
             </p>
 
             <p class="text-secondary h1">2.3 Talentos más desarrollados por categorías</p>
+
+            <div>
+
+            </div>
         </div>
 
+        {{-- <table class="tabla-resultado w-100">
+            <tr>
+                @foreach ($tendencias as $ten)
+                <td class="pr-2">
+                    <table>
+                        <tr>
+                            <td class="border p-2" style="width: 20px!important;border-color:{{$ten->color}}">
+                                {{$ten->nombre}}
+                            </td>
+                        </tr>
+                    </table>   
+                </td>
+            @endforeach
+            </tr>
+        </table>
+        <span class="pad-doc">*En este gráfico, no se incluyen los talentos específicos ni las virtudes.</span> --}}
     </body>
 </html>

@@ -219,9 +219,9 @@ class ExportController extends Controller
 
         $pdf2 = \PDF::loadView('consolidado/talentos1', array('talentos' => $talentos, 'tendencias' => $tendencias))->setPaper('a4', 'landscape')->output();
 
-        $pdf3 = \PDF::loadView('consolidado/talentos2')->output();
+        $pdf3 = \PDF::loadView('consolidado/talentos2',array('tendencias' => $tendencias))->output();
 
-        $pdf4 = \PDF::loadView('consolidado/talentos3')->setPaper('a4', 'landscape')->output();
+        $pdf4 = \PDF::loadView('consolidado/talentos3',array('tendencias' => $tendencias))->setPaper('a4', 'landscape')->output();
 
         $pdf5 = \PDF::loadView('consolidado/reporte_consolidados2', array('p_intereses' => $p_intereses['punintereses'], 'p_intereses_sort' => $p_intereses['puninteresessort']))->output();
 

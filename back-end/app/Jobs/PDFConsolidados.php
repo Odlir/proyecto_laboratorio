@@ -53,11 +53,6 @@ class PDFConsolidados implements ShouldQueue
      */
     public function handle()
     {
-        // $consolidados = \PDF::loadView('consolidado/reporte_consolidados', array('areas' => $this->areas, 'ruedas' => $this->ruedas, 'persona' => $this->persona, 'p_intereses' => $this->p_intereses,'p_intereses_sort' => $this->p_intereses_sort, 'p_temperamentos' => $this->p_temperamentos, 'a_temperamentos' => $this->a_temperamentos))->output();
-
-        // $name = 'PDF-' . $this->hour . '/CONSOLIDADO-'  . str_replace(' ', '',$this->persona->nombres) .  str_replace(' ', '',$this->persona->apellido_paterno) . str_replace(' ', '',$this->persona->apellido_materno) . '.pdf';
-        // \Storage::disk('public')->put($name,  $consolidados);
-
         $identificador = rand();
 
         $pdf = \PDF::loadView('consolidado/reporte_consolidados', array('areas' => $this->areas, 'ruedas' => $this->ruedas, 'persona' => $this->persona, 'p_temperamentos' => $this->p_temperamentos, 'a_temperamentos' => $this->a_temperamentos))->output();
@@ -66,7 +61,7 @@ class PDFConsolidados implements ShouldQueue
 
         $pdf3 = \PDF::loadView('consolidado/talentos2')->output();
 
-        $pdf4 = \PDF::loadView('consolidado/talentos3')->setPaper('a4', 'landscape')->output();
+        $pdf4 = \PDF::loadView('consolidado/talentos3',array('tendencias' => $this->tendencias))->setPaper('a4', 'landscape')->output();
 
         $pdf5 = \PDF::loadView('consolidado/reporte_consolidados2', array('p_intereses' => $this->p_intereses, 'p_intereses_sort' => $this->p_intereses_sort))->output();
     

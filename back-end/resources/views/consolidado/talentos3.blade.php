@@ -6,7 +6,9 @@
         <style>
                    
             @page{    
-                margin: 80px;
+                margin:60px;
+                padding:0;
+                margin-bottom:40px;
             }
 
             body
@@ -30,9 +32,9 @@
             #header {
                 text-align: right;
                 position: fixed;
-                top:-60px;
+                top:-30px;
                 left: 0;
-                right: -30px;
+                right: -20px;
             }
 
             #header img {
@@ -46,8 +48,46 @@
                 right: 10px;
                 color: black;
                 font-size: 15px;
-                bottom: 10px;
+                bottom: 20px;
             }
+
+            .pr-2{
+                padding-right: 0.5rem !important;
+            }
+
+            .margin-tr{
+                border-spacing: 0px 8px;
+            }
+
+            .text-white {
+                color: #fff!important;
+            }
+
+            .p-2{
+                padding: 0.5rem !important;
+            }
+
+            .border{
+                border: 4px solid;
+            }
+
+            table{
+                width: 100%;
+            }
+
+            .text-center{
+                text-align: center;
+            }
+
+            .table-height{
+                height:600px;
+            }
+
+            .bottom{
+                position: relative;
+                vertical-align: bottom;
+            }
+            
         </style>
     </head>
     <body>
@@ -60,8 +100,22 @@
         </div>
         
         <div>
-            <p class="text-secondary h1">2.4 12 talentos más desarrollados y talentos específicos*</p>
+            <p class="text-secondary h1 text-center">2.4 &nbsp;&nbsp;12 talentos más desarrollados y talentos específicos*</p>
         </div>
 
+        <table class="table-height">
+            <tr>
+                @foreach ($tendencias as $ten)
+                <td class="w-100 pr-2 bottom">
+                    <table class="text-center margin-tr">
+                        <tr>
+                            <td class="border p-2" style="border-color:{{$ten->color}}">{{$ten->nombre}}</td>
+                        </tr>
+                    </table>   
+                </td>
+            @endforeach
+            </tr>
+        </table>
+        <span>*En caso los hayas elegido en el test</span>
     </body>
 </html>

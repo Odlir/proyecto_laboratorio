@@ -193,7 +193,7 @@
         <div>
             <p class="font-weight-bold text-secondary h3 m-0">2.5 Descripción personal a través de tus talentos más desarrollados:</p>
 
-            <table class="w-100 mt-3">
+            {{-- <table class="w-100 mt-3">
                 <tr>
                     <td width="40%" class="text-center top">
                         <div class="border-table text-white">
@@ -329,7 +329,7 @@
                         </table>
                     </td>
                 </tr>
-            </table>
+            </table> --}}
 
         </div>
 
