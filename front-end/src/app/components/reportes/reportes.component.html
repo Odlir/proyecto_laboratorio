@@ -16,8 +16,7 @@
 		<div class="form-group row my-3">
 			<label class="col-sm-2 col-form-label w-100">Intereses <span class="text-danger">*</span></label>
 			<div class="col-sm-6">
-				<select name="intereses" class="form-control" [(ngModel)]="form.interes_id"
-					(change)="obtenerTemperamentos()">
+				<select name="intereses" class="form-control" [(ngModel)]="form.interes_id">
 					<option [value]="item.id" *ngFor="let item of intereses">{{item.id}} - ENCUESTA INTERESES </option>
 				</select>
 			</div>
@@ -29,18 +28,7 @@
 			<hr>
 		</div>
 
-		<div class="form-group row my-3">
-			<label class="col-sm-2 col-form-label w-100">Temperamentos</label>
-			<div class="col-sm-6">
-				<select name="temperamentos" class="form-control" [(ngModel)]="form.temperamento_id">
-					<option [value]="item.id" *ngFor="let item of temperamentos">{{item.id}} - ENCUESTA TEMPERAMENTOS
-					</option>
-				</select>
-			</div>
-			<hr>
-		</div>
-
-		<div class="form-group row">
+		<div class="form-group row mt-5">
 			<div class="col-12 row">
 				<button type="submit" class="btn btn-success d-flex" (click)="excel()" [disabled]="disabled">
 					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXCEL STATUS

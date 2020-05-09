@@ -15,7 +15,6 @@
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "iio/libmergepdf": "^4.0",
-        "khill/lavacharts": "3.1.*",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "league/flysystem-aws-s3-v3": "^1.0",

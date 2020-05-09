@@ -62,13 +62,18 @@
                 padding-bottom: 0.5rem !important;
             }
 
+            .py-3{
+                padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+            }
+
             .border{
                 border: 4px solid;
             }
 
             .tabla-resultado{
-                margin-left: 10px;
-                margin-right: 10px;
+                margin-left: 15px;
+                margin-right: 15px;
             }
 
             .text-center{
@@ -114,6 +119,7 @@
         <table class="tabla-resultado">
             <tr>
                 @foreach ($tendencias as $ten)
+                @if ($ten->id!=7)
                 <td>
                     <table>
                         <tr>
@@ -122,12 +128,13 @@
                             </td>          
                         </tr>
                         <tr class="">
-                            <td class="text-center py-2 font-11 mt-1 text-white" style="background:{{$ten->color}}">
+                            <td class="text-center py-3 font-11 mt-1 text-white" style="background:{{$ten->color}}">
                                 %    
                             </td>
                         </tr>
                     </table>   
                 </td>
+                @endif
             @endforeach
             </tr>
         </table>

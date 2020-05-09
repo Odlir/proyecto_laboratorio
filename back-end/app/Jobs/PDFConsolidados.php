@@ -59,7 +59,7 @@ class PDFConsolidados implements ShouldQueue
 
         $pdf2 = \PDF::loadView('consolidado/talentos1', array('talentos' => $this->talentos, 'tendencias' => $this->tendencias))->setPaper('a4', 'landscape')->output();
 
-        $pdf3 = \PDF::loadView('consolidado/talentos2')->output();
+        $pdf3 = \PDF::loadView('consolidado/talentos2',array('tendencias' => $this->tendencias))->output();
 
         $pdf4 = \PDF::loadView('consolidado/talentos3',array('tendencias' => $this->tendencias))->setPaper('a4', 'landscape')->output();
 

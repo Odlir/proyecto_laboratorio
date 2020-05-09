@@ -13,7 +13,6 @@ export class ReportesComponent implements OnInit {
 
 	public form = {
 		interes_id: null,
-		temperamento_id: null,
 		campo: null,
 		archivo: null,
 		hour: null,
@@ -24,8 +23,6 @@ export class ReportesComponent implements OnInit {
 	public sucursales = [];
 
 	public intereses = [];
-
-	public temperamentos = [];
 
 	public sucursal = {
 		id: null,
@@ -195,31 +192,10 @@ export class ReportesComponent implements OnInit {
 		);
 	}
 
-	obtenerTemperamentos() {
-
-		this.temperamentos = [];
-
-		let general_id;
-
-		this.intereses.forEach(element => {
-			if (element.id == this.form.interes_id) {
-				general_id = element.encuesta_general_id;
-			}
-		});
-
-		this.api.get('links?tipo=3&general_id=' + general_id).subscribe(
-			(data) => {
-				this.temperamentos = data
-			}
-		);
-	}
-
 	limpiar() {
 		this.form.interes_id = null;
-		this.form.temperamento_id = null;
 		this.form.archivo = null;
 		this.form.campo = null;
-		this.temperamentos = [];
 		this.form.hour = null;
 		this.reportes = [];
 		this.show = null;
