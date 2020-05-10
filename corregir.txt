@@ -1,21 +1,9 @@
 - EL SISTEMA DEBE SER RESPONSIVE
 
-- llenar los seeders de la empresa con su sucursal
-
 - EL IMPORTAR EN EXCEL EN CELULAR ESTÁ FALLANDO
 
 - Al entrar al sistema se debe redireccionar a programar encuestas
 
-////////////////////////////////
-
-- hay que agregar talentos en el modulo de reportes
-el orden debe ser
-intereses
-talentos
-temperamentos
-
 --------------------------
-
-libreria para graficos jpgraph
 
 <base href="/encuestas/">

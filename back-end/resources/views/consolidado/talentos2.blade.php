@@ -3,7 +3,7 @@
     <head>
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
         <meta charset="UTF-8">
-        <style>
+        <style type='text/css'>
                    
             @page{    
                 margin: 0px;
@@ -111,9 +111,7 @@
 
             <p class="text-secondary h1">2.3 Talentos más desarrollados por categorías</p>
 
-            <div style="height:300px;">
-
-            </div>
+            <div id="chart_div" style="width: 900px; height: 500px;"></div>
         </div>
 
         <table class="tabla-resultado">

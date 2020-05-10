@@ -9,6 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 use iio\libmergepdf\Merger;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class PDFConsolidados implements ShouldQueue
 {
@@ -55,15 +56,15 @@ class PDFConsolidados implements ShouldQueue
     {
         $identificador = rand();
 
-        $pdf = \PDF::loadView('consolidado/reporte_consolidados', array('areas' => $this->areas, 'ruedas' => $this->ruedas, 'persona' => $this->persona, 'p_temperamentos' => $this->p_temperamentos, 'a_temperamentos' => $this->a_temperamentos))->output();
+        $pdf = PDF::loadView('consolidado/reporte_consolidados', array('areas' => $this->areas, 'ruedas' => $this->ruedas, 'persona' => $this->persona, 'p_temperamentos' => $this->p_temperamentos, 'a_temperamentos' => $this->a_temperamentos))->output();
 
-        $pdf2 = \PDF::loadView('consolidado/talentos1', array('talentos' => $this->talentos, 'tendencias' => $this->tendencias))->setPaper('a4', 'landscape')->output();
+        $pdf2 = PDF::loadView('consolidado/talentos1', array('talentos' => $this->talentos, 'tendencias' => $this->tendencias))->setPaper('a4', 'landscape')->output();
 
-        $pdf3 = \PDF::loadView('consolidado/talentos2',array('tendencias' => $this->tendencias))->output();
+        $pdf3 = PDF::loadView('consolidado/talentos2',array('tendencias' => $this->tendencias))->output();
 
-        $pdf4 = \PDF::loadView('consolidado/talentos3',array('tendencias' => $this->tendencias))->setPaper('a4', 'landscape')->output();
+        $pdf4 = PDF::loadView('consolidado/talentos3',array('tendencias' => $this->tendencias))->setPaper('a4', 'landscape')->output();
 
-        $pdf5 = \PDF::loadView('consolidado/reporte_consolidados2', array('p_intereses' => $this->p_intereses, 'p_intereses_sort' => $this->p_intereses_sort))->output();
+        $pdf5 = PDF::loadView('consolidado/reporte_consolidados2', array('p_intereses' => $this->p_intereses, 'p_intereses_sort' => $this->p_intereses_sort))->output();
     
         $name = $identificador . '/1.pdf';
         $name2 = $identificador . '/2.pdf';

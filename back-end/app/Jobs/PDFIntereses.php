@@ -2,12 +2,13 @@
 
 namespace App\Jobs;
 
-use App\Carrera;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Barryvdh\DomPDF\Facade as PDF;
+
 
 class PDFIntereses implements ShouldQueue
 {
@@ -40,7 +41,7 @@ class PDFIntereses implements ShouldQueue
      */
     public function handle()
     {
-        $intereses = \PDF::loadView('reporte_interes', array('persona' => $this->persona, 'puntajes' => $this->puntajes,'puntajes_sort'=>$this->puntajes_sort))->output();
+        $intereses = PDF::loadView('reporte_interes', array('persona' => $this->persona, 'puntajes' => $this->puntajes,'puntajes_sort'=>$this->puntajes_sort))->output();
 
         $name = 'PDF-' . $this->hour . '/INTERESES-'  . str_replace(' ', '', $this->persona->nombres) .  str_replace(' ', '',$this->persona->apellido_paterno) . str_replace(' ', '',$this->persona->apellido_materno) . '.pdf';
         \Storage::disk('public')->put($name,  $intereses);
