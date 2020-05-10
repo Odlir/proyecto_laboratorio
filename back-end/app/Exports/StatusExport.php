@@ -21,6 +21,8 @@ class StatusExport implements FromView, ShouldAutoSize, WithEvents
     private $front;
     private $back;
 
+    private $show = true;
+
     public function __construct($personas, $interes_id, $temperamento_id)
     {
         $this->personas = $personas;
@@ -34,28 +36,36 @@ class StatusExport implements FromView, ShouldAutoSize, WithEvents
 
             $data_interes = EncuestaPuntaje::where('encuesta_id', $this->interes_id)
                 ->where('persona_id', $p->id)
-                ->get();
+                ->first();
 
             $data_temperamento = EncuestaPuntaje::where('encuesta_id', $this->temperamento_id)
                 ->where('persona_id', $p->id)
-                ->get();
+                ->first();
 
-            if (!$data_interes->isEmpty()) {
-                $p->link_intereses = $this->back . 'exportar' . '/' . $this->interes_id . '/' . $p->id;
+            if ($data_interes) {
+                // $p->link_intereses = $this->back . 'exportar' . '/intereses/' . $this->interes_id . '/' . $p->id;
+                $p->link_intereses = "En archivo";
+                $p->status_int = "Completado";
             } else {
                 $p->link_intereses = $this->front . '/test-intereses/' . $this->interes_id . '/' . $p->id;
+                $p->status_int = "Pendiente";
             }
 
-            if (!$data_temperamento->isEmpty()) {
-                $p->link_temperamentos = "";
+            if ($data_temperamento) {
+                // $p->link_temperamentos = $this->back . 'exportar' . '/temperamentos/' . $this->temperamento_id . '/' . $p->id;
+                $p->link_temperamentos = "En archivo";
+                $p->status_temp = "Completado";
             } else {
-                $p->link_temperamentos = $this->front . '/test-temperamentos/' . $this->temperamento_id . '/' . $p->id;;
+                if ($this->temperamento_id != '') {
+                    $p->link_temperamentos = $this->front . '/test-temperamentos/' . $this->temperamento_id . '/' . $p->id;
+                    $p->status_temp = "Pendiente";
+                } else {
+                    $this->show = false;
+                }
             }
 
-            if (!$data_interes->isEmpty() && !$data_temperamento->isEmpty()) {
-                $p->status = "Completado";
-            } else {
-                $p->status = "Pendiente";
+            if ($data_interes && $data_temperamento) {
+                $p->link_consolidado = $this->back . 'exportar' . '/consolidados/' .  $this->interes_id . '/' . $p->id;
             }
         }
     }
@@ -63,7 +73,8 @@ class StatusExport implements FromView, ShouldAutoSize, WithEvents
     public function view(): View
     {
         return view('status', [
-            'personas' => $this->personas
+            'personas' => $this->personas,
+            'show' => $this->show
         ]);
     }
 
@@ -74,7 +85,7 @@ class StatusExport implements FromView, ShouldAutoSize, WithEvents
                 $cellRange = 'A1:W1'; // All headers
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFill()
                     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                    ->getStartColor()->setARGB('007DD5');
+                    ->getStartColor()->setARGB('FF0000');
 
                 $event->sheet->getDelegate()->getStyle($cellRange)
                     ->getFont()->getColor()->setARGB('FFFFFF');

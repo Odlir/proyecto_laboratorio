@@ -10,6 +10,14 @@
 }
 
 .mat-toolbar.mat-accent {
-	background: rgb(96, 125, 139);
+	background: red;
     color: white;
+}
+
+.mat-toolbar-multiple-rows {
+    min-height: 48px;
+}
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+    height: 48px;
 }

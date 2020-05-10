@@ -52,6 +52,9 @@ import { HeaderEncuestaComponent } from './components/partials/header-encuesta/h
 import { ReportesComponent } from './components/reportes/reportes.component';
 import { TestTemperamentosComponent } from './components/test-temperamentos/test-temperamentos.component';
 import { TestTalentosComponent } from './components/test-talentos/test-talentos.component';
+import { NgProgressModule } from 'ngx-progressbar';
+import { NgProgressHttpModule } from 'ngx-progressbar/http';
+import { NgProgressRouterModule } from 'ngx-progressbar/router';
 
 @NgModule({
 	declarations: [
@@ -95,7 +98,10 @@ import { TestTalentosComponent } from './components/test-talentos/test-talentos.
 		BrowserAnimationsModule,
 		FormsModule,
 		ReactiveFormsModule,
-		TooltipModule.forRoot()
+		TooltipModule.forRoot(),
+		NgProgressModule,
+		NgProgressHttpModule,
+		NgProgressRouterModule
 	],
 	providers: [ConstantsService, BsModalService],
 	bootstrap: [AppComponent]

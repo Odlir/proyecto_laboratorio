@@ -102,8 +102,7 @@ class EncuestaController extends Controller
             ->with('empresa')
             ->with(['general' => function ($query) {
                 $query->with(['personas' => function ($query) {
-                    $query->wherePivot('estado', '1')
-                        ->orderBy('id', 'DESC');
+                    $query->wherePivot('estado', '1');
                 }]);
             }])
             ->with('tipo')

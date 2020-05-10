@@ -1,10 +1,10 @@
 <app-header nombre="LINK DE ENCUESTAS" icono="poll"></app-header>
 
-<div class="w-100">
-	<form class="w-50" ngNativeValidate>
+<div class="w-100 row">
+	<form class="col-9" ngNativeValidate>
 		<div class="form-group row my-3">
-			<label class="col-sm-4 col-form-label w-100">Empresa <span class="text-danger">*</span></label>
-			<div class="col-sm-8">
+			<label class="col-sm-2 col-form-label w-100">Empresa <span class="text-danger">*</span></label>
+			<div class="col-sm-6">
 				<select name="empresa" class="form-control" [(ngModel)]="sucursal"
 					(change)="obtenerIntereses()">
 					<option [ngValue]="item" *ngFor="let item of sucursales">{{item.nombre}}</option>
@@ -14,40 +14,74 @@
 		</div>
 
 		<div class="form-group row my-3">
-			<label class="col-sm-4 col-form-label w-100">Intereses <span class="text-danger">*</span></label>
-			<div class="col-sm-8">
-				<select name="intereses" class="form-control" [(ngModel)]="form.interes_id"
-					(change)="obtenerTemperamentos()">
+			<label class="col-sm-2 col-form-label w-100">Intereses <span class="text-danger">*</span></label>
+			<div class="col-sm-6">
+				<select name="intereses" class="form-control" [(ngModel)]="form.interes_id">
 					<option [value]="item.id" *ngFor="let item of intereses">{{item.id}} - ENCUESTA INTERESES </option>
 				</select>
 			</div>
-			<hr>
-		</div>
-
-		<div class="form-group row my-3">
-			<label class="col-sm-4 col-form-label w-100">Temperamentos</label>
-			<div class="col-sm-8">
-				<select name="temperamentos" class="form-control" [(ngModel)]="form.temperamento_id">
-					<option [value]="item.id" *ngFor="let item of temperamentos">{{item.id}} - ENCUESTA TEMPERAMENTOS
-					</option>
-				</select>
+			<div class="col-sm-4">
+				<button type="submit" class="btn btn-success d-flex" (click)="zip_intereses()" [disabled]="disabled">
+					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXPORTAR REP INTERESES
+				</button>
 			</div>
 			<hr>
 		</div>
 
-		<div class="form-group row">
+		<div class="form-group row mt-5">
 			<div class="col-12 row">
-				<button type="submit" class="btn btn-success  d-flex" (click)="excel()" [disabled]="disabled">
+				<button type="submit" class="btn btn-success d-flex" (click)="excel()" [disabled]="disabled">
 					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXCEL STATUS
 				</button>
-				<button type="submit" class="btn btn-primary  d-flex" (click)="pdf()" [disabled]="disabled">
-					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXPORTAR PDFS
+				<button type="submit" class="btn btn-primary d-flex" (click)="pdf()" [disabled]="disabled">
+					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXPORTAR REP CONSOLIDADOS
+				</button>
+				<button type="button" class="btn btn-light d-flex" (click)="reporte()" [disabled]="disabled">
+					<fa-icon [icon]="['fas', 'file-download']"></fa-icon>VER STATUS
 				</button>
 				<button type="submit" class="btn btn-secondary d-flex" (click)="links()" [disabled]="disabled">
 					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> LINKS PARA ENCUESTAS
 				</button>
+			
 				<a (click)="return()" class="btn btn-info text-white">REGRESAR</a>
 			</div>
 		</div>
 	</form>
+</div>
+
+<div *ngIf="showProgress">
+	<div class="alert alert-danger" role="alert">
+		<h4 class="alert-heading">Esto puede tardar algunos minutos...</h4>
+	</div>
+	<ng-container *ngIf="progressRef.state | async; let state">
+		<mat-progress-bar *ngIf="state.active" [value]="state.value"></mat-progress-bar>
+	</ng-container>
+</div>
+
+<div class="table-responsive mt-5" *ngIf="showReporte">
+	<table class="table table-hover text-center">
+		<thead>
+		  <tr>
+			<th scope="col">NOMBRE</th>
+			<th scope="col">INTERESES</th>
+			<th scope="col" *ngIf="show">TALENTOS</th>
+			<th scope="col" *ngIf="show">TEMPERAMENTOS</th>
+			<th scope="col">CONSOLIDADO</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr *ngFor="let item of reportes">
+			<td>{{item.nombrecompleto}}</td>
+			<td>
+				<span class="dot bg-danger" *ngIf="item.status_int=='0'"></span>
+				<span class="dot bg-success" *ngIf="item.status_int=='1'"></span>
+			</td>
+			<td *ngIf="show"></td>
+			<td *ngIf="show"><span class="dot bg-danger" *ngIf="item.status_temp=='0'"></span>
+				<span class="dot bg-success" *ngIf="item.status_temp=='1'"></span>
+			</td>
+			<td>{{item.link}}</td>
+		  </tr>
+		</tbody>
+	</table>
 </div>

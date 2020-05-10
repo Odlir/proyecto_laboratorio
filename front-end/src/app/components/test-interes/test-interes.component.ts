@@ -34,7 +34,7 @@ export class TestInteresComponent implements OnInit {
 
 	public alumno = null;
 
-	public save: boolean = null;
+	public save: boolean = true;
 
 	public show: boolean = true;
 
@@ -59,35 +59,17 @@ export class TestInteresComponent implements OnInit {
 
 	}
 
-	// async progress() {
-	// 	this.progreso = 0;
-	// 	// await Object.entries(this.formGroup.controls).every(a => {
-	// 	// 	if (a[1].value != "") {
-	// 	// 		this.progreso++;
-	// 	// 		return true;
-	// 	// 	}
-	// 	// 	else {
-	// 	// 		return false;
-	// 	// 	}
-	// 	// });
-	// 	// this.porcentaje = parseFloat(((this.progreso / this.preguntas.length)*100).toFixed(1));
-
-	// 	await Object.entries(this.formGroup.controls).every(a => {
-	// 		if (a[1].value != "") {
-	// 			console.log(a);
-	// 			// this.progreso++;
-	// 			// let ids = a[0].split('-');
-	// 			// this.form.pregunta_id = ids[0];
-	// 			// this.form.subpregunta_id = ids[1];
-	// 			// this.form.respuesta_id = a[1].value;
-
-	// 			// this.data.push({ ...this.form });
-	// 		}
-	// 		return true;
-	// 	});
-	// 	// this.porcentaje = parseFloat(((this.progreso / this.preguntas.length) * 100).toFixed(1));
-	// 	console.log(this.preguntas);
-	// }
+	async progress() {
+		let lenght = this.preguntas.length*3;
+		this.progreso = 0;
+		await Object.entries(this.formGroup.controls).every(a => {
+			if (a[1].value != "") {
+				this.progreso++;
+			}
+			return true;
+		});
+		this.porcentaje = parseFloat(((this.progreso / lenght)*100).toFixed(1));
+	}
 
 	obtenerDatos() {
 		this.api.get('encuesta_puntaje?encuesta_id=' + this.form.encuesta_id + '&persona_id=' + this.form.persona_id).subscribe(
@@ -177,17 +159,13 @@ export class TestInteresComponent implements OnInit {
 	}
 
 	async guardar() {
-
-		Object.entries(this.formGroup.controls).every(a => {
+		let falta = "";
+		Object.entries(this.formGroup.controls).every(a=> {
 			if (a[1].value == '') {
-				Swal.fire({
-					title: 'El Test debe ser completado al 100%.',
-					icon: 'warning',
-					timer: 3000
-				});
+				let ids = a[0].split('-');
 				this.data = [];
+				falta = falta + (ids[0] +'-'+ids[1]) + ',';
 				this.save = false;
-				return false;
 			}
 			else {
 
@@ -197,10 +175,12 @@ export class TestInteresComponent implements OnInit {
 				this.form.respuesta_id = a[1].value;
 
 				this.data.push({ ...this.form });
-
-				this.save = true;
-				return true;
 			}
+
+			if(falta==""){
+				this.save = true;
+			}
+			return true;
 		});
 
 		if (this.save) {
@@ -224,6 +204,13 @@ export class TestInteresComponent implements OnInit {
 
 				}
 			);
+		}else {
+			Swal.fire({
+				title: 'El Test debe ser completado al 100%: ',
+				text: falta.substring(0, falta.length - 1),
+				icon: 'warning',
+				timer: 3000
+			});
 		}
 	}
 }

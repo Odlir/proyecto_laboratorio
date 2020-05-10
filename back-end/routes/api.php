@@ -43,9 +43,10 @@ Route::group([
     Route::resource('respuestas','RespuestaController');
     Route::resource('links','LinkController');
     Route::resource('exportar','ExportController');
-    Route::get('exportar/{interes_id}/{persona_id}', 'ExportController@pdf');
+    Route::get('exportar/intereses/{interes_id}/{persona_id}', 'ExportController@pdf_intereses');
+    Route::get('exportar/temperamentos/{temperamento_id}/{persona_id}', 'ExportController@pdf_temperamentos');
+    Route::get('exportar/consolidados/{interes_id}/{persona_id}', 'ExportController@pdf_consolidado');
     Route::resource('encuesta_puntaje','EncuestaPuntajeController');
-    Route::resource('queues','QueuesController');
     Route::resource('talentos','TalentoController');
 });
 

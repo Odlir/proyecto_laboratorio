@@ -13,6 +13,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCardModule } from '@angular/material/card';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
 	declarations: [],
@@ -32,7 +33,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 		MatAutocompleteModule,
 		MatStepperModule,
 		MatCardModule,
-		DragDropModule
+		DragDropModule,
+		MatProgressBarModule
 	],
 	exports: [
 		MatFormFieldModule,
@@ -50,7 +52,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 		MatAutocompleteModule,
 		MatStepperModule,
 		MatCardModule,
-		DragDropModule
+		DragDropModule,
+		MatProgressBarModule
 	]
 })
 export class AppMaterialModule {

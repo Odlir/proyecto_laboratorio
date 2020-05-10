@@ -1,7 +1,7 @@
 APP_NAME=Laravel
 APP_ENV=local
 APP_KEY=base64:jzsv36OVN3aYor61UAZ28iXRZ5i5vy39tmHzDKo9fjo=
-APP_DEBUG=true
+APP_DEBUG=false
 APP_URL=https://www.gaf.com.pe/back-encuesta
 
 LOG_CHANNEL=stack

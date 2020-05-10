@@ -13,21 +13,29 @@ import * as moment from 'moment';
 export class TestTemperamentosComponent implements OnInit {
 
 	preguntas = [];
+
 	form = {
 		pregunta_id: null,
 		respuesta_id: null,
 		encuesta_id: null,
 		persona_id: null,
-		tipo_encuesta_id:3
+		tipo_encuesta_id: 3
 	};
+
 	respuestas = [];
+
 	data = [];
 	formGroup: FormGroup;
 	group: any = {};
+
 	public sucursal = null;
+
 	public alumno = null;
-	public save: boolean = null;
+
+	public save: boolean = true;
+
 	public show: boolean = true;
+
 	public rango: boolean = false;
 
 	public disabled: boolean = false;
@@ -55,7 +63,7 @@ export class TestTemperamentosComponent implements OnInit {
 			}
 			return true;
 		});
-		this.porcentaje = parseFloat(((this.progreso / this.preguntas.length)*100).toFixed(1));
+		this.porcentaje = parseFloat(((this.progreso / this.preguntas.length) * 100).toFixed(1));
 	}
 
 	obtenerDatos() {
@@ -125,26 +133,23 @@ export class TestTemperamentosComponent implements OnInit {
 	}
 
 	async guardar() {
-		Object.entries(this.formGroup.controls).every(a => {
+		let falta = "";
+		Object.entries(this.formGroup.controls).every((a, index) => {
 			if (a[1].value == '') {
-				Swal.fire({
-					title: 'El Test debe ser completado al 100%.',
-					icon: 'warning',
-					timer: 3000
-				});
 				this.data = [];
+				falta = falta + (+index + 1) + ',';
 				this.save = false;
-				return false;
 			}
 			else {
 				this.form.pregunta_id = a[0];
 				this.form.respuesta_id = a[1].value;
-
 				this.data.push({ ...this.form });
-
-				this.save = true;
-				return true;
 			}
+
+			if(falta==""){
+				this.save = true;
+			}
+			return true;
 		});
 
 		if (this.save) {
@@ -169,7 +174,13 @@ export class TestTemperamentosComponent implements OnInit {
 
 				}
 			);
+		} else {
+			Swal.fire({
+				title: 'El Test debe ser completado al 100%: ',
+				text: falta.substring(0, falta.length - 1),
+				icon: 'warning',
+				timer: 3000
+			});
 		}
 	}
-
 }

@@ -23,8 +23,23 @@ class EncuestaPuntaje extends Model
         return $this->belongsTo('App\Persona');
     }
 
-    public function puntajes()
+    public function punintereses()
     {
         return $this->hasMany('App\CarreraPuntaje','encuesta_puntaje_id');
+    }
+
+    public function puninteresessort()
+    {
+        return $this->hasMany('App\CarreraPuntaje','encuesta_puntaje_id');
+    }
+
+    public function puntemperamentos()
+    {
+        return $this->hasMany('App\FormulaPuntaje','encuesta_puntaje_id');
+    }
+
+    public function areatemperamentos()
+    {
+        return $this->hasMany('App\AreaPuntaje','encuesta_puntaje_id');
     }
 }

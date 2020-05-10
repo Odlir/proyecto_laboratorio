@@ -1,7 +1,6 @@
 cuando grabas que regrese a la lista
 cuando editas que se quede en la misma pantalla
 
-
 ENCUESTAS 
 - EL SISTEMA NO DEBE PERMITIR GUARDAR TILDES / Ñ / NI CARACTERES EXTRAÑOS
 
@@ -17,6 +16,16 @@ ENCUESTAS
 
 - REPORTE consolidado significa que en un solo pdf están los 3 resultados de las 3 encuestas
 
-- el zip que te arroja el sistema, botara 4 carpetas que son intereses, talentos y temperamentos
-y aparte una carpeta para consolidados que es la que contendra los 3 reportes juntos en un solo
-pdf.
+- el zip que te arroja el sistema, botara la carpeta consolidados que es la que contendra los 3 reportes juntos en un solo pdf.
+
+- si no se completaron las 3 encuestas, no debe arrojar consolidado
+
+- en el grafico pie, las mayusculas de
+enMO, sale mayuscula y minuscula de acuerdo al tamaño
+de los calculos
+
+- EPT es evaluacion de preferencia de temperamentos
+
+- TRANSFORMACION DE PUNTAJES SOLO PARA GRAFICOS DE BARRA
+
+- los colores de las letras del grafico pie son estaticos
