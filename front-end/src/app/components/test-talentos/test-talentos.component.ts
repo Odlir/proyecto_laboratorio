@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
+import {ApiBackRequestService} from '../../Services/api-back-request.service';
 
 @Component({
 	selector: 'app-test-talentos',
@@ -17,34 +18,48 @@ export class TestTalentosComponent implements OnInit {
 		encuesta_id: null,
 		persona_id: null
 	};
-	images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+	images = [];//[944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 	list2 = [];
+	list3 = [];
+	list4 = [];
 	con: any;
+	path:string = '../../../assets/talentos/front/';
 
-	constructor(config: NgbCarouselConfig) {
-		this.con = config;
-		config.showNavigationIndicators = true;
-		config.interval = 10000;
+	constructor(config: NgbCarouselConfig, private api: ApiBackRequestService) {
+		config.showNavigationIndicators = false;
+		config.interval = 0;
 	}
 
 	ngOnInit(): void {
-
+		this.getData();
 	}
 
-	drop(event: CdkDragDrop<string[]>) {
+	drop(event: CdkDragDrop<any>) {
 		if (event.previousContainer === event.container) {
 			moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
 		} else {
-			transferArrayItem(event.previousContainer.data,
+			/*transferArrayItem(event.previousContainer.data,
 				event.container.data,
 				event.previousIndex,
-				event.currentIndex);
+				event.currentIndex);*/
+			debugger
+			const newArray = event.previousContainer.data.filter(e => e.id !== event.item.data.id);
+			event.previousContainer.data = [...newArray];
+			event.container.data.push(event.item.data)
 		}
 	}
 
-	show() {
-		this.con.showNavigationArrows = true;
-		this.con.showNavigationIndicators = true;
+	getData() {
+		this.api.get('talentos').subscribe(
+			(data) => {
+				this.images = data;
+				console.log('data', this.images);
+			}
+		);
+	}
+
+	continuar() {
+		console.log('odlir', this.images, this.list2, this.list3, this.list4);
 	}
 
 }

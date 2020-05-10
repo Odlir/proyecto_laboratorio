@@ -1,5 +1,5 @@
-<app-header-encuesta encuesta="ENCUESTA: PREFERENCIA DE TEMPERAMENTO - ADOLESCENTES" icono="tv" [alumno]="alumno" [id]="form.encuesta_id"
-                     [sucursal]="sucursal">
+<app-header-encuesta encuesta="ENCUESTA: PREFERENCIA DE TALENTOS - ADOLESCENTES" icono="tv" [alumno]="alumno" [id]="form.encuesta_id"
+                      [sucursal]="sucursal">
 </app-header-encuesta>
 <br>
 <p>
@@ -11,39 +11,16 @@
 
 <mat-card class="card">
 	<div
-			cdkDropList
-			#todoList="cdkDropList"
-			[cdkDropListData]="images"
-			[cdkDropListConnectedTo]="[doneList]"
-			(cdkDropListDropped)="drop($event)"
-			class="contenedor">
-
+		cdkDropList
+		#todoList="cdkDropList"
+		[cdkDropListData]="images"
+		[cdkDropListConnectedTo]="[doneList, intermedio, menos]"
+		cdkDropListOrientation="horizontal"
+		class="contenedor">
 		<ngb-carousel *ngIf="images">
-			<ng-template ngbSlide>
-				<div class="picsum-img-wrapper" cdkDrag>
-					<img [src]="images[0]" width="100%" alt="Random first slide">
-				</div>
-				<div class="carousel-caption">
-					<h3>First slide label</h3>
-					<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-				</div>
-			</ng-template>
-			<ng-template ngbSlide>
-				<div class="picsum-img-wrapper" cdkDrag>
-					<img [src]="images[1]" width="100%" alt="Random second slide">
-				</div>
-				<div class="carousel-caption">
-					<h3>Second slide label</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-				</div>
-			</ng-template>
-			<ng-template ngbSlide>
-				<div class="picsum-img-wrapper" cdkDrag>
-					<img [src]="images[2]" width="100%" alt="Random third slide">
-				</div>
-				<div class="carousel-caption">
-					<h3>Third slide label</h3>
-					<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+			<ng-template *ngFor="let img of images" ngbSlide>
+				<div class="picsum-img-wrapper" [cdkDragData]="img" cdkDrag>
+					<img [src]="path+img.imagen" width="100%" alt="Random first slide">
 				</div>
 			</ng-template>
 		</ngb-carousel>
@@ -53,35 +30,48 @@
 		<div class="talents">
 			<div class="example-container">
 				<h4>(+) Talento más desarrollado</h4>
-				<div cdkDropList #doneList="cdkDropList" [cdkDropListData]="list2" [cdkDropListConnectedTo]="[todoList]"
+				<div cdkDropList #doneList="cdkDropList" [cdkDropListData]="list2"
+				     [cdkDropListConnectedTo]="[intermedio, menos]"
 				     class="example-list" (cdkDropListDropped)="drop($event)">
-					<div class="example-box" *ngFor="let url of list2" cdkDrag>
-						<img [src]="url" alt="your image"  width="50%"/>
-					</div>
+					<ol class="example-box">
+						<li *ngFor="let l2 of list2" [cdkDragData]="l2" cdkDrag>
+							{{l2.nombre}}
+						</li>
+					</ol>
 				</div>
 			</div>
 		</div>
 		<div class="talents">
 			<div class="example-container">
 				<h4>Talento Intermedio</h4>
-				<div cdkDropList #doneList="cdkDropList" [cdkDropListData]="list2" [cdkDropListConnectedTo]="[todoList]"
+				<div cdkDropList #intermedio="cdkDropList" [cdkDropListData]="list3"
+				     [cdkDropListConnectedTo]="[doneList, menos]"
 				     class="example-list" (cdkDropListDropped)="drop($event)">
-					<div class="example-box" *ngFor="let url of list2" cdkDrag>
-						<img [src]="url" alt="your image"  width="50%"/>
-					</div>
+					<ol class="example-box">
+						<li *ngFor="let l3 of list3" [cdkDragData]="l3" cdkDrag>
+							{{l3.nombre}}
+						</li>
+					</ol>
 				</div>
 			</div>
 		</div>
 		<div class="talents">
 			<div class="example-container">
 				<h4>(-) Talento menos desarrollado</h4>
-				<div cdkDropList #doneList="cdkDropList" [cdkDropListData]="list2" [cdkDropListConnectedTo]="[todoList]"
+				<div cdkDropList #menos="cdkDropList" [cdkDropListData]="list4"
+				     [cdkDropListConnectedTo]="[intermedio, doneList]"
 				     class="example-list" (cdkDropListDropped)="drop($event)">
-					<div class="example-box" *ngFor="let url of list2" cdkDrag>
-						<img [src]="url" alt="your image"  width="50%"/>
-					</div>
+					<ol class="example-box">
+						<li *ngFor="let l4 of list4" [cdkDragData]="l4" cdkDrag>
+							{{l4.nombre}}
+						</li>
+					</ol>
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<div>
+		<button (click)="continuar()">Continuar</button>
 	</div>
 </mat-card>
