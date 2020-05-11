@@ -87,12 +87,6 @@ class EncuestaPersonaController extends Controller
 
         $puntajes_carreras = [];
 
-        $encuesta_puntaje = EncuestaPuntaje::create(['encuesta_id' => $data[0]['encuesta_id'], 'persona_id' => $data[0]['persona_id']]); //TABLA PRINCIPAL
-
-        foreach ($data as $d) { //CREO LAS RESPUESTAS
-            EncuestaRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
-        }
-
         $preguntas = Pregunta::where('tipo_encuesta_id', 1)
             ->where('estado', '1')
             ->get();
@@ -140,8 +134,14 @@ class EncuestaPersonaController extends Controller
             $c->puntaje = round($c->puntaje); //REDONDEANDO
         }
 
+        $encuesta_puntaje = EncuestaPuntaje::create(['encuesta_id' => $data[0]['encuesta_id'], 'persona_id' => $data[0]['persona_id']]); //TABLA PRINCIPAL
+
         foreach ($puntajes_carreras as $c) {
             CarreraPuntaje::create(array_merge((array) $c, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
+        }
+
+        foreach ($data as $d) { //CREO LAS RESPUESTAS
+            EncuestaRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
         }
 
         return response()->json($puntajes_carreras, 200);
@@ -156,12 +156,6 @@ class EncuestaPersonaController extends Controller
         $puntajes_formulas = [];
 
         $puntajes_rueda = [];
-
-        $encuesta_puntaje = EncuestaPuntaje::create(['encuesta_id' => $data[0]['encuesta_id'], 'persona_id' => $data[0]['persona_id']]); //TABLA PRINCIPAL
-
-        foreach ($data as $d) { //CREO LAS RESPUESTAS
-            EncuestaRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
-        }
 
         $areas = Area::where('estado', '1')
             ->get();
@@ -259,6 +253,8 @@ class EncuestaPersonaController extends Controller
                 }
             }
         }
+
+        $encuesta_puntaje = EncuestaPuntaje::create(['encuesta_id' => $data[0]['encuesta_id'], 'persona_id' => $data[0]['persona_id']]); //TABLA PRINCIPAL
 
         foreach ($puntajes_formulas as $f) { //REDONDEO PARA LOS GRAFICOS DE BARRA
             $f->puntaje = round($f->puntaje);
@@ -373,6 +369,10 @@ class EncuestaPersonaController extends Controller
             }
 
             AreaPuntaje::create(array_merge((array) $r, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
+        }
+
+        foreach ($data as $d) { //CREO LAS RESPUESTAS
+            EncuestaRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
         }
 
         return response()->json($puntajes_rueda, 200);
