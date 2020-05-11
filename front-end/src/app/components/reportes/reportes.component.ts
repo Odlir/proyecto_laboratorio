@@ -14,8 +14,7 @@ export class ReportesComponent implements OnInit {
 	public form = {
 		interes_id: null,
 		campo: null,
-		archivo: null,
-		hour: null,
+		archivo: null
 	}
 
 	public showReporte = false;
@@ -87,9 +86,6 @@ export class ReportesComponent implements OnInit {
 			this.showProgress=true;		
 			this.progressRef.start();
 
-			var d = new Date();
-			this.form.hour = d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear() + '-' + d.getHours() + '-' + d.getMinutes() + '-' + d.getSeconds();
-
 			this.disabled = true;
 			this.form.campo = 'intereses';
 			this.form.archivo = 'REPINTERESES-'+this.sucursal.nombre+'-'+this.form.interes_id + '.zip';
@@ -138,8 +134,7 @@ export class ReportesComponent implements OnInit {
 		} else {
 			this.showProgress=true;		
 			this.progressRef.start();
-			var d = new Date();
-			this.form.hour = d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear() + '-' + d.getHours() + '-' + d.getMinutes() + '-' + d.getSeconds();
+		
 			this.disabled = true;
 			this.form.campo = 'pdf';
 			this.form.archivo = 'REPCONSOLIDADO-'+this.sucursal.nombre+'-'+this.form.interes_id+ '.zip';
@@ -196,7 +191,6 @@ export class ReportesComponent implements OnInit {
 		this.form.interes_id = null;
 		this.form.archivo = null;
 		this.form.campo = null;
-		this.form.hour = null;
 		this.reportes = [];
 		this.show = null;
 		this.showProgress=false;

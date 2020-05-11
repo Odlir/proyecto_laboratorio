@@ -152,18 +152,16 @@
                     </td>
                     <td>
                         @foreach ($tendencias as $ten)
-                            @if ($ten->id!=7)
-                                <table class="ml-4 mb-1 leyenda">
-                                    <tr>
-                                        <td>
-                                            <div class="cuadrado" style="background:{{$ten->color}}"></div>
-                                        </td>
-                                        <td>
-                                            &nbsp;{{$ten->nombre}} 
-                                        </td>
-                                    </tr>
-                                </table>
-                            @endif
+                            <table class="ml-4 mb-1 leyenda">
+                                <tr>
+                                    <td>
+                                        <div class="cuadrado" style="background:{{$ten->color}}"></div>
+                                    </td>
+                                    <td>
+                                        &nbsp;{{$ten->nombre}} 
+                                    </td>
+                                </tr>
+                            </table>
                         @endforeach
                     </td>
                 </tr>
@@ -173,7 +171,6 @@
         <table class="tabla-resultado z-index">
             <tr>
                 @foreach ($tendencias as $ten)
-                @if ($ten->id!=7)
                 <td>
                     <table>
                         <tr>
@@ -188,7 +185,6 @@
                         </tr>
                     </table>   
                 </td>
-                @endif
             @endforeach
             </tr>
         </table>

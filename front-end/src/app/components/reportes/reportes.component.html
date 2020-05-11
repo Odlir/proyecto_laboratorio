@@ -74,13 +74,13 @@
 			<td>{{item.nombrecompleto}}</td>
 			<td>
 				<span class="dot bg-danger" *ngIf="item.status_int=='0'"></span>
-				<span class="dot bg-success" *ngIf="item.status_int=='1'"></span>
+				<a [href]="item.link_intereses" *ngIf="item.status_int=='1'"><span class="dot bg-success" ></span></a>
 			</td>
 			<td *ngIf="show"></td>
 			<td *ngIf="show"><span class="dot bg-danger" *ngIf="item.status_temp=='0'"></span>
 				<span class="dot bg-success" *ngIf="item.status_temp=='1'"></span>
 			</td>
-			<td>{{item.link}}</td>
+			<td><a [href]="item.link">{{item.link}}</a></td>
 		  </tr>
 		</tbody>
 	</table>

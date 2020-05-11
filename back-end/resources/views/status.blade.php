@@ -18,14 +18,28 @@
         <tr>
             <td>{{ $p->nombres }} {{ $p->apellido_paterno }} {{ $p->apellido_materno }}</td>
             <td>{{ $p->status_int }}</td>
-            <td>{{ $p->link_intereses }}</td>
+            <td>@if ($p->status_int=="Completado")
+                {{ $p->link_intereses }}
+                @else
+                <a href="{{ $p->link_intereses }}">{{ $p->link_intereses }}</a>
+                @endif
+            </td>
             @if ($show)
                 <td></td>
                 <td></td>
                 <td>{{ $p->status_temp }}</td>
-                <td>{{ $p->link_temperamentos }}</td>
+                <td>
+                    @if ($p->status_temp=="Completado")
+                    {{ $p->link_temperamentos }}
+                    @else
+                    <a href="{{ $p->link_temperamentos }}">{{ $p->link_temperamentos }}</a>
+                    @endif
+                </td>
             @endif  
-            <td>{{ $p->link_consolidado }}</td> 
+            <td> @if ($p->link_consolidado)
+                <a href="{{ $p->link_consolidado }}">{{ $p->link_consolidado }}</a>
+                @endif
+            </td> 
         </tr>
       @endforeach
     </tbody>

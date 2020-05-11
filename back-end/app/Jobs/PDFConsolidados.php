@@ -23,16 +23,17 @@ class PDFConsolidados implements ShouldQueue
     protected $empresa;
     protected $areas;
     protected $ruedas;
-    protected $hour;
+    protected $identificador;
     protected $tendencias;
     protected $talentos;
+    protected $pie_talentos;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($persona, $p_intereses,$p_intereses_sort, $p_temperamentos, $a_temperamentos, $empresa, $hour,$areas,$ruedas,$tendencias,$talentos)
+    public function __construct($persona, $p_intereses,$p_intereses_sort, $p_temperamentos, $a_temperamentos, $empresa, $identificador,$areas,$ruedas,$tendencias,$talentos,$pie_talentos)
     {
         $this->persona = $persona;
         $this->p_intereses = $p_intereses;
@@ -40,11 +41,12 @@ class PDFConsolidados implements ShouldQueue
         $this->p_temperamentos = $p_temperamentos;
         $this->a_temperamentos = $a_temperamentos;
         $this->empresa = $empresa;
-        $this->hour = $hour;
+        $this->identificador = $identificador;
         $this->areas = $areas;
         $this->ruedas = $ruedas;
         $this->tendencias = $tendencias;
         $this->talentos = $talentos;
+        $this->pie_talentos = $pie_talentos;
     }
 
     /**
@@ -60,7 +62,7 @@ class PDFConsolidados implements ShouldQueue
 
         $pdf2 = PDF::loadView('consolidado/talentos1', array('talentos' => $this->talentos, 'tendencias' => $this->tendencias))->setPaper('a4', 'landscape')->output();
 
-        $pdf3 = PDF::loadView('consolidado/talentos2',array('tendencias' => $this->tendencias))->output();
+        $pdf3 = PDF::loadView('consolidado/talentos2',array('tendencias' => $this->tendencias,'pie'=>$this->pie_talentos))->output();
 
         $pdf4 = PDF::loadView('consolidado/talentos3',array('tendencias' => $this->tendencias))->setPaper('a4', 'landscape')->output();
 
@@ -84,7 +86,7 @@ class PDFConsolidados implements ShouldQueue
         $merger->addIterator([$ruta . '1.pdf', $ruta . '2.pdf', $ruta . '3.pdf', $ruta . '4.pdf', $ruta . '5.pdf']);
         $pdfconsolidado = $merger->merge();
 
-        $name = 'PDF-' . $this->hour . '/CONSOLIDADO-'  . str_replace(' ', '',$this->persona->nombres) .  str_replace(' ', '',$this->persona->apellido_paterno) . str_replace(' ', '',$this->persona->apellido_materno) . '.pdf';
+        $name = 'PDF-' . $this->identificador . '/CONSOLIDADO-'  . str_replace(' ', '',$this->persona->nombres) .  str_replace(' ', '',$this->persona->apellido_paterno) . str_replace(' ', '',$this->persona->apellido_materno) . '.pdf';
         
         Storage::disk('public')->put($name,  $pdfconsolidado);
 

@@ -14,10 +14,10 @@
     @foreach($personas as $p)
         <tr>
             <td>{{ $p->nombres }} {{ $p->apellido_paterno }} {{ $p->apellido_materno }}</td>
-            <td>{{ $p->link_intereses }}</td>
+            <td><a href="{{ $p->link_intereses }}">{{ $p->link_intereses }}</a></td>
             @if ($show)
             <td></td>
-            <td>{{ $p->link_temperamentos }}</td>
+            <td><a href="{{ $p->link_temperamentos }}">{{ $p->link_temperamentos }}</a></td>
             @endif       
         </tr>
       @endforeach

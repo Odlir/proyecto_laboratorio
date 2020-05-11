@@ -122,6 +122,7 @@ class ExportController extends Controller
 
                 if ($data_interes) {
                     $p->status_int = "1"; //COMPLETADO
+                    $p->link_intereses = $back . 'exportar' . '/intereses/' . $request->interes_id . '/' . $p->id;
                 } else {
                     $p->status_int = "0"; //PENDIENTE
                 }
@@ -156,104 +157,108 @@ class ExportController extends Controller
             }])
             ->get();
 
+        $identificador = rand();
+
 
         if ($personas->isEmpty()) {
             return response()->json(['error' => 'No hay encuestas resueltas.'], 401);
         } else {
             foreach ($personas as $p) {
-                PDFIntereses::dispatchNow($p['persona'], $p['punintereses'], $p['puninteresessort'], $encuesta['empresa']['nombre'], $request->hour);
+                PDFIntereses::dispatchNow($p['persona'], $p['punintereses'], $p['puninteresessort'], $encuesta['empresa']['nombre'], $identificador);
             }
         }
 
-        Excel::store(new StatusInteresesExport($general['personas'], $encuesta['id']), 'Consolidado-' . $request->hour . '/' . $encuesta['empresa']['nombre'] . '-' . $request->interes_id . '.xlsx', 'local');
+        Excel::store(new StatusInteresesExport($general['personas'], $encuesta['id']), 'Consolidado-' . $identificador . '/' . $encuesta['empresa']['nombre'] . '-' . $request->interes_id . '.xlsx', 'local');
 
-        return $this->descargarZip($request->hour);
+        return $this->descargarZip($identificador);
     }
 
     public function pdf_consolidado($interes_id, $persona_id)
     {
-        // $ruedas = Rueda::where('estado', '1')->get();
+        $ruedas = Rueda::where('estado', '1')->get();
 
-        // $areas = Area::with('items.items')
-        //     ->with('formulas')
-        //     ->where('estado', '1')
-        //     ->get();
+        $areas = Area::with('items.items')
+            ->with('formulas')
+            ->where('estado', '1')
+            ->get();
 
-        // $persona = Persona::where('id', $persona_id)
-        //     ->first();
+        $persona = Persona::where('id', $persona_id)
+            ->first();
 
-        // $encuesta = Encuesta::where('id', $interes_id)
-        //     ->with('empresa')
-        //     ->first();
+        $encuesta = Encuesta::where('id', $interes_id)
+            ->with('empresa')
+            ->first();
 
-        // $general =  EncuestaGeneral::where('id', $encuesta['encuesta_general_id'])
-        //     ->with('personas')
-        //     ->first();
+        $general =  EncuestaGeneral::where('id', $encuesta['encuesta_general_id'])
+            ->with('personas')
+            ->first();
 
-        // $encuesta_temp = Encuesta::where('encuesta_general_id', $general['id'])
-        //     ->where('tipo_encuesta_id', 3)
-        //     ->first();
+        $encuesta_temp = Encuesta::where('encuesta_general_id', $general['id'])
+            ->where('tipo_encuesta_id', 3)
+            ->first();
 
-        // $p_intereses = EncuestaPuntaje::where('encuesta_id', $interes_id)
-        //     ->where('persona_id', $persona_id)
-        //     ->with('punintereses.carrera.intereses')
-        //     ->with(['puninteresessort' => function ($query) {
-        //         $query->with('carrera');
-        //         $query->orderBy('puntaje', 'DESC');
-        //     }])
-        //     ->first();
+        $p_intereses = EncuestaPuntaje::where('encuesta_id', $interes_id)
+            ->where('persona_id', $persona_id)
+            ->with('punintereses.carrera.intereses')
+            ->with(['puninteresessort' => function ($query) {
+                $query->with('carrera');
+                $query->orderBy('puntaje', 'DESC');
+            }])
+            ->first();
 
-        // $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
-        //     ->where('persona_id', $persona_id)
-        //     ->with('puntemperamentos.formula')
-        //     ->with('areatemperamentos')
-        //     ->first();
+        $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
+            ->where('persona_id', $persona_id)
+            ->with('puntemperamentos.formula')
+            ->with('areatemperamentos')
+            ->first();
 
-        // $tendencias = TendenciaTalento::all();
+        $tendencias = TendenciaTalento::all();
 
-        // $talentos = Talento::where('tendencia_id', "!=", null)
-        //     ->with('tendencia')
-        //     ->get();
+        $tendencias_pie = TendenciaTalento::where('id','!=',7)->get();
 
-        // $identificador = rand();
+        $talentos = Talento::where('tendencia_id', "!=", null)
+            ->with('tendencia')
+            ->get();
 
-        // $pdf = PDF::loadView('consolidado/reporte_consolidados', array('areas' => $areas, 'ruedas' => $ruedas, 'persona' => $persona, 'p_temperamentos' => $p_temperamentos['puntemperamentos'], 'a_temperamentos' => $p_temperamentos['areatemperamentos']))->output();
+        $pie = $this->pieTalentos(10, 20, 30, 40, 50, 60);
 
-        // $pdf2 = PDF::loadView('consolidado/talentos1', array('talentos' => $talentos, 'tendencias' => $tendencias))->setPaper('a4', 'landscape')->output();
+        $identificador = rand();
 
-        // $pdf3 = PDF::loadView('consolidado/talentos2',array('tendencias' => $tendencias))->output();
+        $pdf = PDF::loadView('consolidado/reporte_consolidados', array('areas' => $areas, 'ruedas' => $ruedas, 'persona' => $persona, 'p_temperamentos' => $p_temperamentos['puntemperamentos'], 'a_temperamentos' => $p_temperamentos['areatemperamentos']))->output();
 
-        return $this->pieTalentos(10, 20, 30, 40, 50, 60);
+        $pdf2 = PDF::loadView('consolidado/talentos1', array('talentos' => $talentos, 'tendencias' => $tendencias))->setPaper('a4', 'landscape')->output();
 
-        // $pdf4 = PDF::loadView('consolidado/talentos3',array('tendencias' => $tendencias))->setPaper('a4', 'landscape')->output();
+        $pdf3 = PDF::loadView('consolidado/talentos2',array('tendencias' => $tendencias_pie,'pie'=>$pie))->output();
 
-        // $pdf5 = PDF::loadView('consolidado/reporte_consolidados2', array('p_intereses' => $p_intereses['punintereses'], 'p_intereses_sort' => $p_intereses['puninteresessort']))->output();
+        $pdf4 = PDF::loadView('consolidado/talentos3',array('tendencias' => $tendencias))->setPaper('a4', 'landscape')->output();
 
-        // $name = $identificador . '/1.pdf';
-        // $name2 = $identificador . '/2.pdf';
-        // $name3 = $identificador . '/3.pdf';
-        // $name4 = $identificador . '/4.pdf';
-        // $name5 = $identificador . '/5.pdf';
+        $pdf5 = PDF::loadView('consolidado/reporte_consolidados2', array('p_intereses' => $p_intereses['punintereses'], 'p_intereses_sort' => $p_intereses['puninteresessort']))->output();
 
-        // $ruta = storage_path('app/public/' . $identificador . '/');
+        $name = $identificador . '/1.pdf';
+        $name2 = $identificador . '/2.pdf';
+        $name3 = $identificador . '/3.pdf';
+        $name4 = $identificador . '/4.pdf';
+        $name5 = $identificador . '/5.pdf';
 
-        // Storage::disk('public')->put($name,  $pdf);
-        // Storage::disk('public')->put($name2,  $pdf2);
-        // Storage::disk('public')->put($name3,  $pdf3);
-        // Storage::disk('public')->put($name4,  $pdf4);
-        // Storage::disk('public')->put($name5,  $pdf5);
+        $ruta = storage_path('app/public/' . $identificador . '/');
 
-        // $merger = new Merger;
-        // $merger->addIterator([$ruta . '1.pdf', $ruta . '2.pdf', $ruta . '3.pdf', $ruta . '4.pdf', $ruta . '5.pdf']);
-        // $pdfconsolidado = $merger->merge();
+        Storage::disk('public')->put($name,  $pdf);
+        Storage::disk('public')->put($name2,  $pdf2);
+        Storage::disk('public')->put($name3,  $pdf3);
+        Storage::disk('public')->put($name4,  $pdf4);
+        Storage::disk('public')->put($name5,  $pdf5);
 
-        // $consolidado = '/Reporte-Consolidado-' . str_replace(' ', '', $persona->nombres) . str_replace(' ', '', $persona->apellido_paterno) . str_replace(' ', '', $persona->apellido_materno) . '.pdf';
+        $merger = new Merger;
+        $merger->addIterator([$ruta . '1.pdf', $ruta . '2.pdf', $ruta . '3.pdf', $ruta . '4.pdf', $ruta . '5.pdf']);
+        $pdfconsolidado = $merger->merge();
 
-        // Storage::disk('public')->put($consolidado,  $pdfconsolidado);
+        $consolidado = '/Reporte-Consolidado-' . str_replace(' ', '', $persona->nombres) . str_replace(' ', '', $persona->apellido_paterno) . str_replace(' ', '', $persona->apellido_materno) . '.pdf';
 
-        // Storage::deleteDirectory('public/' . $identificador); //BORRO LA CARPETA
+        Storage::disk('public')->put($consolidado,  $pdfconsolidado);
 
-        // return response()->download(storage_path("app/public/" . $consolidado))->deleteFileAfterSend(true);
+        Storage::deleteDirectory('public/' . $identificador); //BORRO LA CARPETA
+
+        return response()->download(storage_path("app/public/" . $consolidado))->deleteFileAfterSend(true);
     }
 
     public function pieTalentos($personas, $emprendimiento, $innovacion, $estructura, $persuasion, $cognicion)
@@ -280,11 +285,7 @@ class ExportController extends Controller
         $plot->SetPieLabelType('label');
         $plot->DrawGraph();
 
-        $tendencias = TendenciaTalento::all();
-
-        $pdf3 = PDF::loadView('consolidado/talentos2',array('tendencias' => $tendencias,'pie'=>$plot));
-
-        return $pdf3->download('pdf3.pdf');
+        return $plot;
     }
 
     public function jobs(Request $request)
@@ -317,6 +318,8 @@ class ExportController extends Controller
 
         $temperamento_id = "";
 
+        $identificador = rand();
+
         foreach ($general['personas'] as $p) { //PARA LOS CONSOLIDADOS
             $p_intereses = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
                 ->where('persona_id', $p['id'])
@@ -334,7 +337,8 @@ class ExportController extends Controller
                 ->first();
 
             if ($p_intereses && $p_temperamentos) {
-                PDFConsolidados::dispatchNow($p, $p_intereses['punintereses'], $p_intereses['puninteresessort'], $p_temperamentos['puntemperamentos'], $p_temperamentos['areatemperamentos'], $encuesta['empresa']['nombre'], $request->hour, $areas, $ruedas, $tendencias, $talentos);
+                $pie = $this->pieTalentos(10, 20, 30, 40, 50, 60);
+                PDFConsolidados::dispatchNow($p, $p_intereses['punintereses'], $p_intereses['puninteresessort'], $p_temperamentos['puntemperamentos'], $p_temperamentos['areatemperamentos'], $encuesta['empresa']['nombre'], $identificador, $areas, $ruedas, $tendencias, $talentos, $pie);
                 $descargar = true;
             }
         }
@@ -343,21 +347,21 @@ class ExportController extends Controller
             $temperamento_id = $encuesta_temp['id'];
         }
 
-        Excel::store(new StatusExport($general['personas'], $encuesta['id'], $temperamento_id), 'Consolidado-' . $request->hour . '/' . $encuesta['empresa']['nombre'] . '-' . $request->interes_id . '.xlsx', 'local');
+        Excel::store(new StatusExport($general['personas'], $encuesta['id'], $temperamento_id), 'Consolidado-' . $identificador . '/' . $encuesta['empresa']['nombre'] . '-' . $request->interes_id . '.xlsx', 'local');
 
         if ($descargar) {
-            return $this->descargarZip($request->hour);
+            return $this->descargarZip($identificador);
         } else {
             return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
         }
     }
 
-    public function descargarZip($hour)
+    public function descargarZip($identificador)
     {
-        $zip_file = 'PDF-' . $hour . '.zip';
+        $zip_file = 'PDF-' . $identificador . '.zip';
         $zip = new \ZipArchive();
         $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
-        $path = storage_path('app/public/PDF-' . $hour);
+        $path = storage_path('app/public/PDF-' . $identificador);
         $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
         foreach ($files as $name => $file) {
             if (!$file->isDir()) {
@@ -370,7 +374,7 @@ class ExportController extends Controller
         }
 
 
-        $path2 = storage_path('app/Consolidado-' . $hour);
+        $path2 = storage_path('app/Consolidado-' . $identificador);
         $files2 = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path2));
         foreach ($files2 as $name => $file) {
             if (!$file->isDir()) {
@@ -383,9 +387,9 @@ class ExportController extends Controller
         }
         $zip->close();
 
-        Storage::deleteDirectory('public/PDF-' . $hour); //CON ESTO BORRO LOS PDF
+        Storage::deleteDirectory('public/PDF-' . $identificador); //CON ESTO BORRO LOS PDF
 
-        Storage::deleteDirectory('Consolidado-' . $hour); //CON ESTO BORRO EL EXCEL
+        Storage::deleteDirectory('Consolidado-' . $identificador); //CON ESTO BORRO EL EXCEL
 
         return response()->download($zip_file)->deleteFileAfterSend(true);
     }
