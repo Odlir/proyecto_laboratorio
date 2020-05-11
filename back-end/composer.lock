@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "26974a2716f030274f56dd3784b2abf2",
+    "content-hash": "1993afdf18612a2b9128a7aa52b60a6f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -245,60 +245,39 @@
             "time": "2020-04-15T15:59:35+00:00"
         },
         {
-            "name": "codedge/laravel-fpdf",
-            "version": "1.6.2",
+            "name": "davefx/phplot",
+            "version": "6.2.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/codedge/laravel-fpdf.git",
-                "reference": "8b798103c9e3514be61bb152f6c9543d10a4420b"
+                "url": "https://github.com/davefx/PHPlot.git",
+                "reference": "d2e201ecaabb0428116c89cebe281a8f54096450"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codedge/laravel-fpdf/zipball/8b798103c9e3514be61bb152f6c9543d10a4420b",
-                "reference": "8b798103c9e3514be61bb152f6c9543d10a4420b",
+                "url": "https://api.github.com/repos/davefx/PHPlot/zipball/d2e201ecaabb0428116c89cebe281a8f54096450",
+                "reference": "d2e201ecaabb0428116c89cebe281a8f54096450",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^6.0|^7.0",
-                "php": ">=7.3"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^4.0|^5.0",
-                "phpunit/phpunit": "^8.0|^9.0"
+                "php": ">5.3.0"
             },
             "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Codedge\\Fpdf\\FpdfServiceProvider"
-                    ],
-                    "aliases": {
-                        "Fpdf": "Codedge\\Fpdf\\Facades\\Fpdf"
-                    }
-                }
-            },
             "autoload": {
-                "psr-4": {
-                    "Codedge\\Fpdf\\": "src"
-                }
+                "classmap": [
+                    "phplot/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT"
+                "LGPL"
             ],
-            "authors": [
-                {
-                    "name": "Holger Lösken",
-                    "email": "holger.loesken@codedge.de"
-                }
-            ],
-            "description": "Laravel package to include Fpdf. It ships with Fpdf 1.82.",
+            "description": "PHPlot - Create charts in PHP",
+            "homepage": "http://phplot.sourceforge.net",
             "keywords": [
-                "fpdf",
-                "laravel",
-                "pdf"
+                "chart",
+                "phplot"
             ],
-            "time": "2020-04-18T11:04:41+00:00"
+            "time": "2016-10-19T07:14:15+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

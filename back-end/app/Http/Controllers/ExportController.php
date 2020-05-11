@@ -22,8 +22,7 @@ use Illuminate\Support\Facades\Storage;
 use iio\libmergepdf\Merger;
 use Barryvdh\DomPDF\Facade as PDF;
 
-use App\PDF_Diag;
-
+use PHPlot;
 
 class ExportController extends Controller
 {
@@ -33,7 +32,7 @@ class ExportController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
     }
 
     /**
@@ -224,8 +223,8 @@ class ExportController extends Controller
 
         // $pdf3 = PDF::loadView('consolidado/talentos2',array('tendencias' => $tendencias))->output();
 
-        $this->pieTalentos();
-        
+        return $this->pieTalentos(10, 20, 30, 40, 50, 60);
+
         // $pdf4 = PDF::loadView('consolidado/talentos3',array('tendencias' => $tendencias))->setPaper('a4', 'landscape')->output();
 
         // $pdf5 = PDF::loadView('consolidado/reporte_consolidados2', array('p_intereses' => $p_intereses['punintereses'], 'p_intereses_sort' => $p_intereses['puninteresessort']))->output();
@@ -257,43 +256,35 @@ class ExportController extends Controller
         // return response()->download(storage_path("app/public/" . $consolidado))->deleteFileAfterSend(true);
     }
 
-    public function pieTalentos()
-    {
-        $pdf = new PDF_Diag();
-        $pdf->SetMargins(20, 20 , 20);
-        $pdf->AddPage();
-
-        $data = array('Orientado a las Personas' => 10, 'Orientado al Emprendimiento' => 20, utf8_decode('Orientado a la Innovación') => 30,'Orientado a la Estructura' => 5, utf8_decode('Orientado a la Persuasión') => 15, utf8_decode('Orientado a la Cognición') => 60);
-           
-        $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(0, 5, utf8_decode('De acuerdo a la evaluación que completaste, te presentamos los talentos que tienes '), 0, 1);
-        $pdf->Ln(1);
-        $pdf->Cell(0, 5, utf8_decode('más desarrollados.'), 0, 1);
-        $pdf->Ln(3);
-        $pdf->Cell(0, 5, utf8_decode('Primero los veremos por categoría y luego a más detalle.'), 0, 1);
-        $pdf->Ln(12);
+    public function pieTalentos($personas, $emprendimiento, $innovacion, $estructura, $persuasion, $cognicion)
+    {  
+        $data = array(
+            array('', $innovacion),
+            array('', $emprendimiento), 
+            array('', $personas),
+            array('', $cognicion),
+            array('', $persuasion),
+            array('', $estructura),
+            );
+            
+        $plot = new PHPlot(800,600);
         
-        $pdf->SetFont('Arial', 'B', 20);
-        $pdf->SetTextColor(64,67,66);
-        $pdf->Cell(0, 5, utf8_decode('2.3 Talentos más desarrollados por categorías'), 0, 1);
-        
-        $valX = $pdf->GetX();
-        $valY = $pdf->GetY();
+        $plot->SetPlotType('pie');
+        $plot->SetDataType('text-data-single');
+        $plot->SetDataValues($data);
 
-        $pdf->SetXY(40, 67);
-        $col1=array(234,47,10);
-        $col2=array(255,119,0);
-        $col3=array(255,231,0);
-        $col4=array(115,190,30);
-        $col5=array(138,10,10);
-        $col6=array(33,111,190);
-        $pdf->PieChart(160, 160, $data, '%l', array($col1,$col2,$col3,$col4,$col5,$col6));
-        $pdf->SetXY($valX, $valY + 40);
+        $plot->SetDataColors(array('#FFE700', '#FF7700', '#EA2F0A', '#216FBE', '#8A0A0A',
+                                '#73BE21'));
+    
+        $plot->SetPrintImage(False);
+        $plot->SetPieLabelType('label');
+        $plot->DrawGraph();
 
-        $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(0, 5, utf8_decode('De acuerdo a la evaluación que completaste, te presentamos los talentos que tienes '), 0, 1);
+        $tendencias = TendenciaTalento::all();
 
-        $pdf->Output('D','prueba.pdf');
+        $pdf3 = PDF::loadView('consolidado/talentos2',array('tendencias' => $tendencias,'pie'=>$plot));
+
+        return $pdf3->download('pdf3.pdf');
     }
 
     public function jobs(Request $request)

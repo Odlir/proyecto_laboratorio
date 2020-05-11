@@ -86,7 +86,7 @@
                 right: -30px;
             }
             #header img {
-                width: 60px;
+                width: 50px;
             }
             #footer {
                 text-align: right;

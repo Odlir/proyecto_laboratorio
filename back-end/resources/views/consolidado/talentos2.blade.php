@@ -3,7 +3,7 @@
     <head>
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
         <meta charset="UTF-8">
-        <style type='text/css'>
+        <style>
                    
             @page{    
                 margin: 0px;
@@ -22,8 +22,8 @@
                 font-family: 'Comfortaa', cursive!important;
             }
 
-            .h1{
-                font-size: 2em;
+            .h2{
+                font-size: 1.5em;
                 margin: 0!important;
             }
 
@@ -38,23 +38,23 @@
             #header {
                 text-align: right;
                 position: fixed;
-                top:-60px;
+                top:40px;
                 left: 0;
-                right: -30px;
+                right: 80px;
             }
 
             #header img {
-                width: 60px;
+                width: 50px;
             }
 
             #footer {
                 text-align: right;
                 position: fixed;
                 left: 0;
-                right: 10px;
+                right: 80px;
                 color: black;
                 font-size: 15px;
-                bottom: 10px;
+                bottom: 80px;
             }
 
             .py-2{
@@ -91,6 +91,36 @@
             .mt-5{
                 margin-top: 3rem !important;
             }
+
+            .pie{
+                margin-top: -70px;
+                width:370px;
+                height:550px;
+                margin-bottom: -100px;
+            }
+
+            .z-index{
+                position: relative;
+                z-index: 1;
+            }
+            
+            .cuadrado {
+                width: 8px; 
+                height: 8px; 
+            }
+
+            .ml-4
+            {
+                margin-left: 1.5rem !important;
+            }
+
+            .mb-1 {
+                margin-bottom: 0.25rem !important;
+            }
+
+            .leyenda{
+                font-size: 10px;
+            }
         </style>
     </head>
     <body>
@@ -103,18 +133,44 @@
         </div>
         
         <div class="pad-doc">
-            <p>
-                De acuerdo a la evaluación que completaste, te presentamos los talentos que tienes
-                más desarrollados.
-                Primero los veremos por categoría y luego a más detalle
-            </p>
+            <div class="z-index">
+                <p>
+                    De acuerdo a la evaluación que completaste, te presentamos los talentos que tienes
+                    más desarrollados.
+                </p>
 
-            <p class="text-secondary h1">2.3 Talentos más desarrollados por categorías</p>
-
-            <div id="chart_div" style="width: 900px; height: 500px;"></div>
+                <p>
+                    Primero los veremos por categoría y luego a más detalle
+                </p>
+                <br><br>
+                <p class="text-secondary h2">2.3 Talentos más desarrollados por categorías</p>
+            </div>
+            <table class="w-100">
+                <tr>
+                    <td>
+                        <img src="{{$pie->EncodeImage()}}" class="pie">
+                    </td>
+                    <td>
+                        @foreach ($tendencias as $ten)
+                            @if ($ten->id!=7)
+                                <table class="ml-4 mb-1 leyenda">
+                                    <tr>
+                                        <td>
+                                            <div class="cuadrado" style="background:{{$ten->color}}"></div>
+                                        </td>
+                                        <td>
+                                            &nbsp;{{$ten->nombre}} 
+                                        </td>
+                                    </tr>
+                                </table>
+                            @endif
+                        @endforeach
+                    </td>
+                </tr>
+            </table>
         </div>
 
-        <table class="tabla-resultado">
+        <table class="tabla-resultado z-index">
             <tr>
                 @foreach ($tendencias as $ten)
                 @if ($ten->id!=7)
