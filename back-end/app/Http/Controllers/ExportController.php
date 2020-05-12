@@ -31,8 +31,84 @@ class ExportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {   
+    public function index(Request $request)
+    {
+        $searchValue = $request->input('search');
+        $interes_id = $request->input('interes_id');
+
+        $back = config('constants.back_end');
+
+        $show = false;
+
+        $interes = Encuesta::where('id', $interes_id)
+            ->with(['general' => function ($query) {
+                $query->with(['personas' => function ($query) {
+                    $query->wherePivot('estado', '1');
+                }]);
+            }])
+            ->first();
+
+        $general =  EncuestaGeneral::where('id', $interes['encuesta_general_id'])
+            ->with(['personas' => function ($q) use ($searchValue) {
+                $q->where('personas.estado', '1')
+                ->where(function ($query) use ($searchValue) {
+                    $query->where("personas.nombres", "LIKE", "%$searchValue%")
+                        ->orWhere('personas.apellido_materno', "LIKE", "%$searchValue%")
+                        ->orWhere('personas.apellido_paterno', "LIKE", "%$searchValue%");
+                });
+            }])
+            ->first();
+
+        $temperamento = Encuesta::where('encuesta_general_id', $general['id'])
+            ->where('tipo_encuesta_id', 3)
+            ->first();
+
+        if ($temperamento) {
+            $show = true;
+        }
+
+        if ($interes['general']['personas']->isEmpty()) {
+            return response()->json(['error' => 'No hay alumnos registrados'], 404);
+        } else {
+            foreach ($general['personas'] as $p) {
+                $data_interes = EncuestaPuntaje::where('encuesta_id', $interes['id'])
+                    ->where('persona_id', $p->id)
+                    ->first();
+
+                $data_temperamento = EncuestaPuntaje::where('encuesta_id', $temperamento['id'])
+                    ->where('persona_id', $p->id)
+                    ->first();
+
+                if ($show) {
+                    if ($data_interes && $data_temperamento) {
+                        $p->link = $back . 'exportar' . '/consolidados/' .  $request->interes_id . '/' . $p->id;
+                    } else {
+                        $p->link = "";
+                    }
+                } else {
+                    if ($data_interes) {
+                        $p->link = $back . 'exportar' . '/intereses/' . $request->interes_id . '/' . $p->id;
+                    } else {
+                        $p->link = "";
+                    }
+                }
+
+                if ($data_interes) {
+                    $p->status_int = "1"; //COMPLETADO
+                    $p->link_intereses = $back . 'exportar' . '/intereses/' . $request->interes_id . '/' . $p->id;
+                } else {
+                    $p->status_int = "0"; //PENDIENTE
+                }
+
+                if ($data_temperamento) {
+                    $p->status_temp = "1"; //COMPLETADO
+                } else {
+                    $p->status_temp = "0"; //PENDIENTE
+                }
+            }
+        }
+
+        return response()->json([$general['personas'], "show" => $show], 200);
     }
 
     /**
@@ -214,7 +290,7 @@ class ExportController extends Controller
 
         $tendencias = TendenciaTalento::all();
 
-        $tendencias_pie = TendenciaTalento::where('id','!=',7)->get();
+        $tendencias_pie = TendenciaTalento::where('id', '!=', 7)->get();
 
         $talentos = Talento::where('tendencia_id', "!=", null)
             ->with('tendencia')
@@ -228,9 +304,9 @@ class ExportController extends Controller
 
         $pdf2 = PDF::loadView('consolidado/talentos1', array('talentos' => $talentos, 'tendencias' => $tendencias))->setPaper('a4', 'landscape')->output();
 
-        $pdf3 = PDF::loadView('consolidado/talentos2',array('tendencias' => $tendencias_pie,'pie'=>$pie))->output();
+        $pdf3 = PDF::loadView('consolidado/talentos2', array('tendencias' => $tendencias_pie, 'pie' => $pie))->output();
 
-        $pdf4 = PDF::loadView('consolidado/talentos3',array('tendencias' => $tendencias))->setPaper('a4', 'landscape')->output();
+        $pdf4 = PDF::loadView('consolidado/talentos3', array('tendencias' => $tendencias))->setPaper('a4', 'landscape')->output();
 
         $pdf5 = PDF::loadView('consolidado/reporte_consolidados2', array('p_intereses' => $p_intereses['punintereses'], 'p_intereses_sort' => $p_intereses['puninteresessort']))->output();
 
@@ -262,25 +338,27 @@ class ExportController extends Controller
     }
 
     public function pieTalentos($personas, $emprendimiento, $innovacion, $estructura, $persuasion, $cognicion)
-    {  
+    {
         $data = array(
             array('', $innovacion),
-            array('', $emprendimiento), 
+            array('', $emprendimiento),
             array('', $personas),
             array('', $cognicion),
             array('', $persuasion),
             array('', $estructura),
-            );
-            
-        $plot = new PHPlot(800,600);
-        
+        );
+
+        $plot = new PHPlot(800, 600);
+
         $plot->SetPlotType('pie');
         $plot->SetDataType('text-data-single');
         $plot->SetDataValues($data);
 
-        $plot->SetDataColors(array('#FFE700', '#FF7700', '#EA2F0A', '#216FBE', '#8A0A0A',
-                                '#73BE21'));
-    
+        $plot->SetDataColors(array(
+            '#FFE700', '#FF7700', '#EA2F0A', '#216FBE', '#8A0A0A',
+            '#73BE21'
+        ));
+
         $plot->SetPrintImage(False);
         $plot->SetPieLabelType('label');
         $plot->DrawGraph();

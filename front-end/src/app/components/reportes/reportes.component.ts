@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { ApiBackRequestService } from './../../Services/api-back-request.service';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { NgProgress, NgProgressRef } from 'ngx-progressbar';
 import { FormControl } from '@angular/forms';
@@ -52,8 +52,8 @@ export class ReportesComponent implements OnInit {
 	public showProgress: boolean = false;
 
 	constructor(private api: ApiBackRequestService, private router: Router, public ngProgress: NgProgress) {
-		this.progressRef= ngProgress.ref();
-	 }
+		this.progressRef = ngProgress.ref();
+	}
 
 	ngOnInit(): void {
 		this.fetch();
@@ -82,7 +82,7 @@ export class ReportesComponent implements OnInit {
 	}
 
 	links() {
-		this.showReporte=false;
+		this.showReporte = false;
 		if (this.empresa.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
 		}
@@ -106,16 +106,16 @@ export class ReportesComponent implements OnInit {
 	}
 
 	zip_intereses() {
-		this.showReporte=false;
+		this.showReporte = false;
 		if (this.empresa.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
 		} else {
-			this.showProgress=true;		
+			this.showProgress = true;
 			this.progressRef.start();
 
 			this.disabled = true;
 			this.form.campo = 'intereses';
-			this.form.archivo = 'REPINTERESES-'+this.empresa.nombre+'-'+this.form.interes_id + '.zip';
+			this.form.archivo = 'REPINTERESES-' + this.empresa.nombre + '-' + this.form.interes_id + '.zip';
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
 					this.disabled = false;
@@ -132,7 +132,7 @@ export class ReportesComponent implements OnInit {
 	}
 
 	excel() {
-		this.showReporte=false;
+		this.showReporte = false;
 		if (this.empresa.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
 		} else {
@@ -155,16 +155,16 @@ export class ReportesComponent implements OnInit {
 	}
 
 	pdf() {
-		this.showReporte=false;
+		this.showReporte = false;
 		if (this.empresa.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
 		} else {
-			this.showProgress=true;		
+			this.showProgress = true;
 			this.progressRef.start();
-		
+
 			this.disabled = true;
 			this.form.campo = 'pdf';
-			this.form.archivo = 'REPCONSOLIDADO-'+this.empresa.nombre+'-'+this.form.interes_id+ '.zip';
+			this.form.archivo = 'REPCONSOLIDADO-' + this.empresa.nombre + '-' + this.form.interes_id + '.zip';
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
 					this.disabled = false;
@@ -180,8 +180,8 @@ export class ReportesComponent implements OnInit {
 		}
 	}
 
-	reporte(){
-		this.showReporte=false;
+	reporte() {
+		this.showReporte = false;
 		this.form.campo = 'reportes';
 		if (this.empresa.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
@@ -189,25 +189,25 @@ export class ReportesComponent implements OnInit {
 			this.disabled = true;
 			this.api.post('exportar', this.form).subscribe(
 				(data) => {
-					this.showReporte=true;
+					this.showReporte = true;
 					this.reportes = data[0];
 					this.disabled = false;
-					this.show= data.show;
+					this.show = data.show;
 				},
 				(error) => {
 					this.disabled = false;
-					this.mensaje(error)
+					this.mensaje(error.error.error)
 					this.limpiar();
 				}
 			);
 		}
 	}
 
-	sede(){
+	sede() {
 		console.log('sede');
 	}
 
-	c_empresa(){
+	c_empresa() {
 		console.log('empresa');
 	}
 
@@ -227,7 +227,8 @@ export class ReportesComponent implements OnInit {
 		this.form.campo = null;
 		this.reportes = [];
 		this.show = null;
-		this.showProgress=false;
+		this.showProgress = false;
+		this.showReporte = false;
 	}
 
 	mensaje(msj) {
@@ -242,4 +243,20 @@ export class ReportesComponent implements OnInit {
 		this.router.navigateByUrl('/dashboard');
 	}
 
+	updateFilter(event) {
+		const val = event.target.value;
+
+		this.api.get('exportar?search=' + val+'&interes_id='+this.form.interes_id).subscribe(
+			(data) => {
+				this.showReporte = true;
+				this.reportes = data[0];
+				this.show = data.show;
+			}
+		);
+	}
+
+	limpiarAutocomplete(){
+		this.limpiar();
+		this.intereses = [];
+	}
 }

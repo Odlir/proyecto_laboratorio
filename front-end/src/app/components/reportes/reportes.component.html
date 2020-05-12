@@ -7,7 +7,7 @@
 			<div class="col-sm-4">
 				<mat-form-field class="example-full-width w-100">
 					<input type="text" [(ngModel)]="empresa" matInput name="empresa" class="form-control"
-						[formControl]="myControl" [matAutocomplete]="auto" required (change)="intereses = []">
+						[formControl]="myControl" [matAutocomplete]="auto" required (change)="limpiarAutocomplete()">
 					<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="obtenerIntereses()">
 						<mat-option *ngFor="let option of filteredEmpresas | async" [value]="option">
 							{{option.nombre}}
@@ -70,6 +70,8 @@
 </div>
 
 <div class="table-responsive mt-5" *ngIf="showReporte">
+	<input type="text" class="buscador" placeholder="Buscar por Nombres/Apellidos"
+	(keyup)="updateFilter($event)" />
 	<table class="table table-hover text-center">
 		<thead>
 		  <tr>
