@@ -1,10 +1,10 @@
 <app-header nombre="LINK DE ENCUESTAS" icono="poll"></app-header>
 
 <div class="w-100 row">
-	<form class="col-9" ngNativeValidate>
+	<form ngNativeValidate>
 		<div class="form-group row my-3">
 			<label class="col-sm-2 col-form-label w-100">Empresa <span class="text-danger">*</span></label>
-			<div class="col-sm-6">
+			<div class="col-sm-4">
 				<mat-form-field class="example-full-width w-100">
 					<input type="text" [(ngModel)]="empresa" matInput name="empresa" class="form-control"
 						[formControl]="myControl" [matAutocomplete]="auto" required (change)="intereses = []">
@@ -20,7 +20,7 @@
 
 		<div class="form-group row my-3">
 			<label class="col-sm-2 col-form-label w-100">Intereses <span class="text-danger">*</span></label>
-			<div class="col-sm-6">
+			<div class="col-sm-4">
 				<select name="intereses" class="form-control" [(ngModel)]="form.interes_id">
 					<option [value]="item.id" *ngFor="let item of intereses">{{item.id}} - ENCUESTA INTERESES </option>
 				</select>
@@ -46,6 +46,12 @@
 				</button>
 				<button type="submit" class="btn btn-secondary d-flex" (click)="links()" [disabled]="disabled">
 					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> LINKS PARA ENCUESTAS
+				</button>
+				<button type="submit" class="btn btn-dark d-flex" (click)="sede()" [disabled]="disabled">
+					<fa-icon [icon]="['fas', 'file-download']"></fa-icon>CONSOLIDADO SEDE
+				</button>
+				<button type="submit" class="btn btn-danger d-flex" (click)="c_empresa()" [disabled]="disabled">
+					<fa-icon [icon]="['fas', 'file-download']"></fa-icon>CONSOLIDADO EMPRESA
 				</button>
 			
 				<a (click)="return()" class="btn btn-info text-white">REGRESAR</a>

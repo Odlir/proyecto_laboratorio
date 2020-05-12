@@ -389,6 +389,38 @@ INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_use
 INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO SAN FRANCISCO - SAN BORJA','GABRIELA','92323344','GABRIELA@UUU.COM.PE','1');
 INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO DOMINGO FAUSTINO SARM-PUENTE PIEDRA','GABRIELA','9544242443','GABRIELA@UUU.COM.PE','1');
 
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO TRILCE SANTA ANITA','TRILCE','354-2207','atencionalcliente@trilce.edu.pe','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO TRILCE LA MOLINA','TRILCE LA MOLINA','437-6540','trilcelm@colegio.edu.pe','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO TRILCE VILLA EL SALVADOR','VES','619-8105','atencionalcliente@trilce.edu.pe','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO TRILCE CHORRILLOS','TRILCE','619-8104','atencionalcliente@trilce.edu.pe','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO TRILCE SALAVERRY','GABRIELA','924596299','GABRIELA@UU.PE.COM','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO TRILCE SAN ISIDRO','GABRIELA','988867553','GABRIELA@UUU.COM.PE','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO TRILCE TRU','GABRIELA','923456334','GABRIELA@UUU.COM.PE','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO TRILCE CHICLAYO','GABRIELA','964434556','GABRIELA@UUU.COM.PE','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO TRENTO TRILCE','GABRIELA','987655444','GABRIELA@UUU.COM.PE','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER PUENTE PIEDRA','PAMER','719-2959','admision@pamer.edu.pe','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER JESUS MARIA','PAMER JESUS MARIA','7197349','adminision@pamer.edu.pe','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER VILLA EL SALVADOR','PAMER','719-3732','admision@pamer.edu.pe','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER IZAGUIRRE','IZAGUIRRE','7197777','admision@pamer.edu.pe','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER SAN ISIDRO','ISIDRO','7197360','pamer@pamer.edu.pe','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER CARABAYLLO','PAMER','5366399','informes@pamer.edu.pe','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('Colegio Pamer Contisuyo','conti','993538599','conti@pamer.edu.pe','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER LINCE','GABRIELA','945678990','GABRIELA@UUU.COM.PE','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER CAJAHUAMAN','GABRIELA','980090007','GABRIELA@UUU.COM.PE','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER CHORRILLOS','GABRIELA','987756443','GABRIELA@UUU.COM.PE','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER MAGDALENA','GABRIELA','908878664','GABRIELA@UUU.COM.PE','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER','GABRIELA','9644420225','GABRIELA@U.COM.PE','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER COMAS','GABRIELA','908878990','GABRIELA@UUU.COM.PE','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER LAS ARENAS -PIURA','GABRIELA','98878884','GABRIELA@UUU.COM.PE','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER REPUBLICA DE CHILE','GABRIELA','986656543','GABRIELA@UUU.COM.PE','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER BARRANCO','GABRIELA','987767666','GABRIELA@UUU.COM.PE','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER LA LIBERTAD','GABRIELA','908876554','GABRIELA@UUU.COM.PE','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER DURAZNOS','GABRIELA','9844568776','GABRIELA@UUU.COM.PE','1');
+INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER SALAMANCA','GABRIELA','986665444','GABRIELA@UUU.COM.PE','1');
+
 INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO INNOVA CORPORACIÓN','','','','1');
-INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO TRILCE CORPORACIÓN','','','','1');
-INSERT INTO `empresas` (`razon_social`,`contacto`,`telefono`,`email`,`insert_user_id`) VALUES ('COLEGIO PAMER CORPORACIÓN','','','','1');
+
+
+
+
+

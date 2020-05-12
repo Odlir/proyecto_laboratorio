@@ -202,6 +202,14 @@ export class ReportesComponent implements OnInit {
 		}
 	}
 
+	sede(){
+
+	}
+
+	c_empresa(){
+
+	}
+
 	obtenerIntereses() {
 		this.limpiar();
 		this.intereses = [];
