@@ -3,13 +3,23 @@ import { ApiBackRequestService } from './../../Services/api-back-request.service
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { NgProgress, NgProgressRef } from 'ngx-progressbar';
+import { FormControl } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
+
+export interface Empresa {
+	nombre: string,
+	id: number,
+}
 
 @Component({
 	selector: 'app-reportes',
 	templateUrl: './reportes.component.html',
 	styleUrls: ['./reportes.component.css']
 })
+
 export class ReportesComponent implements OnInit {
+
+	myControl = new FormControl();
 
 	public form = {
 		interes_id: null,
@@ -19,14 +29,16 @@ export class ReportesComponent implements OnInit {
 
 	public showReporte = false;
 
-	public sucursales = [];
+	public empresas: Empresa[] = [];
 
 	public intereses = [];
 
-	public sucursal = {
+	public empresa = {
 		id: null,
 		nombre: null
 	}
+
+	filteredEmpresas: any;
 
 	public show = null;
 
@@ -46,23 +58,37 @@ export class ReportesComponent implements OnInit {
 		this.fetch();
 	}
 
-	fetch() {
-		this.api.get('empresa_sucursal').subscribe(
-			(data) => {
-				this.sucursales = data
-			}
+	async fetch() {
+		await this.api.get('empresa_sucursal').toPromise() //ESTO LO PUSE ASINCRONO PARA QUE EL AUTOCOMPLETAR FUNCIONE
+			.then(
+				(data) => { this.empresas = data }
+			);
+
+		this.filteredEmpresas = this.myControl.valueChanges.pipe(
+			startWith(null),
+			map(empresa => empresa && typeof empresa === 'object' ? empresa.nombre : empresa),
+			map(empresa => this.filterStates(empresa))
 		);
+	}
+
+	filterStates(val) {
+		return val ? this.empresas.filter(s => s.nombre.toLowerCase().indexOf(val.toLowerCase()) === 0)
+			: this.empresas;
+	}
+
+	displayFn(empresa): string {
+		return empresa ? empresa.nombre : empresa;
 	}
 
 	links() {
 		this.showReporte=false;
-		if (this.sucursal.nombre == null || this.form.interes_id == null) {
+		if (this.empresa.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
 		}
 		else {
 			this.disabled = true;
 			this.form.campo = 'links';
-			this.form.archivo = this.sucursal.nombre + '-LINKS-ENCUESTAS.xlsx';
+			this.form.archivo = this.empresa.nombre + '-LINKS-ENCUESTAS.xlsx';
 
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
@@ -80,7 +106,7 @@ export class ReportesComponent implements OnInit {
 
 	zip_intereses() {
 		this.showReporte=false;
-		if (this.sucursal.nombre == null || this.form.interes_id == null) {
+		if (this.empresa.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
 		} else {
 			this.showProgress=true;		
@@ -88,7 +114,7 @@ export class ReportesComponent implements OnInit {
 
 			this.disabled = true;
 			this.form.campo = 'intereses';
-			this.form.archivo = 'REPINTERESES-'+this.sucursal.nombre+'-'+this.form.interes_id + '.zip';
+			this.form.archivo = 'REPINTERESES-'+this.empresa.nombre+'-'+this.form.interes_id + '.zip';
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
 					this.disabled = false;
@@ -106,12 +132,12 @@ export class ReportesComponent implements OnInit {
 
 	excel() {
 		this.showReporte=false;
-		if (this.sucursal.nombre == null || this.form.interes_id == null) {
+		if (this.empresa.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
 		} else {
 			this.disabled = true;
 			this.form.campo = 'status';
-			this.form.archivo = this.sucursal.nombre + '-LINKS-ENCUESTAS-STATUS.xlsx';
+			this.form.archivo = this.empresa.nombre + '-LINKS-ENCUESTAS-STATUS.xlsx';
 
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
@@ -129,7 +155,7 @@ export class ReportesComponent implements OnInit {
 
 	pdf() {
 		this.showReporte=false;
-		if (this.sucursal.nombre == null || this.form.interes_id == null) {
+		if (this.empresa.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
 		} else {
 			this.showProgress=true;		
@@ -137,7 +163,7 @@ export class ReportesComponent implements OnInit {
 		
 			this.disabled = true;
 			this.form.campo = 'pdf';
-			this.form.archivo = 'REPCONSOLIDADO-'+this.sucursal.nombre+'-'+this.form.interes_id+ '.zip';
+			this.form.archivo = 'REPCONSOLIDADO-'+this.empresa.nombre+'-'+this.form.interes_id+ '.zip';
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
 					this.disabled = false;
@@ -156,7 +182,7 @@ export class ReportesComponent implements OnInit {
 	reporte(){
 		this.showReporte=false;
 		this.form.campo = 'reportes';
-		if (this.sucursal.nombre == null || this.form.interes_id == null) {
+		if (this.empresa.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
 		} else {
 			this.disabled = true;
@@ -177,10 +203,9 @@ export class ReportesComponent implements OnInit {
 	}
 
 	obtenerIntereses() {
-
 		this.limpiar();
 		this.intereses = [];
-		this.api.get('links?tipo=1&sucursal=' + this.sucursal.id).subscribe(
+		this.api.get('links?tipo=1&sucursal=' + this.empresa.id).subscribe(
 			(data) => {
 				this.intereses = data
 			}

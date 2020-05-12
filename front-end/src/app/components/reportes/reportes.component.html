@@ -5,10 +5,15 @@
 		<div class="form-group row my-3">
 			<label class="col-sm-2 col-form-label w-100">Empresa <span class="text-danger">*</span></label>
 			<div class="col-sm-6">
-				<select name="empresa" class="form-control" [(ngModel)]="sucursal"
-					(change)="obtenerIntereses()">
-					<option [ngValue]="item" *ngFor="let item of sucursales">{{item.nombre}}</option>
-				</select>
+				<mat-form-field class="example-full-width w-100">
+					<input type="text" [(ngModel)]="empresa" matInput name="empresa" class="form-control"
+						[formControl]="myControl" [matAutocomplete]="auto" required>
+					<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="obtenerIntereses()">
+						<mat-option *ngFor="let option of filteredEmpresas | async" [value]="option">
+							{{option.nombre}}
+						</mat-option>
+					</mat-autocomplete>
+				</mat-form-field>
 			</div>
 			<hr>
 		</div>
@@ -66,9 +71,8 @@
 			<th scope="col">INTERESES</th>
 			<th scope="col" *ngIf="show">TALENTOS</th>
 			<th scope="col" *ngIf="show">TEMPERAMENTOS</th>
-			<th scope="col" *ngIf="show">LINK INTERESES</th>
-			<th scope="col" *ngIf="show">CONSOLIDADO</th>
-			<th scope="col" *ngIf="show==false">LINK</th>
+			<th scope="col">REPORTE INTERESES</th>
+			<th scope="col" *ngIf="show">REPORTE CONSOLIDADO</th>
 		  </tr>
 		</thead>
 		<tbody>
