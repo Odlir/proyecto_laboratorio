@@ -108,7 +108,7 @@ export class CrudEncuestaComponent implements OnInit {
 	}
 
 	filterStates(val) {
-		return val ? this.empresas.filter(s => s.nombre.toLowerCase().indexOf(val.toLowerCase()) === 0)
+		return val ? this.empresas.filter(s => s.nombre.toLowerCase().indexOf(val.toLowerCase()) != -1)
 			: this.empresas;
 	}
 

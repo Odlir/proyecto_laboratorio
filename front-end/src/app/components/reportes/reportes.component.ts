@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { ApiBackRequestService } from './../../Services/api-back-request.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import Swal from 'sweetalert2';
 import { NgProgress, NgProgressRef } from 'ngx-progressbar';
 import { FormControl } from '@angular/forms';
@@ -10,6 +10,7 @@ export interface Empresa {
 	nombre: string,
 	id: number,
 }
+
 
 @Component({
 	selector: 'app-reportes',
@@ -72,7 +73,7 @@ export class ReportesComponent implements OnInit {
 	}
 
 	filterStates(val) {
-		return val ? this.empresas.filter(s => s.nombre.toLowerCase().indexOf(val.toLowerCase()) === 0)
+		return val ? this.empresas.filter(s => s.nombre.toLowerCase().indexOf(val.toLowerCase()) != -1)
 			: this.empresas;
 	}
 
@@ -203,11 +204,11 @@ export class ReportesComponent implements OnInit {
 	}
 
 	sede(){
-
+		console.log('sede');
 	}
 
 	c_empresa(){
-
+		console.log('empresa');
 	}
 
 	obtenerIntereses() {
