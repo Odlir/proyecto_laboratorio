@@ -9,7 +9,7 @@
 					<input type="text" [(ngModel)]="empresa" matInput name="empresa" class="form-control"
 						[formControl]="myControl" [matAutocomplete]="auto" required (change)="intereses = []">
 					<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="obtenerIntereses()">
-						<mat-option *ngFor="let option of filteredEmpresas | async" [value]="option.nombre">
+						<mat-option *ngFor="let option of filteredEmpresas | async" [value]="option">
 							{{option.nombre}}
 						</mat-option>
 					</mat-autocomplete>
