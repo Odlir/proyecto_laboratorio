@@ -7,7 +7,7 @@
 		<p>IMPORTAR</p>
 	</div>
 	<div class="row">
-		<form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
+		<form #form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
 			<div class="form-group row my-3">
 				<label class="col-sm-4 col-form-label w-100">Bajar Plantilla <span class="text-danger">*</span></label>
 				<div class="col-sm-8">

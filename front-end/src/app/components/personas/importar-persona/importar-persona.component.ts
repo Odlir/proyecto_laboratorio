@@ -2,7 +2,7 @@ import { RoutingStateService } from './../../../Services/routing/routing-state.s
 import { HttpParams } from '@angular/common/http';
 import { TokenService } from './../../../Services/token/token.service';
 import { ApiBackRequestService } from './../../../Services/api-back-request.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -12,6 +12,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 	styleUrls: ['./importar-persona.component.css']
 })
 export class ImportarPersonaComponent implements OnInit {
+
+	@ViewChild('form') form;
 
 	fileToUpload: File = null;
 	public encuesta_id;
@@ -31,7 +33,6 @@ export class ImportarPersonaComponent implements OnInit {
 		this.api.get('encuestas', this.encuesta_id).subscribe(
 			(data) => {
 				this.encuesta_general_id = data.encuesta_general_id
-				this.encuesta_general_id = [...this.encuesta_general_id];
 			},
 			(error) => { }
 		);
@@ -73,6 +74,7 @@ export class ImportarPersonaComponent implements OnInit {
 	cerrar(error?) {
 		if (error) {
 			this.error = error;
+			this.form.nativeElement.reset()
 		}
 		else {
 			this.mensaje('Importación Exitosa');

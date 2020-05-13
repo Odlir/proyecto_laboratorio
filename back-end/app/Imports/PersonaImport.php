@@ -38,6 +38,7 @@ class PersonaImport implements ToCollection, WithHeadingRow
             $messages[$key . '.nombres' . '.required'] = 'El campo Nombres, fila ' . $i . '  es requerido.';
             $messages[$key . '.apellido_paterno' . '.required'] = 'El campo Apellido Paterno, fila ' . $i . '  es requerido.';
             $messages[$key . '.sexo' . '.required'] = 'El campo Sexo, fila ' . $i . '  es requerido.';
+            $messages[$key . '.sexo' . '.in'] = 'El campo Sexo, fila ' . $i . '  debe ser Masculino o Femenino.';
             $messages[$key . '.ano' . '.alpha_num'] = 'El campo Año, fila ' . $i . '  solo permite numeros y letras.';
             $i++;
         }
@@ -45,7 +46,7 @@ class PersonaImport implements ToCollection, WithHeadingRow
         Validator::make($rows->toArray(), [
             '*.nombres' => 'required',
             '*.apellido_paterno' => 'required',
-            '*.sexo' => 'required',
+            '*.sexo' => 'required|in:Masculino,Femenino,masculino,femenino,MASCULINO,FEMENINO',
             '*.ano' => 'alpha_num|nullable'
         ], $messages)->validate();
 
