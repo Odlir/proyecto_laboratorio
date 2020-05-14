@@ -142,12 +142,14 @@ class ExportController extends Controller
 
     public function consolidado_sede(Request $request)
     {
+        $show = false;
+
+        $error = "";
+
         $intereses = Encuesta::where('tipo_encuesta_id', 1)
             ->where('empresa_sucursal_id', $request->empresa_id)
             ->where('estado', '1')
             ->get();
-
-        $show = false;
 
         foreach ($intereses as $i) {
             $temperamento = Encuesta::where('tipo_encuesta_id', 2)
@@ -165,35 +167,51 @@ class ExportController extends Controller
             if ($temperamento && $talento) {
                 $show = true;
                 break;
+            } else {
+                $show = false;
+                $error = 'No hay encuestas de temperamentos o talentos registradas.';
             }
         }
 
-        if ($show) {
-
-            $now = Carbon::now();
-            $date = ucfirst($now->isoFormat('MMMM')) . ', ' . $now->year;
-
-            $encuesta = Encuesta::where('tipo_encuesta_id', 3)
-                ->where('empresa_sucursal_id', $request->empresa_id)
-                ->where('estado', '1')
-                ->first();
-
-            $fecha = Carbon::parse($encuesta['fecha_inicio']);
-            $fecha_evaluacion =  $fecha->format('d') . ' de ' . ucfirst($fecha->isoFormat('MMMM'));
-
-            $colegio = EmpresaSucursal::find($request->empresa_id);
-
-            $tendencias = TendenciaTalento::all();
-
-            $talentos = Talento::where('tendencia_id', "!=", null)
-                ->with('tendencia')
-                ->get();
-
-            $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias));
-            return $pdf->download('Consolidado_sede.pdf');
-        } else {
-            return response()->json(['error' => 'No hay encuestas de temperamentos o talentos registradas.'], 404);
+        if ($show == false) {
+            return response()->json(['error' => $error], 404);
         }
+
+        foreach ($intereses as $i) {
+            if (!$i['general']['personas']->isEmpty()) {
+                $show = true;
+                break;
+            } else {
+                $show = false;
+                $error = 'No hay alumnos registrados.';
+            }
+        }
+
+        if ($show == false) {
+            return response()->json(['error' => $error], 404);
+        }
+
+        $now = Carbon::now();
+        $date = ucfirst($now->isoFormat('MMMM')) . ', ' . $now->year;
+
+        $encuesta = Encuesta::where('tipo_encuesta_id', 3)
+            ->where('empresa_sucursal_id', $request->empresa_id)
+            ->where('estado', '1')
+            ->first();
+
+        $fecha = Carbon::parse($encuesta['fecha_inicio']);
+        $fecha_evaluacion =  $fecha->format('d') . ' de ' . ucfirst($fecha->isoFormat('MMMM'));
+
+        $colegio = EmpresaSucursal::find($request->empresa_id);
+
+        $tendencias = TendenciaTalento::all();
+
+        $talentos = Talento::where('tendencia_id', "!=", null)
+            ->with('tendencia')
+            ->get();
+
+        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias));
+        return $pdf->download('Consolidado_sede.pdf');
     }
 
     public function reportes(Request $request)
@@ -481,7 +499,7 @@ class ExportController extends Controller
         }
 
         if ($descargar) {
-            Excel::store(new StatusExport($encuesta['general']['personas'], $encuesta['id'], $temperamento_id), 'Consolidado-' . $identificador . '/' . $encuesta['empresa']['nombre'] . '-' . $request->interes_id . '.xlsx', 'local');      
+            Excel::store(new StatusExport($encuesta['general']['personas'], $encuesta['id'], $temperamento_id), 'Consolidado-' . $identificador . '/' . $encuesta['empresa']['nombre'] . '-' . $request->interes_id . '.xlsx', 'local');
             return $this->descargarZip($identificador);
         } else {
             return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
@@ -541,7 +559,7 @@ class ExportController extends Controller
 
         if ($interes['general']['personas']->isEmpty()) {
             return response()->json(['error' => 'No hay alumnos registrados'], 404);
-        }            
+        }
 
         $encuesta_temp = Encuesta::where('encuesta_general_id', $interes['encuesta_general_id'])
             ->where('tipo_encuesta_id', 3)
