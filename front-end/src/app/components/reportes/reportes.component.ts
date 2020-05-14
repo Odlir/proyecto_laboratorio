@@ -243,7 +243,6 @@ export class ReportesComponent implements OnInit {
 		this.form.archivo = null;
 		this.form.campo = null;
 		this.showProgress = false;
-		this.empresa_id = null;
 	}
 
 	limpiarReportes() {

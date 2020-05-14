@@ -43,11 +43,6 @@ class ExportController extends Controller
         $show = false;
 
         $interes = Encuesta::where('id', $interes_id)
-            ->with(['general' => function ($query) {
-                $query->with(['personas' => function ($query) {
-                    $query->wherePivot('estado', '1');
-                }]);
-            }])
             ->first();
 
         $general =  EncuestaGeneral::where('id', $interes['encuesta_general_id'])
@@ -62,6 +57,7 @@ class ExportController extends Controller
             ->first();
 
         $temperamento = Encuesta::where('encuesta_general_id', $general['id'])
+            ->where('estado', '1')
             ->where('tipo_encuesta_id', 3)
             ->first();
 
@@ -69,7 +65,7 @@ class ExportController extends Controller
             $show = true;
         }
 
-        if ($interes['general']['personas']->isEmpty()) {
+        if ($general['personas']->isEmpty()) {
             return response()->json(['error' => 'No hay alumnos registrados'], 404);
         } else {
             foreach ($general['personas'] as $p) {
@@ -150,26 +146,53 @@ class ExportController extends Controller
 
     public function consolidado_sede(Request $request)
     {
-        $now = Carbon::now();
-        $date = ucfirst($now->isoFormat('MMMM')) . ', ' . $now->year;
-
-        $encuesta = Encuesta::where('tipo_encuesta_id', 3)
+        $interes = Encuesta::where('tipo_encuesta_id', 1)
             ->where('empresa_sucursal_id', $request->empresa_id)
-            ->first();
-
-        $fecha = Carbon::parse($encuesta['fecha_inicio']);
-        $fecha_evaluacion =  $fecha->format('d') . ' de ' . ucfirst($fecha->isoFormat('MMMM'));
-
-        $colegio = EmpresaSucursal::find($request->empresa_id);
-
-        $tendencias = TendenciaTalento::all();
-
-        $talentos = Talento::where('tendencia_id', "!=", null)
-            ->with('tendencia')
+            ->where('estado', '1')
             ->get();
 
-        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias));
-        return $pdf->download('Consolidado_sede.pdf');
+        $show = true;
+
+        // foreach ($intereses as $i) {
+
+        // }
+
+        $temperamento = Encuesta::where('tipo_encuesta_id', 2)
+            ->where('empresa_sucursal_id', $request->empresa_id)
+            ->where('estado', '1')
+            ->first();
+
+        $talentos = Encuesta::where('tipo_encuesta_id', 1)
+            ->where('empresa_sucursal_id', $request->empresa_id)
+            ->where('estado', '1')
+            ->first();
+
+        if ($show) {
+
+            $now = Carbon::now();
+            $date = ucfirst($now->isoFormat('MMMM')) . ', ' . $now->year;
+
+            $encuesta = Encuesta::where('tipo_encuesta_id', 3)
+                ->where('empresa_sucursal_id', $request->empresa_id)
+                ->where('estado', '1')
+                ->first();
+
+            $fecha = Carbon::parse($encuesta['fecha_inicio']);
+            $fecha_evaluacion =  $fecha->format('d') . ' de ' . ucfirst($fecha->isoFormat('MMMM'));
+
+            $colegio = EmpresaSucursal::find($request->empresa_id);
+
+            $tendencias = TendenciaTalento::all();
+
+            $talentos = Talento::where('tendencia_id', "!=", null)
+                ->with('tendencia')
+                ->get();
+
+            $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias));
+            return $pdf->download('Consolidado_sede.pdf');
+        } else {
+            return response()->json(['error' => 'No hay alumnos registrados'], 404);
+        }
     }
 
     public function reportes(Request $request)
@@ -186,12 +209,9 @@ class ExportController extends Controller
             }])
             ->first();
 
-        $general =  EncuestaGeneral::where('id', $interes['encuesta_general_id'])
-            ->with('personas')
-            ->first();
-
-        $temperamento = Encuesta::where('encuesta_general_id', $general['id'])
+        $temperamento = Encuesta::where('encuesta_general_id', $interes['encuesta_general_id'])
             ->where('tipo_encuesta_id', 3)
+            ->where('estado', '1')
             ->first();
 
         if ($temperamento) {
@@ -201,7 +221,7 @@ class ExportController extends Controller
         if ($interes['general']['personas']->isEmpty()) {
             return response()->json(['error' => 'No hay alumnos registrados'], 404);
         } else {
-            foreach ($general['personas'] as $p) {
+            foreach ($interes['general']['personas'] as $p) {
                 $data_interes = EncuestaPuntaje::where('encuesta_id', $interes['id'])
                     ->where('persona_id', $p->id)
                     ->first();
@@ -239,21 +259,23 @@ class ExportController extends Controller
             }
         }
 
-        return response()->json([$general['personas'], "show" => $show], 200);
+        return response()->json([$interes['general']['personas'], "show" => $show], 200);
     }
 
     public function intereses(Request $request)
     {
         $encuesta = Encuesta::where('id', $request->interes_id)
-            ->with('empresa')
-            ->first();
-
-        $general =  EncuestaGeneral::where('id', $encuesta['encuesta_general_id'])
-            ->with('personas')
+            ->with(['general' => function ($query) {
+                $query->with(['personas' => function ($query) {
+                    $query->wherePivot('estado', '1');
+                }]);
+            }])
             ->first();
 
         $personas = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
-            ->with('persona')
+            ->whereHas('persona', function($q){
+                $q->where('estado', '1');
+            })
             ->with('punintereses.carrera')
             ->with(['puninteresessort' => function ($query) {
                 $query->with('carrera');
@@ -272,7 +294,7 @@ class ExportController extends Controller
             }
         }
 
-        Excel::store(new StatusInteresesExport($general['personas'], $encuesta['id']), 'Consolidado-' . $identificador . '/' . $encuesta['empresa']['nombre'] . '-' . $request->interes_id . '.xlsx', 'local');
+        Excel::store(new StatusInteresesExport($encuesta['general']['personas'], $encuesta['id']), 'Consolidado-' . $identificador . '/' . $encuesta['empresa']['nombre'] . '-' . $request->interes_id . '.xlsx', 'local');
 
         return $this->descargarZip($identificador);
     }
@@ -290,14 +312,10 @@ class ExportController extends Controller
             ->first();
 
         $encuesta = Encuesta::where('id', $interes_id)
-            ->with('empresa')
             ->first();
 
-        $general =  EncuestaGeneral::where('id', $encuesta['encuesta_general_id'])
-            ->with('personas')
-            ->first();
-
-        $encuesta_temp = Encuesta::where('encuesta_general_id', $general['id'])
+        $encuesta_temp = Encuesta::where('encuesta_general_id', $encuesta['encuesta_general_id'])
+            ->where('estado', '1')
             ->where('tipo_encuesta_id', 3)
             ->first();
 
@@ -399,15 +417,16 @@ class ExportController extends Controller
         $descargar = false;
 
         $encuesta = Encuesta::where('id', $request->interes_id)
-            ->with('empresa')
+            ->with(['general' => function ($query) {
+                $query->with(['personas' => function ($query) {
+                    $query->wherePivot('estado', '1');
+                }]);
+            }])
             ->first();
 
-        $general =  EncuestaGeneral::where('id', $encuesta['encuesta_general_id'])
-            ->with('personas')
-            ->first();
-
-        $encuesta_temp = Encuesta::where('encuesta_general_id', $general['id'])
+        $encuesta_temp = Encuesta::where('encuesta_general_id', $encuesta['encuesta_general_id'])
             ->where('tipo_encuesta_id', 3)
+            ->where('estado', '1')
             ->first();
 
         $areas = Area::with('items.items')
@@ -426,7 +445,7 @@ class ExportController extends Controller
 
         $identificador = rand();
 
-        foreach ($general['personas'] as $p) { //PARA LOS CONSOLIDADOS
+        foreach ($encuesta['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
             $p_intereses = EncuestaPuntaje::where('encuesta_id', $request->interes_id)
                 ->where('persona_id', $p['id'])
                 ->with('punintereses.carrera.intereses')
@@ -453,7 +472,7 @@ class ExportController extends Controller
             $temperamento_id = $encuesta_temp['id'];
         }
 
-        Excel::store(new StatusExport($general['personas'], $encuesta['id'], $temperamento_id), 'Consolidado-' . $identificador . '/' . $encuesta['empresa']['nombre'] . '-' . $request->interes_id . '.xlsx', 'local');
+        Excel::store(new StatusExport($encuesta['general']['personas'], $encuesta['id'], $temperamento_id), 'Consolidado-' . $identificador . '/' . $encuesta['empresa']['nombre'] . '-' . $request->interes_id . '.xlsx', 'local');
 
         if ($descargar) {
             return $this->descargarZip($identificador);
@@ -513,12 +532,9 @@ class ExportController extends Controller
             }])
             ->first();
 
-        $general =  EncuestaGeneral::where('id', $interes['encuesta_general_id'])
-            ->with('personas')
-            ->first();
-
-        $encuesta_temp = Encuesta::where('encuesta_general_id', $general['id'])
+        $encuesta_temp = Encuesta::where('encuesta_general_id', $interes['encuesta_general_id'])
             ->where('tipo_encuesta_id', 3)
+            ->where('estado', '1')
             ->first();
 
         if ($encuesta_temp) {
@@ -587,12 +603,9 @@ class ExportController extends Controller
             }])
             ->first();
 
-        $general =  EncuestaGeneral::where('id', $interes['encuesta_general_id'])
-            ->with('personas')
-            ->first();
-
-        $encuesta_temp = Encuesta::where('encuesta_general_id', $general['id'])
+        $encuesta_temp = Encuesta::where('encuesta_general_id', $interes['encuesta_general_id'])
             ->where('tipo_encuesta_id', 3)
+            ->where('estado', '1')
             ->first();
 
         if ($encuesta_temp) {

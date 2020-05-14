@@ -18,7 +18,7 @@
 
             body
             {           
-                font-size: 14px;
+                font-size: 13px;
             }
 
             *{
@@ -180,6 +180,14 @@
 
             .font-10{
                 font-size: 10px;
+            }
+
+            .d-inline-block{
+                display: inline-block;
+            }
+
+            .break-avoid{
+                page-break-inside: avoid;
             }
         </style>
     </head>
@@ -440,8 +448,30 @@
                 A continuación una breve descripción de cada área: 
             </p>
 
+            @foreach ($tendencias as $ten)
+            <div class="break-avoid">
+                <p class="p-2 border d-inline-block" style="border-color:{{$ten->color}}">{{$ten->nombre}} ({{$ten->nombre_color}})
+                <p>{{$ten->descripcion}}</p>
+            </div>
+            @endforeach
+        </div>
+
+        <div class="page_break text-justify">
+            <p class="h3 font-weight-bold">
+                III. OBJETIVOS
+            </p>
             <p>
-                
+                El objetivo principal de la aplicación de los instrumentos del presente trabajo es que los alumnos cuenten con 
+                información sobre sus talentos dominantes, características del temperamento y preferencias vocacionales  que les 
+                permita discriminar los roles donde puedan desempeñarse y los campos profesionales en los cuales aplicarlos y 
+                desarrollar fortalezas. 
+            </p>
+
+            <p class="h3 font-weight-bold mt-5">
+                IV. MUESTRA
+            </p>
+            <p>
+                La muestra estuvo conformada por los alumnos que sí han resuelto las tres encuestas: 
             </p>
         </div>
     </body>
