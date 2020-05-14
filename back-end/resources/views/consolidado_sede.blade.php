@@ -4,379 +4,445 @@
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
         <meta charset="UTF-8">
         <style>
+               
+            @page :first{    
+                margin: 0;
+                padding:0;
+                margin-top: 60px;
+            }
+         
+            @page{    
+                margin: 60px;
+                margin-top:110px;
+            }
 
-        @page :first{    
-            margin: 0;
-            padding:0;
-        }
+            body
+            {           
+                font-size: 14px;
+            }
 
-        @page{
-            margin:0;    
-            margin-top: 30px;
-            padding:0;
-        }     
+            *{
+                font-family: 'Comfortaa', cursive!important;
+            }
 
-        *{
-            font-family: 'Comfortaa', cursive!important;
-        }
+            .h1{
+                font-size: 2em;
+                margin: 0;
+            }
 
-        .h1{
-            font-size: 2em;
-            margin: 0!important;
-        }
+            .h3{
+                font-size: 1.17em;
+                margin: 0;
+            }
 
-        .h2{
-            font-size: 1.5em;
-            margin: 0!important;
-        }
+            .pad-doc
+            {
+                padding: 30px;
+            }
 
-        .h3{
-            font-size: 1.17em;
-            margin: 0!important;
-        }
+            .p-0
+            {
+                padding: 0 !important;
+            }
+            
+            .m-0
+            {
+                margin: 0 !important;
+            }
 
-        .h4{
-            font-size: 1em;
-            margin: 0!important;
-        }
+            .text-center
+            {
+                text-align:center;
+            }
 
-        .h5{
-            font-size: .83em;
-            margin: 0!important;
-        }
+            .text-justify
+            {
+                text-align: justify;
+            }
 
-        #header {
-            text-align: right;
-            position: fixed;
-            top:5px;
-            left: 0;
-            right: 40px;
-        }
+            .w-100
+            {
+                width:100%;
+            }
 
-        #header img {
-            width: 60px;
-        }
+            .text-secondary {
+                color: #404342 ;
+            }
 
-        .m-0
-        {
-            margin: 0 !important;
-        }
+            .text-caratula{
+                color: #585E5C;
+            }
 
-        body
-        {
-            padding: 70px;
-            font-size: 14px;
-        }
+            .img-width{
+                width:170px;
+            }
 
-        .text-center
-        {
-            text-align:center;
-        }
+            .page_break { 
+                page-break-before: always; 
+            }
 
-        .text-justify
-        {
-            text-align: justify;
-        }
+            #header {
+                position: fixed;
+                top:-110px;
+                margin-left:-80px;
+                margin-right: -80px;
+                width: 100%;
+            }
 
-        .w-100
-        {
-            width:100%;
-        }
+            #header img {
+                width: 50px;
+            }
 
-        .text-secondary {
-            color: #404342 ;
-        }
+            .bg-dark {
+                background-color: #343a40!important;
+            }
 
-        .mt{
-            margin-top:110px;
-        }
+            .text-white {
+                color: #fff!important;
+            }
 
-        .img-width{
-            width:170px;
-        }
+            .py-3 {
+                padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+            }
 
-        .page_break { 
-            page-break-before: always; 
-        }
+            .px-0
+            {
+                padding-left: 0;
+                padding-right: 0;
+            }
 
-        .ml-4
-        {
-            margin-left: 1.5rem !important;
-        }
+            .mt-5
+            {
+                margin-top: 3rem !important;
+            }
 
-        .mt-3 {
-            margin-top: 1rem !important;
-        }
+            .pt-5{
+                padding-top: 3rem !important;
+            }
 
-        .mt-5{
-            margin-top: 3rem !important;
-        }
+            .titulo{
+                font-size: 30px;
+            }
 
-        .pt-4{
-            padding-top: 1.5rem !important;
-        }
+            .h-footer{
+                bottom: 0;
+                position:absolute;
+                height: 50px;
+                width: 100%;
+            }
 
-        .mx-2
-        {
-            margin-left: 0.5rem !important;
-            margin-right: 0.5rem !important;
-        }
+            .mt-date{
+                margin-top: 100px;
+            }
 
-        .p-2 {
-            padding: 0.5rem !important;
-        }
+            .text-right{
+                text-align: right;
+            }
 
-        .titulo{
-            font-size: 35px;
-        }
+            .ml-5
+            {
+                margin-left: 3rem !important;
+            }
 
-        .mt-persona{
-            margin-top: 70px;
-        }
+            .mr-5{
+                margin-right: 3rem !important;
+            }
 
-        .mt-text{
-            margin-top: 5px;
-        }
+            .font-weight-bold{
+                font-weight: bold;
+            }
 
-        /* .font-weight-bold{
-            font-weight: bold;
-        } */
+            .top{
+                position: relative;
+                vertical-align: top;
+            }
 
-        #footer {
-        text-align: right;
-        position: fixed;
-        left: 0;
-        right: 70px;
-        color: black;
-        font-size: 20px;
-        bottom: 70px;
-        }
+            .pr-2{
+                padding-right: 0.5rem !important;
+            }
 
-        .page-number:before {
-        content: counter(page);
-        }
-    </style>
+            .margin-tr{
+                border-spacing: 0px 8px;
+            }
+
+            .border{
+                border: 4px solid;
+            }
+
+            .p-2{
+                padding: 0.5rem !important;
+            }
+
+            .td-height{
+                height:40px;
+            }
+
+            .font-10{
+                font-size: 10px;
+            }
+        </style>
     </head>
+    
     <body>
-        <div class="text-center font-weight-bold">
-            <p class="titulo text-secondary h1">TEST DE INTERESES</p>
-            <img class="img-width mt-5 pt-4" src="{{ 'storage/logo_upc_red.png' }}" alt="">
-          <div class="mt">
-            <p class="text-secondary h1">Reporte de resultados</p>
+        <div class="text-center text-caratula">
+            <img class="img-width" src="{{ 'storage/logo_upc_red.png' }}" alt="">
 
-            <div class="mt-persona text-secondary">
-                <p class="h1">Evaluación de</p>
-                <p class="h1 mt-text">{{$persona->apellido_paterno}} {{$persona->apellido_materno}}, {{$persona->nombres}}</p>
-                <p class="h1 mt-text" style="bottom: 0;position:absolute;margin-left:240px!important;">@php
-                    echo date('d-m-Y');
-                @endphp</p>
+            <div class="h1">
+                <p>Universidad Peruana de Ciencias Aplicadas</p>
+                <p>Coordinación de colegios</p>
             </div>
-          </div>     
-        </div>
-
-        <div id="footer">
-            <div class="page-number"></div>
-        </div>
         
-        <div class="page_break text-justify">
-            <p class="font-weight-bold text-secondary h2">TEST DE INTERESES PROFESIONALES</p>
+            <div class="bg-dark text-white py-3 px-0 mt-5 h1">
+                <p>Dirección de Calidad Educativa</p>
+            </div>
+            <div class="pad-doc">
+                <div class="h1">
+                    <p>Informe Programa de Orientación Vocacional: “Yo Decido mi futuro”</p>
+                </div>
+                <div class="mt-5">
+                    <p class="titulo">{{$colegio}}</p>
+                    <p class="h1 mt-date">{{$date}}</p>
+                </div>
+            </div> 
+            <div class="bg-dark h-footer bottom">
+            </div>
+        </div>
+
+        <div class="page_break pt-5 text-secondary">
             <div>
-                <p>
-                    Una de las decisiones más importantes en la vida de una persona, es la relacionada a la elección de la carrera a seguir, pues su sentido de producción y felicidad futuras,
-                    dependerán de la satisfacción que logre frente a la actividad que realice en su vida.
+                <p class="h3 font-weight-bold">
+                    I. FICHA TÉCNICA:
                 </p>
                 <p>
-                    El test de intereses, evalúa los intereses profesionales a partir de tres aspectos: a. 
-                    El gusto que tendrías por realizar alguna actividad en tu vida profesional, b. Las habilidades que tienes para aprender a 
-                    realizar esta actividad, y c. La satisfacción que crees que te brindaría realizar esta actividad como parte de tu profesión.
+                    Fecha de evaluación: <br>
+                    {{$fecha_evaluacion}}
+                </p>
+            </div>
+
+            <div class="mt-5 text-justify">
+                <p class="h3 font-weight-bold">
+                    II. INTRODUCCIÓN
                 </p>
                 <p>
-                    Este instrumento ha sido elaborado y estandarizado por la prestigiosa firma de
-                    Effectus Fischman Consultores, contando con los criterios de validez y confiabilidad que el programa demanda.
+                    El presente trabajo está basado en un modelo de psicología positiva. 
+                    Esta nueva rama de la psicología se centra no solamente en arreglar 
+                    lo que está mal, sino en estudiar las fortalezas que tienen las personas 
+                    para lograr una mejor calidad de vida y bienestar.
                 </p>
-            </div>
-            <div>
-                Esta evaluación permite recoger información sobre sus principales intereses, tanto
-                en referencia a las profesiones o carreras, así como las actividades que podría
-                realizar en una carrera determinada.
-            </div>
-            <div class="mt-3">
-                A continuación encontrarás un perfil de tus intereses profesionales, agrupado por
-                áreas de acuerdo a tus respuestas del test.
-            </div>
-            <div class="mt-3">
-                <table class="text-justify">
-                    <tr>
-                        <td width="2%">
-                            <p style="position:absolute;top:-17px;">•</p>
-                        </td>
-                        <td width="98%">
-                            Áreas de alto interés. Son aquellas áreas en las que la puntuación se encuentra
-                            por encima de 75, significa que tienes muy desarrollado este interés y sería
-                            recomendable que la profesión que elijas se vincule a las carreras que estas
-                            áreas incluyen.
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="2%">
-                            <p style="position:absolute;top:-17px;">•</p>
-                        </td>
-                        <td width="98%">
-                            Áreas de mediano interés. Son aquellas áreas con puntuaciones entre 26 y 75.
-                            Significa que tu interés no es tan desarrollado hacia estas actividades. En este
-                            caso es recomendable que explores más las actividades relacionadas con estas
-                            áreas.
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="2%">
-                            <p style="position:absolute;top:-17px;">•</p>
-                        </td>
-                        <td width="98%">
-                            Áreas de bajo interés. Son aquellas áreas con puntuaciones de 25 o menos,
-                            significa que no has desarrollado interés por este tipo de actividades.
-                        </td>
-                    </tr>
-                </table>
+                <p>
+                    En la actualidad, está científicamente comprobado que las personas que estudian y 
+                    luego trabajan en sus talentos son más felices, motivadas, comprometidas y 
+                    aportan al máximo su potencial (en López & Snyder, 2009). 
+                </p>
+                <p>
+                    Sin embargo, la mayoría de alumnos que elige una carrera no toma en cuenta la compatibilidad 
+                    entre esta y sus talentos. La Universidad Peruana de Ciencias Aplicadas (UPC) viene trabajando, 
+                    desde hace más de cinco años, con la ciencia de la psicología positiva, que permite tomar en 
+                    cuenta los talentos de los alumnos y los ayuda a conocerse mejor. De acuerdo con Seligman (1998), 
+                    el tema fundamental de la psicología positiva es la búsqueda, el desarrollo y construcción de 
+                    la expresión total del talento. 
+                </p>
+
+                <p class="h3 font-weight-bold">¿Qué es un talento?</p>
+
+                <p>
+                    El talento es una forma innata de pensar, sentir y comportarse, que puede aplicarse, 
+                    productivamente, para obtener resultados positivos. Todas las personas son poseedoras 
+                    de talentos; el problema es que la mayoría los desconoce (Clifton, Anderson & Schreiner, 2006). 
+                    Se puede afirmar, luego de mucha investigación, que las personas más exitosas conocen sus talentos 
+                    y construyen su vida en base a ellos (Gallup, 2009). 
+                </p>
             </div>
         </div>
 
         <div id="header">
-            <img src="{{ 'storage/logo_upc_red.png' }}" alt="">
+            <table class="w-100 bg-dark text-white">
+                <tr>
+                    <td>
+                        <p class="titulo ml-5">Orientación Vocacional</p>
+                    </td>
+                    <td class="text-right">
+                        <img class="mr-5" src="{{ 'storage/logo_upc_blanco.png' }}" alt="">
+                    </td>
+                </tr>
+            </table>
+        </div> 
+
+        <div class="page_break text-justify text-secondary">
+            <p>
+                El talento puede definirse como aquello que uno hace muy bien, 
+                en lo que destaca por encima de los demás y que, además, genera placer. 
+            </p>
+
+            <p class="h3 font-weight-bold">
+                El enfoque tradicional vs. el enfoque moderno 
+            </p>
+
+            <p>
+                En el enfoque tradicional de la educación, los profesores, los padres y los propios alumnos se 
+                enfocan en desarrollar sus debilidades y descuidan el desarrollo de sus talentos. Sin embargo, 
+                es el desarrollo de talentos lo que sostiene el éxito de una persona (Buckingham, 2007; Gallup, 2009). 
+            </p>
+
+            <p>
+                Resulta clave ayudar a los estudiantes a pensar en sus talentos, para que sepan emplearlos en el 
+                aula y en su vida. La premisa es que se enfoquen en lo que hacen mejor y que solo dediquen esfuerzo 
+                en llevar sus debilidades a una valla mínima (si un alumno, por ejemplo, es desordenado, en general, 
+                no puede ser totalmente desordenado, debe alcanzar una valla mínima de orden para destacar con sus talentos). 
+            </p>
+
+            <p>
+                La revolución de los talentos y fortalezas ha trascendido las 
+                fronteras del ambiente académico y se aplica hoy en el contexto laboral: 
+                muchas empresas buscan conocer los talentos de los empleados con mejores 
+                desempeños y, de ese modo, fijar sus expectativas. 
+            </p>
+
+            <p>
+                Tomando como base lo importante que es enfocarse en los talentos, la UPC ha ideado 
+                una herramienta para ayudar a identificar los talentos. 
+            </p>
+
+            <p>
+                Linley, Willars y Biswas-Diener (2010) brindan algunas pautas que ayudan a identificar 
+                los propios talentos y fortalezas y los de los demás: 
+            </p>
+
+            <table class="w-100 text-justify text-secondary">
+                <tr>
+                    <td class="top">
+                        a)
+                    </td>
+                    <td>
+                        ¿Qué recuerdos de infancia tiene? Aquí, ayudaría que la persona piense en aquellas “cosas” que hacía bien cuando era niño y que continúa haciendo hasta ahora.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="top">
+                        b)
+                    </td>
+                    <td>
+                        ¿Qué actividades lo dejan lleno de energía? Es decir, hay actividades que al realizarse, dejan fortalecido a quien las ejecuta. 
+                    </td>
+                </tr>
+                <tr>
+                    <td class="top">
+                        c)
+                    </td>
+                    <td>
+                        ¿Qué actividades le son fáciles, que cuando las hace, parecen muy naturales y no le cuesta tanto esfuerzo? Generalmente estas tienen que ver con los talentos y fortalezas. 
+                    </td>
+                </tr>
+                <tr>
+                    <td class="top">
+                        d)
+                    </td>
+                    <td>
+                        ¿A qué “cosas” le pone atención? Aquello a lo que le prestamos atención indica algo. 
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="page_break text-justify text-secondary">
+            <table class="w-100 text-justify text-secondary">
+                <tr>
+                    <td class="top">
+                        e)
+                    </td>
+                    <td>
+                        ¿Qué cosas aprendió a hacer rápidamente? A veces aprendemos cosas que sentimos que no nos toma ni tanto tiempo ni tanto esfuerzo..
+                    </td>
+                </tr>
+                <tr>
+                    <td class="top">
+                        f)
+                    </td>
+                    <td>
+                        ¿Qué le motiva? ¿Qué actividades hace por el gusto de hacerlas? Estas son actividades que le motivan intrínsecamente, esto es, por el placer de hacerlas.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="top">
+                        g)
+                    </td>
+                    <td>
+                        ¿Cuál es el tono de voz que usa? Si cuando habla de algo, su voz se torna más enérgica y apasionada, probablemente esté hablando de sus fortalezas y talentos.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="top">
+                        h)
+                    </td>
+                    <td>
+                        ¿Qué palabras y frases usa para contar acerca de algo? Elegir determinadas palabras indican también nuestras preferencias por algo. Por ejemplo, si usa: me sentí bien…, me encanta … probablemente la persona esté hablando de sus talentos y fortalezas.
+                    </td>
+                </tr>
+            </table>
+
+            <p>
+                La UPC ha ideado una herramienta para identificar los talentos. A continuación se presentan las áreas a las que corresponden estos talentos, así como las descripciones de los talentos (más y menos desarrollados). 
+            </p>
+
+            <p>
+                La denominación de las siete grandes áreas consideradas en la estructura de la Prueba de Talentos son: 
+            </p>
+
+            <table class="w-100">
+                @foreach ($tendencias as $item)
+                <tr>
+                    <td class="top" width="4%">
+                        {{$loop->index+1}}
+                    </td>
+                    <td width="96%">
+                        {{$item->nombre}}
+                    </td>
+                </tr>  
+                @endforeach
+            </table>
         </div>
 
         <div class="page_break">
-            <p class="font-weight-bold text-secondary h2">Tabla general de áreas y valores.</p>
-            <br>
-            <table class="w-100 text-secondary table-interes">
-                <thead class="text-center" style="font-weight:bold; font-size: 17px;">
-                    <tr>
-                        <td width="55%" rowspan="2">
-                            ÁREA DE INTERÉS
-                        </td>
-                        <td width="45%" colspan="4">
-                            Puntaje
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="13%">
-                            Valor
-                        </td>
-                        <td width="29%">
-                            Bajo 
-                        </td>
-                        <td width="29%">
-                            Medio
-                        </td>
-                        <td width="29%">
-                            Alto
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($puntajes as $p)
-                        <tr>
-                            <td class="font-weight-bold p-2">
-                                {{$p->carrera->nombre}}
-                            </td>
-                            <td class="text-center p-2">
-                                {{$p->puntaje}}
-                            </td>
-                            <td colspan="3">
-                                <div class="height-graph" style="width: {{$p->puntaje}}%">
-    
-                                </div>
-                            </td>
-                        </tr>
+            <p>
+                A cada áreas considerada le corresponde un color. A continuación se presentan los talentos
+                considerados al interior de cada una de las siete áreas:
+            </p>
+
+            <table class="w-100">
+                <tr>
+                    @foreach ($tendencias as $ten)
+                    <td class="w-100 pr-2">
+                        <table class="text-center margin-tr font-10">
+                            <tr>
+                                <td class="text-center border p-2" style="height:40px;border-color:{{$ten->color}}">
+                                    {{$ten->nombre}}
+                                </td>
+                            </tr>
+                            @foreach ($talentos as $tal)
+                                @if ($tal->tendencia->id==$ten->id)
+                                <tr>
+                                    <td class="td-height text-white" style="background: {{$ten->color}}"> 
+                                        {{$tal->nombre}}                      
+                                    </td>
+                                </tr>
+                                @endif
+                            @endforeach
+                        </table>   
+                    </td>
                     @endforeach
-                </tbody>
-            </table>    
-        </div> 
-        
-        @php
-            $show=false;
-        @endphp
+                </tr>
+            </table>
+        </div>
 
-        @foreach ($puntajes_sort as $p)
-            @if ($p->puntaje>=75)
-                @php
-                    $show=true;
-                @endphp
-            @endif          
-        @endforeach
+        <div class="page_break text-justify">
+            <p>
+                A continuación una breve descripción de cada área: 
+            </p>
 
-        <div class="page_break">
-            <p class="font-weight-bold text-secondary h2">Tabla de resultados</p>
-            <p>A continuación encontrarás las áreas de interés que más has desarrollado y las
-                carreras asociadas:</p>
-
-            @if ($show)
-            <table class="w-100 text-secondary table-resultado">
-                <thead class="font-weight-bold text-center">
-                    <tr>
-                        <td width="60%" colspan="2">
-                            Área
-                        </td>
-                        <td width="60%">
-                            Carreras Asociadas
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($puntajes_sort as $p)
-                        @if ($p->puntaje>=75)
-                        <tr>
-                            <td width="30%" class="font-weight-bold text-center">
-                                {{ $p->carrera->nombre }} 
-                            </td>
-                            <td width="70%" class="mx-2 text-justify">
-                                {{ $p->carrera->interes }} 
-                            </td>
-                            <td class="text-center">
-                                @foreach ($p->carrera->intereses as $i)
-                                    @if ($i->carrera_id == $p->carrera->id)
-                                        <p class="m-0">{{$i->nombre}}</p>
-                                    @endif  
-                                @endforeach
-                            </td>
-                        </tr> 
-                        @endif          
-                    @endforeach            
-                </tbody>
-            </table> 
-            @else
-            <p class="font-weight-bold ml-4 h3">No tiene áreas de alto interes.</p>
-            @endif
-             
-            <br>
-
-            <div style="page-break-inside: avoid;">
-                <div class="text-justify">
-                    <p>
-                        El perfil de intereses profesionales te permite identificar carreras, tomando en
-                        cuenta tus preferencias por realizar estas actividades, tu percepción de qué
-                        puedes aprender al realizarlas y el beneficio que las mismas te podrían traer. 
-                    </p>
-                    <p>
-                        Para mayor información sobre las carreras ingresa a: <a href="https://www.upc.edu.pe/">www.upc.edu.pe</a></p>
-                    </p>
-                </div>
-    
-                <table class="w-100 mt-5">
-                    <tbody>
-                        <tr>
-                            <td width="50%">
-                               
-                            </td>
-                            <td width="40%" class="float-right">
-                                <p class="font-weight-bold text-center">Coordinación de Colegios <br>
-                                    Programa “Yo decido mi futuro” <br>
-                                    UPC</p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div> 
+            <p>
+                
+            </p>
+        </div>
     </body>
 </html>

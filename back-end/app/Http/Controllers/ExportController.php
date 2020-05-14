@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Area;
 use App\Carrera;
+use App\EmpresaSucursal;
 use App\Encuesta;
 use App\EncuestaGeneral;
 use App\EncuestaPuntaje;
@@ -21,6 +22,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use iio\libmergepdf\Merger;
 use Barryvdh\DomPDF\Facade as PDF;
+use Carbon\Carbon;
 
 use PHPlot;
 
@@ -51,11 +53,11 @@ class ExportController extends Controller
         $general =  EncuestaGeneral::where('id', $interes['encuesta_general_id'])
             ->with(['personas' => function ($q) use ($searchValue) {
                 $q->where('personas.estado', '1')
-                ->where(function ($query) use ($searchValue) {
-                    $query->where("personas.nombres", "LIKE", "%$searchValue%")
-                        ->orWhere('personas.apellido_materno', "LIKE", "%$searchValue%")
-                        ->orWhere('personas.apellido_paterno', "LIKE", "%$searchValue%");
-                });
+                    ->where(function ($query) use ($searchValue) {
+                        $query->where("personas.nombres", "LIKE", "%$searchValue%")
+                            ->orWhere('personas.apellido_materno', "LIKE", "%$searchValue%")
+                            ->orWhere('personas.apellido_paterno', "LIKE", "%$searchValue%");
+                    });
             }])
             ->first();
 
@@ -141,7 +143,33 @@ class ExportController extends Controller
             return $this->intereses($request);
         } else if ($request->campo == "reportes") {
             return $this->reportes($request);
+        } else if ($request->campo == "consolidado_sede") {
+            return $this->consolidado_sede($request);
         }
+    }
+
+    public function consolidado_sede(Request $request)
+    {
+        $now = Carbon::now();
+        $date = ucfirst($now->isoFormat('MMMM')) . ', ' . $now->year;
+
+        $encuesta = Encuesta::where('tipo_encuesta_id', 3)
+            ->where('empresa_sucursal_id', $request->empresa_id)
+            ->first();
+
+        $fecha = Carbon::parse($encuesta['fecha_inicio']);
+        $fecha_evaluacion =  $fecha->format('d') . ' de ' . ucfirst($fecha->isoFormat('MMMM'));
+
+        $colegio = EmpresaSucursal::find($request->empresa_id);
+
+        $tendencias = TendenciaTalento::all();
+
+        $talentos = Talento::where('tendencia_id', "!=", null)
+            ->with('tendencia')
+            ->get();
+
+        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias));
+        return $pdf->download('Consolidado_sede.pdf');
     }
 
     public function reportes(Request $request)

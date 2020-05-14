@@ -16,8 +16,9 @@ class CreateTendenciaTalentoTable extends Migration
         Schema::create('tendencia_talento', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('descripcion');
+            $table->text('descripcion');
             $table->string('color');
+            $table->string('nombre_color');
             $table->timestamps();
         });
     }

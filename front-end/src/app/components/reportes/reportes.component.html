@@ -33,29 +33,27 @@
 			<hr>
 		</div>
 
-		<div class="form-group row mt-5">
-			<div class="col-12 row">
-				<button type="submit" class="btn btn-success d-flex" (click)="excel()" [disabled]="disabled">
-					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXCEL STATUS
-				</button>
-				<button type="submit" class="btn btn-primary d-flex" (click)="pdf()" [disabled]="disabled">
-					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXPORTAR REP CONSOLIDADOS
-				</button>
-				<button type="button" class="btn btn-light d-flex" (click)="reporte()" [disabled]="disabled">
-					<fa-icon [icon]="['fas', 'file-download']"></fa-icon>VER STATUS
-				</button>
-				<button type="submit" class="btn btn-secondary d-flex" (click)="links()" [disabled]="disabled">
-					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> LINKS PARA ENCUESTAS
-				</button>
-				<button type="submit" class="btn btn-dark d-flex" (click)="sede()" [disabled]="disabled">
-					<fa-icon [icon]="['fas', 'file-download']"></fa-icon>CONSOLIDADO SEDE
-				</button>
-				<button type="submit" class="btn btn-danger d-flex" (click)="c_empresa()" [disabled]="disabled">
-					<fa-icon [icon]="['fas', 'file-download']"></fa-icon>CONSOLIDADO EMPRESA
-				</button>
-			
-				<a (click)="return()" class="btn btn-info text-white">REGRESAR</a>
-			</div>
+		<div class="form-group row mt-5 mx-0">
+			<button type="submit" class="btn btn-success d-flex" (click)="excel()" [disabled]="disabled">
+				<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXCEL STATUS
+			</button>
+			<button type="submit" class="btn btn-primary d-flex" (click)="pdf()" [disabled]="disabled">
+				<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXPORTAR REP CONSOLIDADOS
+			</button>
+			<button type="button" class="btn btn-light d-flex" (click)="reporte()" [disabled]="disabled">
+				<fa-icon [icon]="['fas', 'file-download']"></fa-icon>VER STATUS
+			</button>
+			<button type="submit" class="btn btn-secondary d-flex" (click)="links()" [disabled]="disabled">
+				<fa-icon [icon]="['fas', 'file-download']"></fa-icon> LINKS PARA ENCUESTAS
+			</button>
+			<button type="submit" class="btn btn-dark d-flex" (click)="sede()" [disabled]="disabled">
+				<fa-icon [icon]="['fas', 'file-download']"></fa-icon>CONSOLIDADO SEDE
+			</button>
+			<button type="submit" class="btn btn-danger d-flex" (click)="c_empresa()" [disabled]="disabled">
+				<fa-icon [icon]="['fas', 'file-download']"></fa-icon>CONSOLIDADO CORPORATIVO
+			</button>
+		
+			<a (click)="return()" class="btn btn-info text-white">REGRESAR</a>
 		</div>
 	</form>
 </div>
@@ -69,9 +67,10 @@
 	</ng-container>
 </div>
 
-<div class="table-responsive mt-5" *ngIf="showReporte">
+<div class="table-responsive mt-2" *ngIf="showReporte">
 	<input type="text" class="buscador" placeholder="Buscar por Nombres/Apellidos"
 	(keyup)="updateFilter($event)" />
+	<label class="ml-3 font-weight-bold">TOTAL:&nbsp;{{reportes.length}}</label>
 	<table class="table table-hover text-center">
 		<thead>
 		  <tr>

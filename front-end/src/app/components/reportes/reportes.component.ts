@@ -25,7 +25,8 @@ export class ReportesComponent implements OnInit {
 	public form = {
 		interes_id: null,
 		campo: null,
-		archivo: null
+		archivo: null,
+		empresa_id: null
 	}
 
 	public showReporte = false;
@@ -82,7 +83,6 @@ export class ReportesComponent implements OnInit {
 	}
 
 	links() {
-		this.showReporte = false;
 		if (this.empresa.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
 		}
@@ -106,7 +106,6 @@ export class ReportesComponent implements OnInit {
 	}
 
 	zip_intereses() {
-		this.showReporte = false;
 		if (this.empresa.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
 		} else {
@@ -132,7 +131,6 @@ export class ReportesComponent implements OnInit {
 	}
 
 	excel() {
-		this.showReporte = false;
 		if (this.empresa.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
 		} else {
@@ -155,7 +153,6 @@ export class ReportesComponent implements OnInit {
 	}
 
 	pdf() {
-		this.showReporte = false;
 		if (this.empresa.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
 		} else {
@@ -181,7 +178,6 @@ export class ReportesComponent implements OnInit {
 	}
 
 	reporte() {
-		this.showReporte = false;
 		this.form.campo = 'reportes';
 		if (this.empresa.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
@@ -204,7 +200,28 @@ export class ReportesComponent implements OnInit {
 	}
 
 	sede() {
-		console.log('sede');
+		if (this.empresa.nombre == null) {
+			this.mensaje('Por favor complete los campos requeridos')
+		} else {
+			this.showProgress = true;
+			this.progressRef.start();
+			this.disabled = true;
+			this.form.campo = 'consolidado_sede';
+			this.form.archivo = this.empresa.nombre + '-' + this.empresa.id + '.pdf';
+			this.form.empresa_id = this.empresa.id;
+			this.api.downloadFile('exportar', this.form).subscribe(
+				(data) => {
+					this.disabled = false;
+					this.limpiar();
+					this.progressRef.complete();
+				},
+				(error) => {
+					this.disabled = false;
+					this.mensaje('No hay encuestas resueltas.')
+					this.limpiar();
+				}
+			);
+		}
 	}
 
 	c_empresa() {
@@ -225,10 +242,15 @@ export class ReportesComponent implements OnInit {
 		this.form.interes_id = null;
 		this.form.archivo = null;
 		this.form.campo = null;
+		this.showProgress = false;
+		this.empresa_id = null;
+	}
+
+	limpiarReportes() {
 		this.reportes = [];
 		this.show = null;
-		this.showProgress = false;
 		this.showReporte = false;
+		this.intereses = [];
 	}
 
 	mensaje(msj) {
@@ -246,7 +268,7 @@ export class ReportesComponent implements OnInit {
 	updateFilter(event) {
 		const val = event.target.value;
 
-		this.api.get('exportar?search=' + val+'&interes_id='+this.form.interes_id).subscribe(
+		this.api.get('exportar?search=' + val + '&interes_id=' + this.form.interes_id).subscribe(
 			(data) => {
 				this.showReporte = true;
 				this.reportes = data[0];
@@ -255,8 +277,8 @@ export class ReportesComponent implements OnInit {
 		);
 	}
 
-	limpiarAutocomplete(){
+	limpiarAutocomplete() {
 		this.limpiar();
-		this.intereses = [];
+		this.limpiarReportes();
 	}
 }

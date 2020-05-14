@@ -148,7 +148,7 @@
                         @endforeach
                     </table>   
                 </td>
-            @endforeach
+                @endforeach
             </tr>
         </table>
     </body>
