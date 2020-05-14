@@ -189,6 +189,7 @@
             .break-avoid{
                 page-break-inside: avoid;
             }
+            
         </style>
     </head>
     
@@ -471,8 +472,27 @@
                 IV. MUESTRA
             </p>
             <p>
-                La muestra estuvo conformada por los alumnos que sí han resuelto las tres encuestas: 
+                La muestra estuvo conformada por los alumnos que sí han resuelto las tres encuestas:
             </p>
+
+            @foreach ($muestra as $m)
+                <span>
+                    {{$m->muestra}}
+                    @if ($m->muestra>1)
+                        alumnos
+                    @else
+                        alumno
+                    @endif
+
+                    de 
+                    {{$m->anio}}
+                </span> 
+                <br>
+            @endforeach
+
+            <span>del Colegio: {{$colegio}}</span><br>
+
+            <p>A continuación, se describirá la misma según sexo y edad:</p>
         </div>
     </body>
 </html>

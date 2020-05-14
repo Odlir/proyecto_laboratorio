@@ -25,6 +25,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 
 use PHPlot;
+use stdClass;
 
 class ExportController extends Controller
 {
@@ -61,7 +62,12 @@ class ExportController extends Controller
             ->where('tipo_encuesta_id', 3)
             ->first();
 
-        if ($temperamento) {
+        $talento = Encuesta::where('tipo_encuesta_id', 2)
+            ->where('encuesta_general_id', $interes['encuesta_general_id'])
+            ->where('estado', '1')
+            ->first();
+
+        if ($temperamento && $talento) {
             $show = true;
         }
 
@@ -146,19 +152,28 @@ class ExportController extends Controller
 
         $error = "";
 
+        $data_muestra = [];
+
+        $años = [];
+
         $intereses = Encuesta::where('tipo_encuesta_id', 1)
             ->where('empresa_sucursal_id', $request->empresa_id)
             ->where('estado', '1')
+            ->with(['general' => function ($query) {
+                $query->with(['personas' => function ($query) {
+                    $query->wherePivot('estado', '1');
+                }]);
+            }])
             ->get();
 
         foreach ($intereses as $i) {
-            $temperamento = Encuesta::where('tipo_encuesta_id', 2)
+            $temperamento = Encuesta::where('tipo_encuesta_id', 3)
                 ->where('empresa_sucursal_id', $request->empresa_id)
                 ->where('encuesta_general_id', $i['encuesta_general_id'])
                 ->where('estado', '1')
                 ->first();
 
-            $talento = Encuesta::where('tipo_encuesta_id', 1)
+            $talento = Encuesta::where('tipo_encuesta_id', 2)
                 ->where('empresa_sucursal_id', $request->empresa_id)
                 ->where('encuesta_general_id', $i['encuesta_general_id'])
                 ->where('estado', '1')
@@ -191,6 +206,116 @@ class ExportController extends Controller
             return response()->json(['error' => $error], 404);
         }
 
+        foreach ($intereses as $i) {
+            $encuesta_temp = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
+                ->where('tipo_encuesta_id', 3)
+                ->where('estado', '1')
+                ->first();
+
+            foreach ($i['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
+                $p_intereses = EncuestaPuntaje::where('encuesta_id', $i['id'])
+                    ->where('persona_id', $p['id'])
+                    ->with('punintereses.carrera.intereses')
+                    ->with(['puninteresessort' => function ($query) {
+                        $query->with('carrera');
+                        $query->orderBy('puntaje', 'DESC');
+                    }])
+                    ->first();
+
+                $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
+                    ->where('persona_id', $p['id'])
+                    ->with('puntemperamentos.formula')
+                    ->with('areatemperamentos')
+                    ->first();
+
+                if ($p_intereses && $p_temperamentos) {
+                    $show = true;
+                    break 2; //SALGO DE LOS 2 FOREACH
+                } else {
+                    $show = false;
+                    $error = 'No hay encuestas resueltas.';
+                }
+            }
+        }
+
+        if ($show == false) {
+            return response()->json(['error' => $error], 404);
+        }
+
+        foreach ($intereses as $i) {
+            $encuesta_temp = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
+                ->where('tipo_encuesta_id', 3)
+                ->where('estado', '1')
+                ->first();
+
+            foreach ($i['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
+                $p_intereses = EncuestaPuntaje::where('encuesta_id', $i['id'])
+                    ->where('persona_id', $p['id'])
+                    ->with('punintereses.carrera.intereses')
+                    ->with(['puninteresessort' => function ($query) {
+                        $query->with('carrera');
+                        $query->orderBy('puntaje', 'DESC');
+                    }])
+                    ->first();
+
+                $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
+                    ->where('persona_id', $p['id'])
+                    ->with('puntemperamentos.formula')
+                    ->with('areatemperamentos')
+                    ->first();
+
+                if ($p_intereses && $p_temperamentos) {
+                    if (!in_array($p['anio'], $años)) {
+                        array_push($años, $p['anio']);
+                    }
+                }
+            }
+        }
+
+        foreach ($años as $a) {
+            $object = new stdClass();
+            $object->anio = $a;
+            $object->muestra = 0;
+            array_push($data_muestra, $object);
+        }
+
+        foreach ($intereses as $i) {
+            $encuesta_temp = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
+                ->where('tipo_encuesta_id', 3)
+                ->where('estado', '1')
+                ->first();
+
+            foreach ($i['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
+                $p_intereses = EncuestaPuntaje::where('encuesta_id', $i['id'])
+                    ->where('persona_id', $p['id'])
+                    ->with('punintereses.carrera.intereses')
+                    ->with(['puninteresessort' => function ($query) {
+                        $query->with('carrera');
+                        $query->orderBy('puntaje', 'DESC');
+                    }])
+                    ->first();
+
+                $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
+                    ->where('persona_id', $p['id'])
+                    ->with('puntemperamentos.formula')
+                    ->with('areatemperamentos')
+                    ->first();
+
+                if ($p_intereses && $p_temperamentos) {
+                    foreach ($data_muestra as $m) {
+                        if ($m->anio == $p['anio']) {
+                            $m->muestra++;
+                        }
+                    }
+                }
+            }
+        }
+        
+        // foreach ($data_muestra as $m) {
+        //     echo $m->anio. ',';
+        //     echo $m->muestra.'/';
+        // }
+
         $now = Carbon::now();
         $date = ucfirst($now->isoFormat('MMMM')) . ', ' . $now->year;
 
@@ -210,7 +335,7 @@ class ExportController extends Controller
             ->with('tendencia')
             ->get();
 
-        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias));
+        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias,'muestra'=>$data_muestra));
         return $pdf->download('Consolidado_sede.pdf');
     }
 
@@ -237,7 +362,12 @@ class ExportController extends Controller
             ->where('estado', '1')
             ->first();
 
-        if ($temperamento) {
+        $talento = Encuesta::where('tipo_encuesta_id', 2)
+            ->where('encuesta_general_id', $interes['encuesta_general_id'])
+            ->where('estado', '1')
+            ->first();
+
+        if ($temperamento && $talento) {
             $show = true;
         }
 
@@ -278,7 +408,7 @@ class ExportController extends Controller
             }
         }
 
-        return response()->json([$interes['general']['personas'], "show" => $show], 200);
+        return response()->json([$interes['general']['personas'], 'show' => $show], 200);
     }
 
     public function intereses(Request $request)
@@ -306,14 +436,14 @@ class ExportController extends Controller
             }])
             ->get();
 
-        $identificador = rand();
-
         if ($personas->isEmpty()) {
             return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
-        } else {
-            foreach ($personas as $p) {
-                PDFIntereses::dispatchNow($p['persona'], $p['punintereses'], $p['puninteresessort'], $encuesta['empresa']['nombre'], $identificador);
-            }
+        }
+
+        $identificador = rand();
+
+        foreach ($personas as $p) {
+            PDFIntereses::dispatchNow($p['persona'], $p['punintereses'], $p['puninteresessort'], $encuesta['empresa']['nombre'], $identificador);
         }
 
         Excel::store(new StatusInteresesExport($encuesta['general']['personas'], $encuesta['id']), 'Consolidado-' . $identificador . '/' . $encuesta['empresa']['nombre'] . '-' . $request->interes_id . '.xlsx', 'local');
@@ -566,7 +696,12 @@ class ExportController extends Controller
             ->where('estado', '1')
             ->first();
 
-        if ($encuesta_temp) {
+        $encuesta_tal = Encuesta::where('encuesta_general_id', $interes['encuesta_general_id'])
+            ->where('tipo_encuesta_id', 2)
+            ->where('estado', '1')
+            ->first();
+
+        if ($encuesta_temp && $encuesta_tal) {
             $temperamento_id = $encuesta_temp['id'];
         }
 
@@ -637,7 +772,12 @@ class ExportController extends Controller
             ->where('estado', '1')
             ->first();
 
-        if ($encuesta_temp) {
+        $encuesta_tal = Encuesta::where('encuesta_general_id', $interes['encuesta_general_id'])
+            ->where('tipo_encuesta_id', 2)
+            ->where('estado', '1')
+            ->first();
+
+        if ($encuesta_temp && $encuesta_tal) {
             $temperamento_id = $encuesta_temp['id'];
         }
 
