@@ -112,13 +112,13 @@ export class TestTemperamentosComponent implements OnInit {
 	}
 
 	async fetch() {
-		await this.api.show('preguntas', 3).toPromise().then(
+		await this.api.get('preguntas', 3).toPromise().then(
 			(data) => {
 				this.preguntas = data;
 			}
 		);
 
-		await this.api.show('respuestas', 3).toPromise().then(
+		await this.api.get('respuestas', 3).toPromise().then(
 			(data) => {
 				this.respuestas = data;
 			}

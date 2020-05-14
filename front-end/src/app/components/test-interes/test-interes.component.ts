@@ -118,13 +118,13 @@ export class TestInteresComponent implements OnInit {
 	}
 
 	async fetch() {
-		await this.api.show('preguntas', 1).toPromise().then(
+		await this.api.get('preguntas', 1).toPromise().then(
 			(data) => {
 				this.preguntas = data;
 			}
 		);
 
-		await this.api.show('subpreguntas', 1).toPromise().then(
+		await this.api.get('subpreguntas', 1).toPromise().then(
 			(data) => {
 				this.subpreguntas = data;
 			}

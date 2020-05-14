@@ -53,15 +53,6 @@ export class ApiBackRequestService {
 			}));
 	}
 
-	show(url: string, urlParams: any): Observable<any> {
-		return this.http.get(this.constants.apiUrl + url + '/' + urlParams, { headers: this.getHeaders() })
-			.pipe(catchError(function (error: any) {
-				console.log('Some error in catch');
-				return throwError(error || 'Server error');
-			}));
-	}
-
-
 	post(url: string, body: Object): Observable<any> {
 		return this.http.post(this.constants.apiUrl + url, JSON.stringify(body), { headers: this.getHeaders() })
 			.pipe(catchError(function (error: any) {
