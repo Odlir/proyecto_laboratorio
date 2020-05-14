@@ -98,7 +98,7 @@ export class ReportesComponent implements OnInit {
 				},
 				async (error) => {
 					this.disabled = false;
-					this.mensaje('No hay alumnos registrados en la Encuesta.')
+					this.mensaje(error.error);
 					this.limpiar();
 				}
 			);
@@ -123,7 +123,7 @@ export class ReportesComponent implements OnInit {
 				},
 				(error) => {
 					this.disabled = false;
-					this.mensaje('No hay encuestas resueltas.')
+					this.mensaje(error.error);
 					this.limpiar();
 				}
 			);
@@ -145,7 +145,7 @@ export class ReportesComponent implements OnInit {
 				},
 				async (error) => {
 					this.disabled = false;
-					this.mensaje('No hay alumnos registrados en la Encuesta.')
+					this.mensaje(error.error);
 					this.limpiar();
 				}
 			);
@@ -170,7 +170,7 @@ export class ReportesComponent implements OnInit {
 				},
 				(error) => {
 					this.disabled = false;
-					this.mensaje('No hay encuestas resueltas.')
+					this.mensaje(error.error);
 					this.limpiar();
 				}
 			);
@@ -215,9 +215,9 @@ export class ReportesComponent implements OnInit {
 					this.limpiar();
 					this.progressRef.complete();
 				},
-				(error) => {
+				async (error) => {
 					this.disabled = false;
-					this.mensaje('No hay encuestas resueltas.')
+					this.mensaje(error.error)
 					this.limpiar();
 				}
 			);

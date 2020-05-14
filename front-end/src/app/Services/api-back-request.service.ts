@@ -101,8 +101,15 @@ export class ApiBackRequestService {
 				fileSaver.saveAs(response, body['archivo'])
 			),
 				catchError(function (error: any) {
-					console.log('Some error in catch');
-					return throwError(error || 'Server error');
+					const reader: FileReader = new FileReader();
+					const obs = Observable.create((observer: any) => {
+						reader.onloadend = (e) => {
+							observer.error(JSON.parse(reader.result as string));
+							observer.complete();
+						}
+					});
+					reader.readAsText(error.error);
+					return obs;
 				}));
 	}
 }
