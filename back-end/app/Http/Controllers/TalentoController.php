@@ -49,7 +49,11 @@ class TalentoController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Talento::where('estado', '1')
+                ->where('tipo_id',$id)
+                ->get();
+
+        return response()->json($data, 200);
     }
 
     /**

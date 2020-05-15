@@ -78,7 +78,14 @@ class EncuestaPersonaController extends Controller
             return $this->intereses($data);
         } else if ($data[0]['tipo_encuesta_id'] == 3) {
             return $this->temperamentos($data);
+        } else if ($data[0]['tipo_encuesta_id'] == 2) {
+            return $this->talentos($data);
         }
+    }
+
+    public function talentos($data)
+    {
+        
     }
 
     public function intereses($data)
