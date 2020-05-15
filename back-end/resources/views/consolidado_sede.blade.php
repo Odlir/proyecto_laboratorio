@@ -189,6 +189,26 @@
             .break-avoid{
                 page-break-inside: avoid;
             }
+
+            .italic{
+                font-style: italic;
+            }
+
+            .w-80{
+                width: 80%;
+            }
+
+            .bg-sexo{
+                background: #327DB2;
+            }
+
+            .bg-sexo2{
+                background: #D8E5F8;
+            }
+
+            .bg-sexo3{
+                background: #E5E9EE;
+            }
             
         </style>
     </head>
@@ -412,7 +432,7 @@
             </table>
         </div>
 
-        <div class="page_break">
+        <div class="page_break text-secondary">
             <p>
                 A cada áreas considerada le corresponde un color. A continuación se presentan los talentos
                 considerados al interior de cada una de las siete áreas:
@@ -444,7 +464,7 @@
             </table>
         </div>
 
-        <div class="page_break text-justify">
+        <div class="page_break text-justify text-secondary">
             <p>
                 A continuación una breve descripción de cada área: 
             </p>
@@ -457,7 +477,7 @@
             @endforeach
         </div>
 
-        <div class="page_break text-justify">
+        <div class="page_break text-justify text-secondary">
             <p class="h3 font-weight-bold">
                 III. OBJETIVOS
             </p>
@@ -475,6 +495,10 @@
                 La muestra estuvo conformada por los alumnos que sí han resuelto las tres encuestas:
             </p>
 
+            @php
+                $total=0;
+            @endphp
+
             @foreach ($muestra as $m)
                 <span>
                     {{$m->muestra}}
@@ -488,11 +512,57 @@
                     {{$m->anio}}
                 </span> 
                 <br>
+                @php
+                    $total= $total+$m->muestra;
+                @endphp
             @endforeach
 
             <span>del Colegio: {{$colegio}}</span><br>
 
             <p>A continuación, se describirá la misma según sexo y edad:</p>
+
+            <div>
+                <span class="font-weight-bold italic">Tabla 1. Distribución de alumnos según Sexo</span><br>
+
+                <table class="w-80 font-weight-bold text-center">
+                    <thead class="text-white bg-sexo">
+                        <tr>
+                            <td>
+                                SEXO
+                            </td>
+                            <td>
+                                CANTIDAD
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-white bg-sexo">
+                                MASCULINO
+                            </td>
+                            <td class="bg-sexo2">    
+                                {{$sexo['masculino']}} 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-white bg-sexo">
+                                FEMENINO
+                            </td>
+                            <td class="bg-sexo3">
+                                {{$sexo['femenino']}} 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-white bg-sexo">
+                                TOTAL
+                            </td>
+                            <td class="bg-sexo2">
+                                {{$total}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </body>
 </html>

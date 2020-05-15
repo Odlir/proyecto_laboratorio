@@ -156,6 +156,11 @@ class ExportController extends Controller
 
         $años = [];
 
+        $sexo = [
+            'masculino' => 0,
+            'femenino' => 0
+        ];
+
         $intereses = Encuesta::where('tipo_encuesta_id', 1)
             ->where('empresa_sucursal_id', $request->empresa_id)
             ->where('estado', '1')
@@ -165,6 +170,10 @@ class ExportController extends Controller
                 }]);
             }])
             ->get();
+
+        if ($intereses->isEmpty()) {
+            return response()->json(['error' => 'No hay encuestas registradas.'], 404);
+        }
 
         foreach ($intereses as $i) {
             $temperamento = Encuesta::where('tipo_encuesta_id', 3)
@@ -307,10 +316,16 @@ class ExportController extends Controller
                             $m->muestra++;
                         }
                     }
+
+                    if (strcasecmp($p['sexo'], 'masculino')==0) {
+                        $sexo['masculino']++;
+                    } else {
+                        $sexo['femenino']++;
+                    }
                 }
             }
         }
-        
+
         // foreach ($data_muestra as $m) {
         //     echo $m->anio. ',';
         //     echo $m->muestra.'/';
@@ -335,7 +350,7 @@ class ExportController extends Controller
             ->with('tendencia')
             ->get();
 
-        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias,'muestra'=>$data_muestra));
+        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias, 'muestra' => $data_muestra, 'sexo' => $sexo));
         return $pdf->download('Consolidado_sede.pdf');
     }
 
