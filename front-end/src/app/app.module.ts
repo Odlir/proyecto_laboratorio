@@ -51,10 +51,11 @@ import { SucursalComponent } from './components/empresas/sucursal/sucursal.compo
 import { HeaderEncuestaComponent } from './components/partials/header-encuesta/header-encuesta.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
 import { TestTemperamentosComponent } from './components/test-temperamentos/test-temperamentos.component';
+import { TestTalentosComponent } from './components/test-talentos/test-talentos.component';
 import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressHttpModule } from 'ngx-progressbar/http';
 import { NgProgressRouterModule } from 'ngx-progressbar/router';
-import { TestTalentosComponent } from './components/test-talentos/test-talentos.component';
+import { MasDesarrolladosComponent } from './components/test-talentos/mas-desarrollados/mas-desarrollados.component';
 
 @NgModule({
 	declarations: [
@@ -84,7 +85,8 @@ import { TestTalentosComponent } from './components/test-talentos/test-talentos.
 		HeaderEncuestaComponent,
 		ReportesComponent,
 		TestTemperamentosComponent,
-		TestTalentosComponent
+		TestTalentosComponent,
+		MasDesarrolladosComponent
 	],
 	imports: [
 		BrowserModule,

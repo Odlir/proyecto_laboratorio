@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
 
 		if (this.router.url === '') {
 			this.router.navigateByUrl('/dashboard');
-		} 
+		}
 
 	}
 

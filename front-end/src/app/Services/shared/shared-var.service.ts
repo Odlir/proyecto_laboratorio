@@ -8,6 +8,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 export class SharedVarService {
 
 	private isExpanded: BehaviorSubject<boolean>;
+	private masDesarrollados = new Subject<any>();
 	private subject = new Subject<any>();
 
 	constructor(private token: TokenService) {
@@ -17,6 +18,7 @@ export class SharedVarService {
 	getValue(): Observable<boolean> {
 		return this.isExpanded.asObservable();
 	}
+
 	setValue(newValue): void {
 		this.isExpanded.next(newValue);
 	}
@@ -35,6 +37,14 @@ export class SharedVarService {
 
 	getShowButtonMenu(): Observable<any> {
 		return this.subject.asObservable();
+	}
+
+	getMasDesarrollados(): Observable<any> {
+		return this.masDesarrollados.asObservable();
+	}
+
+	setMasDesarrollados(value) {
+		this.masDesarrollados.next(value);
 	}
 
 }

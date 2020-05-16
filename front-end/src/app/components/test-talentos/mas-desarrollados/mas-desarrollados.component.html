@@ -1,0 +1,17 @@
+<app-header-encuesta encuesta="PRUEBA DE TALENTOS" icono="tv" [alumno]="alumno"
+                     [sucursal]="sucursal">
+</app-header-encuesta>
+<br>
+<h3>Eligiendo <span class="red">mis 12 talentos más desarrollados</span></h3>
+<hr>
+<br>
+
+<mat-card>
+	<div class="desarrollados">
+		odlir - {{images.length}}
+		<a href="#" *ngFor="let img of images">
+			odlir
+			<!--<img class="imagen" src="{{'../../../assets/talentos/front/'+img.imagen}}" alt="">-->
+		</a>
+	</div>
+</mat-card>

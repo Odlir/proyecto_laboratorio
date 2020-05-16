@@ -46,3 +46,31 @@
 	background: #cccccc;
 	text-align: center;
 }
+
+.cont-button {
+	width: 100%;
+	padding-bottom: 1em;
+}
+
+.cont-button button{
+	color: white;
+	background: red;
+	float: right;
+}
+
+h4 {
+	color: white;
+	background-color: red;
+}
+
+.red {
+	color: red;
+	font-size: 24px;
+}
+
+hr{
+	color: red;
+	border-bottom-color: red;
+	border: 1px red solid;
+}
+

@@ -1,0 +1,19 @@
+.red {
+	color: red;
+	font-size: 24px;
+}
+
+hr{
+	color: red;
+	border: 1px solid red;
+}
+
+.desarrollados {
+	width: 100%;
+	overflow: auto;
+	max-height: 500px;
+}
+
+.imagen {
+	width: calc(20% - 4px);
+}

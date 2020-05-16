@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 import {ApiBackRequestService} from '../../Services/api-back-request.service';
+import {Router} from '@angular/router';
+import {SharedVarService} from '../../Services/shared/shared-var.service';
 
 @Component({
 	selector: 'app-test-talentos',
@@ -11,7 +13,7 @@ import {ApiBackRequestService} from '../../Services/api-back-request.service';
 export class TestTalentosComponent implements OnInit {
 
 	public sucursal = null;
-	public alumno = null;
+	public alumno = 'Humberto Gutierrez';
 	form = {
 		pregunta_id: null,
 		respuesta_id: null,
@@ -25,7 +27,10 @@ export class TestTalentosComponent implements OnInit {
 	con: any;
 	path:string = '../../../assets/talentos/front/';
 
-	constructor(config: NgbCarouselConfig, private api: ApiBackRequestService) {
+	constructor(config: NgbCarouselConfig,
+				private api: ApiBackRequestService,
+				private router: Router,
+				private sharedService: SharedVarService) {
 		config.showNavigationIndicators = false;
 		config.interval = 0;
 	}
@@ -53,13 +58,13 @@ export class TestTalentosComponent implements OnInit {
 		this.api.get('talentos').subscribe(
 			(data) => {
 				this.images = data;
-				console.log('data', this.images);
 			}
 		);
 	}
 
 	continuar() {
-		console.log('odlir', this.images, this.list2, this.list3, this.list4);
+		//console.log('odlir', this.images, this.list2, this.list3, this.list4);
+		this.router.navigate(['./mas-desarrollados']);
 	}
 
 }

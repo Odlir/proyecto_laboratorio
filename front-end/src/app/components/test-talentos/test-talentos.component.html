@@ -1,15 +1,18 @@
-<app-header-encuesta encuesta="ENCUESTA: PREFERENCIA DE TALENTOS - ADOLESCENTES" icono="tv" [alumno]="alumno" [id]="form.encuesta_id"
+<app-header-encuesta encuesta="PRUEBA DE TALENTOS" icono="tv" [alumno]="alumno" [id]="form.encuesta_id"
                       [sucursal]="sucursal">
 </app-header-encuesta>
 <br>
-<p>
-	Esta encuesta se utiliza para describir sus preferencias con relación a su personalidad.
-	<br>
-	Los resultados lo ayudarán a conocerse mejor, lo cual puede favorecer su interacción con los demás.
-</p>
+	<h3>Agrupando <span class="red">mis talentos</span></h3>
+	<hr>
+	<p>
+		Arrastra las tarjetas a los buzones de abajo seleccionando los talentos según te identifiquen.
+	</p>
 <br>
 
 <mat-card class="card">
+	<div class="cont-button">
+		<button mat-raised-button (click)="continuar()">Continuar >></button>
+	</div>
 	<div
 		cdkDropList
 		#todoList="cdkDropList"
@@ -69,9 +72,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<div>
-		<button (click)="continuar()">Continuar</button>
 	</div>
 </mat-card>

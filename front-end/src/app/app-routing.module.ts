@@ -21,6 +21,7 @@ import {NgModule, Component} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {TestTemperamentosComponent} from './components/test-temperamentos/test-temperamentos.component';
 import { TestTalentosComponent } from './components/test-talentos/test-talentos.component';
+import {MasDesarrolladosComponent} from './components/test-talentos/mas-desarrollados/mas-desarrollados.component';
 
 const routes: Routes = [
 	{
@@ -114,6 +115,10 @@ const routes: Routes = [
 	{
 		path: 'talentos',
 		component: TestTalentosComponent
+	},
+	{
+		path: 'mas-desarrollados',
+		component: MasDesarrolladosComponent
 	}
 ];
 
