@@ -16,6 +16,11 @@ use App\FormulaItem;
 use App\FormulaPuntaje;
 use App\Pregunta;
 use App\Respuesta;
+use App\TalentoEspecificoMasDesarrollado;
+use App\TalentoEspecificoMenosDesarrollado;
+use App\TalentoMasDesarrollado;
+use App\TalentoMenosDesarrollado;
+use App\TalentoRespuesta;
 use Illuminate\Http\Request;
 use stdClass;
 
@@ -74,21 +79,50 @@ class EncuestaPersonaController extends Controller
     {
         $data = $request->all();
 
-        if ($data[0]['tipo_encuesta_id'] == 1) {
-            return $this->intereses($data);
-        } else if ($data[0]['tipo_encuesta_id'] == 3) {
-            return $this->temperamentos($data);
-        } else if ($data[0]['tipo_encuesta_id'] == 2) {
-            return $this->talentos($data);
+        //DATA[0] ES LA ENCUESTA_ID Y SU PERSONA_ID
+
+        $encuesta_puntaje = EncuestaPuntaje::create($data[0]); //TABLA PRINCIPAL
+        
+        //DATA[1] SE REFIERE AL TIPO DE ENCUESTA
+        //DATA[2] SON TUS RESPUESTAS
+
+        if ($data[1]== 1) {
+            return $this->intereses($data[2],$encuesta_puntaje['id']);
+        } else if ($data[1]== 3) {
+            return $this->temperamentos($data[2],$encuesta_puntaje['id']);
+        } else if ($data[1]== 2) {
+            return $this->talentos($data[2],$encuesta_puntaje['id']);
         }
     }
 
-    public function talentos($data)
-    {
-        
+    public function talentos($data,$encuesta_puntaje_id)
+    {  
+        foreach ($data[0] as $d) { //TODOS LOS TALENTOS
+            TalentoRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
+        }
+
+        foreach($data[1] as $d) //TALENTOS MAS DESARROLLADOS
+        {
+            TalentoMasDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
+        }
+
+        foreach($data[2] as $d) //TALENTOS MENOS DESARROLLADOS
+        {
+            TalentoMenosDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
+        }   
+
+        foreach($data[3] as $d) //TALENTOS ESPECIFICOS MAS DESARROLLADOS
+        {
+            TalentoEspecificoMasDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
+        }
+   
+        foreach($data[4] as $d) //TALENTOS ESPECIFICOS MENOS DESARROLLADOS
+        {
+            TalentoEspecificoMenosDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
+        }
     }
 
-    public function intereses($data)
+    public function intereses($data,$encuesta_puntaje_id)
     {
         $puntajes_preguntas = [];
 
@@ -141,20 +175,18 @@ class EncuestaPersonaController extends Controller
             $c->puntaje = round($c->puntaje); //REDONDEANDO
         }
 
-        $encuesta_puntaje = EncuestaPuntaje::create(['encuesta_id' => $data[0]['encuesta_id'], 'persona_id' => $data[0]['persona_id']]); //TABLA PRINCIPAL
-
         foreach ($puntajes_carreras as $c) {
-            CarreraPuntaje::create(array_merge((array) $c, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
+            CarreraPuntaje::create(array_merge((array) $c, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
         }
 
         foreach ($data as $d) { //CREO LAS RESPUESTAS
-            EncuestaRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
+            EncuestaRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
         }
 
         return response()->json($puntajes_carreras, 200);
     }
 
-    public function temperamentos($data)
+    public function temperamentos($data,$encuesta_puntaje_id)
     {
         $puntajes_preguntas = [];
 
@@ -261,8 +293,6 @@ class EncuestaPersonaController extends Controller
             }
         }
 
-        $encuesta_puntaje = EncuestaPuntaje::create(['encuesta_id' => $data[0]['encuesta_id'], 'persona_id' => $data[0]['persona_id']]); //TABLA PRINCIPAL
-
         foreach ($puntajes_formulas as $f) { //REDONDEO PARA LOS GRAFICOS DE BARRA
             $f->puntaje = round($f->puntaje);
 
@@ -282,7 +312,7 @@ class EncuestaPersonaController extends Controller
                 $f->transformacion = -3;
             }
 
-            FormulaPuntaje::create(array_merge((array) $f, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
+            FormulaPuntaje::create(array_merge((array) $f, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
         }
 
         foreach ($puntajes_rueda as $r) { //SACO LOS PROMEDIOS PARA LA SUPERRUEDA
@@ -375,11 +405,11 @@ class EncuestaPersonaController extends Controller
                 }
             }
 
-            AreaPuntaje::create(array_merge((array) $r, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
+            AreaPuntaje::create(array_merge((array) $r, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
         }
 
         foreach ($data as $d) { //CREO LAS RESPUESTAS
-            EncuestaRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje['id']]));
+            EncuestaRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
         }
 
         return response()->json($puntajes_rueda, 200);

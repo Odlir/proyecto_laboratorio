@@ -18,11 +18,15 @@ export class TestInteresComponent implements OnInit {
 	form = {
 		pregunta_id: null,
 		subpregunta_id: null,
-		respuesta_id: null,
+		respuesta_id: null
+	};
+
+	encuesta = {
 		encuesta_id: null,
 		persona_id: null,
-		tipo_encuesta_id:1
-	};
+	}
+
+	tipo_encuesta_id = 1;
 
 	respuestas1 = [];
 	respuestas2 = [];
@@ -52,8 +56,8 @@ export class TestInteresComponent implements OnInit {
 
 	ngOnInit(): void {
 
-		this.form.encuesta_id = parseInt(this.route.snapshot.params.encuesta_id)
-		this.form.persona_id = parseInt(this.route.snapshot.params.persona_id);
+		this.encuesta.encuesta_id = parseInt(this.route.snapshot.params.encuesta_id)
+		this.encuesta.persona_id = parseInt(this.route.snapshot.params.persona_id);
 
 		this.obtenerDatos();
 
@@ -72,7 +76,7 @@ export class TestInteresComponent implements OnInit {
 	}
 
 	obtenerDatos() {
-		this.api.get('encuesta_puntaje?encuesta_id=' + this.form.encuesta_id + '&persona_id=' + this.form.persona_id).subscribe(
+		this.api.get('encuesta_puntaje?encuesta_id=' + this.encuesta.encuesta_id + '&persona_id=' + this.encuesta.persona_id).subscribe(
 			(data) => {
 				if (data.length != 0) {
 					this.show = false;
@@ -80,7 +84,7 @@ export class TestInteresComponent implements OnInit {
 			}
 		);
 
-		this.api.get('encuestas', this.form.encuesta_id).subscribe(
+		this.api.get('encuestas', this.encuesta.encuesta_id).subscribe(
 			(data) => {
 
 				if (moment(new Date()).format('YYYY-MM-DD') < data.fecha_inicio) {
@@ -96,7 +100,7 @@ export class TestInteresComponent implements OnInit {
 				this.sucursal = data.empresa.nombre;
 
 				data.general.personas.filter(obj => {
-					if (obj.id == this.form.persona_id) {
+					if (obj.id == this.encuesta.persona_id) {
 						this.alumno = obj.nombrecompleto;
 					}
 				})
@@ -190,7 +194,7 @@ export class TestInteresComponent implements OnInit {
 				icon: 'info',
 				timer: 5000
 			});
-			this.api.post('encuesta_persona', this.data).subscribe(
+			this.api.post('encuesta_persona', [this.encuesta,this.tipo_encuesta_id,this.data]).subscribe(
 				(data) => {
 					Swal.fire({
 						title: 'Test Enviado Correctamente.',
@@ -199,9 +203,6 @@ export class TestInteresComponent implements OnInit {
 					});
 
 					this.show = false;
-				},
-				(error) => {
-
 				}
 			);
 		}else {

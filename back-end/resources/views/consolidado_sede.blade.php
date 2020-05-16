@@ -519,16 +519,15 @@
 
             <span>del Colegio: {{$colegio}}</span><br>
 
-            <p>A continuación, se describirá la misma según sexo y edad:</p>
+            <p>A continuación, se describirá la misma según género y edad:</p>
 
             <div>
-                <span class="font-weight-bold italic">Tabla 1. Distribución de alumnos según Sexo</span><br>
-
+                <span class="font-weight-bold italic">Tabla 1. Distribución de alumnos según Género</span><br>
                 <table class="w-80 font-weight-bold text-center">
                     <thead class="text-white bg-sexo">
                         <tr>
                             <td>
-                                SEXO
+                                GÉNERO
                             </td>
                             <td>
                                 CANTIDAD
@@ -563,6 +562,38 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+
+        <div class="page_break text-justify text-secondary">
+            <p class="h3 font-weight-bold mt-5">
+                V. INSTRUMENTOS
+            </p>
+
+            <p class="font-weight-bold h3 italic">
+                - Evaluación de Preferencias del Temperamento
+            </p>
+
+            <p>
+                El EPT fue desarrollado como una forma aplicativa de utilizar la teoría de la personalidad de 
+                Carl Jung. Esta teoría menciona que la personalidad está regida por opuestos. Jung clasificó dos 
+                tipos de opuestos, las actitudes que son Extroversión e Introversión y las funciones, Pensar, Sentir, 
+                Intuir y Percibir (Viney y King, 2003). Dichas actitudes y funciones regulan cómo la persona va a actuar 
+                en las diferentes situaciones de su vida. En ese caso, la persona tenía una de las dos actitudes y sobre la 
+                base de una de ellas, operaban las cuatro funciones. Jung planteaba que una función primaba, mientras que las 
+                otras actuaban como auxiliares y la función contraria a la que prima, actúa en raras ocasiones. 
+            </p>
+
+            <p>
+                El EPT es un cuestionario que presenta 130 preguntas vinculadas a preferencias personales. 
+                De acuerdo a la descripción de la pregunta, la persona responde a las preferencias que más se 
+                asemejan a ella. En este proceso, menciona cuan de acuerdo o en desacuerdo está con las situaciones 
+                que se le plantean. Todas las preguntas se responden en una escala Likert de acuerdo de 7 opciones. 
+                El instrumento es de integra aplicación virtual.
+            </p>
+
+            <p class="font-weight-bold h3 italic">
+                - Evaluación de Preferencias del Temperamento
+            </p>
         </div>
     </body>
 </html>
