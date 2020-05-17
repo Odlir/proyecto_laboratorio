@@ -591,9 +591,177 @@
                 El instrumento es de integra aplicación virtual.
             </p>
 
-            <p class="font-weight-bold h3 italic">
-                - Evaluación de Preferencias del Temperamento
+            <p class="font-weight-bold h3">
+                Áreas del EPT 
             </p>
+
+            <p>
+                El EPT está compuesto por 4 grandes áreas, dichas áreas conforman facetas más pequeñas. 
+                La colección de todas estas componen las áreas grandes previamente mencionadas. 
+                A continuación, se mostrará un breve resumen de las cuatro áreas:  
+            </p>
+
+            <p class="font-weight-bold h3">
+                EXTROVERSIÓN versus INTROVERSIÓN 
+            </p>
+
+            <p>
+                Las personas con preferencias hacia la extraversión tienden a centrarse en el mundo exterior y el medio ambiente (Jung, 1933). Están más dirigidos hacia el afuera y por 
+                ende su energía está dirigida hacia el exterior (Jung, 1964; Fordham, 1970). Estas personas prefieren relacionarse con los demás hablando y entablando conversaciones. 
+                En sí, esta preferencia está primordialmente dirigida hacia la cantidad e intensidad de interacciones entre las personas (Avia y Sanchez, 1995). Por ello, ellas suelen ser 
+                más conversadoras y les gusta tener varios y diversos grupos de amigos. Además, suelen compartir lo que sienten y piensan con varias personas y lo pueden hacer de manera muy 
+                entusiasta y transmiten gran energía a los demás (Briggs, McCaulley Y Hammer, 1992). 
+            </p>
+
+            <p>
+                Las personas con preferencias hacia la introversión están más enfocadas en su mundo interior (Jung, 1933), hacia la calma e incluso está 
+                asociado con la timidez (Viney y King, 2003). Están más dirigidos hacia el interior y su energía está orientada hacia dentro (Jung, 1964; Fordham, 1970). 
+                Por ello, prefieren actividades las cuales deben desempeñar sin la necesidad de relacionarse en demasía con el resto. 
+            </p>
+
+            <div class="page_break">
+                <p>
+                    Prefieren primero comprender el mundo y pensar en este antes de hacer algún tipo de actividad (Briggs, McCaulley Y Hammer, 1992). 
+                </p>
+    
+                <p>
+                    Por ello, prefieren ambientes más calmados, donde no haya mucha gente, ni ruido el cual les permite reflexionar sobre lo que ocurre alrededor de ellos. 
+                    Además, suelen tener pocos grupos de amigos lo cuales suelen ser muy cercanos. Estas personas no suelen compartir lo que piensan y sienten con mucha 
+                    gente sino solo con la gente con la que sienten una profunda confianza. Asimismo, estas personas transmiten gran calma cuando conversan con los demás.
+                </p>
+    
+                <p>
+                    Aspectos evaluados:
+                </p>
+    
+                <div class="text-center">
+                    <p>Sociable – Íntimo</p>
+                    <p>Comunicativo – Reservado</p>
+                    <p>Entusiasta – Calmado</p>
+                    <p>Ambientes dinámicos  - Ambientes tranquilos</p>
+                </div>
+
+                <p class="font-weight-bold h3">
+                    INTUITIVO versus SENSORIAL 
+                </p>
+
+                <p>
+                    Las personas más orientadas hacia lo intuitivo se centran en los significados, alternativas y relaciones que van más 
+                    allá de los cinco sentidos. Las personas con esta preferencia tienen un enfoque más global de las cosas (Jacobi, 1963). 
+                    Además, tienden a valorar la imaginación, la inspiración y se concentran en buscar nuevas posibilidades y maneras de hacer 
+                    las cosas (Briggs, McCaulley Y Hammer, 1992). Por ello, estas personas suelen interesarse bastante por los conceptos y los 
+                    aspectos teóricos. Tienen interés en conocer qué hay detrás de lo práctico y aplicado, así les genera placer aprender la teoría 
+                    por el hecho de conocerla. Muchas veces, estas personas suelen ser originales y están a la búsqueda de su propio estilo más que 
+                    seguir lo convencional (Costa y Mcrae, 1992). Además, tienen un fuerte enfoque en crear ideas nuevas y cambiar lo ya establecido 
+                    mediante el uso de su creatividad. Por ello, pueden llegar a guiarse bastante de su intuición, no analizar tanto con hechos tangibles 
+                    sino en lo que perciben que es lo correcto y la mejor opción en base a lo que creen y a su experiencia (Viney y King, 2003).
+                </p>
+
+                <p>
+                    Las personas que están más orientadas hacia lo sensorial utilizan sus sentidos o habilidad sensorial para recabar información (Mischel, 1979). 
+                    Las personas con esta preferencia tienden a aceptar y trabajar con lo que está pasando en el presente, en otras palabras en el aquí y el ahora. 
+                    Por ello, suelen ser personas muy prácticas, realistas y con gran habilidad para recordar y trabajar con grandes cantidades de información (Briggs, McCaulley Y Hammer, 1992). 
+                    Por ello, estas personas suelen tener mayor interés en aplicar los conceptos que han aprendido y muestran gran interés en la implicación práctica. 
+                </p>
+            </div>
+
+            <div class="page_break">
+                <p>
+                    Asimismo, se centran en los detalles, por lo que pueden en ciertos casos, ser sumamente minuciosos con las labores que realizan. En general, 
+                    estas personas suelen tener un estilo más tradicional de pensar y enfocar el mundo, se sienten cómodos con las convenciones sociales y lo que la sociedad ha establecido. 
+                    Al tomar una decisión prefieren hacerlo utilizando información que puede ser medida y verificada. 
+                </p>
+
+                <p>
+                    Aspectos evaluados:
+                </p>
+
+                <div class="text-center">
+                    <p>Instintivo – Escéptico</p>
+                    <p>Original – Tradicional</p>
+                    <p>Creativo – Realista</p>
+                </div>
+
+                <p class="font-weight-bold h3">
+                    RACIONAL versus EMOCIONAL
+                </p>
+
+                <p>
+                    Las personas con preferencia hacia lo racional tienden a tomar decisiones en base a la razón. Se basan en las causas y en las posibles consecuencias que pueden traer 
+                    las decisiones que toman. Suelen analizar toda la información, tanto los factores positivos así como los negativos (Hjelle y Ziegler, 1992). Buscan una forma objetiva de 
+                    analizar la situación y se muestran hábiles para encontrar algo equivocado o malo en las situaciones que evalúan (Briggs, McCaulley Y Hammer, 1992). Al considerar la razón 
+                    como lo más importante, pueden mostrar un gran interés hacia encontrar la verdad objetiva y muchas veces, en su búsqueda, pueden dejar de lado lo que sienten los demás. 
+                    Por ello, no suelen tener dificultades expresando lo que piensan y lo hacen de manera directa, pues en sí, tienen un gran interés en decir las cosas tal cual son. 
+                    En general, su estilo racional o lógico puede hacer que los vean como personas mesuradas y hasta incluso distantes (Fadiman y Frager, 1979). Asimismo, estas personas pueden 
+                    conectarse emocionalmente con los demás, sin embargo ante una situación muy emotiva no suelen verse muy afectados ya que cuentan con la habilidad para guardar su distancia y 
+                    ver la situación emotiva de manera más objetiva y lógica. 
+                </p>
+
+                <p>
+                    Las personas con preferencia emotiva se basan más en las emociones para tomar decisiones. Se centran en lo que es importante para ellos mismos y 
+                    los demás y su razonamiento no se basa en la lógica para evaluar las situaciones (Jacobi, 1963). A las personas con preferencia emotiva les gusta tratar con los demás, son 
+                    comprensivas y pueden llegar a ser empáticas con las emociones de los otros. Estas personas toman decisiones en base a sus propios valores, las emociones y los sentimientos 
+                    (Briggs, McCaulley Y Hammer, 1992). 
+                </p>
+            </div>
+
+            <div class="page_break">
+                <p>
+                    En ese caso, estas personas son vistas como conciliadoras, se centran mucho en que haya armonía dentro del grupo y en cómo se sienten las otras personas. Por ello, se enfocan en 
+                    fomentar un adecuado ambiente en donde las personas se sientan cómodas. Por esto, tienen gran facilidad en llevarse bien con las personas quienes los perciben como cálidos y con 
+                    una gran habilidad para ponerse en la posición que está viviendo la otra persona (McCrae, et al. 1996). Asimismo, tienen un fuerte interés en su propio sentir y en el de los demás 
+                    incluso en situaciones donde se requiere tomar decisiones de carácter más objetivo (Avia y Sanchez, 1995). Estas personas, al tener una preferencia emocional, ante situaciones donde 
+                    hay sentimientos de por medio, pueden identificarse tanto con el sentir del otro, que incluso podrían experimentar lo que siente el otro. Ello puede llevarlos a sentirse afectados por 
+                    la emoción que está sintiendo la otra persona.
+                </p>
+
+                <p>
+                    Aspectos evaluados:
+                </p>
+
+                <div class="text-center">
+                    <p>Objetivo – Compasivo</p>
+                    <p>Distante – Susceptible</p>
+                    <p>Directo – Empático</p>
+                </div>
+
+                <p class="font-weight-bold h3">
+                    ORGANIZADO versus CASUAL
+                </p>
+
+                <p>
+                    Las personas con preferencia hacia lo organizado tienden a planear y desean en la medida de lo posible, organizar su vida. Estas personas gustan de tomar decisiones, prefieren 
+                    la estructura, la planificación y que las situaciones tengan un orden establecido (Fadiman y Frager, 1979). La preferencia hacia lo organizado se refiere a que las personas 
+                    prefieren mantener una estructura en su vida, la cual les permite vivir cómodamente (Briggs, McCaulley y Hammer, 1992). Por eso, son personas que realizan sus actividades con 
+                    bastante anticipación, planean con antelación alguna actividad. Para entregar un trabajo o hacer una labor arman un cronograma de tal manera que lleguen con calma a la fecha límite 
+                    y con todo el trabajo terminado. Estas personas suelen intentar tener la mayor cantidad posible de situaciones controladas por lo que no se sienten del todo cómodos cuando hacen muchos 
+                    cambios en sus rutinas o les cambian repetidas veces las actividades que ya organizaron (Rotter, 1966). Es por ello, que estas personas crean rutinas y las siguen, ya que sienten que les 
+                    permiten hacer todas las actividades que tienen interés en realizar. 
+                </p>
+            </div>
+
+            <div class="page_break">
+                <p>
+                    Las personas con preferencia hacia lo casual gustan vivir de manera más flexible y evitar tener todo organizado y planificado. Estas personas prefieren dejar varias 
+                    opciones abiertas y se centran más en comprender la vida más que planificarla. Las personas casuales prefieren estar abiertos a las experiencias nuevas y disfrutan adaptarse y confían 
+                    en su capacidad para acomodarse a los diferentes momentos que enfrentan (Briggs, McCaulley Y Hammer, 1992). Por ello, estas personas están sumamente interesadas en ser espontáneas, mientras menos 
+                    cosas planeen, mejor ya que les gusta manejar sus tiempos de manera flexible. Esto les permite tener una gran habilidad para adaptarse a los cambios y acomodarse ante los imprevistos que puede haber 
+                    (Showers y Ziegler-Hill, 2012). En ese caso, estas personas tienen la sensación de que las rutinas pueden llegar a encasillarlas por lo que prefieren guiarse más de cómo se sienten en ese momento y 
+                    sobre la base de ello, toman la decisión de qué actividades realizar (Costa y McCrae, 1992). 
+                </p>
+
+                <p>
+                    Aspectos evaluados:
+                </p>
+
+                <div class="text-center">
+                    <p>Planificado – Espontáneo</p>
+                    <p>Metódico – Eventual</p>
+                    <p>Estructurado – Flexible</p>
+                </div>
+
+                
+            </div>
         </div>
     </body>
 </html>
