@@ -91,34 +91,7 @@ class EncuestaPersonaController extends Controller
         } else if ($data[1]== 3) {
             return $this->temperamentos($data[2],$encuesta_puntaje['id']);
         } else if ($data[1]== 2) {
-            return $this->talentos($data[2],$encuesta_puntaje['id']);
-        }
-    }
-
-    public function talentos($data,$encuesta_puntaje_id)
-    {  
-        foreach ($data[0] as $d) { //TODOS LOS TALENTOS
-            TalentoRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
-        }
-
-        foreach($data[1] as $d) //TALENTOS MAS DESARROLLADOS
-        {
-            TalentoMasDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
-        }
-
-        foreach($data[2] as $d) //TALENTOS MENOS DESARROLLADOS
-        {
-            TalentoMenosDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
-        }   
-
-        foreach($data[3] as $d) //TALENTOS ESPECIFICOS MAS DESARROLLADOS
-        {
-            TalentoEspecificoMasDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
-        }
-   
-        foreach($data[4] as $d) //TALENTOS ESPECIFICOS MENOS DESARROLLADOS
-        {
-            TalentoEspecificoMenosDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
+            return response()->json($encuesta_puntaje['id'], 200);
         }
     }
 
@@ -434,7 +407,7 @@ class EncuestaPersonaController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
