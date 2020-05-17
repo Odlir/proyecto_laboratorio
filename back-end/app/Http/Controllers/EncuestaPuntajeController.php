@@ -105,6 +105,8 @@ class EncuestaPuntajeController extends Controller
                 TalentoEspecificoMenosDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $id]));
             }
         }
+
+        return response()->json('Success', 200);
     }
 
     /**
