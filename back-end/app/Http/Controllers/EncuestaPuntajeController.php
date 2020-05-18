@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\EncuestaPuntaje;
+use App\TalentoEspecificoMasDesarrollado;
+use App\TalentoEspecificoMenosDesarrollado;
+use App\TalentoMasDesarrollado;
+use App\TalentoMenosDesarrollado;
+use App\TalentoRespuesta;
 use Illuminate\Http\Request;
 
 class EncuestaPuntajeController extends Controller
@@ -15,8 +20,8 @@ class EncuestaPuntajeController extends Controller
     public function index(Request $request)
     {
         $data = EncuestaPuntaje::where('encuesta_id', $request->input('encuesta_id'))
-        ->where('persona_id',$request->input('persona_id'))
-        ->get();
+            ->where('persona_id', $request->input('persona_id'))
+            ->get();
 
         return response()->json($data, 200);
     }
@@ -71,9 +76,37 @@ class EncuestaPuntajeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) //AQUI GUARDO LOS TALENTOS
     {
-        //
+        $data = $request->all();
+
+        if ($data[1] == 1) {
+            foreach ($data[0] as $d) { //TODOS LOS TALENTOS
+                TalentoRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $id]));
+            }
+        } else if ($data[1] == 2) {
+            foreach ($data[0] as $d) //TALENTOS MAS DESARROLLADOS
+            {
+                TalentoMasDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $id]));
+            }
+        } else if ($data[1] == 3) {
+            foreach ($data[0] as $d) //TALENTOS MENOS DESARROLLADOS
+            {
+                TalentoMenosDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $id]));
+            }
+        } else if ($data[1] == 4) {
+            foreach ($data[0] as $d) //TALENTOS ESPECIFICOS MAS DESARROLLADOS
+            {
+                TalentoEspecificoMasDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $id]));
+            }
+        } else if ($data[1] == 5) {
+            foreach ($data[0] as $d) //TALENTOS ESPECIFICOS MENOS DESARROLLADOS
+            {
+                TalentoEspecificoMenosDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $id]));
+            }
+        }
+
+        return response()->json('Success', 200);
     }
 
     /**

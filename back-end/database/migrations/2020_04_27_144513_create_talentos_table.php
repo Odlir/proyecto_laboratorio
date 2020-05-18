@@ -20,7 +20,7 @@ class CreateTalentosTable extends Migration
             $table->unsignedBigInteger('tipo_id');
             $table->foreign('tipo_id')->references('id')->on('tipo_talento');
             $table->string('nombre');
-            $table->string('descripcion');
+            $table->text('descripcion');
             $table->string('imagen');
             $table->string('imagen_espalda');
             $table->char('estado', 1)->comment('0-Inactivo/1-Activo')->default(1);

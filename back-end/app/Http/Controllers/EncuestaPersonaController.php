@@ -87,9 +87,9 @@ class EncuestaPersonaController extends Controller
         //DATA[2] SON TUS RESPUESTAS
 
         if ($data[1]== 1) {
-            return $this->intereses($data[2], $encuesta_puntaje['id']);
+            return $this->intereses($data[2],$encuesta_puntaje['id']);
         } else if ($data[1]== 3) {
-            return $this->temperamentos($data[2], $encuesta_puntaje['id']);
+            return $this->temperamentos($data[2],$encuesta_puntaje['id']);
         } else if ($data[1]== 2) {
             return $this->talentos($data[2], $encuesta_puntaje['id']);
         }
