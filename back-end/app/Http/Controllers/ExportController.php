@@ -317,7 +317,7 @@ class ExportController extends Controller
                         }
                     }
 
-                    if (strcasecmp($p['sexo'], 'masculino')==0) {
+                    if (strcasecmp($p['sexo'], 'masculino') == 0) {
                         $sexo['masculino']++;
                     } else {
                         $sexo['femenino']++;
@@ -350,7 +350,11 @@ class ExportController extends Controller
             ->with('tendencia')
             ->get();
 
-        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias, 'muestra' => $data_muestra, 'sexo' => $sexo));
+        $talentos_ordenados = Talento::where('tendencia_id', "!=", null)
+            ->orderBy("nombre")
+            ->get();
+
+        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'talentos_ordenados' => $talentos_ordenados, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias, 'muestra' => $data_muestra, 'sexo' => $sexo));
         return $pdf->download('Consolidado_sede.pdf');
     }
 
