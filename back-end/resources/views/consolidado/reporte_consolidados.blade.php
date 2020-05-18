@@ -506,7 +506,7 @@
                         <br>
                         <table class="w-100 table text-secondary text-center table-temperamento">
                             <tr>
-                                <td>
+                                <td width="20px">
                                     @foreach ($a->items as $i)
                                         @if ($i->posicion == '1')
                                             <p class="h3">{{$i->nombre }}</p>
@@ -515,7 +515,7 @@
                                 </td>
                                 @foreach ($a->items as $a_i)
                                     @foreach ($a_i->items as $i_i)
-                                        @if ($i_i->posicion=='1')
+                                        @if ($i_i->posicion=='1' && $i_i->id!=15 && $i_i->id!=21 && $i_i->id!=31)
                                             <td width="120px;">{{$i_i->nombre}}</td>
                                         @endif
                                     @endforeach
@@ -543,46 +543,48 @@
                                     </table>
                                 </td>
                                 @foreach ($p_temperamentos as $p)
-                                    @if ($a->id == $p->formula->area->id)
-                                        <td class="p-0 m-0">
-                                            <div class="height-graph">
-                                                @if ($p->transformacion>0)
-                                                    @php
-                                                        $tamaño= (abs($p->transformacion)*31);
-                                                        $top = 100 - $tamaño;
-                                                    @endphp
-                                                    <div class="barra"  style="height: {{$tamaño}}px;top:{{$top}}px">
-                                                        
-                                                    </div>
-                                                @endif  
-                                                
-                                                @if ($p->transformacion==0)
-                                                    <div class="barra"  style="height: 15px;top:85px;">
-                                                        
-                                                    </div>
-                                                @endif 
-                                            </div>
-                                                                
-                                            <div class="linea">
-    
-                                            </div>
-    
-                                            <div class="height-graph">
-                                                @if ($p->transformacion<0)
-                                                    @php
-                                                        $tamaño= (abs($p->transformacion)*31);
-                                                    @endphp
-                                                    <div class="barra" style="height: {{$tamaño}}px;top:-7px;">
-                                                        
-                                                    </div>
-                                                @endif
-                                                @if ($p->transformacion==0)
-                                                    <div class="barra"  style="height: 15px;top:-7px;">
-                                                        
-                                                    </div>
-                                                @endif      
-                                            </div>        
-                                        </td>
+                                    @if ($p->formula_id!=8 && $p->formula_id!=11 && $p->formula_id!=16)
+                                        @if ($a->id == $p->formula->area->id)
+                                            <td class="p-0 m-0">
+                                                <div class="height-graph">
+                                                    @if ($p->transformacion>0)
+                                                        @php
+                                                            $tamaño= (abs($p->transformacion)*31);
+                                                            $top = 100 - $tamaño;
+                                                        @endphp
+                                                        <div class="barra"  style="height: {{$tamaño}}px;top:{{$top}}px">
+                                                            
+                                                        </div>
+                                                    @endif  
+                                                    
+                                                    @if ($p->transformacion==0)
+                                                        <div class="barra"  style="height: 15px;top:85px;">
+                                                            
+                                                        </div>
+                                                    @endif 
+                                                </div>
+                                                                    
+                                                <div class="linea">
+
+                                                </div>
+
+                                                <div class="height-graph">
+                                                    @if ($p->transformacion<0)
+                                                        @php
+                                                            $tamaño= (abs($p->transformacion)*31);
+                                                        @endphp
+                                                        <div class="barra" style="height: {{$tamaño}}px;top:-7px;">
+                                                            
+                                                        </div>
+                                                    @endif
+                                                    @if ($p->transformacion==0)
+                                                        <div class="barra"  style="height: 15px;top:-7px;">
+                                                            
+                                                        </div>
+                                                    @endif      
+                                                </div>        
+                                            </td>
+                                        @endif
                                     @endif
                                 @endforeach
                             </tr>
@@ -596,7 +598,7 @@
                                 </td>
                                 @foreach ($a->items as $a_i)
                                     @foreach ($a_i->items as $i_i)
-                                        @if ($i_i->posicion=='0')
+                                        @if ($i_i->posicion=='0' && $i_i->id!=16 && $i_i->id!=22 && $i_i->id!=32)
                                             <td>{{$i_i->nombre}}</td>
                                         @endif
                                     @endforeach
@@ -607,35 +609,37 @@
 
                     <br>
                     @foreach ($p_temperamentos as $p)
-                        @if ($a->id == $p->formula->area->id)
-                            @if ($p->transformacion>0)
-                                @foreach ($p->formula->items as $i)
-                                    @if ($i->posicion=='1')
-                                    <div class="table-temperamento">
-                                        <p class="font-weight-bold h3">- {{$i->nombre}}</p>
-                                        <p class="text-justify">{{$i->descripcion}}</p>
-                                    </div> 
-                                    @endif
-                                @endforeach
-                            @endif
+                        @if ($p->formula_id!=8 && $p->formula_id!=11 && $p->formula_id!=16)
+                            @if ($a->id == $p->formula->area->id)
+                                @if ($p->transformacion>0)
+                                    @foreach ($p->formula->items as $i)
+                                        @if ($i->posicion=='1')
+                                        <div class="table-temperamento">
+                                            <p class="font-weight-bold h3">- {{$i->nombre}}</p>
+                                            <p class="text-justify">{{$i->descripcion}}</p>
+                                        </div> 
+                                        @endif
+                                    @endforeach
+                                @endif
 
-                            @if ($p->transformacion<0)
-                                @foreach ($p->formula->items as $i)
-                                    @if ($i->posicion=='0')
+                                @if ($p->transformacion<0)
+                                    @foreach ($p->formula->items as $i)
+                                        @if ($i->posicion=='0')
+                                        <div class="table-temperamento">
+                                            <p class="font-weight-bold h3">- {{$i->nombre}}</p>
+                                            <p class="text-justify">{{$i->descripcion}}</p>
+                                        </div>                
+                                        @endif
+                                    @endforeach
+                                @endif  
+                                        
+                                @if ($p->transformacion==0)
                                     <div class="table-temperamento">
-                                        <p class="font-weight-bold h3">- {{$i->nombre}}</p>
-                                        <p class="text-justify">{{$i->descripcion}}</p>
-                                    </div>                
-                                    @endif
-                                @endforeach
-                            @endif  
-                                    
-                            @if ($p->transformacion==0)
-                                <div class="table-temperamento">
-                                    <p class="font-weight-bold h3">- {{$p->formula->nombre}}</p>
-                                    <p class="text-justify">{{$p->formula->descripcion}}</p>
-                                </div>
-                            @endif 
+                                        <p class="font-weight-bold h3">- {{$p->formula->nombre}}</p>
+                                        <p class="text-justify">{{$p->formula->descripcion}}</p>
+                                    </div>
+                                @endif 
+                            @endif
                         @endif
                     @endforeach
                 </div>
