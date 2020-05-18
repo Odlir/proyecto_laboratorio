@@ -302,6 +302,9 @@ class ExportController extends Controller
             array_push($data_muestra, $object);
         }
 
+        $total_temperamentos = [];
+        $puntajes_temperamentos = [];
+
         foreach ($intereses as $i) {
             $encuesta_temp = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
                 ->where('tipo_encuesta_id', 3)
@@ -320,6 +323,7 @@ class ExportController extends Controller
 
                 $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
                     ->where('persona_id', $p['id'])
+                    ->with('puntemperamentos.formula')
                     ->first();
 
                 $p_talentos = EncuestaPuntaje::where('encuesta_id', $encuesta_tal['id'])
@@ -338,14 +342,43 @@ class ExportController extends Controller
                     } else {
                         $sexo['femenino']++;
                     }
+
+                    ///////
+
+                    array_push($total_temperamentos, $p_temperamentos['puntemperamentos']);
                 }
             }
         }
 
-        // foreach ($data_muestra as $m) {
-        //     echo $m->anio. ',';
-        //     echo $m->muestra.'/';
-        // }
+        foreach ($total_temperamentos as $t) {
+            foreach ($t as $p) {
+                $object = new stdClass();
+                $object->formula_id = $p['formula_id'];
+                $object->area_id = $p['formula']['area_id'];
+                $object->transformacion = 0;
+                array_push($puntajes_temperamentos, $object);
+            }
+            break;
+        }
+
+        foreach ($total_temperamentos as $t) {
+            foreach ($t as $p) {
+                foreach ($puntajes_temperamentos as $p_t) {
+                    if ($p_t->formula_id == $p['formula_id']) {
+                        $p_t->transformacion = $p_t->transformacion + $p['transformacion'];
+                    }
+                }
+            }
+        }
+
+        foreach ($puntajes_temperamentos as $p_t) {
+            $p_t->transformacion = $p_t->transformacion / count($total_temperamentos);
+        }
+
+        $areas = Area::with('items.items')
+            ->with('formulas')
+            ->where('estado', '1')
+            ->get();
 
         $now = Carbon::now();
         $date = ucfirst($now->isoFormat('MMMM')) . ', ' . $now->year;
@@ -370,7 +403,7 @@ class ExportController extends Controller
             ->orderBy("nombre")
             ->get();
 
-        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'talentos_ordenados' => $talentos_ordenados, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias, 'muestra' => $data_muestra, 'sexo' => $sexo));
+        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'talentos_ordenados' => $talentos_ordenados, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias, 'muestra' => $data_muestra, 'sexo' => $sexo, 'p_temperamentos' => $puntajes_temperamentos, 'areas' => $areas));
         return $pdf->download('Consolidado_sede.pdf');
     }
 

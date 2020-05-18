@@ -144,6 +144,14 @@
                 text-align: right;
             }
 
+            .w-95{
+                width:95%;
+            }
+
+            .w-5{
+                width: 5%;
+            }
+
             .ml-5
             {
                 margin-left: 3rem !important;
@@ -216,6 +224,41 @@
 
             .mb-0{
                 margin-bottom: 0!important;
+            }
+
+            .table-temperamento{
+                page-break-inside: avoid;
+            }
+
+            .table{
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .barra_tabla{
+                height: 220px;
+                width: 8px;
+                background: #6c757d;
+                margin-left: -1px;
+            }
+
+            .height-graph
+            {   
+                height: 93px;
+                margin: 10px;
+            }
+
+            .barra{
+                position: relative;
+                width: 100%;
+                background: red;
+            }
+
+            .linea
+            {   margin-left: -17px;
+                width: 100%;
+                height:10px;
+                background: #6c757d;
             }
             
         </style>
@@ -849,7 +892,116 @@
         </div> 
 
         <div class="page_break text-justify text-secondary">
-            hola mundo
+            @foreach ($areas as $a)
+                <div>
+                    <div class="table-temperamento">
+                        <p class="font-weight-bold text-secondary h3">1.2.{{$loop->index +1}} Descripciones de los elementos del área {{$a->nombre}}</p>
+                        <br>
+                        <table class="w-100 table text-secondary text-center table-temperamento">
+                            <tr>
+                                <td width="20px">
+                                    @foreach ($a->items as $i)
+                                        @if ($i->posicion == '1')
+                                            <p class="h3">{{$i->nombre }}</p>
+                                        @endif
+                                    @endforeach 
+                                </td>
+                                @foreach ($a->items as $a_i)
+                                    @foreach ($a_i->items as $i_i)
+                                        @if ($i_i->posicion=='1' && $i_i->id!=15 && $i_i->id!=21 && $i_i->id!=31)
+                                            <td width="120px;">{{$i_i->nombre}}</td>
+                                        @endif
+                                    @endforeach
+                                @endforeach 
+                            </tr>
+                            <tr>
+                                <td class="text-right">
+                                    <table class="text-secondary w-100">
+                                        <tr class="w-100">
+                                            <td class="w-95 text-right p-0">
+                                                <p>3 -</p>
+                                                <p>2 -</p>
+                                                <p>1 -</p>
+                                                <p>0 -</p>
+                                                <p>1 -</p>
+                                                <p>2 -</p>
+                                                <p>3 -</p>
+                                            </td>
+                                            <td class="w-5 p-0">
+                                                <div class="barra_tabla">
+        
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                @foreach ($p_temperamentos as $p)
+                                    @if ($p->formula_id!=8 && $p->formula_id!=11 && $p->formula_id!=16)
+                                        @if ($a->id == $p->area_id)
+                                            <td class="p-0 m-0">
+                                                <div class="height-graph">
+                                                    @if ($p->transformacion>0)
+                                                        @php
+                                                            $tamaño= (abs($p->transformacion)*31);
+                                                            $top = 100 - $tamaño;
+                                                        @endphp
+                                                        <div class="barra"  style="height: {{$tamaño}}px;top:{{$top}}px">
+                                                            
+                                                        </div>
+                                                    @endif  
+                                                    
+                                                    @if ($p->transformacion==0)
+                                                        <div class="barra"  style="height: 15px;top:85px;">
+                                                            
+                                                        </div>
+                                                    @endif 
+                                                </div>
+                                                                    
+                                                <div class="linea">
+
+                                                </div>
+
+                                                <div class="height-graph">
+                                                    @if ($p->transformacion<0)
+                                                        @php
+                                                            $tamaño= (abs($p->transformacion)*31);
+                                                        @endphp
+                                                        <div class="barra" style="height: {{$tamaño}}px;top:-7px;">
+                                                            
+                                                        </div>
+                                                    @endif
+                                                    @if ($p->transformacion==0)
+                                                        <div class="barra"  style="height: 15px;top:-7px;">
+                                                            
+                                                        </div>
+                                                    @endif      
+                                                </div>        
+                                            </td>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            </tr>
+                            <tr>
+                                <td>
+                                    @foreach ($a->items as $i)
+                                        @if ($i->posicion == '0')
+                                            <p class="h3">{{$i->nombre }}</p> 
+                                        @endif
+                                    @endforeach 
+                                </td>
+                                @foreach ($a->items as $a_i)
+                                    @foreach ($a_i->items as $i_i)
+                                        @if ($i_i->posicion=='0' && $i_i->id!=16 && $i_i->id!=22 && $i_i->id!=32)
+                                            <td>{{$i_i->nombre}}</td>
+                                        @endif
+                                    @endforeach
+                                @endforeach 
+                            </tr>
+                        </table>
+                    </div>            
+                </div>
+                <br>
+            @endforeach
         </div>
 
         <div id="header">
