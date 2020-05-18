@@ -80,8 +80,12 @@ class ExportController extends Controller
                 ->where('persona_id', $p->id)
                 ->first();
 
+            $data_talento = EncuestaPuntaje::where('encuesta_id', $talento['id'])
+                ->where('persona_id', $p->id)
+                ->first();
+
             if ($show) {
-                if ($data_interes && $data_temperamento) {
+                if ($data_interes && $data_temperamento && $data_talento) {
                     $p->link = $back . 'exportar' . '/consolidados/' .  $request->interes_id . '/' . $p->id;
                 } else {
                     $p->link = "";
@@ -105,6 +109,12 @@ class ExportController extends Controller
                 $p->status_temp = "1"; //COMPLETADO
             } else {
                 $p->status_temp = "0"; //PENDIENTE
+            }
+
+            if ($data_talento) {
+                $p->status_tal = "1"; //COMPLETADO
+            } else {
+                $p->status_tal = "0"; //PENDIENTE
             }
         }
 
@@ -399,8 +409,12 @@ class ExportController extends Controller
                 ->where('persona_id', $p->id)
                 ->first();
 
+            $data_talento = EncuestaPuntaje::where('encuesta_id', $talento['id'])
+                ->where('persona_id', $p->id)
+                ->first();
+
             if ($show) {
-                if ($data_interes && $data_temperamento) {
+                if ($data_interes && $data_temperamento && $data_talento) {
                     $p->link = $back . 'exportar' . '/consolidados/' .  $request->interes_id . '/' . $p->id;
                 } else {
                     $p->link = "";
@@ -424,6 +438,12 @@ class ExportController extends Controller
                 $p->status_temp = "1"; //COMPLETADO
             } else {
                 $p->status_temp = "0"; //PENDIENTE
+            }
+
+            if ($data_talento) {
+                $p->status_tal = "1"; //COMPLETADO
+            } else {
+                $p->status_tal = "0"; //PENDIENTE
             }
         }
 
@@ -488,6 +508,11 @@ class ExportController extends Controller
         $encuesta_temp = Encuesta::where('encuesta_general_id', $encuesta['encuesta_general_id'])
             ->where('estado', '1')
             ->where('tipo_encuesta_id', 3)
+            ->first();
+
+        $encuesta_tal = Encuesta::where('encuesta_general_id', $encuesta['encuesta_general_id'])
+            ->where('tipo_encuesta_id', 2)
+            ->where('estado', '1')
             ->first();
 
         $p_intereses = EncuestaPuntaje::where('encuesta_id', $interes_id)
@@ -599,8 +624,17 @@ class ExportController extends Controller
             return response()->json(['error' => 'No hay alumnos registrados'], 404);
         }
 
+        $temperamento_id = "";
+
+        $talento_id = "";
+
         $encuesta_temp = Encuesta::where('encuesta_general_id', $encuesta['encuesta_general_id'])
             ->where('tipo_encuesta_id', 3)
+            ->where('estado', '1')
+            ->first();
+
+        $encuesta_tal = Encuesta::where('encuesta_general_id', $encuesta['encuesta_general_id'])
+            ->where('tipo_encuesta_id', 2)
             ->where('estado', '1')
             ->first();
 
@@ -615,8 +649,6 @@ class ExportController extends Controller
         $talentos = Talento::where('tendencia_id', "!=", null)
             ->with('tendencia')
             ->get();
-
-        $temperamento_id = "";
 
         $identificador = rand();
 
@@ -643,12 +675,13 @@ class ExportController extends Controller
             }
         }
 
-        if ($encuesta_temp) {
+        if ($encuesta_temp && $encuesta_tal) {
             $temperamento_id = $encuesta_temp['id'];
+            $talento_id = $encuesta_tal['id'];
         }
 
         if ($descargar) {
-            Excel::store(new StatusExport($encuesta['general']['personas'], $encuesta['id'], $temperamento_id), 'Consolidado-' . $identificador . '/' . $encuesta['empresa']['nombre'] . '-' . $request->interes_id . '.xlsx', 'local');
+            Excel::store(new StatusExport($encuesta['general']['personas'], $encuesta['id'], $temperamento_id, $talento_id), 'Consolidado-' . $identificador . '/' . $encuesta['empresa']['nombre'] . '-' . $request->interes_id . '.xlsx', 'local');
             return $this->descargarZip($identificador);
         } else {
             return response()->json(['error' => 'No hay encuestas resueltas.'], 404);
@@ -697,6 +730,7 @@ class ExportController extends Controller
     public function links(Request $request)
     {
         $temperamento_id = '';
+        $talento_id = "";
 
         $interes = Encuesta::where('id', $request->interes_id)
             ->with(['general' => function ($query) {
@@ -722,9 +756,10 @@ class ExportController extends Controller
 
         if ($encuesta_temp && $encuesta_tal) {
             $temperamento_id = $encuesta_temp['id'];
+            $talento_id = $encuesta_tal['id'];
         }
 
-        return Excel::download(new LinkExport($interes['general']['personas'], $interes['id'], $temperamento_id), 'encuesta.xlsx');
+        return Excel::download(new LinkExport($interes['general']['personas'], $interes['id'], $temperamento_id, $talento_id), 'encuesta.xlsx');
     }
 
     public function pdf_intereses($interes_id, $persona_id)
@@ -748,31 +783,32 @@ class ExportController extends Controller
         return $pdf->download('Reporte-Intereses-' . str_replace(' ', '', $persona->nombres) . str_replace(' ', '', $persona->apellido_paterno) . str_replace(' ', '', $persona->apellido_materno) . '.pdf');
     }
 
-    public function pdf_temperamentos($temperamento_id, $persona_id)
-    {
-        $areas = Area::with('items.items')
-            ->with('formulas')
-            ->where('estado', '1')->get();
+    // public function pdf_temperamentos($temperamento_id, $persona_id)
+    // {
+    //     $areas = Area::with('items.items')
+    //         ->with('formulas')
+    //         ->where('estado', '1')->get();
 
-        $ruedas = Rueda::where('estado', '1')->get();
+    //     $ruedas = Rueda::where('estado', '1')->get();
 
-        $persona = Persona::where('id', $persona_id)
-            ->first();
+    //     $persona = Persona::where('id', $persona_id)
+    //         ->first();
 
-        $encuesta = EncuestaPuntaje::where('encuesta_id', $temperamento_id)
-            ->where('persona_id', $persona_id)
-            ->with('puntemperamentos.formula')
-            ->with('areatemperamentos')
-            ->first();
+    //     $encuesta = EncuestaPuntaje::where('encuesta_id', $temperamento_id)
+    //         ->where('persona_id', $persona_id)
+    //         ->with('puntemperamentos.formula')
+    //         ->with('areatemperamentos')
+    //         ->first();
 
-        $pdf = PDF::loadView('reporte_temperamentos', array('ruedas' => $ruedas, 'persona' => $persona, 'p_temperamentos' => $encuesta['puntemperamentos'], 'a_temperamentos' => $encuesta['areatemperamentos'], 'areas' => $areas));
+    //     $pdf = PDF::loadView('reporte_temperamentos', array('ruedas' => $ruedas, 'persona' => $persona, 'p_temperamentos' => $encuesta['puntemperamentos'], 'a_temperamentos' => $encuesta['areatemperamentos'], 'areas' => $areas));
 
-        return $pdf->download('Reporte-Temperamentos-' . str_replace(' ', '', $persona->nombres) .  str_replace(' ', '', $persona->apellido_paterno) . str_replace(' ', '', $persona->apellido_materno) . '.pdf');
-    }
+    //     return $pdf->download('Reporte-Temperamentos-' . str_replace(' ', '', $persona->nombres) .  str_replace(' ', '', $persona->apellido_paterno) . str_replace(' ', '', $persona->apellido_materno) . '.pdf');
+    // }
 
     public function status(Request $request)
     {
         $temperamento_id = '';
+        $talento_id = "";
 
         $interes = Encuesta::where('id', $request->interes_id)
             ->with(['general' => function ($query) {
@@ -798,9 +834,10 @@ class ExportController extends Controller
 
         if ($encuesta_temp && $encuesta_tal) {
             $temperamento_id = $encuesta_temp['id'];
+            $talento_id = $encuesta_tal['id'];
         }
 
-        return Excel::download(new StatusExport($interes['general']['personas'], $interes['id'], $temperamento_id), 'encuesta.xlsx');
+        return Excel::download(new StatusExport($interes['general']['personas'], $interes['id'], $temperamento_id, $talento_id), 'encuesta.xlsx');
     }
 
     /**

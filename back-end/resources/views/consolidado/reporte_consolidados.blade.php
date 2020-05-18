@@ -500,7 +500,6 @@
     
                 @foreach ($areas as $a)
                 <div>
-
                     <div class="table-temperamento">
                         <p class="font-weight-bold text-secondary h2">1.2.{{$loop->index +1}} Descripciones de los elementos del área {{$a->nombre}}</p>
                         <br>
@@ -698,8 +697,5 @@
                 </p>
             </div>
         </div>
-
-       
-        </div>   
     </body>
 </html>

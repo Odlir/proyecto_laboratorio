@@ -125,6 +125,10 @@
                 font-size: 30px;
             }
 
+            .subtitulo{
+                font-size: 25px;
+            }
+
             .h-footer{
                 bottom: 0;
                 position:absolute;
@@ -209,6 +213,10 @@
             .bg-sexo3{
                 background: #E5E9EE;
             }
+
+            .mb-0{
+                margin-bottom: 0!important;
+            }
             
         </style>
     </head>
@@ -284,19 +292,6 @@
                 </p>
             </div>
         </div>
-
-        <div id="header">
-            <table class="w-100 bg-dark text-white">
-                <tr>
-                    <td>
-                        <p class="titulo ml-5">Orientación Vocacional</p>
-                    </td>
-                    <td class="text-right">
-                        <img class="mr-5" src="{{ 'storage/logo_upc_blanco.png' }}" alt="">
-                    </td>
-                </tr>
-            </table>
-        </div> 
 
         <div class="page_break text-justify text-secondary">
             <p>
@@ -508,7 +503,7 @@
                         alumno
                     @endif
 
-                    de 
+                    de la promoción
                     {{$m->anio}}
                 </span> 
                 <br>
@@ -791,11 +786,83 @@
                     <p class="font-weight-bold h3">
                         {{$tal->nombre}}
                     </p>
-                    <p>
+                    <p style="margin-top: -1px;">
                         {{$tal->descripcion}}
                     </p>
                 </div>
             @endforeach
+            
+            <div>
+                <p class="h3 font-weight-bold mt-5">
+                    VI. PROCEDIMIENTO
+                </p>
+    
+                <p>
+                    La evaluación se llevó a cabo con {{$total}} alumnos que han resuelto las tres encuestas.
+                </p>
+    
+                <p>
+                    El proceso se inició dividiendo a los alumnos por sus respectivas secciones en dos salas de laboratorio del colegio.
+                </p>
+    
+                <p>
+                    En la primera parte de la evaluación, el equipo de psicólogos evaluadores explicó a los alumnos, las instrucciones de acceso para la realización de cada uno de las pruebas virtuales. 
+                </p>
+    
+                <p>
+                    En dicha fecha, los alumnos se mostraron interesados y atentos ante las consignas brindadas por los evaluadores, realizando la prueba con concentración y rapidez. Las evaluaciones transcurrieron de manera fluida y sin ningún inconveniente.
+                </p>
+            </div>
+
+            <div>
+                <p class="h3 font-weight-bold mt-5">
+                    VII. RESULTADOS
+                </p>
+
+                <p>
+                    A continuación, se presentan los resultados encontrados. Estos están divididos en 
+                    cuatro grandes bloques correspondientes a los cuatro instrumentos de evaluación. 
+                </p>
+    
+                <p class="font-weight-bold h3">
+                    Evaluación de Preferencias del Temperamento (EPT)
+                </p>
+    
+                <p>
+                    Las Tablas 3, 4, 5 y 6, presenta cuántos alumnos de la muestra total del colegio caen dentro de cada categoría para cada una de las dimensiones del EPT, 
+                    así como el porcentaje (normal y acumulado) que esto representa dentro del grupo evaluado. 
+                </p>
+            </div>
+        </div>
+
+        <div id="header">
+            <table class="w-100 bg-dark text-white">
+                <tr>
+                    <td>
+                        <p class="subtitulo ml-5">Orientación Vocacional</p>
+                    </td>
+                    <td class="text-right">
+                        <img class="mr-5" src="{{ 'storage/logo_upc_blanco.png' }}" alt="">
+                    </td>
+                </tr>
+            </table>
+        </div> 
+
+        <div class="page_break text-justify text-secondary">
+            hola mundo
+        </div>
+
+        <div id="header">
+            <table class="w-100 bg-dark text-white">
+                <tr>
+                    <td>
+                        <p class="subtitulo ml-5">Resultados de la Prueba de Temperamentos</p>
+                    </td>
+                    <td class="text-right">
+                        <img class="mr-5" src="{{ 'storage/logo_upc_blanco.png' }}" alt="">
+                    </td>
+                </tr>
+            </table>
         </div>
     </body>
 </html>
