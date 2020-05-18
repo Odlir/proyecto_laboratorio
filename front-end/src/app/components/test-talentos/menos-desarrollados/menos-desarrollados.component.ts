@@ -1,15 +1,15 @@
-import {ChangeDetectorRef, Component, NgZone, OnInit, Renderer2} from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import {SharedVarService} from '../../../Services/shared/shared-var.service';
 import {ApiBackRequestService} from '../../../Services/api-back-request.service';
-import Swal from "sweetalert2";
 import {Router} from '@angular/router';
+import Swal from "sweetalert2";
 
 @Component({
-	selector: 'app-mas-desarrollados',
-	templateUrl: './mas-desarrollados.component.html',
-	styleUrls: ['./mas-desarrollados.component.css']
+  selector: 'app-menos-desarrollados',
+  templateUrl: './menos-desarrollados.component.html',
+  styleUrls: ['./menos-desarrollados.component.css']
 })
-export class MasDesarrolladosComponent implements OnInit {
+export class MenosDesarrolladosComponent implements OnInit {
 
 	public sucursal = 'Colegio UPC';
 	public alumno = 'Humberto Gutierrez';
@@ -31,7 +31,7 @@ export class MasDesarrolladosComponent implements OnInit {
 	}
 
 	continuar() {
-		this.router.navigate(['./menos-desarrollados']);
+		this.router.navigate(['./especificos']);
 	}
 
 	showBack() {
@@ -46,7 +46,7 @@ export class MasDesarrolladosComponent implements OnInit {
 			this.seleccionados--;
 			this.store = this.store.filter(i => i.id !==obj.id);
 		} else {
-			if (this.seleccionados < 12){
+			if (this.seleccionados < 6){
 				this.renderer.addClass(e.target, 'selected');
 				this.seleccionados++;
 				this.store.push(obj);
@@ -66,12 +66,12 @@ export class MasDesarrolladosComponent implements OnInit {
 	}
 
 	counter(selected) {
-		if (selected === 12){
+		if (selected === 6){
 			console.log('ele', this.store);
 			this.continue = true;
 			Swal.fire({
 				title: 'Test de Talentos.',
-				text: 'Has terminado de elegir tus 12 talentos más desarrollados. Si estás seguro de tus respuestas, haz click en CONTINUAR.',
+				text: 'Has terminado de elegir tus 6 talentos menos desarrollados. Si estás seguro de tus respuestas, haz click en CONTINUAR.',
 				icon: 'success'
 			});
 		}

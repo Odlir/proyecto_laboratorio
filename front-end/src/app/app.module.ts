@@ -56,6 +56,8 @@ import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressHttpModule } from 'ngx-progressbar/http';
 import { NgProgressRouterModule } from 'ngx-progressbar/router';
 import { MasDesarrolladosComponent } from './components/test-talentos/mas-desarrollados/mas-desarrollados.component';
+import { MenosDesarrolladosComponent } from './components/test-talentos/menos-desarrollados/menos-desarrollados.component';
+import { EspecificosComponent } from './components/test-talentos/especificos/especificos.component';
 
 @NgModule({
 	declarations: [
@@ -86,7 +88,9 @@ import { MasDesarrolladosComponent } from './components/test-talentos/mas-desarr
 		ReportesComponent,
 		TestTemperamentosComponent,
 		TestTalentosComponent,
-		MasDesarrolladosComponent
+		MasDesarrolladosComponent,
+		MenosDesarrolladosComponent,
+		EspecificosComponent
 	],
 	imports: [
 		BrowserModule,

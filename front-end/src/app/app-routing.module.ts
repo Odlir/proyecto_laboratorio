@@ -22,6 +22,8 @@ import {Routes, RouterModule} from '@angular/router';
 import {TestTemperamentosComponent} from './components/test-temperamentos/test-temperamentos.component';
 import { TestTalentosComponent } from './components/test-talentos/test-talentos.component';
 import {MasDesarrolladosComponent} from './components/test-talentos/mas-desarrollados/mas-desarrollados.component';
+import {MenosDesarrolladosComponent} from './components/test-talentos/menos-desarrollados/menos-desarrollados.component';
+import {EspecificosComponent} from './components/test-talentos/especificos/especificos.component';
 
 const routes: Routes = [
 	{
@@ -113,12 +115,20 @@ const routes: Routes = [
 		canActivate: [AfterLoginService]
 	},
 	{
-		path: 'talentos',
+		path: 'talentos/:encuesta_id/:persona_id',
 		component: TestTalentosComponent
 	},
 	{
 		path: 'mas-desarrollados',
 		component: MasDesarrolladosComponent
+	},
+	{
+		path: 'menos-desarrollados',
+		component: MenosDesarrolladosComponent
+	},
+	{
+		path: 'especificos',
+		component: EspecificosComponent
 	}
 ];
 

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 import {ApiBackRequestService} from '../../Services/api-back-request.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {SharedVarService} from '../../Services/shared/shared-var.service';
 
 @Component({
@@ -26,17 +26,34 @@ export class TestTalentosComponent implements OnInit {
 	list4 = [];
 	con: any;
 	path:string = '../../../assets/talentos/front/';
+	encuesta = {
+		encuesta_id: null,
+		persona_id: null,
+	}
 
 	constructor(config: NgbCarouselConfig,
 				private api: ApiBackRequestService,
 				private router: Router,
-				private sharedService: SharedVarService) {
+				private sharedService: SharedVarService,
+				private route: ActivatedRoute) {
 		config.showNavigationIndicators = false;
 		config.interval = 0;
 	}
 
 	ngOnInit(): void {
 		this.getData();
+		this.encuesta.encuesta_id = parseInt(this.route.snapshot.params.encuesta_id)
+		this.encuesta.persona_id = parseInt(this.route.snapshot.params.persona_id);
+		this.obtenerDatos();
+	}
+
+	obtenerDatos() {
+		console.log('odlir', this.encuesta);
+		/*this.api.get('encuesta_puntaje?encuesta_id=' + this.encuesta.encuesta_id + '&persona_id=' + this.encuesta.persona_id).subscribe(
+			(data) => {
+				console.log('odlir', data);
+			}
+		);*/
 	}
 
 	drop(event: CdkDragDrop<any>) {
@@ -55,7 +72,7 @@ export class TestTalentosComponent implements OnInit {
 	}
 
 	getData() {
-		this.api.get('talentos').subscribe(
+		this.api.get('talentos', 1).subscribe(
 			(data) => {
 				this.images = data;
 			}

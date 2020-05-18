@@ -41,7 +41,7 @@ class TalentosSeeder extends Seeder
             ['tendencia_id'=>3,'tipo_id'=>1,'nombre'=>'Sentido del humor','descripcion'=>'Sentido del humor','imagen'=>'Sentido del humor.png','imagen_espalda'=>'Espalda Sentido del humor.png'],
             ['tendencia_id'=>3,'tipo_id'=>1,'nombre'=>'Curioso intelectual','descripcion'=>'Curioso intelectual','imagen'=>'Curioso intelectual.png','imagen_espalda'=>'Espalda Curioso intelectual.png'],
             ['tendencia_id'=>4,'tipo_id'=>1,'nombre'=>'Organizado','descripcion'=>'Organizado','imagen'=>'Organizado.png','imagen_espalda'=>'Espalda Organizado.png'],
-            ['tendencia_id'=>4,'tipo_id'=>1,'nombre'=>'Anticipado','descripcion'=>'Anticipado','imagen'=>'Anticipado.png','imagen_espalda'=>'Anticipado.png'],
+            ['tendencia_id'=>4,'tipo_id'=>1,'nombre'=>'Anticipado','descripcion'=>'Anticipado','imagen'=>'Anticipado.png','imagen_espalda'=>'Espalda Anticipado.png'],
             ['tendencia_id'=>4,'tipo_id'=>1,'nombre'=>'Detallista','descripcion'=>'Detallista','imagen'=>'Detallista.png','imagen_espalda'=>'Espalda Detallista.png'],
             ['tendencia_id'=>4,'tipo_id'=>1,'nombre'=>'Disciplinado','descripcion'=>'Disciplinado','imagen'=>'Disciplinado.png','imagen_espalda'=>'Espalda Disciplinado.png'],
             ['tendencia_id'=>4,'tipo_id'=>1,'nombre'=>'Enfocado','descripcion'=>'Enfocado','imagen'=>'Enfocado.png','imagen_espalda'=>'Espalda Enfocado.png'],

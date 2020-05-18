@@ -25,6 +25,12 @@
 	display: block;
 }
 
+.cont-button button:hover{
+	color: red;
+	background: white;
+	float: right;
+}
+
 .example-box {
 
 }
