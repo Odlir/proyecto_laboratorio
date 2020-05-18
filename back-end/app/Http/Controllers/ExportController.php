@@ -231,23 +231,25 @@ class ExportController extends Controller
                 ->where('estado', '1')
                 ->first();
 
+            $encuesta_tal = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
+                ->where('tipo_encuesta_id', 2)
+                ->where('estado', '1')
+                ->first();
+
             foreach ($i['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
                 $p_intereses = EncuestaPuntaje::where('encuesta_id', $i['id'])
                     ->where('persona_id', $p['id'])
-                    ->with('punintereses.carrera.intereses')
-                    ->with(['puninteresessort' => function ($query) {
-                        $query->with('carrera');
-                        $query->orderBy('puntaje', 'DESC');
-                    }])
                     ->first();
 
                 $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
                     ->where('persona_id', $p['id'])
-                    ->with('puntemperamentos.formula')
-                    ->with('areatemperamentos')
                     ->first();
 
-                if ($p_intereses && $p_temperamentos) {
+                $p_talentos = EncuestaPuntaje::where('encuesta_id', $encuesta_tal['id'])
+                    ->where('persona_id', $p['id'])
+                    ->first();
+
+                if ($p_intereses && $p_temperamentos && $p_talentos) {
                     $show = true;
                     break 2; //SALGO DE LOS 2 FOREACH
                 } else {
@@ -267,23 +269,25 @@ class ExportController extends Controller
                 ->where('estado', '1')
                 ->first();
 
+            $encuesta_tal = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
+                ->where('tipo_encuesta_id', 2)
+                ->where('estado', '1')
+                ->first();
+
             foreach ($i['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
                 $p_intereses = EncuestaPuntaje::where('encuesta_id', $i['id'])
                     ->where('persona_id', $p['id'])
-                    ->with('punintereses.carrera.intereses')
-                    ->with(['puninteresessort' => function ($query) {
-                        $query->with('carrera');
-                        $query->orderBy('puntaje', 'DESC');
-                    }])
                     ->first();
 
                 $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
                     ->where('persona_id', $p['id'])
-                    ->with('puntemperamentos.formula')
-                    ->with('areatemperamentos')
                     ->first();
 
-                if ($p_intereses && $p_temperamentos) {
+                $p_talentos = EncuestaPuntaje::where('encuesta_id', $encuesta_tal['id'])
+                    ->where('persona_id', $p['id'])
+                    ->first();
+
+                if ($p_intereses && $p_temperamentos && $p_talentos) {
                     if (!in_array($p['anio'], $años)) {
                         array_push($años, $p['anio']);
                     }
@@ -304,23 +308,25 @@ class ExportController extends Controller
                 ->where('estado', '1')
                 ->first();
 
+            $encuesta_tal = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
+                ->where('tipo_encuesta_id', 2)
+                ->where('estado', '1')
+                ->first();
+
             foreach ($i['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
                 $p_intereses = EncuestaPuntaje::where('encuesta_id', $i['id'])
                     ->where('persona_id', $p['id'])
-                    ->with('punintereses.carrera.intereses')
-                    ->with(['puninteresessort' => function ($query) {
-                        $query->with('carrera');
-                        $query->orderBy('puntaje', 'DESC');
-                    }])
                     ->first();
 
                 $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
                     ->where('persona_id', $p['id'])
-                    ->with('puntemperamentos.formula')
-                    ->with('areatemperamentos')
                     ->first();
 
-                if ($p_intereses && $p_temperamentos) {
+                $p_talentos = EncuestaPuntaje::where('encuesta_id', $encuesta_tal['id'])
+                    ->where('persona_id', $p['id'])
+                    ->first();
+
+                if ($p_intereses && $p_temperamentos && $p_talentos) {
                     foreach ($data_muestra as $m) {
                         if ($m->anio == $p['anio']) {
                             $m->muestra++;
