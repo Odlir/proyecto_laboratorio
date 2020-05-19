@@ -10,6 +10,7 @@ class TalentoEspecificoMenosDesarrollado extends Model
 
     protected $fillable = [
         'talento_id',
-        'encuesta_puntaje_id'
+        'persona_id',
+        'encuesta_id'
     ];
 }

@@ -25,8 +25,15 @@
                 @endif
             </td>
             @if ($show)
-                <td></td>
-                <td></td>
+                <td>{{ $p->status_tal }}</td>
+                <td>
+                    @if ($p->status_tal=="Completado")
+                    {{ $p->link_talentos }}
+                    @else
+                    <a href="{{ $p->link_talentos }}">{{ $p->link_talentos }}</a>
+                    @endif
+                </td>
+
                 <td>{{ $p->status_temp }}</td>
                 <td>
                     @if ($p->status_temp=="Completado")

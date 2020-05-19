@@ -11,6 +11,7 @@ class TalentoRespuesta extends Model
     protected $fillable = [
         'talento_id',
         'tipo',
-        'encuesta_puntaje_id',
+        'persona_id',
+        'encuesta_id'
     ];
 }

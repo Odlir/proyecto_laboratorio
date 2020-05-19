@@ -125,6 +125,10 @@
                 font-size: 30px;
             }
 
+            .subtitulo{
+                font-size: 25px;
+            }
+
             .h-footer{
                 bottom: 0;
                 position:absolute;
@@ -138,6 +142,14 @@
 
             .text-right{
                 text-align: right;
+            }
+
+            .w-95{
+                width:95%;
+            }
+
+            .w-5{
+                width: 5%;
             }
 
             .ml-5
@@ -209,7 +221,70 @@
             .bg-sexo3{
                 background: #E5E9EE;
             }
-            
+
+            .mb-0{
+                margin-bottom: 0!important;
+            }
+
+            .table-temperamento{
+                page-break-inside: avoid;
+            }
+
+            .table{
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .barra_tabla{
+                height: 220px;
+                width: 8px;
+                background: #6c757d;
+                margin-left: -1px;
+            }
+
+            .height-graph
+            {   
+                height: 93px;
+                margin: 10px;
+            }
+
+            .barra{
+                position: relative;
+                width: 100%;
+                background: red;
+            }
+
+            .linea
+            {   margin-left: -17px;
+                width: 100%;
+                height:10px;
+                background: #6c757d;
+            }
+
+            .table-intereses{
+                border-collapse: collapse;
+                border: 1px solid;
+                font-size: 15px;
+            }
+            .table-intereses th{
+                border-top: 1px solid;
+                border-left: 1px solid;
+                border-right: 1px solid;
+            }
+            .table-intereses td{
+                border-left: 1px solid;
+                border-right: 1px solid;
+            }
+
+            .barra-interes
+            {
+                height: 25px;
+                margin-top: 4px;
+                margin-bottom: 4px;
+                margin-left: 5px;
+                margin-right: 5px;
+                background: red;
+            }
         </style>
     </head>
     
@@ -289,14 +364,14 @@
             <table class="w-100 bg-dark text-white">
                 <tr>
                     <td>
-                        <p class="titulo ml-5">Orientación Vocacional</p>
+                        <p class="subtitulo ml-5">Orientación Vocacional</p>
                     </td>
                     <td class="text-right">
                         <img class="mr-5" src="{{ 'storage/logo_upc_blanco.png' }}" alt="">
                     </td>
                 </tr>
             </table>
-        </div> 
+        </div>
 
         <div class="page_break text-justify text-secondary">
             <p>
@@ -508,7 +583,7 @@
                         alumno
                     @endif
 
-                    de 
+                    de la promoción
                     {{$m->anio}}
                 </span> 
                 <br>
@@ -791,11 +866,228 @@
                     <p class="font-weight-bold h3">
                         {{$tal->nombre}}
                     </p>
-                    <p>
+                    <p style="margin-top: -1px;">
                         {{$tal->descripcion}}
                     </p>
                 </div>
             @endforeach
+            
+            <div>
+                <p class="h3 font-weight-bold mt-5">
+                    VI. PROCEDIMIENTO
+                </p>
+    
+                <p>
+                    La evaluación se llevó a cabo con {{$total}} alumnos que han resuelto las tres encuestas.
+                </p>
+    
+                <p>
+                    El proceso se inició dividiendo a los alumnos por sus respectivas secciones en dos salas de laboratorio del colegio.
+                </p>
+    
+                <p>
+                    En la primera parte de la evaluación, el equipo de psicólogos evaluadores explicó a los alumnos, las instrucciones de acceso para la realización de cada uno de las pruebas virtuales. 
+                </p>
+    
+                <p>
+                    En dicha fecha, los alumnos se mostraron interesados y atentos ante las consignas brindadas por los evaluadores, realizando la prueba con concentración y rapidez. Las evaluaciones transcurrieron de manera fluida y sin ningún inconveniente.
+                </p>
+            </div>
+
+            <div>
+                <p class="h3 font-weight-bold mt-5">
+                    VII. RESULTADOS
+                </p>
+
+                <p>
+                    A continuación, se presentan los resultados encontrados. Estos están divididos en 
+                    cuatro grandes bloques correspondientes a los cuatro instrumentos de evaluación. 
+                </p>
+    
+                <p class="font-weight-bold h3">
+                    Evaluación de Preferencias del Temperamento (EPT)
+                </p>
+    
+                <p>
+                    Las Tablas 3, 4, 5 y 6, presenta cuántos alumnos de la muestra total del colegio caen dentro de cada categoría para cada una de las dimensiones del EPT, 
+                    así como el porcentaje (normal y acumulado) que esto representa dentro del grupo evaluado. 
+                </p>
+            </div>
+        </div>
+        
+        <div class="page_break text-justify text-secondary">
+            @foreach ($areas as $a)
+                <div>
+                    <div class="table-temperamento">
+                        <p class="font-weight-bold text-secondary h3">1.2.{{$loop->index +1}} Descripciones de los elementos del área {{$a->nombre}}</p>
+                        <br>
+                        <table class="w-100 table text-secondary text-center table-temperamento">
+                            <tr>
+                                <td width="20px">
+                                    @foreach ($a->items as $i)
+                                        @if ($i->posicion == '1')
+                                            <p class="h3">{{$i->nombre }}</p>
+                                        @endif
+                                    @endforeach 
+                                </td>
+                                @foreach ($a->items as $a_i)
+                                    @foreach ($a_i->items as $i_i)
+                                        @if ($i_i->posicion=='1' && $i_i->id!=15 && $i_i->id!=21 && $i_i->id!=31)
+                                            <td width="120px;">{{$i_i->nombre}}</td>
+                                        @endif
+                                    @endforeach
+                                @endforeach 
+                            </tr>
+                            <tr>
+                                <td class="text-right">
+                                    <table class="text-secondary w-100">
+                                        <tr class="w-100">
+                                            <td class="w-95 text-right p-0">
+                                                <p>3 -</p>
+                                                <p>2 -</p>
+                                                <p>1 -</p>
+                                                <p>0 -</p>
+                                                <p>1 -</p>
+                                                <p>2 -</p>
+                                                <p>3 -</p>
+                                            </td>
+                                            <td class="w-5 p-0">
+                                                <div class="barra_tabla">
+        
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                @foreach ($p_temperamentos as $p)
+                                    @if ($p->formula_id!=8 && $p->formula_id!=11 && $p->formula_id!=16)
+                                        @if ($a->id == $p->area_id)
+                                            <td class="p-0 m-0">
+                                                <div class="height-graph">
+                                                    @if ($p->transformacion>0)
+                                                        @php
+                                                            $tamaño= (abs($p->transformacion)*31);
+                                                            $top = 100 - $tamaño;
+                                                        @endphp
+                                                        <div class="barra"  style="height: {{$tamaño}}px;top:{{$top}}px">
+                                                            
+                                                        </div>
+                                                    @endif  
+                                                    
+                                                    @if ($p->transformacion==0)
+                                                        <div class="barra"  style="height: 15px;top:85px;">
+                                                            
+                                                        </div>
+                                                    @endif 
+                                                </div>
+                                                                    
+                                                <div class="linea">
+
+                                                </div>
+
+                                                <div class="height-graph">
+                                                    @if ($p->transformacion<0)
+                                                        @php
+                                                            $tamaño= (abs($p->transformacion)*31);
+                                                        @endphp
+                                                        <div class="barra" style="height: {{$tamaño}}px;top:-7px;">
+                                                            
+                                                        </div>
+                                                    @endif
+                                                    @if ($p->transformacion==0)
+                                                        <div class="barra"  style="height: 15px;top:-7px;">
+                                                            
+                                                        </div>
+                                                    @endif      
+                                                </div>        
+                                            </td>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            </tr>
+                            <tr>
+                                <td>
+                                    @foreach ($a->items as $i)
+                                        @if ($i->posicion == '0')
+                                            <p class="h3">{{$i->nombre }}</p> 
+                                        @endif
+                                    @endforeach 
+                                </td>
+                                @foreach ($a->items as $a_i)
+                                    @foreach ($a_i->items as $i_i)
+                                        @if ($i_i->posicion=='0' && $i_i->id!=16 && $i_i->id!=22 && $i_i->id!=32)
+                                            <td>{{$i_i->nombre}}</td>
+                                        @endif
+                                    @endforeach
+                                @endforeach 
+                            </tr>
+                        </table>
+                    </div>            
+                </div>
+                <br>
+            @endforeach
+        </div>
+
+        <div class="page_break text-justify text-secondary">
+            <p>
+                La Tabla 6, muestra los valores acumulados de acuerdo al número de alumnos que 
+                presentan interés en cada una de las áreas profesionales evaluadas:
+            </p>
+            <br>
+
+            <table class="w-100 table-intereses text-secondary">
+                <thead class="text-center" style="font-weight:bold; font-size: 17px;">
+                    <tr>
+                        <td width="55%" rowspan="2">
+                            ÁREA DE INTERÉS
+                        </td>
+                        <td width="45%" colspan="4">
+                            Puntaje
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="13%">
+                            Valor
+                        </td>
+                        <td width="29%">
+                            Bajo 
+                        </td>
+                        <td width="29%">
+                            Medio
+                        </td>
+                        <td width="29%">
+                            Alto
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($p_intereses as $p)
+                        <tr>
+                            <td class="font-weight-bold p-2">
+                                {{$p->carrera}}
+                            </td>
+                            <td class="text-center p-2">
+                                {{$p->puntaje}}
+                            </td>
+                            <td colspan="3">
+                                <div class="barra-interes" style="width:{{$p->puntaje}}%">
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table> 
+        </div>
+
+        <div class="page_break text-justify text-secondary">
+            <p>
+                A partir de la Tabla 6, se observa que los campos profesionales de mayor preferencia en la muestra evaluada son:
+                @foreach ($p_intereses as $i)
+                    @if ($i->puntaje>=75)
+                      <b class="italic">{{$i->carrera}}</b>&nbsp;({{$i->descripcion}});&nbsp;
+                    @endif
+                @endforeach
+            </p>
         </div>
     </body>
 </html>

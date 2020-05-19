@@ -500,7 +500,6 @@
     
                 @foreach ($areas as $a)
                 <div>
-
                     <div class="table-temperamento">
                         <p class="font-weight-bold text-secondary h2">1.2.{{$loop->index +1}} Descripciones de los elementos del área {{$a->nombre}}</p>
                         <br>
@@ -526,12 +525,12 @@
                                     <table class="text-secondary w-100">
                                         <tr class="w-100">
                                             <td class="w-95 text-right p-0">
-                                                <p class="mb-2">3 -</p>
-                                                <p class="mb-2">2 -</p>
-                                                <p class="mb-2">1 -</p>
-                                                <p class="mb-2">0 -</p>
-                                                <p class="mb-2">1 -</p>
-                                                <p class="mb-2">2 -</p>
+                                                <p>3 -</p>
+                                                <p>2 -</p>
+                                                <p>1 -</p>
+                                                <p>0 -</p>
+                                                <p>1 -</p>
+                                                <p>2 -</p>
                                                 <p>3 -</p>
                                             </td>
                                             <td class="w-5 p-0">
@@ -544,7 +543,7 @@
                                 </td>
                                 @foreach ($p_temperamentos as $p)
                                     @if ($p->formula_id!=8 && $p->formula_id!=11 && $p->formula_id!=16)
-                                        @if ($a->id == $p->formula->area->id)
+                                        @if ($a->id == $p->formula->area_id)
                                             <td class="p-0 m-0">
                                                 <div class="height-graph">
                                                     @if ($p->transformacion>0)
@@ -610,7 +609,7 @@
                     <br>
                     @foreach ($p_temperamentos as $p)
                         @if ($p->formula_id!=8 && $p->formula_id!=11 && $p->formula_id!=16)
-                            @if ($a->id == $p->formula->area->id)
+                            @if ($a->id == $p->formula->area_id)
                                 @if ($p->transformacion>0)
                                     @foreach ($p->formula->items as $i)
                                         @if ($i->posicion=='1')
@@ -698,8 +697,5 @@
                 </p>
             </div>
         </div>
-
-       
-        </div>   
     </body>
 </html>

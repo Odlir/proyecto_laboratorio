@@ -17,17 +17,19 @@ class StatusExport implements FromView, ShouldAutoSize, WithEvents
     private $personas;
     private $interes_id;
     private $temperamento_id;
+    private $talento_id;
 
     private $front;
     private $back;
 
     private $show = true;
 
-    public function __construct($personas, $interes_id, $temperamento_id)
+    public function __construct($personas, $interes_id, $temperamento_id, $talento_id)
     {
         $this->personas = $personas;
         $this->interes_id = $interes_id;
         $this->temperamento_id = $temperamento_id;
+        $this->talento_id = $talento_id;
 
         $this->front = config('constants.front_end');
         $this->back = config('constants.back_end');
@@ -42,6 +44,10 @@ class StatusExport implements FromView, ShouldAutoSize, WithEvents
                 ->where('persona_id', $p->id)
                 ->first();
 
+            $data_talento = EncuestaPuntaje::where('encuesta_id', $this->talento_id)
+                ->where('persona_id', $p->id)
+                ->first();
+
             if ($data_interes) {
                 // $p->link_intereses = $this->back . 'exportar' . '/intereses/' . $this->interes_id . '/' . $p->id;
                 $p->link_intereses = "En archivo";
@@ -51,20 +57,28 @@ class StatusExport implements FromView, ShouldAutoSize, WithEvents
                 $p->status_int = "Pendiente";
             }
 
-            if ($data_temperamento) {
-                // $p->link_temperamentos = $this->back . 'exportar' . '/temperamentos/' . $this->temperamento_id . '/' . $p->id;
-                $p->link_temperamentos = "En archivo";
-                $p->status_temp = "Completado";
-            } else {
-                if ($this->temperamento_id != '') {
+            if ($this->temperamento_id != '') {
+                if ($data_temperamento) {
+                    // $p->link_temperamentos = $this->back . 'exportar' . '/temperamentos/' . $this->temperamento_id . '/' . $p->id;
+                    $p->link_temperamentos = "En archivo";
+                    $p->status_temp = "Completado";
+                } else {
                     $p->link_temperamentos = $this->front . '/test-temperamentos/' . $this->temperamento_id . '/' . $p->id;
                     $p->status_temp = "Pendiente";
-                } else {
-                    $this->show = false;
                 }
+
+                if ($data_talento) {
+                    $p->link_talentos = "En archivo";
+                    $p->status_tal = "Completado";
+                } else {
+                    $p->link_talentos = $this->front . '/test-talentos/' . $this->talento_id . '/' . $p->id;
+                    $p->status_tal = "Pendiente";
+                }
+            } else {
+                $this->show = false;
             }
 
-            if ($data_interes && $data_temperamento) {
+            if ($data_interes && $data_temperamento && $data_talento) {
                 $p->link_consolidado = $this->back . 'exportar' . '/consolidados/' .  $this->interes_id . '/' . $p->id;
             }
         }
