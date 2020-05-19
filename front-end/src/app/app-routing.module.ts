@@ -24,6 +24,7 @@ import { TestTalentosComponent } from './components/test-talentos/test-talentos.
 import {MasDesarrolladosComponent} from './components/test-talentos/mas-desarrollados/mas-desarrollados.component';
 import {MenosDesarrolladosComponent} from './components/test-talentos/menos-desarrollados/menos-desarrollados.component';
 import {EspecificosComponent} from './components/test-talentos/especificos/especificos.component';
+import {EspecificosMenosComponent} from './components/test-talentos/especificos-menos/especificos-menos.component';
 
 const routes: Routes = [
 	{
@@ -129,6 +130,10 @@ const routes: Routes = [
 	{
 		path: 'especificos',
 		component: EspecificosComponent
+	},
+	{
+		path: 'especificos-menos',
+		component: EspecificosMenosComponent
 	}
 ];
 

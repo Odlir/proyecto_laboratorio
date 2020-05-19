@@ -9,7 +9,7 @@
 	</p>
 <br>
 
-<mat-card class="card">
+<mat-card *ngIf="show" class="card">
 	<div class="cont-button">
 		<button mat-raised-button (click)="continuar()">Continuar >></button>
 	</div>
@@ -37,7 +37,7 @@
 				     [cdkDropListConnectedTo]="[intermedio, menos]"
 				     class="example-list" (cdkDropListDropped)="drop($event)">
 					<ol class="example-box">
-						<li *ngFor="let l2 of list2" [cdkDragData]="l2" cdkDrag>
+						<li class="items" *ngFor="let l2 of list2" [cdkDragData]="l2" cdkDrag>
 							{{l2.nombre}}
 						</li>
 					</ol>
@@ -51,7 +51,7 @@
 				     [cdkDropListConnectedTo]="[doneList, menos]"
 				     class="example-list" (cdkDropListDropped)="drop($event)">
 					<ol class="example-box">
-						<li *ngFor="let l3 of list3" [cdkDragData]="l3" cdkDrag>
+						<li class="items" *ngFor="let l3 of list3" [cdkDragData]="l3" cdkDrag>
 							{{l3.nombre}}
 						</li>
 					</ol>
@@ -65,12 +65,19 @@
 				     [cdkDropListConnectedTo]="[intermedio, doneList]"
 				     class="example-list" (cdkDropListDropped)="drop($event)">
 					<ol class="example-box">
-						<li *ngFor="let l4 of list4" [cdkDragData]="l4" cdkDrag>
+						<li class="items" *ngFor="let l4 of list4" [cdkDragData]="l4" cdkDrag>
 							{{l4.nombre}}
 						</li>
 					</ol>
 				</div>
 			</div>
 		</div>
+	</div>
+</mat-card>
+<mat-card *ngIf="!show" class="card">
+	<div class="alert bg-white" role="alert">
+		<h4 class="alert-heading">{{mensaje}}</h4>
+		<br>
+		<p>{{mensaje}}</p>
 	</div>
 </mat-card>

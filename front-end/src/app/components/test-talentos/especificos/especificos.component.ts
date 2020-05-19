@@ -31,7 +31,7 @@ export class EspecificosComponent implements OnInit {
 	}
 
 	continuar() {
-		this.router.navigate(['./menos-desarrollados']);
+		this.router.navigate(['./especificos-menos']);
 	}
 
 	showBack() {

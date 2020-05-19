@@ -1,15 +1,15 @@
-import {ChangeDetectorRef, Component, NgZone, OnInit, Renderer2} from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import {SharedVarService} from '../../../Services/shared/shared-var.service';
 import {ApiBackRequestService} from '../../../Services/api-back-request.service';
-import Swal from "sweetalert2";
 import {Router} from '@angular/router';
+import Swal from "sweetalert2";
 
 @Component({
-	selector: 'app-mas-desarrollados',
-	templateUrl: './mas-desarrollados.component.html',
-	styleUrls: ['./mas-desarrollados.component.css']
+  selector: 'app-especificos-menos',
+  templateUrl: './especificos-menos.component.html',
+  styleUrls: ['./especificos-menos.component.css']
 })
-export class MasDesarrolladosComponent implements OnInit {
+export class EspecificosMenosComponent implements OnInit {
 
 	public sucursal = 'Colegio UPC';
 	public alumno = 'Humberto Gutierrez';
@@ -31,24 +31,6 @@ export class MasDesarrolladosComponent implements OnInit {
 	}
 
 	continuar() {
-
-		/*let obj = {
-			encuesta_id: null,
-			persona_id: null,
-			talento_id: null
-		}
-
-		let data = [];
-
-		this.api.post('encuesta_puntaje', [data, 2]).subscribe(
-			(data) => {
-
-			},
-			(error) => {
-
-			}
-		);*/
-
 		this.router.navigate(['./menos-desarrollados']);
 	}
 
@@ -64,7 +46,7 @@ export class MasDesarrolladosComponent implements OnInit {
 			this.seleccionados--;
 			this.store = this.store.filter(i => i.id !==obj.id);
 		} else {
-			if (this.seleccionados < 12){
+			if (this.seleccionados < 3){
 				this.renderer.addClass(e.target, 'selected');
 				this.seleccionados++;
 				this.store.push(obj);
@@ -75,30 +57,21 @@ export class MasDesarrolladosComponent implements OnInit {
 	}
 
 	getData() {
-		/*this.api.get('talentos', 1).subscribe(
-			(data) => {
-				this.images = data;
-				this.total = data.length;
-			}
-		);*/
-
-		this.api.get('talentos?encuesta_id=' + 3 + '&persona_id=' + 1 +'&tipo='+2).subscribe(
+		this.api.get('talentos', 2).subscribe(
 			(data) => {
 				this.images = data;
 				this.total = data.length;
 			}
 		);
-
-
 	}
 
 	counter(selected) {
-		if (selected === 12){
+		if (selected === 3){
 			console.log('ele', this.store);
 			this.continue = true;
 			Swal.fire({
 				title: 'Test de Talentos.',
-				text: 'Has terminado de elegir tus 12 talentos más desarrollados. Si estás seguro de tus respuestas, haz click en CONTINUAR.',
+				text: 'Has terminado de elegir tus 3 talentos especificos. Si estás seguro de tus respuestas, haz click en CONTINUAR.',
 				icon: 'success'
 			});
 		}
