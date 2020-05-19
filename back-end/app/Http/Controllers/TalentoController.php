@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Talento;
-use App\TalentoMenosDesarrollado;
+use App\TalentoEspecificoMasDesarrollado;
+use App\TalentoMasDesarrollado;
 use App\TalentoRespuesta;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class TalentoController extends Controller
             $encuesta_id = $request->input('encuesta_id');
 
             if ($tipo == 4) {
-                $menos = TalentoMenosDesarrollado::where('persona_id', $persona_id)
+                $mas = TalentoEspecificoMasDesarrollado::where('persona_id', $persona_id)
                     ->where('encuesta_id', $encuesta_id)
                     ->get();
 
@@ -30,8 +31,8 @@ class TalentoController extends Controller
                     ->where('tipo_id', 2)
                     ->get();
 
-                foreach ($menos as $key => $m) {
-                    foreach ($data as $e) {
+                foreach ($data as $key => $e) {
+                    foreach ($mas as $m) {
                         if ($e['id'] == $m['talento_id']) {
                             $data->forget($key);
                         }

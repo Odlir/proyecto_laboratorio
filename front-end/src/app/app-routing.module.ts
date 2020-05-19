@@ -34,8 +34,9 @@ const routes: Routes = [
   // },
   {
     path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AfterLoginService]
+    // component: DashboardComponent,
+    canActivate: [AfterLoginService],
+    redirectTo: 'encuestas'
   },
   {
     path: 'personas',

@@ -38,7 +38,7 @@ export class SignupComponent implements OnInit {
 
   handleResponse(data) {
     this.Token.handle(data.access_token, data.user);
-    this.router.navigateByUrl('/encuestas');
+    this.router.navigateByUrl('/dashboard');
   }
 
   ngOnInit(): void {

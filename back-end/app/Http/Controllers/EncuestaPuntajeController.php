@@ -47,25 +47,49 @@ class EncuestaPuntajeController extends Controller
         $data = $request->all();
 
         if ($data[1] == 1) {
+            TalentoRespuesta::where('encuesta_id', $data[0][0]['encuesta_id'])
+                ->where('persona_id', $data[0][0]['persona_id'])
+                ->delete();
+
             foreach ($data[0] as $d) { //TODOS LOS TALENTOS
                 TalentoRespuesta::create($d);
             }
         } else if ($data[1] == 2) {
+
+            TalentoMasDesarrollado::where('encuesta_id', $data[0][0]['encuesta_id'])
+                ->where('persona_id', $data[0][0]['persona_id'])
+                ->delete();
+
             foreach ($data[0] as $d) //TALENTOS MAS DESARROLLADOS
             {
                 TalentoMasDesarrollado::create($d);
             }
         } else if ($data[1] == 3) {
+
+            TalentoMenosDesarrollado::where('encuesta_id', $data[0][0]['encuesta_id'])
+                ->where('persona_id', $data[0][0]['persona_id'])
+                ->delete();
+
             foreach ($data[0] as $d) //TALENTOS MENOS DESARROLLADOS
             {
                 TalentoMenosDesarrollado::create($d);
             }
         } else if ($data[1] == 4) {
+
+            TalentoEspecificoMasDesarrollado::where('encuesta_id', $data[0][0]['encuesta_id'])
+                ->where('persona_id', $data[0][0]['persona_id'])
+                ->delete();
+
             foreach ($data[0] as $d) //TALENTOS ESPECIFICOS MAS DESARROLLADOS
             {
                 TalentoEspecificoMasDesarrollado::create($d);
             }
         } else if ($data[1] == 5) {
+
+            TalentoEspecificoMenosDesarrollado::where('encuesta_id', $data[0][0]['encuesta_id'])
+                ->where('persona_id', $data[0][0]['persona_id'])
+                ->delete();
+
             foreach ($data[0] as $d) //TALENTOS ESPECIFICOS MENOS DESARROLLADOS
             {
                 TalentoEspecificoMenosDesarrollado::create($d);
@@ -104,9 +128,8 @@ class EncuestaPuntajeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) 
+    public function update(Request $request, $id)
     {
-        
     }
 
     /**

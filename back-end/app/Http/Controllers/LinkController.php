@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\EmpresaSucursal;
 use App\Encuesta;
 use Illuminate\Http\Request;
 
