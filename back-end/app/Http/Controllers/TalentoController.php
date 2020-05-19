@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Talento;
+use App\TalentoMenosDesarrollado;
+use App\TalentoRespuesta;
 use Illuminate\Http\Request;
 
 class TalentoController extends Controller
@@ -12,11 +14,39 @@ class TalentoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Talento::where('estado', '1')
-                ->get();
+        if ($request->input('tipo') != null) {
+            $tipo = $request->input('tipo');
+            $persona_id = $request->input('persona_id');
+            $encuesta_id = $request->input('encuesta_id');
 
+            if ($tipo == 4) {
+                $menos = TalentoMenosDesarrollado::where('persona_id', $persona_id)
+                    ->where('encuesta_id', $encuesta_id)
+                    ->get();
+
+                $data = Talento::where('estado', '1')
+                    ->where('tipo_id', 2)
+                    ->get();
+
+                foreach ($menos as $key => $m) {
+                    foreach ($data as $e) {
+                        if ($e['id'] == $m['talento_id']) {
+                            $data->forget($key);
+                        }
+                    }
+                }
+            } else {
+                $data = TalentoRespuesta::where('persona_id', $persona_id)
+                    ->where('encuesta_id', $encuesta_id)
+                    ->where('tipo', $tipo)
+                    ->get();
+            }
+        } else {
+            $data = Talento::where('estado', '1')
+                ->get();
+        }
         return response()->json($data, 200);
     }
 
@@ -50,8 +80,8 @@ class TalentoController extends Controller
     public function show($id)
     {
         $data = Talento::where('estado', '1')
-                ->where('tipo_id',$id)
-                ->get();
+            ->where('tipo_id', $id)
+            ->get();
 
         return response()->json($data, 200);
     }

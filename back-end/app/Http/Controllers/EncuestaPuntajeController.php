@@ -42,9 +42,37 @@ class EncuestaPuntajeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) //AQUI GUARDO TALENTOS
     {
-        //
+        $data = $request->all();
+
+        if ($data[1] == 1) {
+            foreach ($data[0] as $d) { //TODOS LOS TALENTOS
+                TalentoRespuesta::create($d);
+            }
+        } else if ($data[1] == 2) {
+            foreach ($data[0] as $d) //TALENTOS MAS DESARROLLADOS
+            {
+                TalentoMasDesarrollado::create($d);
+            }
+        } else if ($data[1] == 3) {
+            foreach ($data[0] as $d) //TALENTOS MENOS DESARROLLADOS
+            {
+                TalentoMenosDesarrollado::create($d);
+            }
+        } else if ($data[1] == 4) {
+            foreach ($data[0] as $d) //TALENTOS ESPECIFICOS MAS DESARROLLADOS
+            {
+                TalentoEspecificoMasDesarrollado::create($d);
+            }
+        } else if ($data[1] == 5) {
+            foreach ($data[0] as $d) //TALENTOS ESPECIFICOS MENOS DESARROLLADOS
+            {
+                TalentoEspecificoMenosDesarrollado::create($d);
+            }
+        }
+
+        return response()->json('Success', 200);
     }
 
     /**
@@ -76,37 +104,9 @@ class EncuestaPuntajeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) //AQUI GUARDO LOS TALENTOS
+    public function update(Request $request, $id) 
     {
-        $data = $request->all();
-
-        if ($data[1] == 1) {
-            foreach ($data[0] as $d) { //TODOS LOS TALENTOS
-                TalentoRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $id]));
-            }
-        } else if ($data[1] == 2) {
-            foreach ($data[0] as $d) //TALENTOS MAS DESARROLLADOS
-            {
-                TalentoMasDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $id]));
-            }
-        } else if ($data[1] == 3) {
-            foreach ($data[0] as $d) //TALENTOS MENOS DESARROLLADOS
-            {
-                TalentoMenosDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $id]));
-            }
-        } else if ($data[1] == 4) {
-            foreach ($data[0] as $d) //TALENTOS ESPECIFICOS MAS DESARROLLADOS
-            {
-                TalentoEspecificoMasDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $id]));
-            }
-        } else if ($data[1] == 5) {
-            foreach ($data[0] as $d) //TALENTOS ESPECIFICOS MENOS DESARROLLADOS
-            {
-                TalentoEspecificoMenosDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $id]));
-            }
-        }
-
-        return response()->json('Success', 200);
+        
     }
 
     /**

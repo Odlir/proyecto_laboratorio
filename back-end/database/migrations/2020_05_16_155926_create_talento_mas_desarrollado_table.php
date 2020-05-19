@@ -16,8 +16,11 @@ class CreateTalentoMasDesarrolladoTable extends Migration
         Schema::create('talento_mas_desarrollado', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('encuesta_puntaje_id');
-            $table->foreign('encuesta_puntaje_id')->references('id')->on('encuesta_puntaje');
+            $table->unsignedBigInteger('encuesta_id');
+            $table->foreign('encuesta_id')->references('id')->on('encuestas');
+
+            $table->unsignedBigInteger('persona_id');
+            $table->foreign('persona_id')->references('id')->on('personas');
 
             $table->unsignedBigInteger('talento_id');
             $table->foreign('talento_id')->references('id')->on('talentos');
