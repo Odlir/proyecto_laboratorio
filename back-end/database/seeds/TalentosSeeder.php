@@ -101,7 +101,7 @@ class TalentosSeeder extends Seeder
             ['tendencia_id'=>4,'tipo_id'=>1,'nombre'=>'Organizado','descripcion'=>'Te gusta identificar los pasos a seguir y las etapas o periodos de trabajo. Asignas roles y 
             responsabilidades; programas tareas y reconoces el objetivo fundamental de cada una.','imagen'=>'Organizado.png','imagen_espalda'=>'Espalda Organizado.png'],
             ['tendencia_id'=>4,'tipo_id'=>1,'nombre'=>'Anticipado','descripcion'=>'Empiezas los proyectos apenas los recibes. Disfrutas al terminar los proyectos mucho antes 
-            de la fecha límite. No te gusta lidiar con presiones de último minuto; por ello, inicias lo encomendado apenas lo recibes.','imagen'=>'Anticipado.png','imagen_espalda'=>'Anticipado.png'],
+            de la fecha límite. No te gusta lidiar con presiones de último minuto; por ello, inicias lo encomendado apenas lo recibes.','imagen'=>'Anticipado.png','imagen_espalda'=>'Espalda Anticipado.png'],
             ['tendencia_id'=>4,'tipo_id'=>1,'nombre'=>'Detallista','descripcion'=>'Cuando trabajas en algún proyecto, profundizas en los detalles. Eres meticuloso al ejecutar 
             un proyecto o tarea. Puedes desarrollar un tema e identificar sus partes hasta describirlas de manera específica. Adviertes, de inmediato, los errores e inconsistencias. 
             Te gusta ser capaz de corregir los errores. Disfrutas corregir y completar los detalles pendientes. Te resulta importante prestar atención a los detalles.',

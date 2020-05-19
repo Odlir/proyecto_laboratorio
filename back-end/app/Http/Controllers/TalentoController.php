@@ -41,6 +41,7 @@ class TalentoController extends Controller
                 $data = TalentoRespuesta::where('persona_id', $persona_id)
                     ->where('encuesta_id', $encuesta_id)
                     ->where('tipo', $tipo)
+                    ->with('talento')
                     ->get();
             }
         } else {

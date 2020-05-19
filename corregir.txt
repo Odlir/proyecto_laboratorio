@@ -2,8 +2,6 @@
 
 - EL IMPORTAR EN EXCEL EN CELULAR ESTÁ FALLANDO
 
-- Al entrar al sistema se debe redireccionar a programar encuestas
-
 --------------------------
 
 <base href="/encuestas/">
