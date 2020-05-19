@@ -260,7 +260,31 @@
                 height:10px;
                 background: #6c757d;
             }
-            
+
+            .table-intereses{
+                border-collapse: collapse;
+                border: 1px solid;
+                font-size: 15px;
+            }
+            .table-intereses th{
+                border-top: 1px solid;
+                border-left: 1px solid;
+                border-right: 1px solid;
+            }
+            .table-intereses td{
+                border-left: 1px solid;
+                border-right: 1px solid;
+            }
+
+            .barra-interes
+            {
+                height: 25px;
+                margin-top: 4px;
+                margin-bottom: 4px;
+                margin-left: 5px;
+                margin-right: 5px;
+                background: red;
+            }
         </style>
     </head>
     
@@ -334,6 +358,19 @@
                     y construyen su vida en base a ellos (Gallup, 2009). 
                 </p>
             </div>
+        </div>
+
+        <div id="header">
+            <table class="w-100 bg-dark text-white">
+                <tr>
+                    <td>
+                        <p class="subtitulo ml-5">Orientación Vocacional</p>
+                    </td>
+                    <td class="text-right">
+                        <img class="mr-5" src="{{ 'storage/logo_upc_blanco.png' }}" alt="">
+                    </td>
+                </tr>
+            </table>
         </div>
 
         <div class="page_break text-justify text-secondary">
@@ -877,20 +914,7 @@
                 </p>
             </div>
         </div>
-
-        <div id="header">
-            <table class="w-100 bg-dark text-white">
-                <tr>
-                    <td>
-                        <p class="subtitulo ml-5">Orientación Vocacional</p>
-                    </td>
-                    <td class="text-right">
-                        <img class="mr-5" src="{{ 'storage/logo_upc_blanco.png' }}" alt="">
-                    </td>
-                </tr>
-            </table>
-        </div> 
-
+        
         <div class="page_break text-justify text-secondary">
             @foreach ($areas as $a)
                 <div>
@@ -1004,17 +1028,66 @@
             @endforeach
         </div>
 
-        <div id="header">
-            <table class="w-100 bg-dark text-white">
-                <tr>
-                    <td>
-                        <p class="subtitulo ml-5">Resultados de la Prueba de Temperamentos</p>
-                    </td>
-                    <td class="text-right">
-                        <img class="mr-5" src="{{ 'storage/logo_upc_blanco.png' }}" alt="">
-                    </td>
-                </tr>
-            </table>
+        <div class="page_break text-justify text-secondary">
+            <p>
+                La Tabla 6, muestra los valores acumulados de acuerdo al número de alumnos que 
+                presentan interés en cada una de las áreas profesionales evaluadas:
+            </p>
+            <br>
+
+            <table class="w-100 table-intereses text-secondary">
+                <thead class="text-center" style="font-weight:bold; font-size: 17px;">
+                    <tr>
+                        <td width="55%" rowspan="2">
+                            ÁREA DE INTERÉS
+                        </td>
+                        <td width="45%" colspan="4">
+                            Puntaje
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="13%">
+                            Valor
+                        </td>
+                        <td width="29%">
+                            Bajo 
+                        </td>
+                        <td width="29%">
+                            Medio
+                        </td>
+                        <td width="29%">
+                            Alto
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($p_intereses as $p)
+                        <tr>
+                            <td class="font-weight-bold p-2">
+                                {{$p->carrera}}
+                            </td>
+                            <td class="text-center p-2">
+                                {{$p->puntaje}}
+                            </td>
+                            <td colspan="3">
+                                <div class="barra-interes" style="width:{{$p->puntaje}}%">
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table> 
+        </div>
+
+        <div class="page_break text-justify text-secondary">
+            <p>
+                A partir de la Tabla 6, se observa que los campos profesionales de mayor preferencia en la muestra evaluada son:
+                @foreach ($p_intereses as $i)
+                    @if ($i->puntaje>=75)
+                      <b class="italic">{{$i->carrera}}</b>&nbsp;({{$i->descripcion}});&nbsp;
+                    @endif
+                @endforeach
+            </p>
         </div>
     </body>
 </html>

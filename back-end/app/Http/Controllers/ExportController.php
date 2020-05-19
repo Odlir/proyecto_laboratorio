@@ -305,6 +305,9 @@ class ExportController extends Controller
         $total_temperamentos = [];
         $puntajes_temperamentos = [];
 
+        $total_intereses = [];
+        $puntajes_intereses = [];
+
         foreach ($intereses as $i) {
             $encuesta_temp = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
                 ->where('tipo_encuesta_id', 3)
@@ -319,6 +322,7 @@ class ExportController extends Controller
             foreach ($i['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
                 $p_intereses = EncuestaPuntaje::where('encuesta_id', $i['id'])
                     ->where('persona_id', $p['id'])
+                    ->with('punintereses.carrera')
                     ->first();
 
                 $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
@@ -346,6 +350,8 @@ class ExportController extends Controller
                     ///////
 
                     array_push($total_temperamentos, $p_temperamentos['puntemperamentos']);
+
+                    array_push($total_intereses, $p_intereses['punintereses']);
                 }
             }
         }
@@ -373,6 +379,33 @@ class ExportController extends Controller
 
         foreach ($puntajes_temperamentos as $p_t) {
             $p_t->transformacion = $p_t->transformacion / count($total_temperamentos);
+        }
+
+        foreach ($total_intereses as $i) {
+            foreach ($i as $p) {
+                $object = new stdClass();
+                $object->carrera_id = $p['carrera_id'];
+                $object->carrera = $p['carrera']['nombre'];
+                $object->descripcion = $p['carrera']['interes'];
+                $object->puntaje = 0;
+                array_push($puntajes_intereses, $object);
+            }
+            break;
+        }
+
+        foreach ($total_intereses as $i) {
+            foreach ($i as $p) {
+                foreach ($puntajes_intereses as $p_i) {
+                    if ($p_i->carrera_id == $p['carrera_id']) {
+                        $p_i->puntaje = $p_i->puntaje + $p['puntaje'];
+                    }
+                }
+            }
+        }
+
+        foreach ($puntajes_intereses as $p_i) {
+            $p_i->puntaje = $p_i->puntaje / count($total_intereses);
+            $p_i->puntaje = (int)$p_i->puntaje;
         }
 
         $areas = Area::with('items.items')
@@ -403,7 +436,7 @@ class ExportController extends Controller
             ->orderBy("nombre")
             ->get();
 
-        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'talentos_ordenados' => $talentos_ordenados, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias, 'muestra' => $data_muestra, 'sexo' => $sexo, 'p_temperamentos' => $puntajes_temperamentos, 'areas' => $areas));
+        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'talentos_ordenados' => $talentos_ordenados, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias, 'muestra' => $data_muestra, 'sexo' => $sexo, 'p_temperamentos' => $puntajes_temperamentos, 'areas' => $areas, 'p_intereses' => $puntajes_intereses));
         return $pdf->download('Consolidado_sede.pdf');
     }
 
@@ -707,7 +740,11 @@ class ExportController extends Controller
                 ->with('areatemperamentos')
                 ->first();
 
-            if ($p_intereses && $p_temperamentos) {
+            $p_talentos = EncuestaPuntaje::where('encuesta_id', $encuesta_tal['id'])
+                ->where('persona_id', $p['id'])
+                ->first();
+
+            if ($p_intereses && $p_temperamentos && $p_talentos) {
                 $pie = $this->pieTalentos(10, 20, 30, 40, 50, 60);
                 PDFConsolidados::dispatchNow($p, $p_intereses['punintereses'], $p_intereses['puninteresessort'], $p_temperamentos['puntemperamentos'], $p_temperamentos['areatemperamentos'], $encuesta['empresa']['nombre'], $identificador, $areas, $ruedas, $tendencias, $talentos, $pie);
                 $descargar = true;
