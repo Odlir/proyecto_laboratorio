@@ -159,286 +159,287 @@ class ExportController extends Controller
 
     public function consolidado_sede(Request $request)
     {
-        // $show = false;
+        $show = false;
 
-        // $error = "";
+        $error = "";
 
-        // $data_muestra = [];
+        $data_muestra = [];
 
-        // $años = [];
+        $años = [];
 
-        // $sexo = [
-        //     'masculino' => 0,
-        //     'femenino' => 0
-        // ];
+        $sexo = [
+            'masculino' => 0,
+            'femenino' => 0
+        ];
 
-        // $intereses = Encuesta::where('tipo_encuesta_id', 1)
-        //     ->where('empresa_sucursal_id', $request->empresa_id)
-        //     ->where('estado', '1')
-        //     ->with(['general' => function ($query) {
-        //         $query->with(['personas' => function ($query) {
-        //             $query->wherePivot('estado', '1');
-        //         }]);
-        //     }])
-        //     ->get();
+        $intereses = Encuesta::where('tipo_encuesta_id', 1)
+            ->where('empresa_sucursal_id', $request->empresa_id)
+            ->where('estado', '1')
+            ->with(['general' => function ($query) {
+                $query->with(['personas' => function ($query) {
+                    $query->wherePivot('estado', '1');
+                }]);
+            }])
+            ->get();
 
-        // if ($intereses->isEmpty()) {
-        //     return response()->json(['error' => 'No hay encuestas registradas.'], 404);
-        // }
+        if ($intereses->isEmpty()) {
+            return response()->json(['error' => 'No hay encuestas registradas.'], 404);
+        }
 
-        // foreach ($intereses as $i) {
-        //     $temperamento = Encuesta::where('tipo_encuesta_id', 3)
-        //         ->where('empresa_sucursal_id', $request->empresa_id)
-        //         ->where('encuesta_general_id', $i['encuesta_general_id'])
-        //         ->where('estado', '1')
-        //         ->first();
+        foreach ($intereses as $i) {
+            $temperamento = Encuesta::where('tipo_encuesta_id', 3)
+                ->where('empresa_sucursal_id', $request->empresa_id)
+                ->where('encuesta_general_id', $i['encuesta_general_id'])
+                ->where('estado', '1')
+                ->first();
 
-        //     $talento = Encuesta::where('tipo_encuesta_id', 2)
-        //         ->where('empresa_sucursal_id', $request->empresa_id)
-        //         ->where('encuesta_general_id', $i['encuesta_general_id'])
-        //         ->where('estado', '1')
-        //         ->first();
+            $talento = Encuesta::where('tipo_encuesta_id', 2)
+                ->where('empresa_sucursal_id', $request->empresa_id)
+                ->where('encuesta_general_id', $i['encuesta_general_id'])
+                ->where('estado', '1')
+                ->first();
 
-        //     if ($temperamento && $talento) {
-        //         $show = true;
-        //         break;
-        //     } else {
-        //         $show = false;
-        //         $error = 'No hay encuestas de temperamentos o talentos registradas.';
-        //     }
-        // }
+            if ($temperamento && $talento) {
+                $show = true;
+                break;
+            } else {
+                $show = false;
+                $error = 'No hay encuestas de temperamentos o talentos registradas.';
+            }
+        }
 
-        // if ($show == false) {
-        //     return response()->json(['error' => $error], 404);
-        // }
+        if ($show == false) {
+            return response()->json(['error' => $error], 404);
+        }
 
-        // foreach ($intereses as $i) {
-        //     if (!$i['general']['personas']->isEmpty()) {
-        //         $show = true;
-        //         break;
-        //     } else {
-        //         $show = false;
-        //         $error = 'No hay alumnos registrados.';
-        //     }
-        // }
+        foreach ($intereses as $i) {
+            if (!$i['general']['personas']->isEmpty()) {
+                $show = true;
+                break;
+            } else {
+                $show = false;
+                $error = 'No hay alumnos registrados.';
+            }
+        }
 
-        // if ($show == false) {
-        //     return response()->json(['error' => $error], 404);
-        // }
+        if ($show == false) {
+            return response()->json(['error' => $error], 404);
+        }
 
-        // foreach ($intereses as $i) {
-        //     $encuesta_temp = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
-        //         ->where('tipo_encuesta_id', 3)
-        //         ->where('estado', '1')
-        //         ->first();
+        foreach ($intereses as $i) {
+            $encuesta_temp = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
+                ->where('tipo_encuesta_id', 3)
+                ->where('estado', '1')
+                ->first();
 
-        //     $encuesta_tal = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
-        //         ->where('tipo_encuesta_id', 2)
-        //         ->where('estado', '1')
-        //         ->first();
+            $encuesta_tal = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
+                ->where('tipo_encuesta_id', 2)
+                ->where('estado', '1')
+                ->first();
 
-        //     foreach ($i['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
-        //         $p_intereses = EncuestaPuntaje::where('encuesta_id', $i['id'])
-        //             ->where('persona_id', $p['id'])
-        //             ->first();
+            foreach ($i['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
+                $p_intereses = EncuestaPuntaje::where('encuesta_id', $i['id'])
+                    ->where('persona_id', $p['id'])
+                    ->first();
 
-        //         $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
-        //             ->where('persona_id', $p['id'])
-        //             ->first();
+                $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
+                    ->where('persona_id', $p['id'])
+                    ->first();
 
-        //         $p_talentos = EncuestaPuntaje::where('encuesta_id', $encuesta_tal['id'])
-        //             ->where('persona_id', $p['id'])
-        //             ->first();
+                $p_talentos = EncuestaPuntaje::where('encuesta_id', $encuesta_tal['id'])
+                    ->where('persona_id', $p['id'])
+                    ->first();
 
-        //         if ($p_intereses && $p_temperamentos && $p_talentos) {
-        //             $show = true;
-        //             break 2; //SALGO DE LOS 2 FOREACH
-        //         } else {
-        //             $show = false;
-        //             $error = 'No hay encuestas resueltas.';
-        //         }
-        //     }
-        // }
+                if ($p_intereses && $p_temperamentos && $p_talentos) {
+                    $show = true;
+                    break 2; //SALGO DE LOS 2 FOREACH
+                } else {
+                    $show = false;
+                    $error = 'No hay encuestas resueltas.';
+                }
+            }
+        }
 
-        // if ($show == false) {
-        //     return response()->json(['error' => $error], 404);
-        // }
+        if ($show == false) {
+            return response()->json(['error' => $error], 404);
+        }
 
-        // foreach ($intereses as $i) {
-        //     $encuesta_temp = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
-        //         ->where('tipo_encuesta_id', 3)
-        //         ->where('estado', '1')
-        //         ->first();
+        foreach ($intereses as $i) {
+            $encuesta_temp = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
+                ->where('tipo_encuesta_id', 3)
+                ->where('estado', '1')
+                ->first();
 
-        //     $encuesta_tal = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
-        //         ->where('tipo_encuesta_id', 2)
-        //         ->where('estado', '1')
-        //         ->first();
+            $encuesta_tal = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
+                ->where('tipo_encuesta_id', 2)
+                ->where('estado', '1')
+                ->first();
 
-        //     foreach ($i['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
-        //         $p_intereses = EncuestaPuntaje::where('encuesta_id', $i['id'])
-        //             ->where('persona_id', $p['id'])
-        //             ->first();
+            foreach ($i['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
+                $p_intereses = EncuestaPuntaje::where('encuesta_id', $i['id'])
+                    ->where('persona_id', $p['id'])
+                    ->first();
 
-        //         $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
-        //             ->where('persona_id', $p['id'])
-        //             ->first();
+                $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
+                    ->where('persona_id', $p['id'])
+                    ->first();
 
-        //         $p_talentos = EncuestaPuntaje::where('encuesta_id', $encuesta_tal['id'])
-        //             ->where('persona_id', $p['id'])
-        //             ->first();
+                $p_talentos = EncuestaPuntaje::where('encuesta_id', $encuesta_tal['id'])
+                    ->where('persona_id', $p['id'])
+                    ->first();
 
-        //         if ($p_intereses && $p_temperamentos && $p_talentos) {
-        //             if (!in_array($p['anio'], $años)) {
-        //                 array_push($años, $p['anio']);
-        //             }
-        //         }
-        //     }
-        // }
+                if ($p_intereses && $p_temperamentos && $p_talentos) {
+                    if (!in_array($p['anio'], $años)) {
+                        array_push($años, $p['anio']);
+                    }
+                }
+            }
+        }
 
-        // foreach ($años as $a) {
-        //     $object = new stdClass();
-        //     $object->anio = $a;
-        //     $object->muestra = 0;
-        //     array_push($data_muestra, $object);
-        // }
+        foreach ($años as $a) {
+            $object = new stdClass();
+            $object->anio = $a;
+            $object->muestra = 0;
+            array_push($data_muestra, $object);
+        }
 
-        // $total_temperamentos = [];
-        // $puntajes_temperamentos = [];
+        $total_temperamentos = [];
+        $puntajes_temperamentos = [];
 
-        // $total_intereses = [];
-        // $puntajes_intereses = [];
+        $total_intereses = [];
+        $puntajes_intereses = [];
 
-        // foreach ($intereses as $i) {
-        //     $encuesta_temp = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
-        //         ->where('tipo_encuesta_id', 3)
-        //         ->where('estado', '1')
-        //         ->first();
+        foreach ($intereses as $i) {
+            $encuesta_temp = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
+                ->where('tipo_encuesta_id', 3)
+                ->where('estado', '1')
+                ->first();
 
-        //     $encuesta_tal = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
-        //         ->where('tipo_encuesta_id', 2)
-        //         ->where('estado', '1')
-        //         ->first();
+            $encuesta_tal = Encuesta::where('encuesta_general_id', $i['encuesta_general_id'])
+                ->where('tipo_encuesta_id', 2)
+                ->where('estado', '1')
+                ->first();
 
-        //     foreach ($i['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
-        //         $p_intereses = EncuestaPuntaje::where('encuesta_id', $i['id'])
-        //             ->where('persona_id', $p['id'])
-        //             ->with('punintereses.carrera')
-        //             ->first();
+            foreach ($i['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
+                $p_intereses = EncuestaPuntaje::where('encuesta_id', $i['id'])
+                    ->where('persona_id', $p['id'])
+                    ->with('punintereses.carrera')
+                    ->first();
 
-        //         $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
-        //             ->where('persona_id', $p['id'])
-        //             ->with('puntemperamentos.formula')
-        //             ->first();
+                $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
+                    ->where('persona_id', $p['id'])
+                    ->with('puntemperamentos.formula')
+                    ->first();
 
-        //         $p_talentos = EncuestaPuntaje::where('encuesta_id', $encuesta_tal['id'])
-        //             ->where('persona_id', $p['id'])
-        //             ->first();
+                $p_talentos = EncuestaPuntaje::where('encuesta_id', $encuesta_tal['id'])
+                    ->where('persona_id', $p['id'])
+                    ->first();
 
-        //         if ($p_intereses && $p_temperamentos && $p_talentos) {
-        //             foreach ($data_muestra as $m) {
-        //                 if ($m->anio == $p['anio']) {
-        //                     $m->muestra++;
-        //                 }
-        //             }
+                if ($p_intereses && $p_temperamentos && $p_talentos) {
+                    foreach ($data_muestra as $m) {
+                        if ($m->anio == $p['anio']) {
+                            $m->muestra++;
+                        }
+                    }
 
-        //             if (strcasecmp($p['sexo'], 'masculino') == 0) {
-        //                 $sexo['masculino']++;
-        //             } else {
-        //                 $sexo['femenino']++;
-        //             }
+                    if (strcasecmp($p['sexo'], 'masculino') == 0) {
+                        $sexo['masculino']++;
+                    } else {
+                        $sexo['femenino']++;
+                    }
 
-        //             ///////
+                    ///////
 
-        //             array_push($total_temperamentos, $p_temperamentos['puntemperamentos']);
+                    array_push($total_temperamentos, $p_temperamentos['puntemperamentos']);
 
-        //             array_push($total_intereses, $p_intereses['punintereses']);
-        //         }
-        //     }
-        // }
+                    array_push($total_intereses, $p_intereses['punintereses']);
+                }
+            }
+        }
 
-        // foreach ($total_temperamentos as $t) {
-        //     foreach ($t as $p) {
-        //         $object = new stdClass();
-        //         $object->formula_id = $p['formula_id'];
-        //         $object->area_id = $p['formula']['area_id'];
-        //         $object->transformacion = 0;
-        //         array_push($puntajes_temperamentos, $object);
-        //     }
-        //     break;
-        // }
+        foreach ($total_temperamentos as $t) {
+            foreach ($t as $p) {
+                $object = new stdClass();
+                $object->formula_id = $p['formula_id'];
+                $object->area_id = $p['formula']['area_id'];
+                $object->transformacion = 0;
+                array_push($puntajes_temperamentos, $object);
+            }
+            break;
+        }
 
-        // foreach ($total_temperamentos as $t) {
-        //     foreach ($t as $p) {
-        //         foreach ($puntajes_temperamentos as $p_t) {
-        //             if ($p_t->formula_id == $p['formula_id']) {
-        //                 $p_t->transformacion = $p_t->transformacion + $p['transformacion'];
-        //             }
-        //         }
-        //     }
-        // }
+        foreach ($total_temperamentos as $t) {
+            foreach ($t as $p) {
+                foreach ($puntajes_temperamentos as $p_t) {
+                    if ($p_t->formula_id == $p['formula_id']) {
+                        $p_t->transformacion = $p_t->transformacion + $p['transformacion'];
+                    }
+                }
+            }
+        }
 
-        // foreach ($puntajes_temperamentos as $p_t) {
-        //     $p_t->transformacion = $p_t->transformacion / count($total_temperamentos);
-        // }
+        foreach ($puntajes_temperamentos as $p_t) {
+            $p_t->transformacion = $p_t->transformacion / count($total_temperamentos);
+        }
 
-        // foreach ($total_intereses as $i) {
-        //     foreach ($i as $p) {
-        //         $object = new stdClass();
-        //         $object->carrera_id = $p['carrera_id'];
-        //         $object->carrera = $p['carrera']['nombre'];
-        //         $object->descripcion = $p['carrera']['interes'];
-        //         $object->puntaje = 0;
-        //         array_push($puntajes_intereses, $object);
-        //     }
-        //     break;
-        // }
+        foreach ($total_intereses as $i) {
+            foreach ($i as $p) {
+                $object = new stdClass();
+                $object->carrera_id = $p['carrera_id'];
+                $object->carrera = $p['carrera']['nombre'];
+                $object->carrera2 = ucwords(strtolower($p['carrera']['nombre']));
+                $object->descripcion = $p['carrera']['interes'];
+                $object->puntaje = 0;
+                array_push($puntajes_intereses, $object);
+            }
+            break;
+        }
 
-        // foreach ($total_intereses as $i) {
-        //     foreach ($i as $p) {
-        //         foreach ($puntajes_intereses as $p_i) {
-        //             if ($p_i->carrera_id == $p['carrera_id']) {
-        //                 $p_i->puntaje = $p_i->puntaje + $p['puntaje'];
-        //             }
-        //         }
-        //     }
-        // }
+        foreach ($total_intereses as $i) {
+            foreach ($i as $p) {
+                foreach ($puntajes_intereses as $p_i) {
+                    if ($p_i->carrera_id == $p['carrera_id']) {
+                        $p_i->puntaje = $p_i->puntaje + $p['puntaje'];
+                    }
+                }
+            }
+        }
 
-        // foreach ($puntajes_intereses as $p_i) {
-        //     $p_i->puntaje = $p_i->puntaje / count($total_intereses);
-        //     $p_i->puntaje = (int)$p_i->puntaje;
-        // }
+        foreach ($puntajes_intereses as $p_i) {
+            $p_i->puntaje = $p_i->puntaje / count($total_intereses);
+            $p_i->puntaje = (int) $p_i->puntaje;
+        }
 
-        // $areas = Area::with('items.items')
-        //     ->with('formulas')
-        //     ->where('estado', '1')
-        //     ->get();
+        $areas = Area::with('items.items')
+            ->with('formulas')
+            ->where('estado', '1')
+            ->get();
 
-        // $now = Carbon::now();
-        // $date = ucfirst($now->isoFormat('MMMM')) . ', ' . $now->year;
+        $now = Carbon::now();
+        $date = ucfirst($now->isoFormat('MMMM')) . ', ' . $now->year;
 
-        // $encuesta = Encuesta::where('tipo_encuesta_id', 3)
-        //     ->where('empresa_sucursal_id', $request->empresa_id)
-        //     ->where('estado', '1')
-        //     ->first();
+        $encuesta = Encuesta::where('tipo_encuesta_id', 3)
+            ->where('empresa_sucursal_id', $request->empresa_id)
+            ->where('estado', '1')
+            ->first();
 
-        // $fecha = Carbon::parse($encuesta['fecha_inicio']);
-        // $fecha_evaluacion =  $fecha->format('d') . ' de ' . ucfirst($fecha->isoFormat('MMMM'));
+        $fecha = Carbon::parse($encuesta['fecha_inicio']);
+        $fecha_evaluacion =  $fecha->format('d') . ' de ' . ucfirst($fecha->isoFormat('MMMM'));
 
-        // $colegio = EmpresaSucursal::find($request->empresa_id);
+        $colegio = EmpresaSucursal::find($request->empresa_id);
 
-        // $tendencias = TendenciaTalento::all();
+        $tendencias = TendenciaTalento::all();
 
-        // $talentos = Talento::where('tendencia_id', "!=", null)
-        //     ->with('tendencia')
-        //     ->get();
+        $talentos = Talento::where('tendencia_id', "!=", null)
+            ->with('tendencia')
+            ->get();
 
-        // $talentos_ordenados = Talento::where('tendencia_id', "!=", null)
-        //     ->orderBy("nombre")
-        //     ->get();
+        $talentos_ordenados = Talento::where('tendencia_id', "!=", null)
+            ->orderBy("nombre")
+            ->get();
 
-        // $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'talentos_ordenados' => $talentos_ordenados, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias, 'muestra' => $data_muestra, 'sexo' => $sexo, 'p_temperamentos' => $puntajes_temperamentos, 'areas' => $areas, 'p_intereses' => $puntajes_intereses));
-        // return $pdf->download('Consolidado_sede.pdf');
+        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'talentos_ordenados' => $talentos_ordenados, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias, 'muestra' => $data_muestra, 'sexo' => $sexo, 'p_temperamentos' => $puntajes_temperamentos, 'areas' => $areas, 'p_intereses' => $puntajes_intereses));
+        return $pdf->download('Consolidado_sede.pdf');
     }
 
     public function reportes(Request $request)
