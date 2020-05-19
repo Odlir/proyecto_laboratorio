@@ -16,6 +16,7 @@ use App\Jobs\PDFIntereses;
 use App\Persona;
 use App\Rueda;
 use App\Talento;
+use App\TalentoRespuesta;
 use App\TendenciaTalento;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -386,6 +387,7 @@ class ExportController extends Controller
                 $object = new stdClass();
                 $object->carrera_id = $p['carrera_id'];
                 $object->carrera = $p['carrera']['nombre'];
+                $object->carrera2 = ucwords(strtolower($p['carrera']['nombre']));
                 $object->descripcion = $p['carrera']['interes'];
                 $object->puntaje = 0;
                 array_push($puntajes_intereses, $object);
@@ -405,7 +407,7 @@ class ExportController extends Controller
 
         foreach ($puntajes_intereses as $p_i) {
             $p_i->puntaje = $p_i->puntaje / count($total_intereses);
-            $p_i->puntaje = (int)$p_i->puntaje;
+            $p_i->puntaje = (int) $p_i->puntaje;
         }
 
         $areas = Area::with('items.items')

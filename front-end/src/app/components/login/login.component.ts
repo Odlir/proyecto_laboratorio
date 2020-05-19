@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   handleResponse(data) {
     this.Token.handle(data.access_token, data.user);
     this.Auth.changeAuthStatus(true);
-    this.router.navigateByUrl('/encuestas');
+    this.router.navigateByUrl('/dashboard');
     this.menu.sendShowMenu(); //ESTO LO USO PARA COMUNICARME CON EL COMPONENTE MENU Y MOSTRARLO
     this.menu.sendShowButtonMenu();	//ESTO LO USO PARA COMUNICARME CON EL COMPONENTE NAVBAR Y MOSTRAR EL BOTON
   }

@@ -22,9 +22,9 @@ export class AppComponent implements OnInit {
 			this.isExpanded = value;
 		});
 
-		if (this.router.url === '') {
-			this.router.navigateByUrl('/encuestas');
-		}
+		// if (this.router.url === '/' || this.router.url === '/encuestas') {
+		// 	this.router.navigateByUrl('/dashboard');
+		// }
 
 	}
 

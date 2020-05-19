@@ -22,7 +22,7 @@ export class TestTalentosComponent implements OnInit {
 		encuesta_id: null,
 		persona_id: null
 	};
-	images = [];//[944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+	images = [];
 	list2 = [];
 	list3 = [];
 	list4 = [];

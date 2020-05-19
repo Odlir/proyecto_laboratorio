@@ -1084,9 +1084,49 @@
                 A partir de la Tabla 6, se observa que los campos profesionales de mayor preferencia en la muestra evaluada son:
                 @foreach ($p_intereses as $i)
                     @if ($i->puntaje>=75)
-                      <b class="italic">{{$i->carrera}}</b>&nbsp;({{$i->descripcion}});&nbsp;
+                      <b class="italic h3">{{$i->carrera2}}</b>&nbsp;({{$i->descripcion}});&nbsp;
                     @endif
                 @endforeach
+            </p>
+
+            <p class="h3 font-weight-bold mt-5">
+                VIII. CONCLUSIONES
+            </p>
+
+            <p>
+                En la <b class="h3">Evaluación de Preferencias del Temperamento</b>, los alumnos se ubican en las categorías 
+                más altas en la dimensión de Energía. Esto quiere decir que un alto porcentaje de alumnos se 
+                describe como activo, energético y con capacidad para liderar e influir en los demás. A continuación, 
+                se encuentran las dimensiones de Tesón (capacidad para perseverar en el logro de una meta, la reflexión 
+                y escrupulosidad), Afabilidad (capacidad para cooperar con los demás, así como la cordialidad) y 
+                Estabilidad Emocional (capacidad para controlar nuestras emociones e impulsos) en donde aproximadamente 
+                70% de la muestra se ubica dentro del promedio o por encima del mismo. La dimensión que obtiene las más 
+                bajas puntuaciones es la de Apertura Mental en donde más de la mitad de la muestra se encuentra por debajo 
+                de los baremos estandarizados. 
+            </p>
+
+            <p>
+                En la <b class="h3">Prueba de Intereses Profesionales</b>, los alumnos muestran mayor satisfacción con las actividades relacionadas 
+                al campo profesional Empresarial Administrativo Comercial, seguido por el campo Jurídico Social. En concordancia 
+                con esto, muestran también un alto conocimiento del primer campo de actividad señalado. Sobre las actividades que 
+                despiertan menor interés en ellos, están las relacionadas con los campos Científico, Informática, Artístico/Plástico, 
+                Sanitario, Comunicación/Información, Fuerzas Armadas y Deportivo. De estos campos, los cuatro últimos no obtienen tampoco 
+                un alto porcentaje en lo referente a conocimientos, lo que estaría indicando que el bajo interés de los alumnos de la muestra 
+                por estos campos podría obedecer a un escaso conocimiento sobre las actividades que se llevan a cabo en los mismos. 
+            </p>
+
+            <p>
+                En cuanto al <b class="h3">Test de Talento</b>, las dimensiones que aparecen con más frecuencia como dominantes son en primer lugar Flexibilidad 
+                (se adapta con facilidad al cambio), Idear (le gusta encontrar una forma sencilla para explicar por qué las cosas son como son), 
+                Empatía (ve al mundo a través de los ojos de los demás, comparte sus vivencias y perspectivas), Estratégico (ordena la confusión y 
+                encuentra el mejor camino para seguir adelante) e Inquisitivo (le gusta coleccionar infinidad de cosas, muchas cosas le resultan interesantes).
+            </p>
+
+            <p>
+                Además, existe un predominio del Rol de Impacto (relacionado con la capacidad de motivar y liderar) seguido por el Rol de 
+                Pensamiento (relacionado con la capacidad de reflexión y búsqueda de la verdad) y el Rol de Relación (relacionado con el talento para 
+                manejar las relaciones humanas). El rol que aparece con menos frecuencia como dominante es el Rol de Empuje (relacionado con la motivación 
+                para alcanzar metas).
             </p>
         </div>
     </body>

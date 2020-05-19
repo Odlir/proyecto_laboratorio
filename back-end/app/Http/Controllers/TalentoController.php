@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Talento;
 use App\TalentoEspecificoMasDesarrollado;
+use App\TalentoMasDesarrollado;
 use App\TalentoRespuesta;
 use Illuminate\Http\Request;
 
