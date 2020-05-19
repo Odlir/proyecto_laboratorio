@@ -5,6 +5,7 @@ import {ApiBackRequestService} from '../../Services/api-back-request.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SharedVarService} from '../../Services/shared/shared-var.service';
 import * as moment from 'moment';
+import Swal from "sweetalert2";
 
 @Component({
 	selector: 'app-test-talentos',
@@ -96,6 +97,7 @@ export class TestTalentosComponent implements OnInit {
 				event.container.data,
 				event.currentIndex,
 				event.currentIndex);
+
 			/*debugger
 			const newArray = event.previousContainer.data.filter(e => e.id !== event.item.data.id);
 			event.previousContainer.data = [...newArray];
@@ -112,6 +114,22 @@ export class TestTalentosComponent implements OnInit {
 	}
 
 	continuar() {
+		if (this.list2.length < 12){
+			Swal.fire({
+				title: 'El buzón Talentos más desarrollados debe contener un mínimo de 12 talentos',
+				icon: 'warning',
+				timer: 2000
+			});
+			return false;
+		}else if (this.list4.length < 6){
+			Swal.fire({
+				title: 'El buzón Talentos menos desarrollados debe contener un mínimo de 6 talentos',
+				icon: 'warning',
+				timer: 2000
+			});
+			return false;
+		}
+
 		console.log('odlir', this.images, this.list2, this.list3, this.list4);
 /*
 		let obj = {

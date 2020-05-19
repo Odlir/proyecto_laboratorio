@@ -31,6 +31,39 @@ export class EspecificosMenosComponent implements OnInit {
 	}
 
 	continuar() {
+
+		/*let obj = {
+			encuesta_id: null,
+			persona_id: null,
+			talento_id: null
+		};
+
+		let data = [];
+
+		this.api.post('encuesta_puntaje', [data, 5]).subscribe(
+			(data) => {
+
+			},
+			(error) => {
+
+			}
+		);*/
+
+		/*let encuesta = {
+			encuesta_id: null,
+			persona_id: null,
+		}
+
+		this.api.post('encuesta_persona', [encuesta, 2]).subscribe(
+			(data) => {
+
+			},
+			(error) => {
+
+			}
+		);*/
+
+
 		this.router.navigate(['./menos-desarrollados']);
 	}
 
@@ -57,10 +90,10 @@ export class EspecificosMenosComponent implements OnInit {
 	}
 
 	getData() {
-		this.api.get('talentos', 2).subscribe(
+		this.api.get('talentos?encuesta_id=' + 3 + '&persona_id=' + 1 +'&tipo='+4).subscribe(
 			(data) => {
-				this.images = data;
-				this.total = data.length;
+				this.images = Object.values(data);
+				this.total = Object.values(data).length;
 			}
 		);
 	}

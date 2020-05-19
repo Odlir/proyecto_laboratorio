@@ -36,7 +36,7 @@ export class MasDesarrolladosComponent implements OnInit {
 			encuesta_id: null,
 			persona_id: null,
 			talento_id: null
-		}
+		};
 
 		let data = [];
 
@@ -47,8 +47,8 @@ export class MasDesarrolladosComponent implements OnInit {
 			(error) => {
 
 			}
-		);*/
-
+		);
+*/
 		this.router.navigate(['./menos-desarrollados']);
 	}
 
@@ -75,21 +75,12 @@ export class MasDesarrolladosComponent implements OnInit {
 	}
 
 	getData() {
-		/*this.api.get('talentos', 1).subscribe(
-			(data) => {
-				this.images = data;
-				this.total = data.length;
-			}
-		);*/
-
 		this.api.get('talentos?encuesta_id=' + 3 + '&persona_id=' + 1 +'&tipo='+2).subscribe(
 			(data) => {
 				this.images = data;
 				this.total = data.length;
 			}
 		);
-
-
 	}
 
 	counter(selected) {

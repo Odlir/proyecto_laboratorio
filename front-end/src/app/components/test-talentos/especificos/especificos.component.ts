@@ -31,6 +31,24 @@ export class EspecificosComponent implements OnInit {
 	}
 
 	continuar() {
+
+		/*let obj = {
+			encuesta_id: null,
+			persona_id: null,
+			talento_id: null
+		};
+
+		let data = [];
+
+		this.api.post('encuesta_puntaje', [data, 4]).subscribe(
+			(data) => {
+
+			},
+			(error) => {
+
+			}
+		);*/
+
 		this.router.navigate(['./especificos-menos']);
 	}
 

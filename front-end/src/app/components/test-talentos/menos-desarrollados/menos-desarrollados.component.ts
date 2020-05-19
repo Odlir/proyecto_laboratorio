@@ -31,6 +31,24 @@ export class MenosDesarrolladosComponent implements OnInit {
 	}
 
 	continuar() {
+
+		/*let obj = {
+			encuesta_id: null,
+			persona_id: null,
+			talento_id: null
+		};
+
+		let data = [];
+
+		this.api.post('encuesta_puntaje', [data, 3]).subscribe(
+			(data) => {
+
+			},
+			(error) => {
+
+			}
+		);*/
+
 		this.router.navigate(['./especificos']);
 	}
 
@@ -57,7 +75,7 @@ export class MenosDesarrolladosComponent implements OnInit {
 	}
 
 	getData() {
-		this.api.get('talentos', 1).subscribe(
+		this.api.get('talentos?encuesta_id=' + 3 + '&persona_id=' + 1 +'&tipo='+0).subscribe(
 			(data) => {
 				this.images = data;
 				this.total = data.length;

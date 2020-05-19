@@ -10,7 +10,7 @@
 <br>
 
 <mat-card *ngIf="show" class="card">
-	<div class="cont-button">
+	<div *ngIf="images.length === 0" class="cont-button">
 		<button mat-raised-button (click)="continuar()">Continuar >></button>
 	</div>
 	<div
