@@ -261,7 +261,7 @@ export class ReportesComponent implements OnInit {
 	}
 
 	return() {
-		this.router.navigateByUrl('/dashboard');
+		this.router.navigateByUrl('/encuestas');
 	}
 
 	updateFilter(event) {
