@@ -76,7 +76,7 @@ class EncuestaPersonaController extends Controller
         //DATA[0] ES LA ENCUESTA_ID Y SU PERSONA_ID
 
         $encuesta_puntaje = EncuestaPuntaje::create($data[0]); //TABLA PRINCIPAL
-
+        
         //DATA[1] SE REFIERE AL TIPO DE ENCUESTA
         //DATA[2] SON TUS RESPUESTAS
 
@@ -85,34 +85,7 @@ class EncuestaPersonaController extends Controller
         } else if ($data[1]== 3) {
             return $this->temperamentos($data[2],$encuesta_puntaje['id']);
         } else if ($data[1]== 2) {
-            return $this->talentos($data[2], $encuesta_puntaje['id']);
-        }
-    }
-
-    public function talentos($data,$encuesta_puntaje_id)
-    {
-        foreach ($data[0] as $d) { //TODOS LOS TALENTOS
-            TalentoRespuesta::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
-        }
-
-        foreach($data[1] as $d) //TALENTOS MAS DESARROLLADOS
-        {
-            TalentoMasDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
-        }
-
-        foreach($data[2] as $d) //TALENTOS MENOS DESARROLLADOS
-        {
-            TalentoMenosDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
-        }
-
-        foreach($data[3] as $d) //TALENTOS ESPECIFICOS MAS DESARROLLADOS
-        {
-            TalentoEspecificoMasDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
-        }
-
-        foreach($data[4] as $d) //TALENTOS ESPECIFICOS MENOS DESARROLLADOS
-        {
-            TalentoEspecificoMenosDesarrollado::create(array_merge($d, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
+            return response()->json($encuesta_puntaje['id'], 200);
         }
     }
 
@@ -315,29 +288,29 @@ class EncuestaPersonaController extends Controller
             if ($r->puntaje == 6.75) { //SE APLICA EL REDONDEO FINAL
                 $r->puntaje=7;
             }else if($r->puntaje == 6.25){
-                $r->puntaje=6.5;
+                $r->puntaje=6.5; 
             }else if($r->puntaje == 5.75){
-                $r->puntaje=6;
+                $r->puntaje=6; 
             }else if($r->puntaje == 5.25){
-                $r->puntaje=5.5;
+                $r->puntaje=5.5; 
             }else if($r->puntaje == 4.75){
-                $r->puntaje=5;
+                $r->puntaje=5; 
             }else if($r->puntaje == 4.25){
-                $r->puntaje=4.5;
+                $r->puntaje=4.5; 
             }else if($r->puntaje == 3.75){
-                $r->puntaje=4;
+                $r->puntaje=4; 
             }else if($r->puntaje == 3.25){
-                $r->puntaje=3.5;
+                $r->puntaje=3.5; 
             }else if($r->puntaje == 2.75){
-                $r->puntaje=3;
+                $r->puntaje=3; 
             }else if($r->puntaje == 2.25){
-                $r->puntaje=2.5;
+                $r->puntaje=2.5; 
             }else if($r->puntaje == 1.75){
-                $r->puntaje=2;
+                $r->puntaje=2; 
             }else if($r->puntaje == 1.25){
-                $r->puntaje=1.5;
+                $r->puntaje=1.5; 
             }else if($r->puntaje == 0.75){
-                $r->puntaje=1;
+                $r->puntaje=1; 
             }
 
             //SE SACA LAS LETRAS
@@ -428,7 +401,7 @@ class EncuestaPersonaController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**

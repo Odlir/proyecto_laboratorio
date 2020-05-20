@@ -3,5 +3,3 @@
 - EL IMPORTAR EN EXCEL EN CELULAR ESTÁ FALLANDO
 
 --------------------------
-
-<base href="/encuestas/">

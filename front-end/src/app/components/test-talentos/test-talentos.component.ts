@@ -166,5 +166,4 @@ export class TestTalentosComponent implements OnInit {
 		localStorage.setItem('encuesta_id', encuesta_id);
 		localStorage.setItem('persona_id', persona_id);
 	}
-
 }
