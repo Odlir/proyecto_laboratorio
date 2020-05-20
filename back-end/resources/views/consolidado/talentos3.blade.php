@@ -74,7 +74,9 @@
             width: 100%;
         }
 
-        table,td,tr {
+        table,
+        td,
+        tr {
             border: 1px solid;
         }
 
@@ -112,6 +114,20 @@
             @foreach ($tendencias as $ten)
             <td class="w-100 pr-2 bottom">
                 <table class="text-center margin-tr">
+                    @foreach ($talentos as $item)
+                    @if ($item->talento->tendencia_id==$ten->id)
+                    <tr>
+                        <td class="border p-2" style="border-color:{{$ten->color}}">{{$item->talento->nombre}}</td>
+                    </tr>
+                    @endif
+                    @endforeach
+                    @foreach ($talentos_e as $item)
+                    @if ($item->talento->tendencia_id==$ten->id)
+                    <tr>
+                        <td class="border p-2" style="border-color:{{$ten->color}}">{{$item->talento->nombre}}</td>
+                    </tr>
+                    @endif
+                    @endforeach
                     <tr>
                         <td class="border p-2" style="border-color:{{$ten->color}}">{{$ten->nombre}}</td>
                     </tr>
