@@ -89,7 +89,7 @@ export class ReportesComponent implements OnInit {
 		else {
 			this.disabled = true;
 			this.form.campo = 'links';
-			this.form.archivo = this.empresa.nombre + '-LINKS-ENCUESTAS.xlsx';
+			this.form.archivo = this.empresa.nombre + '-' + this.form.interes_id + '-LINKS-ENCUESTAS.xlsx';
 
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
@@ -136,8 +136,7 @@ export class ReportesComponent implements OnInit {
 		} else {
 			this.disabled = true;
 			this.form.campo = 'status';
-			this.form.archivo = this.empresa.nombre + '-LINKS-ENCUESTAS-STATUS.xlsx';
-
+			this.form.archivo = this.empresa.nombre + '-' + this.form.interes_id + '-LINKS-ENCUESTAS-STATUS.xlsx';
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
 					this.disabled = false;
