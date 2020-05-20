@@ -3,3 +3,4 @@
 - EL IMPORTAR EN EXCEL EN CELULAR ESTÁ FALLANDO
 
 --------------------------
+ng build --aot --output-hashing=all --base-href /encuestas/

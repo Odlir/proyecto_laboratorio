@@ -83,8 +83,8 @@
         }
 
         .bottom {
-            position: relative;
-            vertical-align: bottom;
+            position:absolute;
+            bottom:90px;
         }
     </style>
 </head>
@@ -106,16 +106,33 @@
     <table class="table-height">
         <tr>
             @foreach ($tendencias as $ten)
-            <td class="w-100 pr-2 bottom">
-                <table class="text-center margin-tr">
-                    <tr>
-                        <td class="border p-2" style="border-color:{{$ten->color}}">{{$ten->nombre}}</td>
-                    </tr>
-                </table>
+            <td class="w-100 pr-2">
+                <div class="bottom">
+                    <table class="text-center margin-tr">
+                        @foreach ($talentos as $item)
+                        @if ($item->talento->tendencia_id==$ten->id)
+                        <tr>
+                            <td class="border p-2" style="border-color:{{$ten->color}}">{{$item->talento->nombre}}</td>
+                        </tr>
+                        @endif
+                        @endforeach
+                        @foreach ($talentos_e as $item)
+                        @if ($item->talento->tendencia_id==$ten->id)
+                        <tr>
+                            <td class="border p-2" style="border-color:{{$ten->color}}">{{$item->talento->nombre}}</td>
+                        </tr>
+                        @endif
+                        @endforeach
+                        <tr>
+                            <td class="border p-2" style="border-color:{{$ten->color}}">{{$ten->nombre}}</td>
+                        </tr>
+                    </table>
+                </div>
             </td>
             @endforeach
         </tr>
     </table>
+
     <span>*En caso los hayas elegido en el test</span>
 </body>
 
