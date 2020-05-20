@@ -22,12 +22,12 @@ export class TestTalentosComponent implements OnInit {
 		encuesta_id: null,
 		persona_id: null
 	};
-	images = [];//[944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+	images = [];
 	list2 = [];
 	list3 = [];
 	list4 = [];
 	con: any;
-	path:string = '../../../assets/talentos/front/';
+	path:string = './assets/talentos/front/';
 	encuesta = {
 		encuesta_id: null,
 		persona_id: null,
@@ -50,6 +50,7 @@ export class TestTalentosComponent implements OnInit {
 		this.getData();
 		this.encuesta.encuesta_id = parseInt(this.route.snapshot.params.encuesta_id)
 		this.encuesta.persona_id = parseInt(this.route.snapshot.params.persona_id);
+		this.localStore(this.route.snapshot.params.encuesta_id, this.route.snapshot.params.persona_id);
 		this.obtenerDatos();
 	}
 
@@ -130,25 +131,38 @@ export class TestTalentosComponent implements OnInit {
 			return false;
 		}
 
-		console.log('odlir', this.images, this.list2, this.list3, this.list4);
-/*
-		let obj = {
-			encuesta_id: null,
-			persona_id: null,
-			talento_id: null,
-			tipo:null
-		}
+		const masDes = this.modifyArray(this.list2, 2);
+		const inter = this.modifyArray(this.list3, 1);
+		const menDes = this.modifyArray(this.list4, 0);
+		const data = [...masDes, ...inter, ...menDes];
 
-		let data = [];
-
-		this.api.post('encuesta_puntaje', [data,1]).subscribe(
+		this.api.post('encuesta_puntaje', [data, 1]).subscribe(
 			(data) => {
-
+				console.log('data', data);
+				this.router.navigate(['./mas-desarrollados']);
 			},
 			(error) => {
-
+				console.log('error', error);
 			}
-		);*/
-		this.router.navigate(['./mas-desarrollados']);
+		);
+	}
+
+	modifyArray(arr, tipo) {
+		let array = [];
+		arr.forEach( a => {
+			let obj = {
+				encuesta_id: this.encuesta.encuesta_id,
+				persona_id: this.encuesta.persona_id,
+				talento_id: a.id,
+				tipo: tipo
+			}
+			array.push(obj);
+		});
+		return array;
+	}
+
+	localStore(encuesta_id, persona_id){
+		localStorage.setItem('encuesta_id', encuesta_id);
+		localStorage.setItem('persona_id', persona_id);
 	}
 }

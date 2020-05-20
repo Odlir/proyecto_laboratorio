@@ -31,25 +31,28 @@ export class MenosDesarrolladosComponent implements OnInit {
 	}
 
 	continuar() {
-
-		/*let obj = {
-			encuesta_id: null,
-			persona_id: null,
-			talento_id: null
-		};
-
-		let data = [];
-
+		const data = this.modifyArray(this.store);
 		this.api.post('encuesta_puntaje', [data, 3]).subscribe(
 			(data) => {
-
+				this.router.navigate(['./especificos']);
 			},
 			(error) => {
-
+				console.log('error', error);
 			}
-		);*/
+		);
+	}
 
-		this.router.navigate(['./especificos']);
+	modifyArray(arr) {
+		let array = [];
+		arr.forEach( a => {
+			let obj = {
+				encuesta_id: localStorage.getItem('encuesta_id'),
+				persona_id: localStorage.getItem('persona_id'),
+				talento_id: a.talento_id
+			}
+			array.push(obj);
+		});
+		return array;
 	}
 
 	showBack() {
@@ -75,7 +78,9 @@ export class MenosDesarrolladosComponent implements OnInit {
 	}
 
 	getData() {
-		this.api.get('talentos?encuesta_id=' + 3 + '&persona_id=' + 1 +'&tipo='+0).subscribe(
+		const encuesta_id = localStorage.getItem('encuesta_id');
+		const persona_id = localStorage.getItem('persona_id');
+		this.api.get('talentos?encuesta_id=' + encuesta_id + '&persona_id=' + persona_id +'&tipo='+0).subscribe(
 			(data) => {
 				this.images = data;
 				this.total = data.length;
@@ -85,7 +90,6 @@ export class MenosDesarrolladosComponent implements OnInit {
 
 	counter(selected) {
 		if (selected === 6){
-			console.log('ele', this.store);
 			this.continue = true;
 			Swal.fire({
 				title: 'Test de Talentos.',

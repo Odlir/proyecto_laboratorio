@@ -31,25 +31,28 @@ export class EspecificosComponent implements OnInit {
 	}
 
 	continuar() {
-
-		/*let obj = {
-			encuesta_id: null,
-			persona_id: null,
-			talento_id: null
-		};
-
-		let data = [];
-
+		const data = this.modifyArray(this.store);
 		this.api.post('encuesta_puntaje', [data, 4]).subscribe(
 			(data) => {
-
+				this.router.navigate(['./especificos-menos']);
 			},
 			(error) => {
-
+				console.log('error', error);
 			}
-		);*/
+		);
+	}
 
-		this.router.navigate(['./especificos-menos']);
+	modifyArray(arr) {
+		let array = [];
+		arr.forEach( a => {
+			let obj = {
+				encuesta_id: localStorage.getItem('encuesta_id'),
+				persona_id: localStorage.getItem('persona_id'),
+				talento_id: a.id
+			}
+			array.push(obj);
+		});
+		return array;
 	}
 
 	showBack() {

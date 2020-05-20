@@ -7,16 +7,16 @@
 <br>
 
 <mat-card>
-	<div class="cont-button"> <!--*ngIf="continue"-->
+	<div *ngIf="continue" class="cont-button">
 		<button mat-raised-button (click)="continuar()">Continuar >></button>
 	</div>
 	<div class="desarrollados">
 		<ul class="listado_grupo">
 			<li class="listado" *ngFor="let img of images">
 				<div class="contenedor_imagen">
-					<img (click)="getSelected($event, img)" class="imagen_li" src="../../../assets/talentos/{{!toggle?'front/'+img.talento.imagen:'back/'+img.talento.imagen_espalda}}">
+					<img (click)="getSelected($event, img)" class="imagen_li" src="./assets/talentos/{{!toggle?'front/'+img.talento.imagen:'back/'+img.talento.imagen_espalda}}">
 				</div>
-				<input (click)="showBack()" class="lupa" type="image" src="../../../assets/images/ver30x30.png">
+				<input (click)="showBack()" class="lupa" type="image" src="./assets/images/ver30x30.png">
 			</li>
 		</ul>
 	</div>

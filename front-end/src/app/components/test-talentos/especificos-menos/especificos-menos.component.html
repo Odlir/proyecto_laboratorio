@@ -6,7 +6,7 @@
 <hr>
 <br>
 
-<mat-card>
+<mat-card *ngIf="finalizado">
 	<div *ngIf="continue" class="cont-button">
 		<button mat-raised-button (click)="continuar()">Finalizar >></button>
 	</div>
@@ -14,14 +14,21 @@
 		<ul class="listado_grupo">
 			<li class="listado" *ngFor="let img of images">
 				<div class="contenedor_imagen">
-					<img (click)="getSelected($event, img)" class="imagen_li" src="../../../assets/talentos/{{!toggle?'front/'+img.imagen:'back/'+img.imagen_espalda}}">
+					<img (click)="getSelected($event, img)" class="imagen_li" src="./assets/talentos/{{!toggle?'front/'+img.imagen:'back/'+img.imagen_espalda}}">
 				</div>
-				<input (click)="showBack()" class="lupa" type="image" src="../../../assets/images/ver30x30.png">
+				<input (click)="showBack()" class="lupa" type="image" src="./assets/images/ver30x30.png">
 			</li>
 		</ul>
 	</div>
 	<div class="totales">
 		<span class="textos">{{seleccionados}} seleccionando de 3</span>
 		<span class="textos">Total {{total}}</span>
+	</div>
+</mat-card>
+<mat-card *ngIf="!finalizado">
+	<div class="alert bg-white" role="alert">
+		<h4 class="alert-heading">FELICITACIONES</h4>
+		<br>
+		<p>El test fue completado correctamente.</p>
 	</div>
 </mat-card>
