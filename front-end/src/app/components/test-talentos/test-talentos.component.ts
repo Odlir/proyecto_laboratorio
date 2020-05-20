@@ -151,5 +151,4 @@ export class TestTalentosComponent implements OnInit {
 		);*/
 		this.router.navigate(['./mas-desarrollados']);
 	}
-
 }
