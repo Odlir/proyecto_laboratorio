@@ -11,8 +11,8 @@ import Swal from "sweetalert2";
 })
 export class MenosDesarrolladosComponent implements OnInit {
 
-	public sucursal = 'Colegio UPC';
-	public alumno = 'Humberto Gutierrez';
+	public sucursal: string = '';
+	public alumno: string = '';
 	public images = [];
 	public total: number;
 	public seleccionados: number = 0;
@@ -74,10 +74,11 @@ export class MenosDesarrolladosComponent implements OnInit {
 				this.counter(this.seleccionados);
 			}
 		}
-
 	}
 
 	getData() {
+		this.alumno = localStorage.getItem('alumno');
+		this.sucursal = localStorage.getItem('sucursal');
 		const encuesta_id = localStorage.getItem('encuesta_id');
 		const persona_id = localStorage.getItem('persona_id');
 		this.api.get('talentos?encuesta_id=' + encuesta_id + '&persona_id=' + persona_id +'&tipo='+0).subscribe(

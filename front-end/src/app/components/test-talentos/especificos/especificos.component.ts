@@ -11,8 +11,8 @@ import Swal from "sweetalert2";
 })
 export class EspecificosComponent implements OnInit {
 
-	public sucursal = 'Colegio UPC';
-	public alumno = 'Humberto Gutierrez';
+	public sucursal: string = '';
+	public alumno: string = '';
 	public images = [];
 	public total: number;
 	public seleccionados: number = 0;
@@ -78,6 +78,8 @@ export class EspecificosComponent implements OnInit {
 	}
 
 	getData() {
+		this.alumno = localStorage.getItem('alumno');
+		this.sucursal = localStorage.getItem('sucursal');
 		this.api.get('talentos', 2).subscribe(
 			(data) => {
 				this.images = data;

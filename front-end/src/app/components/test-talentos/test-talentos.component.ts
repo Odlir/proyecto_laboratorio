@@ -77,11 +77,13 @@ export class TestTalentosComponent implements OnInit {
 								this.mensaje = 'Gracias por participar.'
 							}
 							this.sucursal = data.empresa.nombre;
+							localStorage.setItem('sucursal', data.empresa.nombre);
 							data.general.personas.filter(obj => {
 								if (obj.id == this.encuesta.persona_id) {
 									this.alumno = obj.nombrecompleto;
 								}
 							})
+							localStorage.setItem('alumno', this.alumno);
 						}
 					);
 				}
@@ -138,7 +140,6 @@ export class TestTalentosComponent implements OnInit {
 
 		this.api.post('encuesta_puntaje', [data, 1]).subscribe(
 			(data) => {
-				console.log('data', data);
 				this.router.navigate(['./mas-desarrollados']);
 			},
 			(error) => {

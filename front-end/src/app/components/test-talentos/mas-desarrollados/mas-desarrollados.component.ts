@@ -11,8 +11,8 @@ import {Router} from '@angular/router';
 })
 export class MasDesarrolladosComponent implements OnInit {
 
-	public sucursal = 'Colegio UPC';
-	public alumno = 'Humberto Gutierrez';
+	public sucursal: string = '';
+	public alumno: string = '';
 	public images = [];
 	public total: number;
 	public seleccionados: number = 0;
@@ -34,7 +34,6 @@ export class MasDesarrolladosComponent implements OnInit {
 		const data = this.modifyArray(this.store);
 		this.api.post('encuesta_puntaje', [data, 2]).subscribe(
 			(data) => {
-				console.log('data', data);
 				this.router.navigate(['./menos-desarrollados']);
 			},
 			(error) => {
@@ -79,6 +78,8 @@ export class MasDesarrolladosComponent implements OnInit {
 	}
 
 	getData() {
+		this.alumno = localStorage.getItem('alumno');
+		this.sucursal = localStorage.getItem('sucursal');
 		const encuesta_id = localStorage.getItem('encuesta_id');
 		const persona_id = localStorage.getItem('persona_id');
 		this.api.get('talentos?encuesta_id=' + encuesta_id + '&persona_id=' + persona_id +'&tipo='+2).subscribe(
