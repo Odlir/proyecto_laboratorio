@@ -20,6 +20,7 @@ export class EspecificosMenosComponent implements OnInit {
 	public continue: boolean= false;
 	public store = [];
 	public toggle: boolean = false;
+	public finalizado: boolean = true;
 
 	constructor(private sharedService: SharedVarService,
 				private api: ApiBackRequestService,
@@ -31,40 +32,47 @@ export class EspecificosMenosComponent implements OnInit {
 	}
 
 	continuar() {
-
-		/*let obj = {
-			encuesta_id: null,
-			persona_id: null,
-			talento_id: null
-		};
-
-		let data = [];
-
+		const data = this.modifyArray(this.store);
 		this.api.post('encuesta_puntaje', [data, 5]).subscribe(
 			(data) => {
-
+				this.terminarEncuesta();
 			},
 			(error) => {
-
+				console.log('error', error);
 			}
-		);*/
+		);
+	}
 
-		/*let encuesta = {
-			encuesta_id: null,
-			persona_id: null,
+	terminarEncuesta() {
+		const encuesta = {
+			encuesta_id: localStorage.getItem('encuesta_id'),
+			persona_id: localStorage.getItem('persona_id')
 		}
-
 		this.api.post('encuesta_persona', [encuesta, 2]).subscribe(
 			(data) => {
-
+				Swal.fire({
+					title: 'Test Enviado Correctamente.',
+					icon: 'success'
+				});
+				this.finalizado = false;
 			},
 			(error) => {
-
+				console.log('error', error);
 			}
-		);*/
+		);
+	}
 
-
-		this.router.navigate(['./menos-desarrollados']);
+	modifyArray(arr) {
+		let array = [];
+		arr.forEach( a => {
+			let obj = {
+				encuesta_id: localStorage.getItem('encuesta_id'),
+				persona_id: localStorage.getItem('persona_id'),
+				talento_id: a.id
+			}
+			array.push(obj);
+		});
+		return array;
 	}
 
 	showBack() {
