@@ -48,7 +48,7 @@ export class MasDesarrolladosComponent implements OnInit {
 			let obj = {
 				encuesta_id: localStorage.getItem('encuesta_id'),
 				persona_id: localStorage.getItem('persona_id'),
-				talento_id: a.id
+				talento_id: a.talento_id
 			}
 			array.push(obj);
 		});

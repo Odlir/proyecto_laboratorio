@@ -16,6 +16,7 @@ use App\Jobs\PDFIntereses;
 use App\Persona;
 use App\Rueda;
 use App\Talento;
+use App\TalentoMasDesarrollado;
 use App\TalentoRespuesta;
 use App\TendenciaTalento;
 use Illuminate\Http\Request;
@@ -604,57 +605,99 @@ class ExportController extends Controller
             ->with('areatemperamentos')
             ->first();
 
-        $tendencias = TendenciaTalento::all();
+        $talentos_mas_desarrollados = TalentoMasDesarrollado::where('encuesta_id', $encuesta_tal['id'])
+            ->where('persona_id', $persona_id)
+            ->with('talento')
+            ->get();
 
         $tendencias_pie = TendenciaTalento::where('id', '!=', 7)->get();
+
+        $tendencias = TendenciaTalento::all();
 
         $talentos = Talento::where('tendencia_id', "!=", null)
             ->with('tendencia')
             ->get();
 
-        $pie = $this->pieTalentos(10, 20, 30, 40, 50, 60);
 
-        $identificador = rand();
+        $pie = $this->pieTalentos($talentos_mas_desarrollados);
 
-        $pdf = PDF::loadView('consolidado/reporte_consolidados', array('areas' => $areas, 'ruedas' => $ruedas, 'persona' => $persona, 'p_temperamentos' => $p_temperamentos['puntemperamentos'], 'a_temperamentos' => $p_temperamentos['areatemperamentos']))->output();
+        // $identificador = rand();
 
-        $pdf2 = PDF::loadView('consolidado/talentos1', array('talentos' => $talentos, 'tendencias' => $tendencias))->setPaper('a4', 'landscape')->output();
+        // $pdf = PDF::loadView('consolidado/reporte_consolidados', array('areas' => $areas, 'ruedas' => $ruedas, 'persona' => $persona, 'p_temperamentos' => $p_temperamentos['puntemperamentos'], 'a_temperamentos' => $p_temperamentos['areatemperamentos']))->output();
 
-        $pdf3 = PDF::loadView('consolidado/talentos2', array('tendencias' => $tendencias_pie, 'pie' => $pie))->output();
+        // $pdf2 = PDF::loadView('consolidado/talentos1', array('talentos' => $talentos, 'tendencias' => $tendencias))->setPaper('a4', 'landscape')->output();
 
-        $pdf4 = PDF::loadView('consolidado/talentos3', array('tendencias' => $tendencias))->setPaper('a4', 'landscape')->output();
+        // $pdf3 = PDF::loadView('consolidado/talentos2', array('tendencias' => $tendencias_pie, 'pie' => $pie))->output();
 
-        $pdf5 = PDF::loadView('consolidado/reporte_consolidados2', array('p_intereses' => $p_intereses['punintereses'], 'p_intereses_sort' => $p_intereses['puninteresessort']))->output();
+        // $pdf4 = PDF::loadView('consolidado/talentos3', array('tendencias' => $tendencias))->setPaper('a4', 'landscape')->output();
 
-        $name = $identificador . '/1.pdf';
-        $name2 = $identificador . '/2.pdf';
-        $name3 = $identificador . '/3.pdf';
-        $name4 = $identificador . '/4.pdf';
-        $name5 = $identificador . '/5.pdf';
+        // $pdf5 = PDF::loadView('consolidado/reporte_consolidados2', array('p_intereses' => $p_intereses['punintereses'], 'p_intereses_sort' => $p_intereses['puninteresessort']))->output();
 
-        $ruta = storage_path('app/public/' . $identificador . '/');
+        // $name = $identificador . '/1.pdf';
+        // $name2 = $identificador . '/2.pdf';
+        // $name3 = $identificador . '/3.pdf';
+        // $name4 = $identificador . '/4.pdf';
+        // $name5 = $identificador . '/5.pdf';
 
-        Storage::disk('public')->put($name,  $pdf);
-        Storage::disk('public')->put($name2,  $pdf2);
-        Storage::disk('public')->put($name3,  $pdf3);
-        Storage::disk('public')->put($name4,  $pdf4);
-        Storage::disk('public')->put($name5,  $pdf5);
+        // $ruta = storage_path('app/public/' . $identificador . '/');
 
-        $merger = new Merger;
-        $merger->addIterator([$ruta . '1.pdf', $ruta . '2.pdf', $ruta . '3.pdf', $ruta . '4.pdf', $ruta . '5.pdf']);
-        $pdfconsolidado = $merger->merge();
+        // Storage::disk('public')->put($name,  $pdf);
+        // Storage::disk('public')->put($name2,  $pdf2);
+        // Storage::disk('public')->put($name3,  $pdf3);
+        // Storage::disk('public')->put($name4,  $pdf4);
+        // Storage::disk('public')->put($name5,  $pdf5);
 
-        $consolidado = '/Reporte-Consolidado-' . str_replace(' ', '', $persona->nombres) . str_replace(' ', '', $persona->apellido_paterno) . str_replace(' ', '', $persona->apellido_materno) . '.pdf';
+        // $merger = new Merger;
+        // $merger->addIterator([$ruta . '1.pdf', $ruta . '2.pdf', $ruta . '3.pdf', $ruta . '4.pdf', $ruta . '5.pdf']);
+        // $pdfconsolidado = $merger->merge();
 
-        Storage::disk('public')->put($consolidado,  $pdfconsolidado);
+        // $consolidado = '/Reporte-Consolidado-' . str_replace(' ', '', $persona->nombres) . str_replace(' ', '', $persona->apellido_paterno) . str_replace(' ', '', $persona->apellido_materno) . '.pdf';
 
-        Storage::deleteDirectory('public/' . $identificador); //BORRO LA CARPETA
+        // Storage::disk('public')->put($consolidado,  $pdfconsolidado);
 
-        return response()->download(storage_path("app/public/" . $consolidado))->deleteFileAfterSend(true);
+        // Storage::deleteDirectory('public/' . $identificador); //BORRO LA CARPETA
+
+        // return response()->download(storage_path("app/public/" . $consolidado))->deleteFileAfterSend(true);
     }
 
-    public function pieTalentos($personas, $emprendimiento, $innovacion, $estructura, $persuasion, $cognicion)
+    public function pieTalentos($t_desarrollados)
     {
+        $tendencias_pie = TendenciaTalento::where('id', '!=', 7)->get();
+
+        $personas = 0;
+        $emprendimiento = 0;
+        $innovacion = 0;
+        $estructura = 0;
+        $persuasion = 0;
+        $cognicion = 0;
+
+        foreach ($tendencias_pie as $t) {
+            foreach ($t_desarrollados as $d) {
+                if ($d['talento']['tendencia_id'] == $t['id']) {
+                    if ($t['id'] == 1) {
+                        $personas++;
+                    } else if ($t['id'] == 2) {
+                        $emprendimiento++;
+                    } else if ($t['id'] == 3) {
+                        $innovacion++;
+                    } else if ($t['id'] == 4) {
+                        $estructura++;
+                    } else if ($t['id'] == 5) {
+                        $persuasion++;
+                    } else if ($t['id'] == 6) {
+                        $cognicion++;
+                    }      
+                }
+            }
+        }
+
+        echo 'personas'.$personas;
+        echo 'emp'.$emprendimiento;
+        echo 'innvoa'.$innovacion;
+        echo 'estructura'.$estructura;
+        echo 'persuasion'.$persuasion;
+        echo 'cognici'.$cognicion; 
+
         $data = array(
             array('', $innovacion),
             array('', $emprendimiento),

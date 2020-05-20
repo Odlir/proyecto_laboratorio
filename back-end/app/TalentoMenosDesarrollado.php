@@ -13,4 +13,9 @@ class TalentoMenosDesarrollado extends Model
         'persona_id',
         'encuesta_id'
     ];
+
+    public function talento()
+    {
+        return $this->belongsTo('App\Talento', 'talento_id');
+    }
 }
