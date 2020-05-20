@@ -25,15 +25,19 @@ class PDFConsolidados implements ShouldQueue
     protected $ruedas;
     protected $identificador;
     protected $tendencias;
+    protected $tendencias_pie;
     protected $talentos;
     protected $pie_talentos;
+    protected $puntajes_pie;
+    protected $t_desarrollados;
+    protected $t_especificos;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($persona, $p_intereses,$p_intereses_sort, $p_temperamentos, $a_temperamentos, $empresa, $identificador,$areas,$ruedas,$tendencias,$talentos,$pie_talentos)
+    public function __construct($persona, $p_intereses, $p_intereses_sort, $p_temperamentos, $a_temperamentos, $empresa, $identificador, $areas, $ruedas, $tendencias, $talentos, $pie_talentos, $puntajes_pie, $t_desarrollados, $t_especificos, $tendencias_pie)
     {
         $this->persona = $persona;
         $this->p_intereses = $p_intereses;
@@ -47,6 +51,10 @@ class PDFConsolidados implements ShouldQueue
         $this->tendencias = $tendencias;
         $this->talentos = $talentos;
         $this->pie_talentos = $pie_talentos;
+        $this->puntajes_pie = $puntajes_pie;
+        $this->t_desarrollados = $t_desarrollados;
+        $this->t_especificos = $t_especificos;
+        $this->tendencias_pie = $tendencias_pie;
     }
 
     /**
@@ -62,12 +70,12 @@ class PDFConsolidados implements ShouldQueue
 
         $pdf2 = PDF::loadView('consolidado/talentos1', array('talentos' => $this->talentos, 'tendencias' => $this->tendencias))->setPaper('a4', 'landscape')->output();
 
-        $pdf3 = PDF::loadView('consolidado/talentos2',array('tendencias' => $this->tendencias,'pie'=>$this->pie_talentos))->output();
+        $pdf3 = PDF::loadView('consolidado/talentos2', array('tendencias' => $this->tendencias_pie, 'pie' => $this->pie_talentos, 'puntajes' => $this->puntajes_pie))->output();
 
-        $pdf4 = PDF::loadView('consolidado/talentos3',array('tendencias' => $this->tendencias))->setPaper('a4', 'landscape')->output();
+        $pdf4 = PDF::loadView('consolidado/talentos3', array('tendencias' => $this->tendencias, 'talentos' => $this->t_desarrollados, 'talentos_e' => $this->t_especificos))->setPaper('a4', 'landscape')->output();
 
-        $pdf5 = PDF::loadView('consolidado/reporte_consolidados2', array('p_intereses' => $this->p_intereses, 'p_intereses_sort' => $this->p_intereses_sort))->output();
-    
+        $pdf5 = PDF::loadView('consolidado/reporte_consolidados2', array('talentos' => $this->t_desarrollados, 'p_intereses' => $this->p_intereses, 'p_intereses_sort' => $this->p_intereses_sort))->output();
+
         $name = $identificador . '/1.pdf';
         $name2 = $identificador . '/2.pdf';
         $name3 = $identificador . '/3.pdf';
@@ -86,8 +94,8 @@ class PDFConsolidados implements ShouldQueue
         $merger->addIterator([$ruta . '1.pdf', $ruta . '2.pdf', $ruta . '3.pdf', $ruta . '4.pdf', $ruta . '5.pdf']);
         $pdfconsolidado = $merger->merge();
 
-        $name = 'PDF-' . $this->identificador . '/CONSOLIDADO-'  . str_replace(' ', '',$this->persona->nombres) .  str_replace(' ', '',$this->persona->apellido_paterno) . str_replace(' ', '',$this->persona->apellido_materno) . '.pdf';
-        
+        $name = 'PDF-' . $this->identificador . '/CONSOLIDADO-'  . str_replace(' ', '', $this->persona->nombres) .  str_replace(' ', '', $this->persona->apellido_paterno) . str_replace(' ', '', $this->persona->apellido_materno) . '.pdf';
+
         Storage::disk('public')->put($name,  $pdfconsolidado);
 
         Storage::deleteDirectory('public/' . $identificador);

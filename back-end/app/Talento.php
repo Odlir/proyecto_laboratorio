@@ -11,6 +11,11 @@ class Talento extends Model
         return $this->belongsTo('App\TendenciaTalento');
     }
 
+    public function descripciones()
+    {
+        return $this->hasMany('App\DescripcionTalento');
+    }
+
     public function mas_desarrollado()
     {
         return $this->hasMany('App\TalentoMasDesarrollado');

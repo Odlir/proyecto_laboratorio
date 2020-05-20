@@ -565,7 +565,9 @@ class ExportController extends Controller
 
         $talentos_mas_desarrollados = TalentoMasDesarrollado::where('encuesta_id', $encuesta_tal['id'])
             ->where('persona_id', $persona_id)
-            ->with('talento')
+            ->with('talento.descripciones')
+            ->with('talento.tendencia')
+            ->orderBy('talento_id')
             ->get();
 
         $talentos_mas_especificos = TalentoEspecificoMasDesarrollado::where('encuesta_id', $encuesta_tal['id'])
@@ -595,7 +597,7 @@ class ExportController extends Controller
 
         $pdf4 = PDF::loadView('consolidado/talentos3', array('tendencias' => $tendencias, 'talentos' => $talentos_mas_desarrollados, 'talentos_e' => $talentos_mas_especificos))->setPaper('a4', 'landscape')->output();
 
-        $pdf5 = PDF::loadView('consolidado/reporte_consolidados2', array('p_intereses' => $p_intereses['punintereses'], 'p_intereses_sort' => $p_intereses['puninteresessort']))->output();
+        $pdf5 = PDF::loadView('consolidado/reporte_consolidados2', array('talentos' => $talentos_mas_desarrollados, 'p_intereses' => $p_intereses['punintereses'], 'p_intereses_sort' => $p_intereses['puninteresessort']))->output();
 
         $name = $identificador . '/1.pdf';
         $name2 = $identificador . '/2.pdf';
@@ -778,8 +780,26 @@ class ExportController extends Controller
                 ->first();
 
             if ($p_intereses && $p_temperamentos && $p_talentos) {
-                $pie = $this->pieTalentos(10, 20, 30, 40, 50, 60);
-                PDFConsolidados::dispatchNow($p, $p_intereses['punintereses'], $p_intereses['puninteresessort'], $p_temperamentos['puntemperamentos'], $p_temperamentos['areatemperamentos'], $encuesta['empresa']['nombre'], $identificador, $areas, $ruedas, $tendencias, $talentos, $pie);
+
+                $talentos_mas_desarrollados = TalentoMasDesarrollado::where('encuesta_id', $encuesta_tal['id'])
+                    ->where('persona_id', $p['id'])
+                    ->with('talento.descripciones')
+                    ->with('talento.tendencia')
+                    ->orderBy('talento_id')
+                    ->get();
+
+                $talentos_mas_especificos = TalentoEspecificoMasDesarrollado::where('encuesta_id', $encuesta_tal['id'])
+                    ->where('persona_id', $p['id'])
+                    ->with('talento')
+                    ->get();
+
+                $tendencias_pie = TendenciaTalento::where('id', '!=', 7)->get();
+
+                $pie = $this->pieTalentos($talentos_mas_desarrollados, $tendencias_pie);
+
+                $puntajes_pie = $this->puntajesPie($talentos_mas_desarrollados, $tendencias_pie);
+
+                PDFConsolidados::dispatchNow($p, $p_intereses['punintereses'], $p_intereses['puninteresessort'], $p_temperamentos['puntemperamentos'], $p_temperamentos['areatemperamentos'], $encuesta['empresa']['nombre'], $identificador, $areas, $ruedas, $tendencias, $talentos, $pie, $puntajes_pie, $talentos_mas_desarrollados, $talentos_mas_especificos, $tendencias_pie);
                 $descargar = true;
             }
         }

@@ -168,7 +168,6 @@
             margin-left: 55px;
             margin-right: 55px;
             height: 40px;
-            background: red;
             padding-top: 15px;
             font-size: 18px;
             margin-top: 15px;
@@ -197,148 +196,35 @@
         <div class="page-number"></div>
     </div>
 
-    <div>
-        <p class="font-weight-bold text-secondary h3 m-0">2.5 Descripción personal a través de tus talentos más
+    <div class="text-secondary">
+        <p class="font-weight-bold h3 m-0">2.5 Descripción personal a través de tus talentos más
             desarrollados:</p>
 
-        {{-- <table class="w-100 mt-3">
-                <tr>
-                    <td width="40%" class="text-center top">
-                        <div class="border-table text-white">
-                            Cálido        
-                        </div>
-                    </td>
-                    <td width="60%">
-                        <table class="table-desarrollado">
+        @foreach ($talentos as $item)
+        <table class="w-100 mt-3">
+            <tr>
+                <td width="40%" class="text-center top">
+                    <div class="border-table text-white" style="background:{{$item->talento->tendencia->color}}">
+                        {{$item->talento->nombre}}
+                    </div>
+                </td>
+                <td width="60%">
+                    <table class="table-desarrollado">
+                        @foreach ($item->talento->descripciones as $d)
                             <tr>
                                 <td class="span-color">
                                     •
                                 </td>
                                 <td>
-                                    Eres afectuoso y cercano con las personas.
+                                    {{$d->descripcion}}
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="span-color">
-                                    •
-                                </td>
-                                <td>
-                                    Eres afectuoso y cercano con las personas.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="span-color">
-                                    •
-                                </td>
-                                <td>
-                                    Eres afectuoso y cercano con las personas.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="span-color">
-                                    •
-                                </td>
-                                <td>
-                                    Eres afectuoso y cercano con las personas.
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-
-            <table class="w-100 mt-3">
-                <tr>
-                    <td width="40%" class="text-center top">
-                        <div class="border-table text-white">
-                            Cálido        
-                        </div>
-                    </td>
-                    <td width="60%">
-                        <table class="table-desarrollado">
-                            <tr>
-                                <td class="span-color">
-                                    •
-                                </td>
-                                <td>
-                                    Eres afectuoso y cercano con las personas.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="span-color">
-                                    •
-                                </td>
-                                <td>
-                                    Eres afectuoso y cercano con las personas.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="span-color">
-                                    •
-                                </td>
-                                <td>
-                                    Eres afectuoso y cercano con las personas.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="span-color">
-                                    •
-                                </td>
-                                <td>
-                                    Eres afectuoso y cercano con las personas.
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-
-            <table class="w-100 mt-3">
-                <tr>
-                    <td width="40%" class="text-center top">
-                        <div class="border-table text-white">
-                            Cálido        
-                        </div>
-                    </td>
-                    <td width="60%">
-                        <table class="table-desarrollado">
-                            <tr>
-                                <td class="span-color">
-                                    •
-                                </td>
-                                <td>
-                                    Eres afectuoso y cercano con las personas.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="span-color">
-                                    •
-                                </td>
-                                <td>
-                                    Eres afectuoso y cercano con las personas.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="span-color">
-                                    •
-                                </td>
-                                <td>
-                                    Eres afectuoso y cercano con las personas.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="span-color">
-                                    •
-                                </td>
-                                <td>
-                                    Eres afectuoso y cercano con las personas.
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table> --}}
-
+                        @endforeach
+                    </table>
+                </td>
+            </tr>
+        </table>
+        @endforeach
     </div>
 
     <div class="page_break">
