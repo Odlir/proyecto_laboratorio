@@ -116,7 +116,7 @@ const routes: Routes = [
 		canActivate: [AfterLoginService]
 	},
 	{
-		path: 'talentos/:encuesta_id/:persona_id',
+		path: 'test-talentos/:encuesta_id/:persona_id',
 		component: TestTalentosComponent
 	},
 	{
