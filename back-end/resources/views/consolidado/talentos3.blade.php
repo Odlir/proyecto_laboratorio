@@ -74,6 +74,10 @@
             width: 100%;
         }
 
+        table,td,tr {
+            border: 1px solid;
+        }
+
         .text-center {
             text-align: center;
         }
@@ -116,6 +120,7 @@
             @endforeach
         </tr>
     </table>
+
     <span>*En caso los hayas elegido en el test</span>
 </body>
 

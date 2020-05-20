@@ -16,6 +16,7 @@ use App\Jobs\PDFIntereses;
 use App\Persona;
 use App\Rueda;
 use App\Talento;
+use App\TalentoEspecificoMasDesarrollado;
 use App\TalentoMasDesarrollado;
 use App\TalentoRespuesta;
 use App\TendenciaTalento;
@@ -569,7 +570,9 @@ class ExportController extends Controller
 
         $tendencias_pie = TendenciaTalento::where('id', '!=', 7)->get();
 
-        $tendencias = TendenciaTalento::all();
+        $tendencias = TendenciaTalento::all();     
+
+        $filas = $this->calcularFilas($talentos_mas_desarrollados, $tendencias_pie);
 
         $talentos = Talento::where('tendencia_id', "!=", null)
             ->with('tendencia')
@@ -587,7 +590,7 @@ class ExportController extends Controller
 
         $pdf3 = PDF::loadView('consolidado/talentos2', array('tendencias' => $tendencias_pie, 'pie' => $pie, 'puntajes' => $puntajes_pie))->output();
 
-        $pdf4 = PDF::loadView('consolidado/talentos3', array('tendencias' => $tendencias))->setPaper('a4', 'landscape')->output();
+        $pdf4 = PDF::loadView('consolidado/talentos3', array('tendencias' => $tendencias, 'filas' => $filas, 'talentos' => $talentos_mas_desarrollados))->setPaper('a4', 'landscape')->output();
 
         $pdf5 = PDF::loadView('consolidado/reporte_consolidados2', array('p_intereses' => $p_intereses['punintereses'], 'p_intereses_sort' => $p_intereses['puninteresessort']))->output();
 
@@ -618,6 +621,40 @@ class ExportController extends Controller
         return response()->download(storage_path("app/public/" . $consolidado))->deleteFileAfterSend(true);
     }
 
+    public function calcularFilas($talentos_mas_desarrollados, $tendencias_pie)
+    {
+        $puntajes_pie = [];
+
+        $filas = 0;
+
+        foreach ($tendencias_pie as $t) {
+            $object = new stdClass();
+            $object->puntaje = 0;
+            $object->tendencia_id = $t['id'];
+            array_push($puntajes_pie, $object);
+        }
+
+        foreach ($tendencias_pie as $t) {
+            foreach ($talentos_mas_desarrollados as $d) {
+                if ($d['talento']['tendencia_id'] == $t['id']) {
+                    foreach ($puntajes_pie as $d) {
+                        if ($d->tendencia_id == $t['id']) {
+                            $d->puntaje++;
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach ($puntajes_pie as $d) {
+            if ($d->puntaje > $filas) {
+                $filas = $d->puntaje;
+            }
+        }
+
+        return $filas;
+    }
+
     public function puntajesPie($talentos_mas_desarrollados, $tendencias_pie)
     {
         $factor = 8.3;
@@ -645,6 +682,7 @@ class ExportController extends Controller
 
         foreach ($puntajes_pie as $d) {
             $d->puntaje = $d->puntaje * $factor;
+            $d->puntaje = round($d->puntaje);
         }
 
         return $puntajes_pie;
