@@ -1,0 +1,88 @@
+.mat-card {
+	display: flex;
+	align-items: center;
+}
+
+.contenedor {
+	width: 20%;
+	margin-bottom: 2em;
+}
+
+/*::ng-deep .carousel-control-prev-icon{
+	background-image: url('../../../assets/icons/arrow-left.svg') !important;
+}
+
+::ng-deep .carousel-control-next-icon{
+	background-image: url('../../../assets/icons/arrow-right.svg') !important;
+}*/
+
+.example-list {
+	border: solid 1px #ccc;
+	min-height: 60px;
+	background: white;
+	border-radius: 4px;
+	overflow: hidden;
+	display: block;
+}
+
+.cont-button button:hover{
+	color: red;
+	background: white;
+	float: right;
+}
+
+.example-box {
+
+}
+
+.example-container {
+	width: 100%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.results {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.talents {
+	width: 32%;
+	background: #cccccc;
+	text-align: center;
+}
+
+.cont-button {
+	width: 100%;
+	padding-bottom: 1em;
+}
+
+.cont-button button{
+	color: white;
+	background: red;
+	float: right;
+}
+
+h4 {
+	color: white;
+	background-color: red;
+}
+
+.red {
+	color: red;
+	font-size: 24px;
+}
+
+hr{
+	color: red;
+	border-bottom-color: red;
+	border: 1px red solid;
+}
+
+.items {
+	width: 80%;
+	margin: auto;
+	font-size: 17px;
+}
+

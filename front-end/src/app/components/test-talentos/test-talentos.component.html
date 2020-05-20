@@ -1,0 +1,83 @@
+<app-header-encuesta encuesta="PRUEBA DE TALENTOS" icono="tv" [alumno]="alumno" [id]="form.encuesta_id"
+                      [sucursal]="sucursal">
+</app-header-encuesta>
+<br>
+	<h3>Agrupando <span class="red">mis talentos</span></h3>
+	<hr>
+	<p>
+		Arrastra las tarjetas a los buzones de abajo seleccionando los talentos según te identifiquen.
+	</p>
+<br>
+
+<mat-card *ngIf="show" class="card">
+	<div *ngIf="images.length === 0" class="cont-button">
+		<button mat-raised-button (click)="continuar()">Continuar >></button>
+	</div>
+	<div
+		cdkDropList
+		#todoList="cdkDropList"
+		[cdkDropListData]="images"
+		[cdkDropListConnectedTo]="[doneList, intermedio, menos]"
+		cdkDropListOrientation="horizontal"
+		class="contenedor">
+		<ngb-carousel *ngIf="images">
+			<ng-template *ngFor="let img of images" ngbSlide>
+				<div class="picsum-img-wrapper" [cdkDragData]="img" cdkDrag>
+					<img [src]="path+img.imagen" width="100%" alt="Random first slide">
+				</div>
+			</ng-template>
+		</ngb-carousel>
+	</div>
+
+	<div class="results">
+		<div class="talents">
+			<div class="example-container">
+				<h4>(+) Talento más desarrollado</h4>
+				<div cdkDropList #doneList="cdkDropList" [cdkDropListData]="list2"
+				     [cdkDropListConnectedTo]="[intermedio, menos]"
+				     class="example-list" (cdkDropListDropped)="drop($event)">
+					<ol class="example-box">
+						<li class="items" *ngFor="let l2 of list2" [cdkDragData]="l2" cdkDrag>
+							{{l2.nombre}}
+						</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<div class="talents">
+			<div class="example-container">
+				<h4>Talento Intermedio</h4>
+				<div cdkDropList #intermedio="cdkDropList" [cdkDropListData]="list3"
+				     [cdkDropListConnectedTo]="[doneList, menos]"
+				     class="example-list" (cdkDropListDropped)="drop($event)">
+					<ol class="example-box">
+						<li class="items" *ngFor="let l3 of list3" [cdkDragData]="l3" cdkDrag>
+							{{l3.nombre}}
+						</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<div class="talents">
+			<div class="example-container">
+				<h4>(-) Talento menos desarrollado</h4>
+				<div cdkDropList #menos="cdkDropList" [cdkDropListData]="list4"
+				     [cdkDropListConnectedTo]="[intermedio, doneList]"
+				     class="example-list" (cdkDropListDropped)="drop($event)">
+					<ol class="example-box">
+						<li class="items" *ngFor="let l4 of list4" [cdkDragData]="l4" cdkDrag>
+							{{l4.nombre}}
+						</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</mat-card>
+<mat-card *ngIf="!show" class="card">
+	<div class="alert bg-white" role="alert">
+		<h4 class="alert-heading">{{mensaje}}</h4>
+		<br>
+		<p>{{mensaje}}</p>
+	</div>
+</mat-card>

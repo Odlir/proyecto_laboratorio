@@ -1,0 +1,27 @@
+<app-header-encuesta encuesta="PRUEBA DE TALENTOS" icono="tv" [alumno]="alumno"
+                     [sucursal]="sucursal">
+</app-header-encuesta>
+<br>
+<h3>Eligiendo <span class="red">mis 3 talentos especificos menos desarrollados</span></h3>
+<hr>
+<br>
+
+<mat-card>
+	<div *ngIf="continue" class="cont-button">
+		<button mat-raised-button (click)="continuar()">Finalizar >></button>
+	</div>
+	<div class="desarrollados">
+		<ul class="listado_grupo">
+			<li class="listado" *ngFor="let img of images">
+				<div class="contenedor_imagen">
+					<img (click)="getSelected($event, img)" class="imagen_li" src="../../../assets/talentos/{{!toggle?'front/'+img.imagen:'back/'+img.imagen_espalda}}">
+				</div>
+				<input (click)="showBack()" class="lupa" type="image" src="../../../assets/images/ver30x30.png">
+			</li>
+		</ul>
+	</div>
+	<div class="totales">
+		<span class="textos">{{seleccionados}} seleccionando de 3</span>
+		<span class="textos">Total {{total}}</span>
+	</div>
+</mat-card>
