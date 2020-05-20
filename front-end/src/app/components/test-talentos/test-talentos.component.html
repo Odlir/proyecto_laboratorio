@@ -15,6 +15,7 @@
 	</div>
 	<div
 		cdkDropList
+		[id]="carouselContainerId"
 		#todoList="cdkDropList"
 		[cdkDropListData]="images"
 		[cdkDropListConnectedTo]="[doneList, intermedio, menos]"
@@ -23,7 +24,7 @@
 		<ngb-carousel *ngIf="images">
 			<ng-template *ngFor="let img of images" ngbSlide>
 				<div class="picsum-img-wrapper" [cdkDragData]="img" cdkDrag>
-					<img [src]="path+img.imagen" width="100%" alt="Random first slide">
+					<img [src]="path+img.imagen" width="100%">
 				</div>
 			</ng-template>
 		</ngb-carousel>
@@ -34,6 +35,7 @@
 			<div class="example-container">
 				<h4>(+) Talento más desarrollado</h4>
 				<div cdkDropList #doneList="cdkDropList" [cdkDropListData]="list2"
+				     [cdkDropListConnectedTo]="[intermedio, menos]"
 				     class="example-list" (cdkDropListDropped)="drop($event)">
 					<ol class="example-box">
 						<li class="items" *ngFor="let l2 of list2" [cdkDragData]="l2" cdkDrag>
@@ -47,6 +49,7 @@
 			<div class="example-container">
 				<h4>Talento Intermedio</h4>
 				<div cdkDropList #intermedio="cdkDropList" [cdkDropListData]="list3"
+				     [cdkDropListConnectedTo]="[doneList, menos]"
 				     class="example-list" (cdkDropListDropped)="drop($event)">
 					<ol class="example-box">
 						<li class="items" *ngFor="let l3 of list3" [cdkDragData]="l3" cdkDrag>
@@ -60,6 +63,7 @@
 			<div class="example-container">
 				<h4>(-) Talento menos desarrollado</h4>
 				<div cdkDropList #menos="cdkDropList" [cdkDropListData]="list4"
+				     [cdkDropListConnectedTo]="[intermedio, doneList]"
 				     class="example-list" (cdkDropListDropped)="drop($event)">
 					<ol class="example-box">
 						<li class="items" *ngFor="let l4 of list4" [cdkDragData]="l4" cdkDrag>

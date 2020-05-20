@@ -36,6 +36,7 @@ export class TestTalentosComponent implements OnInit {
 	public rango: boolean = false;
 	public mensaje: string = '';
 	public titulo: string = '';
+	public carouselContainerId = 'carouselContainer';
 
 	constructor(config: NgbCarouselConfig,
 				private api: ApiBackRequestService,
@@ -96,15 +97,16 @@ export class TestTalentosComponent implements OnInit {
 		if (event.previousContainer === event.container) {
 			moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
 		} else {
+			let previousIndex =  event.previousIndex;
+			const element = event.previousContainer.element.nativeElement;
+			const id = element.getAttribute('id');
+			if (id === this.carouselContainerId) {
+				previousIndex = event.previousContainer.data.indexOf(event.item.data);
+			}
 			transferArrayItem(event.previousContainer.data,
 				event.container.data,
-				event.currentIndex,
+				previousIndex,
 				event.currentIndex);
-
-			/*debugger
-			const newArray = event.previousContainer.data.filter(e => e.id !== event.item.data.id);
-			event.previousContainer.data = [...newArray];
-			event.container.data.push(event.item.data)*/
 		}
 	}
 
