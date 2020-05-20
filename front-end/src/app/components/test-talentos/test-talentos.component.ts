@@ -27,7 +27,7 @@ export class TestTalentosComponent implements OnInit {
 	list3 = [];
 	list4 = [];
 	con: any;
-	path:string = '../../../assets/talentos/front/';
+	path:string = './assets/talentos/front/';
 	encuesta = {
 		encuesta_id: null,
 		persona_id: null,
