@@ -1,25 +1,25 @@
 <table>
     <thead>
-    <tr>
-        <th>NOMBRE</th>
-        <th>INTERESES</th>
-        @if ($show)
+        <tr>
+            <th>NOMBRE</th>
+            <th>INTERESES</th>
+            @if ($show)
             <th>TALENTOS</th>
             <th>TEMPERAMENTOS</th>
-        @endif
+            @endif
 
-    </tr>
+        </tr>
     </thead>
     <tbody>
-    @foreach($personas as $p)
+        @foreach($personas as $p)
         <tr>
             <td>{{ $p->nombres }} {{ $p->apellido_paterno }} {{ $p->apellido_materno }}</td>
             <td><a href="{{ $p->link_intereses }}">{{ $p->link_intereses }}</a></td>
             @if ($show)
             <td><a href="{{ $p->link_talentos }}">{{ $p->link_talentos }}</a></td>
             <td><a href="{{ $p->link_temperamentos }}">{{ $p->link_temperamentos }}</a></td>
-            @endif       
+            @endif
         </tr>
-      @endforeach
+        @endforeach
     </tbody>
 </table>
