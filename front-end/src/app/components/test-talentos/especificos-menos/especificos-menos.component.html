@@ -6,7 +6,7 @@
 <hr>
 <br>
 
-<mat-card>
+<mat-card *ngIf="finalizado">
 	<div *ngIf="continue" class="cont-button">
 		<button mat-raised-button (click)="continuar()">Finalizar >></button>
 	</div>
@@ -23,5 +23,12 @@
 	<div class="totales">
 		<span class="textos">{{seleccionados}} seleccionando de 3</span>
 		<span class="textos">Total {{total}}</span>
+	</div>
+</mat-card>
+<mat-card *ngIf="!finalizado">
+	<div class="alert bg-white" role="alert">
+		<h4 class="alert-heading">FELICITACIONES</h4>
+		<br>
+		<p>El test fue completado correctamente.</p>
 	</div>
 </mat-card>
