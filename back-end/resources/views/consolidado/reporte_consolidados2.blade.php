@@ -167,10 +167,9 @@
         .border-table {
             margin-left: 55px;
             margin-right: 55px;
-            height: 40px;
-            padding-top: 15px;
+            padding-top: 20px;
+            padding-bottom: 20px;
             font-size: 18px;
-            margin-top: 15px;
         }
 
         .text-white {
