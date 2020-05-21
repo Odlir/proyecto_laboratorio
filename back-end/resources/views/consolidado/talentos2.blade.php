@@ -180,9 +180,9 @@
                     <tr class="">
                         <td class="text-center py-3 font-11 mt-1 text-white" style="background:{{$ten->color}}">
                             @foreach ($puntajes as $item)
-                                @if ($item->tendencia_id == $ten->id)
-                                    {{$item->puntaje}}%
-                                @endif
+                            @if ($item->tendencia_id == $ten->id)
+                            {{$item->puntaje}}%
+                            @endif
                             @endforeach
                         </td>
                     </tr>

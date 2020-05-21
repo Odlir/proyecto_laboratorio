@@ -180,11 +180,11 @@
             line-height: 10px;
         }
 
-        .ml-5{
+        .ml-5 {
             margin-left: 3rem !important;
         }
 
-        .mt-4{
+        .mt-4 {
             margin-top: 1.5rem !important;
         }
     </style>
@@ -214,14 +214,14 @@
                 <td width="80%">
                     <table class="table-desarrollado ml-5">
                         @foreach ($item->talento->descripciones as $d)
-                            <tr>
-                                <td class="span-color">
-                                    •
-                                </td>
-                                <td class="text-justify">
-                                    {{$d->descripcion}}
-                                </td>
-                            </tr>
+                        <tr>
+                            <td class="span-color">
+                                •
+                            </td>
+                            <td class="text-justify">
+                                {{$d->descripcion}}
+                            </td>
+                        </tr>
                         @endforeach
                     </table>
                 </td>

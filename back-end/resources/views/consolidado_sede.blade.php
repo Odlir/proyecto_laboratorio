@@ -1185,9 +1185,9 @@
                         <tr class="">
                             <td class="text-center py-3 font-11 mt-1 text-white" style="background:{{$ten->color}}">
                                 @foreach ($puntajes_pie as $item)
-                                    @if ($item->tendencia_id == $ten->id)
-                                    {{$item->puntaje}}%
-                                    @endif
+                                @if ($item->tendencia_id == $ten->id)
+                                {{$item->puntaje}}%
+                                @endif
                                 @endforeach
                             </td>
                         </tr>
@@ -1204,9 +1204,9 @@
                 Test de Talentos
             </p>
             <p>
-                La Tabla 3  presenta cuántos alumnos de la muestra total del colegio caen dentro de 
-                cada categoría para cada una de las dimensiones de la prueba de Talentos,  así como el 
-                porcentaje (normal y acumulado) que esto representa dentro del grupo evaluado. 
+                La Tabla 3 presenta cuántos alumnos de la muestra total del colegio caen dentro de
+                cada categoría para cada una de las dimensiones de la prueba de Talentos, así como el
+                porcentaje (normal y acumulado) que esto representa dentro del grupo evaluado.
             </p>
         </div>
 
@@ -1219,14 +1219,16 @@
                             @foreach ($talentos_mas_desarrollados as $item)
                             @if ($item->tendencia_id==$ten->id)
                             <tr>
-                                <td class="p-2 text-white height-td" style="background:{{$ten->color}}">{{$item->nombre}}</td>
+                                <td class="p-2 text-white height-td" style="background:{{$ten->color}}">
+                                    {{$item->nombre}}</td>
                             </tr>
                             @endif
                             @endforeach
                             @foreach ($talentos_mas_especificos as $item)
                             @if ($item->tendencia_id==$ten->id)
                             <tr>
-                                <td class="p-2 text-white height-td" style="background:{{$ten->color}}">{{$item->nombre}}</td>
+                                <td class="p-2 text-white height-td" style="background:{{$ten->color}}">
+                                    {{$item->nombre}}</td>
                             </tr>
                             @endif
                             @endforeach
@@ -1239,6 +1241,37 @@
                 @endforeach
             </tr>
         </table>
+    </div>
+
+    <div class="page_break text-justify text-secondary">
+        <p>A partir de la tabla y el gráfico anteriores, se puede notar que el talento que aparece como dominante
+            con mayor frecuencia en la muestra evaluada es el de
+            @foreach ($talentos_mas_desarrollados as $item)
+            <b class="h3 italic">{{$item->nombre}}</b> <span class="h3 italic">("{{$item->descripcion}}");</span>
+            @break;
+            @endforeach
+            le siguen los talentos @foreach ($talentos_mas_desarrollados as $item)
+            @if ($loop->index==0)
+            @continue
+            @endif
+
+            @if ($loop->index==6)
+            @break;
+            @endif
+            <b class="h3 italic">{{$item->nombre}}</b> <span class="h3 italic">("{{$item->descripcion}}");</span>
+
+            @endforeach
+        </p>
+
+        <p>Por el contrario, los talentos que aparecen menos en la muestra evaluadas (5% o menos lo obtiene dentro de su listado) son:
+            @foreach ($talentos_mas_desarrollados as $item)
+            @if ($loop->index==0 || $loop->index==1 || $loop->index==2 || $loop->index==3 || $loop->index==4 || $loop->index==5)
+            @continue
+            @endif
+
+            <b class="h3 italic">{{$item->nombre}}</b> <span class="h3 italic">("{{$item->descripcion}}");</span>
+            @endforeach
+        </p>
     </div>
 
     <div class="page_break text-justify text-secondary">
