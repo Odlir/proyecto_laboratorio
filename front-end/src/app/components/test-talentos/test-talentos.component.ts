@@ -37,6 +37,7 @@ export class TestTalentosComponent implements OnInit {
 	public mensaje: string = '';
 	public titulo: string = '';
 	public carouselContainerId = 'carouselContainer';
+	public counter: number = 54;
 
 	constructor(config: NgbCarouselConfig,
 				private api: ApiBackRequestService,

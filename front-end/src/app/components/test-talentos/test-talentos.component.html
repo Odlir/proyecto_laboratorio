@@ -13,6 +13,7 @@
 	<div *ngIf="images.length === 0" class="cont-button">
 		<button mat-raised-button (click)="continuar()">Continuar >></button>
 	</div>
+	<div class="contador">{{counter - images.length}} clasificados de 54</div>
 	<div
 		cdkDropList
 		[id]="carouselContainerId"
