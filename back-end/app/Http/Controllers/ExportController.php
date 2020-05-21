@@ -628,7 +628,7 @@ class ExportController extends Controller
 
     public function puntajesPie($talentos_mas_desarrollados, $tendencias_pie)
     {
-        $factor = 8.3;
+        $factor = 100/12;
 
         $puntajes_pie = [];
 
@@ -663,7 +663,7 @@ class ExportController extends Controller
     {
         $tendencias_pie = TendenciaTalento::where('id', '!=', 7)->get();
 
-        $factor = 8.3;
+        $factor = 100/12;
 
         $personas = 0;
         $emprendimiento = 0;
