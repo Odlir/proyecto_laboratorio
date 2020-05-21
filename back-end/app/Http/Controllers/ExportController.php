@@ -288,6 +288,12 @@ class ExportController extends Controller
 
         $total_talentos = [];
         $puntajes_talentos = [];
+        $puntajes_talentos_e = [];
+
+        $puntajes_talentos_mas = [];
+
+        $total_talentos_e = [];
+        $puntajes_talentos_mas_e = [];
 
         foreach ($intereses as $i) {
 
@@ -317,6 +323,11 @@ class ExportController extends Controller
                     ->orderBy('talento_id')
                     ->get();
 
+                $talentos_mas_especificos = TalentoEspecificoMasDesarrollado::where('encuesta_id', $encuesta_tal['id'])
+                    ->where('persona_id', $p['id'])
+                    ->with('talento')
+                    ->get();
+
 
                 if ($p_intereses && $p_temperamentos && $p_talentos) {
                     foreach ($data_muestra as $m) {
@@ -338,6 +349,8 @@ class ExportController extends Controller
                     array_push($total_intereses, $p_intereses['punintereses']);
 
                     array_push($total_talentos, $talentos_mas_desarrollados);
+
+                    array_push($total_talentos_e, $talentos_mas_especificos);
                 }
             }
         }
@@ -413,7 +426,7 @@ class ExportController extends Controller
             $p_i->puntaje = (int) $p_i->puntaje;
         }
 
-        foreach ($total_talentos as $t) {
+        foreach ($total_talentos as $t) { //PARA EL PIE
             foreach ($t as $p) {
                 $object = array();
                 $object['talento_id'] = $p['talento_id'];
@@ -421,6 +434,49 @@ class ExportController extends Controller
                 $object['talento']['tendencia_id'] = $p['talento']['tendencia_id'];
                 array_push($puntajes_talentos, $object);
             }
+        }
+
+        foreach ($total_talentos_e as $t) { //PARA LA TABLA DE TALENTOS
+            foreach ($t as $p) {
+                $object = array();
+                $object['talento_id'] = $p['talento_id'];
+                array_push($puntajes_talentos_e, $object);
+            }
+        }
+
+        $map = function ($v) {
+            return $v['talento_id'];
+        };
+
+        $repetidos = array_count_values(array_map($map, $puntajes_talentos));
+
+        $repetidos_e = array_count_values(array_map($map, $puntajes_talentos_e));
+
+        arsort($repetidos);
+
+        arsort($repetidos_e);
+
+        $contador = 0;
+        $contador_e = 0;
+
+        foreach ($repetidos as $key => $val) {
+            if ($contador == 12) {
+                break;
+            } else {
+                $talento = Talento::where('id', $key)->first();
+                array_push($puntajes_talentos_mas, $talento);
+            }
+            $contador++;
+        }
+
+        foreach ($repetidos_e as $key => $val) {
+            if ($contador_e == 3) {
+                break;
+            } else {
+                $talento = Talento::where('id', $key)->first();
+                array_push($puntajes_talentos_mas_e, $talento);
+            }
+            $contador_e++;
         }
 
         $areas = Area::with('items.items')
@@ -457,7 +513,7 @@ class ExportController extends Controller
 
         $pie = $this->pieTalentos((array) $puntajes_talentos, $tendencias_pie);
 
-        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'talentos_ordenados' => $talentos_ordenados, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias, 'muestra' => $data_muestra, 'sexo' => $sexo, 'p_temperamentos' => $puntajes_temperamentos, 'areas' => $areas, 'p_intereses' => $puntajes_intereses, 'tendencias_pie' => $tendencias_pie, 'pie' => $pie, 'puntajes_pie' => $puntajes_pie));
+        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'talentos_ordenados' => $talentos_ordenados, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias, 'muestra' => $data_muestra, 'sexo' => $sexo, 'p_temperamentos' => $puntajes_temperamentos, 'areas' => $areas, 'p_intereses' => $puntajes_intereses, 'tendencias_pie' => $tendencias_pie, 'pie' => $pie, 'puntajes_pie' => $puntajes_pie, 'talentos_mas_desarrollados' => $puntajes_talentos_mas, 'talentos_mas_especificos' => $puntajes_talentos_mas_e));
         return $pdf->download('Consolidado_sede.pdf');
     }
 

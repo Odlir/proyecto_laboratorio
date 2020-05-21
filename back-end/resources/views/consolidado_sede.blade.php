@@ -1210,23 +1210,23 @@
             </p>
         </div>
 
-        {{-- <table class="table-height">
+        <table class="table-height font-10">
             <tr>
                 @foreach ($tendencias as $ten)
                 <td class="w-100 pr-2">
                     <div class="bottom">
                         <table class="text-center margin-tr">
                             @foreach ($talentos_mas_desarrollados as $item)
-                            @if ($item->talento->tendencia_id==$ten->id)
+                            @if ($item->tendencia_id==$ten->id)
                             <tr>
-                                <td class="p-2 text-white height-td" style="background:{{$ten->color}}">{{$item->talento->nombre}}</td>
+                                <td class="p-2 text-white height-td" style="background:{{$ten->color}}">{{$item->nombre}}</td>
                             </tr>
                             @endif
                             @endforeach
-                            @foreach ($talento_mas_especificos as $item)
-                            @if ($item->talento->tendencia_id==$ten->id)
+                            @foreach ($talentos_mas_especificos as $item)
+                            @if ($item->tendencia_id==$ten->id)
                             <tr>
-                                <td class="p-2 text-white height-td" style="background:{{$ten->color}}">{{$item->talento->nombre}}</td>
+                                <td class="p-2 text-white height-td" style="background:{{$ten->color}}">{{$item->nombre}}</td>
                             </tr>
                             @endif
                             @endforeach
@@ -1238,7 +1238,7 @@
                 </td>
                 @endforeach
             </tr>
-        </table> --}}
+        </table>
     </div>
 
     <div class="page_break text-justify text-secondary">
