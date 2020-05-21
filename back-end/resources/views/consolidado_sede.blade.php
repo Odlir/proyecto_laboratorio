@@ -275,6 +275,53 @@
             margin-right: 5px;
             background: red;
         }
+
+        .cuadrado {
+            width: 8px;
+            height: 8px;
+        }
+
+        .pie {
+            margin-top: -70px;
+            width: 370px;
+            height: 550px;
+            margin-bottom: -100px;
+        }
+
+        .tabla-resultado {
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+
+        .z-index {
+            position: relative;
+            z-index: 1;
+        }
+
+        .py-2 {
+            padding-top: 0.5rem !important;
+            padding-bottom: 0.5rem !important;
+        }
+
+        .font-11 {
+            font-size: 11px;
+        }
+
+        .leyenda {
+            font-size: 10px;
+        }
+
+        .ml-4 {
+            margin-left: 1.5rem !important;
+        }
+
+        .mb-1 {
+            margin-bottom: 0.25rem !important;
+        }
+
+        .table-height {
+            height: 600px;
+        }
     </style>
 </head>
 
@@ -1087,6 +1134,111 @@
         </div>
         <br>
         @endforeach
+    </div>
+
+    <div class="page_break text-justify text-secondary">
+        <div class="z-index">
+            <p class="font-weight-bold h3">
+                Test de Talentos
+            </p>
+            <p>
+                La Tabla 3 presenta cuántos alumnos de la muestra total del colegio caen dentro de cada
+                categoría para cada una de las dimensiones de la prueba de Talentos, así como el porcentaje
+                (normal y acumulado) que esto representa dentro del grupo evaluado.
+            </p>
+
+            <p class="text-center h1 mt-5">Talentos más desarrollados por categorías</p>
+        </div>
+
+        <table class="w-100">
+            <tr>
+                <td width="50%">
+                    <img src="{{$pie->EncodeImage()}}" class="pie">
+                </td>
+                <td width="50%">
+                    @foreach ($tendencias_pie as $ten)
+                    <table class="ml-4 mb-1 leyenda">
+                        <tr>
+                            <td>
+                                <div class="cuadrado" style="background:{{$ten->color}}"></div>
+                            </td>
+                            <td>
+                                &nbsp;{{$ten->nombre}}
+                            </td>
+                        </tr>
+                    </table>
+                    @endforeach
+                </td>
+            </tr>
+        </table>
+
+        <table class="tabla-resultado z-index mt-5">
+            <tr>
+                @foreach ($tendencias_pie as $ten)
+                <td>
+                    <table>
+                        <tr>
+                            <td class="border text-center py-2 font-11" style="border-color:{{$ten->color}}">
+                                {{$ten->nombre}}
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <td class="text-center py-3 font-11 mt-1 text-white" style="background:{{$ten->color}}">
+                                @foreach ($puntajes_pie as $item)
+                                    @if ($item->tendencia_id == $ten->id)
+                                    {{$item->puntaje}}%
+                                    @endif
+                                @endforeach
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                @endforeach
+            </tr>
+        </table>
+    </div>
+
+    <div class="page_break text-justify text-secondary">
+        <div class="z-index">
+            <p class="font-weight-bold h3">
+                Test de Talentos
+            </p>
+            <p>
+                La Tabla 3  presenta cuántos alumnos de la muestra total del colegio caen dentro de 
+                cada categoría para cada una de las dimensiones de la prueba de Talentos,  así como el 
+                porcentaje (normal y acumulado) que esto representa dentro del grupo evaluado. 
+            </p>
+        </div>
+
+        {{-- <table class="table-height">
+            <tr>
+                @foreach ($tendencias as $ten)
+                <td class="w-100 pr-2">
+                    <div class="bottom">
+                        <table class="text-center margin-tr">
+                            @foreach ($talentos_mas_desarrollados as $item)
+                            @if ($item->talento->tendencia_id==$ten->id)
+                            <tr>
+                                <td class="p-2 text-white height-td" style="background:{{$ten->color}}">{{$item->talento->nombre}}</td>
+                            </tr>
+                            @endif
+                            @endforeach
+                            @foreach ($talento_mas_especificos as $item)
+                            @if ($item->talento->tendencia_id==$ten->id)
+                            <tr>
+                                <td class="p-2 text-white height-td" style="background:{{$ten->color}}">{{$item->talento->nombre}}</td>
+                            </tr>
+                            @endif
+                            @endforeach
+                            <tr>
+                                <td class="border p-2" style="border-color:{{$ten->color}}">{{$ten->nombre}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+                @endforeach
+            </tr>
+        </table> --}}
     </div>
 
     <div class="page_break text-justify text-secondary">

@@ -286,6 +286,9 @@ class ExportController extends Controller
         $total_intereses = [];
         $puntajes_intereses = [];
 
+        $total_talentos = [];
+        $puntajes_talentos = [];
+
         foreach ($intereses as $i) {
 
             $encuesta_temp = $this->encuestaTemperamento($i['encuesta_general_id']);
@@ -307,6 +310,14 @@ class ExportController extends Controller
                     ->where('persona_id', $p['id'])
                     ->first();
 
+                $talentos_mas_desarrollados = TalentoMasDesarrollado::where('encuesta_id', $encuesta_tal['id'])
+                    ->where('persona_id', $p['id'])
+                    ->with('talento.descripciones')
+                    ->with('talento.tendencia')
+                    ->orderBy('talento_id')
+                    ->get();
+
+
                 if ($p_intereses && $p_temperamentos && $p_talentos) {
                     foreach ($data_muestra as $m) {
                         if ($m->anio == $p['anio']) {
@@ -325,6 +336,8 @@ class ExportController extends Controller
                     array_push($total_temperamentos, $p_temperamentos['puntemperamentos']);
 
                     array_push($total_intereses, $p_intereses['punintereses']);
+
+                    array_push($total_talentos, $talentos_mas_desarrollados);
                 }
             }
         }
@@ -400,6 +413,16 @@ class ExportController extends Controller
             $p_i->puntaje = (int) $p_i->puntaje;
         }
 
+        foreach ($total_talentos as $t) {
+            foreach ($t as $p) {
+                $object = array();
+                $object['talento_id'] = $p['talento_id'];
+                $object['talento'] = array();
+                $object['talento']['tendencia_id'] = $p['talento']['tendencia_id'];
+                array_push($puntajes_talentos, $object);
+            }
+        }
+
         $areas = Area::with('items.items')
             ->with('formulas')
             ->where('estado', '1')
@@ -420,6 +443,8 @@ class ExportController extends Controller
 
         $tendencias = TendenciaTalento::all();
 
+        $tendencias_pie = TendenciaTalento::where('id', '!=', 7)->get();
+
         $talentos = Talento::where('tendencia_id', "!=", null)
             ->with('tendencia')
             ->get();
@@ -428,7 +453,11 @@ class ExportController extends Controller
             ->orderBy("nombre")
             ->get();
 
-        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'talentos_ordenados' => $talentos_ordenados, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias, 'muestra' => $data_muestra, 'sexo' => $sexo, 'p_temperamentos' => $puntajes_temperamentos, 'areas' => $areas, 'p_intereses' => $puntajes_intereses));
+        $puntajes_pie = $this->puntajesPie((array) $puntajes_talentos, $tendencias_pie);
+
+        $pie = $this->pieTalentos((array) $puntajes_talentos, $tendencias_pie);
+
+        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'talentos_ordenados' => $talentos_ordenados, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $colegio['nombre'], 'tendencias' => $tendencias, 'muestra' => $data_muestra, 'sexo' => $sexo, 'p_temperamentos' => $puntajes_temperamentos, 'areas' => $areas, 'p_intereses' => $puntajes_intereses, 'tendencias_pie' => $tendencias_pie, 'pie' => $pie, 'puntajes_pie' => $puntajes_pie));
         return $pdf->download('Consolidado_sede.pdf');
     }
 
@@ -634,7 +663,7 @@ class ExportController extends Controller
 
     public function puntajesPie($talentos_mas_desarrollados, $tendencias_pie)
     {
-        $factor = 100/12;
+        $factor = 100 / count($talentos_mas_desarrollados);
 
         $puntajes_pie = [];
 
@@ -667,9 +696,7 @@ class ExportController extends Controller
 
     public function pieTalentos($t_desarrollados, $tendencias_pie)
     {
-        $tendencias_pie = TendenciaTalento::where('id', '!=', 7)->get();
-
-        $factor = 100/12;
+        $factor = 100 / count($t_desarrollados);
 
         $personas = 0;
         $emprendimiento = 0;
