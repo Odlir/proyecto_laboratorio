@@ -72,6 +72,8 @@
 	<input type="text" class="buscador" placeholder="Buscar por Nombres/Apellidos"
 	(keyup)="updateFilter($event)" />
 	<label class="ml-3 font-weight-bold">TOTAL:&nbsp;{{reportes.length}}</label>
+	<span class="dot bg-danger ml-4 position-relative" style="top: 5px;"></span> <b class="ml-2">{{rojo}}</b>
+	<span class="dot bg-success ml-4 position-relative" style="top: 5px;"></span> <b class="ml-2">{{verde}}</b>
 	<table class="table table-hover text-center">
 		<thead>
 		  <tr>

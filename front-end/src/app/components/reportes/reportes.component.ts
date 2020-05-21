@@ -29,6 +29,10 @@ export class ReportesComponent implements OnInit {
 		empresa_id: null
 	}
 
+	public verde: number = 0;
+
+	public rojo:number = 0;
+
 	public showReporte = false;
 
 	public empresas: Empresa[] = [];
@@ -188,6 +192,8 @@ export class ReportesComponent implements OnInit {
 					this.reportes = data[0];
 					this.disabled = false;
 					this.show = data.show;
+					this.verde = data.verde;
+					this.rojo = data.rojo;
 				},
 				(error) => {
 					this.disabled = false;
@@ -249,6 +255,8 @@ export class ReportesComponent implements OnInit {
 		this.show = null;
 		this.showReporte = false;
 		this.intereses = [];
+		this.verde = 0;
+		this.rojo = 0;
 	}
 
 	mensaje(msj) {

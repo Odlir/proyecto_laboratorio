@@ -522,6 +522,8 @@ class ExportController extends Controller
         $back = config('constants.back_end');
 
         $show = false;
+        $verde = 0;
+        $rojo = 0;
 
         $interes = $this->encuestaInteres($request->interes_id);
 
@@ -553,8 +555,10 @@ class ExportController extends Controller
             if ($show) {
                 if ($data_interes && $data_temperamento && $data_talento) {
                     $p->link = $back . 'exportar' . '/consolidados/' .  $request->interes_id . '/' . $p->id;
+                    $verde++;
                 } else {
                     $p->link = "";
+                    $rojo++;
                 }
             } else {
                 if ($data_interes) {
@@ -584,7 +588,7 @@ class ExportController extends Controller
             }
         }
 
-        return response()->json([$interes['general']['personas'], 'show' => $show], 200);
+        return response()->json([$interes['general']['personas'], 'show' => $show, 'verde' => $verde, 'rojo' => $rojo], 200);
     }
 
     public function intereses(Request $request)
