@@ -27,7 +27,8 @@
 			</div>
 			<div class="col-sm-4">
 				<button type="submit" class="btn btn-success d-flex" (click)="zip_intereses()" [disabled]="disabled">
-					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXPORTAR REP INTERESES
+					<fa-icon [icon]="['fas', 'file-download']"></fa-icon> 
+					ZIP REP INTERESES
 				</button>
 			</div>
 			<hr>
@@ -35,23 +36,23 @@
 
 		<div class="form-group row mt-5 mx-0">
 			<button type="button" class="btn btn-light d-flex" (click)="reporte()" [disabled]="disabled">
-				<fa-icon [icon]="['fas', 'file-download']"></fa-icon>VER STATUS
+				<fa-icon [icon]="['fas', 'file-download']"></fa-icon> VER STATUS
 			</button>
 			<button type="submit" class="btn btn-secondary d-flex" (click)="links()" [disabled]="disabled">
-				<fa-icon [icon]="['fas', 'file-download']"></fa-icon> LINKS PARA ENCUESTAS
+				<fa-icon [icon]="['fas', 'file-download']"></fa-icon>  LINKS PARA ENCUESTAS
 			</button>
 			<button type="submit" class="btn btn-success d-flex" (click)="excel()" [disabled]="disabled">
 				<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXCEL STATUS
 			</button>
 			<button type="submit" class="btn btn-primary d-flex" (click)="pdf()" [disabled]="disabled">
-				<fa-icon [icon]="['fas', 'file-download']"></fa-icon> EXPORTAR REP CONSOLIDADOS
+				<fa-icon [icon]="['fas', 'file-download']"></fa-icon> ZIP REP CONSOLIDADOS
 			</button>
 			<button type="submit" class="btn btn-dark d-flex" (click)="sede()" [disabled]="disabled">
 				<fa-icon [icon]="['fas', 'file-download']"></fa-icon>CONSOLIDADO SEDE
 			</button>
-			<button type="submit" class="btn btn-danger d-flex" (click)="c_empresa()" [disabled]="disabled">
+			<!-- <button type="submit" class="btn btn-danger d-flex" (click)="c_empresa()" [disabled]="disabled">
 				<fa-icon [icon]="['fas', 'file-download']"></fa-icon>CONSOLIDADO CORPORATIVO
-			</button>
+			</button> -->
 		
 			<a (click)="return()" class="btn btn-info text-white">REGRESAR</a>
 		</div>
