@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <style>
         @page {
-            margin: 60px;
+            margin: 55px;
             padding: 0;
             margin-bottom: 40px;
         }
@@ -86,6 +86,10 @@
             position:absolute;
             bottom:90px;
         }
+
+        .height-td{
+            height: 40px;
+        }
     </style>
 </head>
 
@@ -112,14 +116,14 @@
                         @foreach ($talentos as $item)
                         @if ($item->talento->tendencia_id==$ten->id)
                         <tr>
-                            <td class="border p-2" style="border-color:{{$ten->color}}">{{$item->talento->nombre}}</td>
+                            <td class="p-2 text-white height-td" style="background:{{$ten->color}}">{{$item->talento->nombre}}</td>
                         </tr>
                         @endif
                         @endforeach
                         @foreach ($talentos_e as $item)
                         @if ($item->talento->tendencia_id==$ten->id)
                         <tr>
-                            <td class="border p-2" style="border-color:{{$ten->color}}">{{$item->talento->nombre}}</td>
+                            <td class="p-2 text-white height-td" style="background:{{$ten->color}}">{{$item->talento->nombre}}</td>
                         </tr>
                         @endif
                         @endforeach

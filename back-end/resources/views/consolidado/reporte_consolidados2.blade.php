@@ -165,11 +165,11 @@
         }
 
         .border-table {
-            margin-left: 55px;
-            margin-right: 55px;
+            /* margin-left: 55px;
+            margin-right: 55px; */
             padding-top: 20px;
             padding-bottom: 20px;
-            font-size: 18px;
+            font-size: 16px;
         }
 
         .text-white {
@@ -180,8 +180,12 @@
             line-height: 10px;
         }
 
-        .mt-3 {
-            margin-top: 1rem !important;
+        .ml-5{
+            margin-left: 3rem !important;
+        }
+
+        .mt-4{
+            margin-top: 1.5rem !important;
         }
     </style>
 </head>
@@ -200,21 +204,21 @@
             desarrollados:</p>
 
         @foreach ($talentos as $item)
-        <table class="w-100 mt-3">
+        <table class="w-100 mt-4">
             <tr>
-                <td width="40%" class="text-center top">
+                <td width="20%" class="text-center top">
                     <div class="border-table text-white" style="background:{{$item->talento->tendencia->color}}">
                         {{$item->talento->nombre}}
                     </div>
                 </td>
-                <td width="60%">
-                    <table class="table-desarrollado">
+                <td width="80%">
+                    <table class="table-desarrollado ml-5">
                         @foreach ($item->talento->descripciones as $d)
                             <tr>
                                 <td class="span-color">
                                     •
                                 </td>
-                                <td>
+                                <td class="text-justify">
                                     {{$d->descripcion}}
                                 </td>
                             </tr>

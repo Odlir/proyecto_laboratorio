@@ -75,6 +75,10 @@ class EncuestaPersonaController extends Controller
 
         //DATA[0] ES LA ENCUESTA_ID Y SU PERSONA_ID
 
+        EncuestaPuntaje::where('encuesta_id', $data[0]['encuesta_id'])
+                ->where('persona_id', $data[0]['persona_id'])
+                ->delete();
+
         $encuesta_puntaje = EncuestaPuntaje::create($data[0]); //TABLA PRINCIPAL
         
         //DATA[1] SE REFIERE AL TIPO DE ENCUESTA
