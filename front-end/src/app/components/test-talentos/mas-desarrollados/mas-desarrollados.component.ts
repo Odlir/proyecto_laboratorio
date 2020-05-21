@@ -94,7 +94,6 @@ export class MasDesarrolladosComponent implements OnInit {
 		if (selected === 12){
 			this.continue = true;
 			Swal.fire({
-				title: 'Test de Talentos.',
 				text: 'Has terminado de elegir tus 12 talentos más desarrollados. Si estás seguro de tus respuestas, haz click en CONTINUAR.',
 				icon: 'success'
 			});

@@ -123,15 +123,13 @@ export class TestTalentosComponent implements OnInit {
 		if (this.list2.length < 12){
 			Swal.fire({
 				title: 'El buzón Talentos más desarrollados debe contener un mínimo de 12 talentos',
-				icon: 'warning',
-				timer: 2000
+				icon: 'warning'
 			});
 			return false;
 		}else if (this.list4.length < 6){
 			Swal.fire({
 				title: 'El buzón Talentos menos desarrollados debe contener un mínimo de 6 talentos',
-				icon: 'warning',
-				timer: 2000
+				icon: 'warning'
 			});
 			return false;
 		}

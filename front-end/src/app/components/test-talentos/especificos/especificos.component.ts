@@ -93,7 +93,6 @@ export class EspecificosComponent implements OnInit {
 			console.log('ele', this.store);
 			this.continue = true;
 			Swal.fire({
-				title: 'Test de Talentos.',
 				text: 'Has terminado de elegir tus 3 talentos especificos. Si estás seguro de tus respuestas, haz click en CONTINUAR.',
 				icon: 'success'
 			});

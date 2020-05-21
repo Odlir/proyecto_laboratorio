@@ -93,7 +93,6 @@ export class MenosDesarrolladosComponent implements OnInit {
 		if (selected === 6){
 			this.continue = true;
 			Swal.fire({
-				title: 'Test de Talentos.',
 				text: 'Has terminado de elegir tus 6 talentos menos desarrollados. Si estás seguro de tus respuestas, haz click en CONTINUAR.',
 				icon: 'success'
 			});
