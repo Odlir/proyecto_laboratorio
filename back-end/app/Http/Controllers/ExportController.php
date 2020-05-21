@@ -183,18 +183,6 @@ class ExportController extends Controller
         }
 
         foreach ($intereses as $i) {
-            // $temperamento = Encuesta::where('tipo_encuesta_id', 3)
-            //     ->where('empresa_sucursal_id', $request->empresa_id)
-            //     ->where('encuesta_general_id', $i['encuesta_general_id'])
-            //     ->where('estado', '1')
-            //     ->first();
-
-            // $talento = Encuesta::where('tipo_encuesta_id', 2)
-            //     ->where('empresa_sucursal_id', $request->empresa_id)
-            //     ->where('encuesta_general_id', $i['encuesta_general_id'])
-            //     ->where('estado', '1')
-            //     ->first();
-
             $temperamento = $this->encuestaTemperamento($i['encuesta_general_id']);
 
             $talento = $this->encuestaTalento($i['encuesta_general_id']);
@@ -346,6 +334,7 @@ class ExportController extends Controller
                 $object = new stdClass();
                 $object->formula_id = $p['formula_id'];
                 $object->area_id = $p['formula']['area_id'];
+                $object->puntaje = 0;
                 $object->transformacion = 0;
                 array_push($puntajes_temperamentos, $object);
             }
@@ -356,14 +345,31 @@ class ExportController extends Controller
             foreach ($t as $p) {
                 foreach ($puntajes_temperamentos as $p_t) {
                     if ($p_t->formula_id == $p['formula_id']) {
-                        $p_t->transformacion = $p_t->transformacion + $p['transformacion'];
+                        $p_t->puntaje = $p_t->puntaje + $p['puntaje'];
                     }
                 }
             }
         }
 
         foreach ($puntajes_temperamentos as $p_t) {
-            $p_t->transformacion = $p_t->transformacion / count($total_temperamentos);
+            $p_t->puntaje = $p_t->puntaje / count($total_temperamentos);
+            $p_t->puntaje = round($p_t->puntaje);
+
+            if ($p_t->puntaje == 7) { //HAGO LA TRANSFORMACIÓN DE LOS PUNTAJES
+                $p_t->transformacion = 3;
+            } else if ($p_t->puntaje == 6) {
+                $p_t->transformacion = 2;
+            } else if ($p_t->puntaje == 5) {
+                $p_t->transformacion = 1;
+            } else if ($p_t->puntaje == 4) {
+                $p_t->transformacion = 0;
+            } else if ($p_t->puntaje == 3) {
+                $p_t->transformacion = -1;
+            } else if ($p_t->puntaje == 2) {
+                $p_t->transformacion = -2;
+            } else if ($p_t->puntaje == 1) {
+                $p_t->transformacion = -3;
+            }
         }
 
         foreach ($total_intereses as $i) {
@@ -371,7 +377,7 @@ class ExportController extends Controller
                 $object = new stdClass();
                 $object->carrera_id = $p['carrera_id'];
                 $object->carrera = $p['carrera']['nombre'];
-                $object->carrera2 = ucwords(strtolower($p['carrera']['nombre']));
+                $object->carrera2 = ucwords(mb_strtolower($p['carrera']['nombre']));
                 $object->descripcion = $p['carrera']['interes'];
                 $object->puntaje = 0;
                 array_push($puntajes_intereses, $object);
