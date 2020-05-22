@@ -92,10 +92,9 @@
         }
 
         .pie {
-            margin-top: -70px;
-            width: 370px;
-            height: 550px;
-            margin-bottom: -100px;
+            width: 450px;
+            height: 450px;
+            margin-bottom: -50px;
         }
 
         .z-index {
@@ -118,6 +117,7 @@
 
         .leyenda {
             font-size: 10px;
+            margin-left: -80px;
         }
     </style>
 </head>
@@ -144,14 +144,14 @@
             <br><br>
             <p class="text-secondary h2">2.3 Talentos más desarrollados por categorías</p>
         </div>
-        <table class="w-100">
+        <table class="w-100 leyenda">
             <tr>
                 <td>
                     <img src="{{$pie->EncodeImage()}}" class="pie">
                 </td>
                 <td>
                     @foreach ($tendencias as $ten)
-                    <table class="ml-4 mb-1 leyenda">
+                    <table class="ml-4 mb-1 ">
                         <tr>
                             <td>
                                 <div class="cuadrado" style="background:{{$ten->color}}"></div>
