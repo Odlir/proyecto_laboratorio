@@ -50,4 +50,9 @@ class EmpresaSucursal extends Model
     {
         return $this->hasMany('App\Encuesta');
     }
+    
+    public function empresa()
+    {
+        return $this->belongsTo('App\Empresa');
+    }
 }

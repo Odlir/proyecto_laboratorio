@@ -31,7 +31,7 @@ export class ReportesComponent implements OnInit {
 
 	public verde: number = 0;
 
-	public rojo:number = 0;
+	public rojo: number = 0;
 
 	public showReporte = false;
 
@@ -230,7 +230,37 @@ export class ReportesComponent implements OnInit {
 	}
 
 	c_empresa() {
-		console.log('empresa');
+		if (this.empresa.nombre == null) {
+			this.mensaje('Por favor complete los campos requeridos')
+		} else {
+			let empresa_nom = "";
+			let empresa_id = "";
+			this.showProgress = true;
+			this.progressRef.start();
+			this.disabled = true;
+			this.api.get('empresa_sucursal', this.empresa.id).subscribe(
+				(data) => {
+					empresa_nom = data.empresa.razon_social;
+					empresa_id = data.empresa.id;
+					this.form.campo = 'consolidado_empresa';
+					this.form.archivo = empresa_nom + '-' + empresa_id + '.pdf';
+					this.form.empresa_id = this.empresa.id;
+					this.api.downloadFile('exportar', this.form).subscribe(
+						(data) => {
+							this.disabled = false;
+							this.limpiar();
+							this.progressRef.complete();
+						},
+						async (error) => {
+							this.disabled = false;
+							this.mensaje(error.error)
+							this.limpiar();
+						}
+					);
+				}
+			);
+
+		}
 	}
 
 	obtenerIntereses() {

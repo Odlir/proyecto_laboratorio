@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Area;
 use App\Carrera;
+use App\Empresa;
 use App\EmpresaSucursal;
 use App\Encuesta;
 use App\EncuestaGeneral;
@@ -150,7 +151,447 @@ class ExportController extends Controller
             return $this->reportes($request);
         } else if ($request->campo == "consolidado_sede") {
             return $this->consolidado_sede($request);
+        } else if ($request->campo == "consolidado_empresa") {
+            return $this->consolidado_empresa($request);
         }
+    }
+
+    public function consolidado_empresa(Request $request)
+    {
+        $show = false;
+
+        $error = "";
+
+        $data_muestra = [];
+
+        $años = [];
+
+        $sexo = [
+            'masculino' => 0,
+            'femenino' => 0
+        ];
+
+        $sucursal = EmpresaSucursal::find($request->empresa_id);
+
+        $empresa = Empresa::where('id', $sucursal['empresa_id'])
+            ->with('sucursales')
+            ->first();
+
+        foreach ($empresa['sucursales'] as $e) {
+            $intereses = Encuesta::where('tipo_encuesta_id', 1)
+                ->where('empresa_sucursal_id', $e['id'])
+                ->where('estado', '1')
+                ->with(['general' => function ($query) {
+                    $query->with(['personas' => function ($query) {
+                        $query->wherePivot('estado', '1');
+                    }]);
+                }])
+                ->get();
+
+            if (!$intereses->isEmpty()) {
+                $show = true;
+                break;
+            } else {
+                $show = false;
+                $error = 'No hay encuestas registradas';
+            }
+        }
+
+        if ($show == false) {
+            return response()->json(['error' => $error], 404);
+        }
+
+        foreach ($empresa['sucursales'] as $e) {
+            $intereses = Encuesta::where('tipo_encuesta_id', 1)
+                ->where('empresa_sucursal_id', $e['id'])
+                ->where('estado', '1')
+                ->with(['general' => function ($query) {
+                    $query->with(['personas' => function ($query) {
+                        $query->wherePivot('estado', '1');
+                    }]);
+                }])
+                ->get();
+
+            foreach ($intereses as $i) {
+                $temperamento = $this->encuestaTemperamento($i['encuesta_general_id']);
+
+                $talento = $this->encuestaTalento($i['encuesta_general_id']);
+
+                if ($temperamento && $talento) {
+                    $show = true;
+                    break 2;
+                } else {
+                    $show = false;
+                    $error = 'No hay encuestas de temperamentos o talentos registradas.';
+                }
+            }
+        }
+
+        if ($show == false) {
+            return response()->json(['error' => $error], 404);
+        }
+
+        foreach ($empresa['sucursales'] as $e) {
+            $intereses = Encuesta::where('tipo_encuesta_id', 1)
+                ->where('empresa_sucursal_id', $e['id'])
+                ->where('estado', '1')
+                ->with(['general' => function ($query) {
+                    $query->with(['personas' => function ($query) {
+                        $query->wherePivot('estado', '1');
+                    }]);
+                }])
+                ->get();
+
+            foreach ($intereses as $i) {
+                if (!$i['general']['personas']->isEmpty()) {
+                    $show = true;
+                    break 2;
+                } else {
+                    $show = false;
+                    $error = 'No hay alumnos registrados.';
+                }
+            }
+        }
+
+        if ($show == false) {
+            return response()->json(['error' => $error], 404);
+        }
+
+        foreach ($empresa['sucursales'] as $e) {
+            $intereses = Encuesta::where('tipo_encuesta_id', 1)
+                ->where('empresa_sucursal_id', $e['id'])
+                ->where('estado', '1')
+                ->with(['general' => function ($query) {
+                    $query->with(['personas' => function ($query) {
+                        $query->wherePivot('estado', '1');
+                    }]);
+                }])
+                ->get();
+
+            foreach ($intereses as $i) {
+                $encuesta_temp = $this->encuestaTemperamento($i['encuesta_general_id']);
+
+                $encuesta_tal = $this->encuestaTalento($i['encuesta_general_id']);
+
+                foreach ($i['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
+                    $p_intereses = EncuestaPuntaje::where('encuesta_id', $i['id'])
+                        ->where('persona_id', $p['id'])
+                        ->first();
+
+                    $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
+                        ->where('persona_id', $p['id'])
+                        ->first();
+
+                    $p_talentos = EncuestaPuntaje::where('encuesta_id', $encuesta_tal['id'])
+                        ->where('persona_id', $p['id'])
+                        ->first();
+
+                    if ($p_intereses && $p_temperamentos && $p_talentos) {
+                        $show = true;
+                        break 3; //SALGO DE LOS 3 FOREACH
+                    } else {
+                        $show = false;
+                        $error = 'No hay encuestas resueltas.';
+                    }
+                }
+            }
+        }
+
+        if ($show == false) {
+            return response()->json(['error' => $error], 404);
+        }
+
+        foreach ($empresa['sucursales'] as $e) {
+            $intereses = Encuesta::where('tipo_encuesta_id', 1)
+                ->where('empresa_sucursal_id', $e['id'])
+                ->where('estado', '1')
+                ->with(['general' => function ($query) {
+                    $query->with(['personas' => function ($query) {
+                        $query->wherePivot('estado', '1');
+                    }]);
+                }])
+                ->get();
+
+            foreach ($intereses as $i) {
+
+                $encuesta_temp = $this->encuestaTemperamento($i['encuesta_general_id']);
+
+                $encuesta_tal = $this->encuestaTalento($i['encuesta_general_id']);
+
+                foreach ($i['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
+                    $p_intereses = EncuestaPuntaje::where('encuesta_id', $i['id'])
+                        ->where('persona_id', $p['id'])
+                        ->first();
+
+                    $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
+                        ->where('persona_id', $p['id'])
+                        ->first();
+
+                    $p_talentos = EncuestaPuntaje::where('encuesta_id', $encuesta_tal['id'])
+                        ->where('persona_id', $p['id'])
+                        ->first();
+
+                    if ($p_intereses && $p_temperamentos && $p_talentos) {
+                        if (!in_array($p['anio'], $años)) {
+                            array_push($años, $p['anio']);
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach ($años as $a) {
+            $object = new stdClass();
+            $object->anio = $a;
+            $object->muestra = 0;
+            array_push($data_muestra, $object);
+        }
+
+        $total_temperamentos = [];
+        $puntajes_temperamentos = [];
+
+        $total_intereses = [];
+        $puntajes_intereses = [];
+
+        $total_talentos = [];
+        $puntajes_talentos = [];
+        $puntajes_talentos_e = [];
+
+        $puntajes_talentos_mas = [];
+
+        $total_talentos_e = [];
+        $puntajes_talentos_mas_e = [];
+
+        foreach ($empresa['sucursales'] as $e) {
+            $intereses = Encuesta::where('tipo_encuesta_id', 1)
+                ->where('empresa_sucursal_id', $e['id'])
+                ->where('estado', '1')
+                ->with(['general' => function ($query) {
+                    $query->with(['personas' => function ($query) {
+                        $query->wherePivot('estado', '1');
+                    }]);
+                }])
+                ->get();
+
+            foreach ($intereses as $i) {
+
+                $encuesta_temp = $this->encuestaTemperamento($i['encuesta_general_id']);
+
+                $encuesta_tal = $this->encuestaTalento($i['encuesta_general_id']);
+
+                foreach ($i['general']['personas'] as $p) { //PARA LOS CONSOLIDADOS
+                    $p_intereses = EncuestaPuntaje::where('encuesta_id', $i['id'])
+                        ->where('persona_id', $p['id'])
+                        ->with('punintereses.carrera')
+                        ->first();
+
+                    $p_temperamentos = EncuestaPuntaje::where('encuesta_id', $encuesta_temp['id'])
+                        ->where('persona_id', $p['id'])
+                        ->with('puntemperamentos.formula')
+                        ->first();
+
+                    $p_talentos = EncuestaPuntaje::where('encuesta_id', $encuesta_tal['id'])
+                        ->where('persona_id', $p['id'])
+                        ->first();
+
+                    $talentos_mas_desarrollados = TalentoMasDesarrollado::where('encuesta_id', $encuesta_tal['id'])
+                        ->where('persona_id', $p['id'])
+                        ->with('talento.descripciones')
+                        ->with('talento.tendencia')
+                        ->orderBy('talento_id')
+                        ->get();
+
+                    $talentos_mas_especificos = TalentoEspecificoMasDesarrollado::where('encuesta_id', $encuesta_tal['id'])
+                        ->where('persona_id', $p['id'])
+                        ->with('talento')
+                        ->get();
+
+
+                    if ($p_intereses && $p_temperamentos && $p_talentos) {
+                        foreach ($data_muestra as $m) {
+                            if ($m->anio == $p['anio']) {
+                                $m->muestra++;
+                            }
+                        }
+
+                        if (strcasecmp($p['sexo'], 'masculino') == 0) {
+                            $sexo['masculino']++;
+                        } else {
+                            $sexo['femenino']++;
+                        }
+
+                        ///////
+
+                        array_push($total_temperamentos, $p_temperamentos['puntemperamentos']);
+
+                        array_push($total_intereses, $p_intereses['punintereses']);
+
+                        array_push($total_talentos, $talentos_mas_desarrollados);
+
+                        array_push($total_talentos_e, $talentos_mas_especificos);
+                    }
+                }
+            }
+        }
+
+        foreach ($total_temperamentos as $t) {
+            foreach ($t as $p) {
+                $object = new stdClass();
+                $object->formula_id = $p['formula_id'];
+                $object->area_id = $p['formula']['area_id'];
+                $object->puntaje = 0;
+                $object->transformacion = 0;
+                array_push($puntajes_temperamentos, $object);
+            }
+            break;
+        }
+
+        foreach ($total_temperamentos as $t) {
+            foreach ($t as $p) {
+                foreach ($puntajes_temperamentos as $p_t) {
+                    if ($p_t->formula_id == $p['formula_id']) {
+                        $p_t->puntaje = $p_t->puntaje + $p['puntaje'];
+                    }
+                }
+            }
+        }
+
+        foreach ($puntajes_temperamentos as $p_t) {
+            $p_t->puntaje = $p_t->puntaje / count($total_temperamentos);
+            $p_t->puntaje = round($p_t->puntaje);
+
+            if ($p_t->puntaje == 7) { //HAGO LA TRANSFORMACIÓN DE LOS PUNTAJES
+                $p_t->transformacion = 3;
+            } else if ($p_t->puntaje == 6) {
+                $p_t->transformacion = 2;
+            } else if ($p_t->puntaje == 5) {
+                $p_t->transformacion = 1;
+            } else if ($p_t->puntaje == 4) {
+                $p_t->transformacion = 0;
+            } else if ($p_t->puntaje == 3) {
+                $p_t->transformacion = -1;
+            } else if ($p_t->puntaje == 2) {
+                $p_t->transformacion = -2;
+            } else if ($p_t->puntaje == 1) {
+                $p_t->transformacion = -3;
+            }
+        }
+
+        foreach ($total_intereses as $i) {
+            foreach ($i as $p) {
+                $object = new stdClass();
+                $object->carrera_id = $p['carrera_id'];
+                $object->carrera = $p['carrera']['nombre'];
+                $object->carrera2 = ucwords(mb_strtolower($p['carrera']['nombre']));
+                $object->descripcion = $p['carrera']['interes'];
+                $object->puntaje = 0;
+                array_push($puntajes_intereses, $object);
+            }
+            break;
+        }
+
+        foreach ($total_intereses as $i) {
+            foreach ($i as $p) {
+                foreach ($puntajes_intereses as $p_i) {
+                    if ($p_i->carrera_id == $p['carrera_id']) {
+                        $p_i->puntaje = $p_i->puntaje + $p['puntaje'];
+                    }
+                }
+            }
+        }
+
+        foreach ($puntajes_intereses as $p_i) {
+            $p_i->puntaje = $p_i->puntaje / count($total_intereses);
+            $p_i->puntaje = (int) $p_i->puntaje;
+        }
+
+        foreach ($total_talentos as $t) { //PARA EL PIE
+            foreach ($t as $p) {
+                $object = array();
+                $object['talento_id'] = $p['talento_id'];
+                $object['talento'] = array();
+                $object['talento']['tendencia_id'] = $p['talento']['tendencia_id'];
+                array_push($puntajes_talentos, $object);
+            }
+        }
+
+        foreach ($total_talentos_e as $t) { //PARA LA TABLA DE TALENTOS
+            foreach ($t as $p) {
+                $object = array();
+                $object['talento_id'] = $p['talento_id'];
+                array_push($puntajes_talentos_e, $object);
+            }
+        }
+
+        $map = function ($v) {
+            return $v['talento_id'];
+        };
+
+        $repetidos = array_count_values(array_map($map, $puntajes_talentos));
+
+        $repetidos_e = array_count_values(array_map($map, $puntajes_talentos_e));
+
+        arsort($repetidos);
+
+        arsort($repetidos_e);
+
+        $contador = 0;
+        $contador_e = 0;
+
+        foreach ($repetidos as $key => $val) {
+            if ($contador == 12) {
+                break;
+            } else {
+                $talento = Talento::where('id', $key)->first();
+                array_push($puntajes_talentos_mas, $talento);
+            }
+            $contador++;
+        }
+
+        foreach ($repetidos_e as $key => $val) {
+            if ($contador_e == 3) {
+                break;
+            } else {
+                $talento = Talento::where('id', $key)->first();
+                array_push($puntajes_talentos_mas_e, $talento);
+            }
+            $contador_e++;
+        }
+
+        $areas = Area::with('items.items')
+            ->with('formulas')
+            ->where('estado', '1')
+            ->get();
+
+        $now = Carbon::now();
+        $date = ucfirst($now->isoFormat('MMMM')) . ', ' . $now->year;
+
+        $encuesta = Encuesta::where('tipo_encuesta_id', 3)
+            ->where('empresa_sucursal_id', $request->empresa_id)
+            ->where('estado', '1')
+            ->first();
+
+        $fecha = Carbon::parse($encuesta['fecha_inicio']);
+        $fecha_evaluacion =  $fecha->format('d') . ' de ' . ucfirst($fecha->isoFormat('MMMM'));
+
+        $tendencias = TendenciaTalento::all();
+
+        $tendencias_pie = TendenciaTalento::where('id', '!=', 7)->get();
+
+        $talentos = Talento::where('tendencia_id', "!=", null)
+            ->with('tendencia')
+            ->get();
+
+        $talentos_ordenados = Talento::where('tendencia_id', "!=", null)
+            ->orderBy("nombre")
+            ->get();
+
+        $puntajes_pie = $this->puntajesPie((array) $puntajes_talentos, $tendencias_pie);
+
+        $pie = $this->pieTalentos((array) $puntajes_talentos, $tendencias_pie);
+
+        $pdf = PDF::loadView('consolidado_sede', array('date' => $date, 'talentos' => $talentos, 'talentos_ordenados' => $talentos_ordenados, 'fecha_evaluacion' => $fecha_evaluacion, 'colegio' => $empresa['razon_social'], 'tendencias' => $tendencias, 'muestra' => $data_muestra, 'sexo' => $sexo, 'p_temperamentos' => $puntajes_temperamentos, 'areas' => $areas, 'p_intereses' => $puntajes_intereses, 'tendencias_pie' => $tendencias_pie, 'pie' => $pie, 'puntajes_pie' => $puntajes_pie, 'talentos_mas_desarrollados' => $puntajes_talentos_mas, 'talentos_mas_especificos' => $puntajes_talentos_mas_e));
+        return $pdf->download('Consolidado_sede.pdf');
     }
 
     public function consolidado_sede(Request $request)

@@ -10,6 +10,7 @@
             <th>STATUS TEMPERAMENTOS</th>
             <th>TEMPERAMENTOS</th>
             @endif
+            <th>STATUS CONSOLIDADO</th>
             <th>CONSOLIDADO</th>
         </tr>
     </thead>
@@ -43,6 +44,10 @@
                 @endif
             </td>
             @endif
+            <td> @if ($p->link_consolidado)
+                Completado
+                @endif
+            </td>
             <td> @if ($p->link_consolidado)
                 <a href="{{ $p->link_consolidado }}">{{ $p->link_consolidado }}</a>
                 @endif

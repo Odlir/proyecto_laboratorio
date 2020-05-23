@@ -75,6 +75,7 @@ class EmpresaSucursalController extends Controller
             ->with('edit')
             ->with('pais')
             ->with('ciudad')
+            ->with('empresa')
             ->where('id', $id)
             ->first();
 
