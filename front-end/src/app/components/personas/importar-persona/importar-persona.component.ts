@@ -47,7 +47,7 @@ export class ImportarPersonaComponent implements OnInit {
 	}
 
 	guardar() {
-	
+
 		const formData: FormData = new FormData();
 		formData.append('file', this.fileToUpload);
 		formData.append('user_id', this.user.me());
@@ -55,8 +55,11 @@ export class ImportarPersonaComponent implements OnInit {
 		formData.append('campo', 'persona');
 
 		this.api.uploadFiles('importar', formData).subscribe(
-			(data) => { this.cerrar() },
-			(error) => { this.cerrar(error.error.errors) }
+			(data) => {
+				this.mensaje('Importación Exitosa', 'success');
+				this.return();
+			},
+			(error) => { this.cerrar(error.error) }
 		);
 	}
 
@@ -71,25 +74,21 @@ export class ImportarPersonaComponent implements OnInit {
 		);
 	}
 
-	cerrar(error?) {
-		if (error) {
-			this.error = error;
-			this.form.nativeElement.reset()
+	cerrar(error) {
+		if (error.errors) {
+			this.error = error.errors;
+		} else {
+			this.mensaje('Por favor debe usar la plantilla.', 'warning');
 		}
-		else {
-			this.mensaje('Importación Exitosa');
-			this.return();
-		}
+		this.form.nativeElement.reset()
 	}
 
-	mensaje(msj) {
+	mensaje(msj, icon) {
 		Swal.fire({
 			title: msj,
-			icon: 'success',
+			icon: icon,
 			timer: 2000
 		});
-
-		this.router.navigateByUrl('/encuestas');
 	}
 
 	return() {
