@@ -32,11 +32,11 @@ const routes: Routes = [
 		component: LoginComponent,
 		canActivate: [BeforeLoginService]
 	},
-	// {
-	//   path: 'signup',
-	//   component: SignupComponent,
-	//   canActivate: [BeforeLoginService]
-	// },
+	{
+	  path: 'signup',
+	  component: SignupComponent,
+	  canActivate: [AfterLoginService]
+	},
 	{
 		path: 'dashboard',
 		canActivate: [AfterLoginService],
