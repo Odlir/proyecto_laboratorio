@@ -1,5 +1,5 @@
 APP_NAME=Laravel
-APP_ENV=local
+APP_ENV=prod
 APP_KEY=base64:jzsv36OVN3aYor61UAZ28iXRZ5i5vy39tmHzDKo9fjo=
 APP_DEBUG=false
 APP_URL=https://www.gaf.com.pe/back-encuesta
@@ -32,7 +32,7 @@ MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=null
 MAIL_FROM_NAME="${APP_NAME}"
 
-FRONT_END=http://gaf.com.pe/front-encuesta
+FRONT_END=http://gaf.com.pe/encuestas
 
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=

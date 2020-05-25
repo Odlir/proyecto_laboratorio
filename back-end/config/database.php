@@ -2,11 +2,6 @@
 
 use Illuminate\Support\Str;
 
-// define('RDS_HOSTNAME', $_SERVER['RDS_HOSTNAME']);
-// define('RDS_USERNAME', $_SERVER['RDS_USERNAME']);
-// define('RDS_PASSWORD', $_SERVER['RDS_PASSWORD']);
-// define('RDS_DB_NAME','aspat_web');
-
 return [
 
     /*
@@ -51,10 +46,6 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            // 'host' => RDS_HOSTNAME,
-            // 'database' => RDS_DB_NAME,
-            // 'username' => RDS_USERNAME,
-            // 'password' => RDS_PASSWORD,
             'host' => env('DB_HOST', '127.0.0.1'),
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),

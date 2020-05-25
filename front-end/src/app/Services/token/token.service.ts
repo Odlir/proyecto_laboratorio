@@ -19,7 +19,6 @@ export class TokenService {
   handle(token, id)
   {
     this.set(token, id);
-    console.log(this.isValid());
   }
 
   set(token, id)

@@ -17,3 +17,7 @@ wyLn{NB!yS5D
 cuenta aws
 humberto.gutierrezh@hotmail.com
 Gaf1234+
+
+
+//PARA COMPILAR
+ng build --aot --output-hashing=all --base-href /encuestas/
