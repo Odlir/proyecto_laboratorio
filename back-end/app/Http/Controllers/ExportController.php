@@ -1058,7 +1058,7 @@ class ExportController extends Controller
         $identificador = rand();
 
         foreach ($personas as $p) {
-            PDFIntereses::dispatchNow($p['persona'], $p['punintereses'], $p['puninteresessort'], $encuesta['empresa']['nombre'], $identificador);
+            PDFIntereses::dispatch($p['persona'], $p['punintereses'], $p['puninteresessort'], $encuesta['empresa']['nombre'], $identificador);
         }
 
         Excel::store(new StatusInteresesExport($encuesta['general']['personas'], $encuesta['id']), 'Consolidado-' . $identificador . '/' . $encuesta['empresa']['nombre'] . '-' . $request->interes_id . '.xlsx', 'local');
@@ -1257,7 +1257,7 @@ class ExportController extends Controller
         $plot->SetPieLabelType('label');
         $plot->DrawGraph();
 
-        return $plot;
+        return $plot->EncodeImage();
     }
 
     public function jobs(Request $request)
@@ -1333,7 +1333,7 @@ class ExportController extends Controller
 
                 $puntajes_pie = $this->puntajesPie($talentos_mas_desarrollados, $tendencias_pie);
 
-                PDFConsolidados::dispatchNow($p, $p_intereses['punintereses'], $p_intereses['puninteresessort'], $p_temperamentos['puntemperamentos'], $p_temperamentos['areatemperamentos'], $encuesta['empresa']['nombre'], $identificador, $areas, $ruedas, $tendencias, $talentos, $pie, $puntajes_pie, $talentos_mas_desarrollados, $talentos_mas_especificos, $tendencias_pie);
+                PDFConsolidados::dispatch($p, $p_intereses['punintereses'], $p_intereses['puninteresessort'], $p_temperamentos['puntemperamentos'], $p_temperamentos['areatemperamentos'], $encuesta['empresa']['nombre'], $identificador, $areas, $ruedas, $tendencias, $talentos, $pie, $puntajes_pie, $talentos_mas_desarrollados, $talentos_mas_especificos, $tendencias_pie);
                 $descargar = true;
             }
         }
