@@ -13,6 +13,7 @@ class EncuestaGeneral extends Model
 
     protected $fillable = [
         'estado',
+        'seccion',
         'insert_user_id',
         'edit_user_id'
     ];

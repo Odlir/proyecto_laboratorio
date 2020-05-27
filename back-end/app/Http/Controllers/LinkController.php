@@ -24,6 +24,7 @@ class LinkController extends Controller
             $sucursal = $request->input('sucursal');
             $data = Encuesta::where('estado', '1')
                 ->where('tipo_encuesta_id', $tipo_encuesta)
+                ->with('general')
                 ->whereHas('empresa', function ($q) use ($sucursal) {
                     $q->where('id', $sucursal);
                 })

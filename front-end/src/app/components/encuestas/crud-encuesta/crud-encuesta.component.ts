@@ -37,6 +37,7 @@ export class CrudEncuestaComponent implements OnInit {
 		fecha_inicio: moment().format('YYYY-MM-DD'),
 		fecha_fin: null,
 		empresa_sucursal_id: null,
+		seccion: null,
 		tipo_encuesta_id: 0,
 		insert_user_id: this.user.me(),
 		edit_user_id: null,
@@ -46,7 +47,8 @@ export class CrudEncuestaComponent implements OnInit {
 		updated_at: null,
 		personas: [],
 		empresa: { nombre: null },
-		todas: false
+		todas: false,
+		general: { seccion: null }
 	};
 
 	empresa = { id: null, nombre: null };
@@ -121,6 +123,7 @@ export class CrudEncuestaComponent implements OnInit {
 			(data) => {
 				this.form = data;
 				this.titulo = 'EDITAR ENCUESTA PROGRAMADA';
+				this.form.seccion = data.general.seccion;
 			}
 		);
 
@@ -176,7 +179,7 @@ export class CrudEncuestaComponent implements OnInit {
 		}
 	}
 
-	subirExcel(encuesta_id, element,) {
+	subirExcel(encuesta_id, element) {
 		const formData: FormData = new FormData();
 		formData.append('file', this.fileToUpload);
 		formData.append('user_id', this.user.me());

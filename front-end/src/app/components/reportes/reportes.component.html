@@ -21,8 +21,8 @@
 		<div class="form-group row my-3">
 			<label class="col-sm-1 col-form-label w-100 ">Encuesta <span class="text-danger">*</span></label>
 			<div class="col-sm-4">
-				<select name="intereses" class="form-control" [(ngModel)]="form.interes_id">
-					<option [value]="item.id" *ngFor="let item of intereses">{{item.id}} - ENCUESTA INTERESES </option>
+				<select name="intereses" class="form-control" [(ngModel)]="form.interes_id" (change)="obtenerSeccion($event)">
+					<option [value]="item.id" [attr.seccion]="item.general.seccion" *ngFor="let item of intereses">{{item.id}} - <span *ngIf="item.general.seccion">{{item.general.seccion}} -</span> ENCUESTA INTERESES </option>
 				</select>
 			</div>
 			<div class="col-sm-6 row">

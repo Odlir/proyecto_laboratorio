@@ -1154,7 +1154,7 @@
         <table class="w-100 leyenda">
             <tr>
                 <td width="50%">
-                    <img src="{{$pie->EncodeImage()}}" class="pie">
+                    <img src="{{$pie}}" class="pie">
                 </td>
                 <td width="50%">
                     @foreach ($tendencias_pie as $ten)

@@ -17,6 +17,7 @@ export class DetalleEncuestaComponent implements OnInit {
     id: null,
     fecha_inicio: null,
     fecha_fin: null,
+    general: { seccion: null },
     empresa_sucursal_id: null,
     tipo_encuesta_id: null,
     insert_user_id: null,
@@ -68,8 +69,8 @@ export class DetalleEncuestaComponent implements OnInit {
         this.api.delete('encuestas', id).subscribe(
           (data) => {
             this.router.navigateByUrl('/encuestas')
-            }
-          );
+          }
+        );
       }
     })
   }

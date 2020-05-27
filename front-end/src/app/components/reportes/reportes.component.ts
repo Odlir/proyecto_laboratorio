@@ -26,7 +26,7 @@ export class ReportesComponent implements OnInit {
 		interes_id: null,
 		campo: null,
 		archivo: null,
-		empresa_id: null
+		empresa_id: null,
 	}
 
 	public verde: number = 0;
@@ -43,6 +43,8 @@ export class ReportesComponent implements OnInit {
 		id: null,
 		nombre: null
 	}
+
+	public seccion = null;
 
 	filteredEmpresas: any;
 
@@ -86,6 +88,18 @@ export class ReportesComponent implements OnInit {
 		return empresa ? empresa.nombre : empresa;
 	}
 
+	obtenerSeccion(event) {
+		const selectEl = event.target;
+
+		const value = selectEl.options[selectEl.selectedIndex].getAttribute('seccion');
+
+		if (value != null) {
+			this.seccion = '-' + value;
+		} else {
+			this.seccion = "";
+		}
+	}
+
 	links() {
 		if (this.empresa.nombre == null || this.form.interes_id == null) {
 			this.mensaje('Por favor complete los campos requeridos')
@@ -93,7 +107,7 @@ export class ReportesComponent implements OnInit {
 		else {
 			this.disabled = true;
 			this.form.campo = 'links';
-			this.form.archivo = this.empresa.nombre + '-' + this.form.interes_id + '-LINKS-ENCUESTAS.xlsx';
+			this.form.archivo = this.empresa.nombre + '-' + this.form.interes_id + this.seccion + '-LINKS-ENCUESTAS.xlsx';
 
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
@@ -118,7 +132,7 @@ export class ReportesComponent implements OnInit {
 
 			this.disabled = true;
 			this.form.campo = 'intereses';
-			this.form.archivo = 'REPINTERESES-' + this.empresa.nombre + '-' + this.form.interes_id + '.zip';
+			this.form.archivo = 'REPINTERESES-' + this.empresa.nombre + '-' + this.form.interes_id + this.seccion + '.zip';
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
 					this.disabled = false;
@@ -140,7 +154,7 @@ export class ReportesComponent implements OnInit {
 		} else {
 			this.disabled = true;
 			this.form.campo = 'status';
-			this.form.archivo = this.empresa.nombre + '-' + this.form.interes_id + '-LINKS-ENCUESTAS-STATUS.xlsx';
+			this.form.archivo = this.empresa.nombre + '-' + this.form.interes_id + this.seccion + '-LINKS-ENCUESTAS-STATUS.xlsx';
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
 					this.disabled = false;
@@ -164,7 +178,7 @@ export class ReportesComponent implements OnInit {
 
 			this.disabled = true;
 			this.form.campo = 'pdf';
-			this.form.archivo = 'REPCONSOLIDADO-' + this.empresa.nombre + '-' + this.form.interes_id + '.zip';
+			this.form.archivo = 'REPCONSOLIDADO-' + this.empresa.nombre + '-' + this.form.interes_id + this.seccion + '.zip';
 			this.api.downloadFile('exportar', this.form).subscribe(
 				(data) => {
 					this.disabled = false;

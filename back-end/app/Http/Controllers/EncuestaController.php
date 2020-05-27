@@ -22,6 +22,7 @@ class EncuestaController extends Controller
 
             $data = Encuesta::with('empresa')
                 ->with('tipo')
+                ->with('general')
                 ->where('estado', '1')
                 ->where(function ($query) use ($searchValue) {
                     $query->where("id", "LIKE", "%$searchValue%")
@@ -38,6 +39,7 @@ class EncuestaController extends Controller
             $data = Encuesta::where('estado', '1')
                 ->with('empresa')
                 ->with('tipo')
+                ->with('general')
                 ->orderBy('id', 'DESC')
                 ->get();
         }
@@ -137,6 +139,10 @@ class EncuestaController extends Controller
         $registro = Encuesta::find($id);
         $registro->update($data);
         $registro->save();
+
+        $general = EncuestaGeneral::find($registro['encuesta_general_id']);
+        $general->update($data);
+        $general->save();
 
         return response()->json($registro, 200);
     }
