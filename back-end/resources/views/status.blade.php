@@ -2,6 +2,8 @@
     <thead>
         <tr>
             <th>NOMBRE</th>
+            <th>STATUS CONSOLIDADO</th>
+            <th>CONSOLIDADO</th>
             <th>STATUS INTERESES</th>
             <th>INTERESES</th>
             @if ($show)
@@ -10,14 +12,22 @@
             <th>STATUS TEMPERAMENTOS</th>
             <th>TEMPERAMENTOS</th>
             @endif
-            <th>STATUS CONSOLIDADO</th>
-            <th>CONSOLIDADO</th>
         </tr>
     </thead>
     <tbody>
         @foreach($personas as $p)
         <tr>
             <td>{{ $p->nombres }} {{ $p->apellido_paterno }} {{ $p->apellido_materno }}</td>
+            <td>@if ($p->link_consolidado)
+                Completado
+                @else
+                Pendiente    
+                @endif
+            </td>
+            <td> @if ($p->link_consolidado)
+                <a href="{{ $p->link_consolidado }}">{{ $p->link_consolidado }}</a>
+                @endif
+            </td>
             <td>{{ $p->status_int }}</td>
             <td>@if ($p->status_int=="Completado")
                 {{ $p->link_intereses }}
@@ -44,14 +54,6 @@
                 @endif
             </td>
             @endif
-            <td> @if ($p->link_consolidado)
-                Completado
-                @endif
-            </td>
-            <td> @if ($p->link_consolidado)
-                <a href="{{ $p->link_consolidado }}">{{ $p->link_consolidado }}</a>
-                @endif
-            </td>
         </tr>
         @endforeach
     </tbody>
