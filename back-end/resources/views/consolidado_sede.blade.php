@@ -282,10 +282,11 @@
         }
 
         .pie {
-            width: 450px;
-            height: 450px;
-            margin-bottom: -50px;
-            margin-left: 50px;
+            width: 300px;
+            height: 550px;
+            margin-top: -100px;
+            margin-bottom: -100px;
+            margin-left: 100px;
         }
 
         .tabla-resultado {
@@ -1153,10 +1154,10 @@
 
         <table class="w-100 leyenda">
             <tr>
-                <td width="50%">
+                <td width="60%">
                     <img src="{{$pie}}" class="pie">
                 </td>
-                <td width="50%">
+                <td width="40%">
                     @foreach ($tendencias_pie as $ten)
                     <table class="ml-4 mb-1">
                         <tr>

@@ -92,9 +92,11 @@
         }
 
         .pie {
-            width: 450px;
-            height: 450px;
-            margin-bottom: -50px;
+            width: 300px;
+            height: 550px;
+            margin-bottom: -150px;
+            margin-top: -100px;
+            margin-left: 100px;
         }
 
         .z-index {
@@ -118,6 +120,10 @@
         .leyenda {
             font-size: 10px;
             margin-left: -80px;
+        }
+
+        .w-100{
+            width: 100%;
         }
     </style>
 </head>
@@ -146,10 +152,10 @@
         </div>
         <table class="w-100 leyenda">
             <tr>
-                <td>
+                <td width="60%">
                     <img src="{{$pie}}" class="pie">
                 </td>
-                <td>
+                <td width="40%">
                     @foreach ($tendencias as $ten)
                     <table class="ml-4 mb-1 ">
                         <tr>

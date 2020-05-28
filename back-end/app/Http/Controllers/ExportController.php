@@ -1242,7 +1242,7 @@ class ExportController extends Controller
             array('', $estructura * $factor),
         );
 
-        $plot = new PHPlot(400, 200);
+        $plot = new PHPlot(3200, 3000);
 
         $plot->SetPlotType('pie');
         $plot->SetDataType('text-data-single');
