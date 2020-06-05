@@ -329,7 +329,7 @@
         $show=false;
         @endphp
 
-        @foreach ($p_intereses as $p)
+        @foreach ($p_intereses_sort as $p)
         @if ($p->puntaje>=75)
         @php
         $show=true;
@@ -356,7 +356,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($p_intereses as $p)
+                @foreach ($p_intereses_sort as $p)
                 @if ($p->puntaje>=75)
                 <tr>
                     <td width="30%" class="font-weight-bold text-center">
