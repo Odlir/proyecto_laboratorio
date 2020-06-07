@@ -322,15 +322,25 @@
             </thead>
             <tbody>
                 @foreach ($puntajes as $p)
+
+                @if ($p->puntaje>100)
+                    @php
+                        $punt=100;
+                    @endphp
+                @else
+                    @php
+                        $punt=$p->puntaje;
+                    @endphp
+                @endif
                 <tr>
                     <td class="font-weight-bold p-2">
                         {{$p->carrera->nombre}}
                     </td>
                     <td class="text-center p-2">
-                        {{$p->puntaje}}
+                        {{$punt}}
                     </td>
                     <td colspan="3">
-                        <div class="height-graph" style="width: {{$p->puntaje}}%">
+                        <div class="height-graph" style="width: {{$punt}}%">
 
                         </div>
                     </td>
