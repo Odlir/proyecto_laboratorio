@@ -39,7 +39,7 @@ class PersonaImport implements ToCollection, WithHeadingRow
             $messages[$key . '.apellido_paterno' . '.required'] = 'El campo Apellido Paterno, fila ' . $i . '  es requerido.';
             $messages[$key . '.sexo' . '.required'] = 'El campo Sexo, fila ' . $i . '  es requerido.';
             $messages[$key . '.sexo' . '.in'] = 'El campo Sexo, fila ' . $i . '  debe ser Masculino o Femenino.';
-            $messages[$key . '.ano' . '.alpha_num'] = 'El campo Año, fila ' . $i . '  solo permite numeros y letras.';
+            $messages[$key . '.seccion' . '.alpha_num'] = 'El campo Año, fila ' . $i . '  solo permite numeros y letras.';
             $i++;
         }
 
@@ -47,7 +47,7 @@ class PersonaImport implements ToCollection, WithHeadingRow
             '*.nombres' => 'required',
             '*.apellido_paterno' => 'required',
             '*.sexo' => 'required|in:Masculino,Femenino,masculino,femenino,MASCULINO,FEMENINO',
-            '*.ano' => 'alpha_num|nullable'
+            '*.seccion' => 'alpha_num|nullable'
         ], $messages)->validate();
 
         foreach ($rows as $row) {
@@ -56,7 +56,7 @@ class PersonaImport implements ToCollection, WithHeadingRow
                 'apellido_paterno'    => $row['apellido_paterno'],
                 'apellido_materno' => $row['apellido_materno'],
                 'sexo' => $row['sexo'],
-                'anio' => $row['ano'],
+                'anio' => $row['seccion'],
                 'rol_id' => 2,
                 'insert_user_id' => $this->user
             ]);
