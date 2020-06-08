@@ -31,6 +31,13 @@ export class EspecificosComponent implements OnInit {
 	}
 
 	continuar() {
+		if (this.store.length < 3) {
+			Swal.fire({
+				text: 'Seleccionar 3 talentos especificos mas importantes porfavor.',
+				icon: 'warning'
+			});
+			return false;
+		}
 		const data = this.modifyArray(this.store);
 		this.api.post('encuesta_puntaje', [data, 4]).subscribe(
 			(data) => {

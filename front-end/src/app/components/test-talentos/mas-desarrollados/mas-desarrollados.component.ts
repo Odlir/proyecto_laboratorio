@@ -31,6 +31,13 @@ export class MasDesarrolladosComponent implements OnInit {
 	}
 
 	continuar() {
+		if (this.store.length < 12) {
+			Swal.fire({
+				text: 'Seleccionar 12 talentos mas desarrollados porfavor.',
+				icon: 'warning'
+			});
+			return false;
+		}
 		const data = this.modifyArray(this.store);
 		this.api.post('encuesta_puntaje', [data, 2]).subscribe(
 			(data) => {

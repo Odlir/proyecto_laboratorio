@@ -224,7 +224,7 @@ export class CrudEncuestaComponent implements OnInit {
 	obtenerFechaFin() {
 		this.form.fecha_fin = null;
 
-		var fin = moment(this.form.fecha_inicio).add(+3, 'M');
+		var fin = moment(this.form.fecha_inicio).add(+6, 'M');
 
 		this.form.fecha_fin = moment(fin).format('YYYY-MM-DD')
 	}

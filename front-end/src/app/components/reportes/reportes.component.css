@@ -16,3 +16,9 @@
 ::ng-deep .mat-progress-bar {
     border-radius: 2px;
 }
+
+.porcentaje {
+	padding-left: 1em;
+	font-size: 14px;
+	font-weight: bold;
+}

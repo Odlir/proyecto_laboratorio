@@ -10,9 +10,6 @@
 <br>
 
 <mat-card *ngIf="show" class="card">
-	<div *ngIf="images.length === 0" class="cont-button">
-		<button mat-raised-button (click)="continuar()">Continuar >></button>
-	</div>
 	<div class="contador">{{counter - images.length}} clasificados de 54</div>
 	<div
 		cdkDropList
@@ -30,7 +27,9 @@
 			</ng-template>
 		</ngb-carousel>
 	</div>
-
+	<div *ngIf="images.length === 0" class="cont-button">
+		<button mat-raised-button (click)="continuar()">Continuar >></button>
+	</div>
 	<div class="results">
 		<div class="talents">
 			<div class="example-container">

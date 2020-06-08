@@ -31,6 +31,13 @@ export class MenosDesarrolladosComponent implements OnInit {
 	}
 
 	continuar() {
+		if (this.store.length < 6) {
+			Swal.fire({
+				text: 'Seleccionar 6 talentos menos desarrollados porfavor.',
+				icon: 'warning'
+			});
+			return false;
+		}
 		const data = this.modifyArray(this.store);
 		this.api.post('encuesta_puntaje', [data, 3]).subscribe(
 			(data) => {
