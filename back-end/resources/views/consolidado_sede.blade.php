@@ -1310,15 +1310,24 @@
             </thead>
             <tbody>
                 @foreach ($p_intereses as $p)
+                @if ($p->puntaje>100)
+                    @php
+                        $punt=100;
+                    @endphp
+                @else
+                    @php
+                        $punt=$p->puntaje;
+                    @endphp
+                @endif
                 <tr>
                     <td class="font-weight-bold p-2">
                         {{$p->carrera}}
                     </td>
                     <td class="text-center p-2">
-                        {{$p->puntaje}}
+                        {{$punt}}
                     </td>
                     <td colspan="3">
-                        <div class="barra-interes" style="width:{{$p->puntaje}}%">
+                        <div class="barra-interes" style="width:{{$punt}}%">
                         </div>
                     </td>
                 </tr>
