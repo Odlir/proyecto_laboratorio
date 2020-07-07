@@ -355,7 +355,7 @@
     @endphp
 
     @foreach ($puntajes_sort as $p)
-    @if ($p->puntaje>=75)
+    @if ($p->puntaje>75)
     @php
     $show=true;
     @endphp
@@ -381,7 +381,7 @@
             </thead>
             <tbody>
                 @foreach ($puntajes_sort as $p)
-                @if ($p->puntaje>=75)
+                @if ($p->puntaje>75)
                 <tr>
                     <td width="30%" class="font-weight-bold text-center">
                         {{ $p->carrera->nombre }}
