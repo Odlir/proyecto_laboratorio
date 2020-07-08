@@ -331,13 +331,16 @@ class EncuestaPersonaController extends Controller
 
             //SE SACA LAS LETRAS
             if ($r->area_id == 1) {
-                if ($r->puntaje >= 1 && $r->puntaje <= 3.49) {
+                // if ($r->puntaje >= 1 && $r->puntaje <= 3.49) {
+                if ($r->puntaje >= 1 && $r->puntaje < 3.5) {
                     $r->letra = "I";
                     $r->palabra = "Introvertido";
-                } else if ($r->puntaje >= 3.50 && $r->puntaje <= 3.99) {
+                    // } else if ($r->puntaje >= 3.50 && $r->puntaje <= 3.99) {
+                } else if ($r->puntaje >= 3.50 && $r->puntaje < 4) {
                     $r->letra = "i";
                     $r->palabra = "introvertido";
-                } else if ($r->puntaje >= 4 && $r->puntaje <= 4.49) {
+                    // } else if ($r->puntaje >= 4 && $r->puntaje <= 4.49) {
+                } else if ($r->puntaje >= 4 && $r->puntaje < 4.5) {
                     $r->letra = "e";
                     $r->palabra = "extrovertido";
                 } else if ($r->puntaje >= 4.5 && $r->puntaje <= 7) {
@@ -345,13 +348,16 @@ class EncuestaPersonaController extends Controller
                     $r->palabra = "Extrovertido";
                 }
             } else if ($r->area_id == 2) {
-                if ($r->puntaje >= 1 && $r->puntaje <= 3.49) {
+                // if ($r->puntaje >= 1 && $r->puntaje <= 3.49) {
+                if ($r->puntaje >= 1 && $r->puntaje < 3.5) {
                     $r->letra = "S";
                     $r->palabra = "Sensorial";
-                } else if ($r->puntaje >= 3.50 && $r->puntaje <= 3.99) {
+                    // } else if ($r->puntaje >= 3.50 && $r->puntaje <= 3.99) {
+                } else if ($r->puntaje >= 3.50 && $r->puntaje < 4) {
                     $r->letra = "s";
                     $r->palabra = "sensorial";
-                } else if ($r->puntaje >= 4 && $r->puntaje <= 4.49) {
+                    // } else if ($r->puntaje >= 4 && $r->puntaje <= 4.49) {
+                } else if ($r->puntaje >= 4 && $r->puntaje < 4.5) {
                     $r->letra = "n";
                     $r->palabra = "intuitivo";
                 } else if ($r->puntaje >= 4.5 && $r->puntaje <= 7) {
@@ -359,13 +365,16 @@ class EncuestaPersonaController extends Controller
                     $r->palabra = "Intuitivo";
                 }
             } else if ($r->area_id == 3) {
-                if ($r->puntaje >= 1 && $r->puntaje <= 3.49) {
+                // if ($r->puntaje >= 1 && $r->puntaje <= 3.49) {
+                if ($r->puntaje >= 1 && $r->puntaje < 3.5) {
                     $r->letra = "M";
                     $r->palabra = "Emotivo";
-                } else if ($r->puntaje >= 3.50 && $r->puntaje <= 3.99) {
+                    // } else if ($r->puntaje >= 3.50 && $r->puntaje <= 3.99) {
+                } else if ($r->puntaje >= 3.50 && $r->puntaje < 4) {
                     $r->letra = "m";
                     $r->palabra = "emotivo";
-                } else if ($r->puntaje >= 4 && $r->puntaje <= 4.49) {
+                    // } else if ($r->puntaje >= 4 && $r->puntaje <= 4.49) {
+                } else if ($r->puntaje >= 4 && $r->puntaje < 4.5) {
                     $r->letra = "r";
                     $r->palabra = "racional";
                 } else if ($r->puntaje >= 4.5 && $r->puntaje <= 7) {
@@ -373,13 +382,16 @@ class EncuestaPersonaController extends Controller
                     $r->palabra = "Racional";
                 }
             } else if ($r->area_id == 4) {
-                if ($r->puntaje >= 1 && $r->puntaje <= 3.49) {
+                // if ($r->puntaje >= 1 && $r->puntaje <= 3.49) {
+                if ($r->puntaje >= 1 && $r->puntaje < 3.5) {
                     $r->letra = "C";
                     $r->palabra = "Casual";
-                } else if ($r->puntaje >= 3.50 && $r->puntaje <= 3.99) {
+                    // } else if ($r->puntaje >= 3.50 && $r->puntaje <= 3.99) {
+                } else if ($r->puntaje >= 3.50 && $r->puntaje < 4) {
                     $r->letra = "c";
                     $r->palabra = "casual";
-                } else if ($r->puntaje >= 4 && $r->puntaje <= 4.49) {
+                    // } else if ($r->puntaje >= 4 && $r->puntaje <= 4.49) {
+                } else if ($r->puntaje >= 4 && $r->puntaje < 4.5) {
                     $r->letra = "o";
                     $r->palabra = "organizado";
                 } else if ($r->puntaje >= 4.5 && $r->puntaje <= 7) {
