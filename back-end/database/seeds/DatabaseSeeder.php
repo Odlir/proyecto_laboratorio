@@ -10,7 +10,7 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {   
+    {
         $this->call(AreaSeeder::class);
         $this->call(AreaItemSeeder::class);
         $this->call(FormulaSeeder::class);
@@ -30,5 +30,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TalentosSeeder::class);
         $this->call(RuedaSeeder::class);
         $this->call(DescripcionTalentoSeeder::class);
+        $this->call(PercentilSeeder::class);
     }
 }

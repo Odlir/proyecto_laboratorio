@@ -13,6 +13,7 @@ use App\EncuestaRespuesta;
 use App\Formula;
 use App\FormulaItem;
 use App\FormulaPuntaje;
+use App\Percentil;
 use App\Pregunta;
 use App\Respuesta;
 use Illuminate\Http\Request;
@@ -76,24 +77,24 @@ class EncuestaPersonaController extends Controller
         //DATA[0] ES LA ENCUESTA_ID Y SU PERSONA_ID
 
         EncuestaPuntaje::where('encuesta_id', $data[0]['encuesta_id'])
-                ->where('persona_id', $data[0]['persona_id'])
-                ->delete();
+            ->where('persona_id', $data[0]['persona_id'])
+            ->delete();
 
         $encuesta_puntaje = EncuestaPuntaje::create($data[0]); //TABLA PRINCIPAL
-        
+
         //DATA[1] SE REFIERE AL TIPO DE ENCUESTA
         //DATA[2] SON TUS RESPUESTAS
 
-        if ($data[1]== 1) {
-            return $this->intereses($data[2],$encuesta_puntaje['id']);
-        } else if ($data[1]== 3) {
-            return $this->temperamentos($data[2],$encuesta_puntaje['id']);
-        } else if ($data[1]== 2) {
+        if ($data[1] == 1) {
+            return $this->intereses($data[2], $encuesta_puntaje['id']);
+        } else if ($data[1] == 3) {
+            return $this->temperamentos($data[2], $encuesta_puntaje['id']);
+        } else if ($data[1] == 2) {
             return response()->json($encuesta_puntaje['id'], 200);
         }
     }
 
-    public function intereses($data,$encuesta_puntaje_id)
+    public function intereses($data, $encuesta_puntaje_id)
     {
         $puntajes_preguntas = [];
 
@@ -105,6 +106,8 @@ class EncuestaPersonaController extends Controller
 
         $carreras = Carrera::where('estado', '1')
             ->get();
+
+        $percentil = Percentil::all();
 
         foreach ($preguntas as $p) {
             $object = new stdClass();
@@ -147,6 +150,15 @@ class EncuestaPersonaController extends Controller
         }
 
         foreach ($puntajes_carreras as $c) {
+            foreach ($percentil as $p) { //APLICO EL PERCENTIL
+                if ($p['carrera_id'] == $c->carrera_id && $p['pd'] == $c->puntaje) {
+                    $c->puntaje = $p['percentil'];
+                    break;
+                }
+            }
+        }
+
+        foreach ($puntajes_carreras as $c) {
             CarreraPuntaje::create(array_merge((array) $c, ['encuesta_puntaje_id' => $encuesta_puntaje_id]));
         }
 
@@ -157,7 +169,7 @@ class EncuestaPersonaController extends Controller
         return response()->json($puntajes_carreras, 200);
     }
 
-    public function temperamentos($data,$encuesta_puntaje_id)
+    public function temperamentos($data, $encuesta_puntaje_id)
     {
         $puntajes_preguntas = [];
 
@@ -290,89 +302,89 @@ class EncuestaPersonaController extends Controller
             $r->puntaje = $r->puntaje / 4;
 
             if ($r->puntaje == 6.75) { //SE APLICA EL REDONDEO FINAL
-                $r->puntaje=7;
-            }else if($r->puntaje == 6.25){
-                $r->puntaje=6.5; 
-            }else if($r->puntaje == 5.75){
-                $r->puntaje=6; 
-            }else if($r->puntaje == 5.25){
-                $r->puntaje=5.5; 
-            }else if($r->puntaje == 4.75){
-                $r->puntaje=5; 
-            }else if($r->puntaje == 4.25){
-                $r->puntaje=4.5; 
-            }else if($r->puntaje == 3.75){
-                $r->puntaje=4; 
-            }else if($r->puntaje == 3.25){
-                $r->puntaje=3.5; 
-            }else if($r->puntaje == 2.75){
-                $r->puntaje=3; 
-            }else if($r->puntaje == 2.25){
-                $r->puntaje=2.5; 
-            }else if($r->puntaje == 1.75){
-                $r->puntaje=2; 
-            }else if($r->puntaje == 1.25){
-                $r->puntaje=1.5; 
-            }else if($r->puntaje == 0.75){
-                $r->puntaje=1; 
+                $r->puntaje = 7;
+            } else if ($r->puntaje == 6.25) {
+                $r->puntaje = 6.5;
+            } else if ($r->puntaje == 5.75) {
+                $r->puntaje = 6;
+            } else if ($r->puntaje == 5.25) {
+                $r->puntaje = 5.5;
+            } else if ($r->puntaje == 4.75) {
+                $r->puntaje = 5;
+            } else if ($r->puntaje == 4.25) {
+                $r->puntaje = 4.5;
+            } else if ($r->puntaje == 3.75) {
+                $r->puntaje = 4;
+            } else if ($r->puntaje == 3.25) {
+                $r->puntaje = 3.5;
+            } else if ($r->puntaje == 2.75) {
+                $r->puntaje = 3;
+            } else if ($r->puntaje == 2.25) {
+                $r->puntaje = 2.5;
+            } else if ($r->puntaje == 1.75) {
+                $r->puntaje = 2;
+            } else if ($r->puntaje == 1.25) {
+                $r->puntaje = 1.5;
+            } else if ($r->puntaje == 0.75) {
+                $r->puntaje = 1;
             }
 
             //SE SACA LAS LETRAS
-            if($r->area_id==1){
-                if($r->puntaje>=1 && $r->puntaje<=3.49){
-                    $r->letra="I";
-                    $r->palabra="Introvertido";
-                }else if($r->puntaje>=3.50 && $r->puntaje<=3.99){
-                    $r->letra="i";
-                    $r->palabra="introvertido";
-                }else if($r->puntaje>=4 && $r->puntaje<=4.49){
-                    $r->letra="e";
-                    $r->palabra="extrovertido";
-                }else if($r->puntaje>=4.5 && $r->puntaje<=7){
-                    $r->letra="E";
-                    $r->palabra="Extrovertido";
+            if ($r->area_id == 1) {
+                if ($r->puntaje >= 1 && $r->puntaje <= 3.49) {
+                    $r->letra = "I";
+                    $r->palabra = "Introvertido";
+                } else if ($r->puntaje >= 3.50 && $r->puntaje <= 3.99) {
+                    $r->letra = "i";
+                    $r->palabra = "introvertido";
+                } else if ($r->puntaje >= 4 && $r->puntaje <= 4.49) {
+                    $r->letra = "e";
+                    $r->palabra = "extrovertido";
+                } else if ($r->puntaje >= 4.5 && $r->puntaje <= 7) {
+                    $r->letra = "E";
+                    $r->palabra = "Extrovertido";
                 }
-            }else if($r->area_id==2){
-                if($r->puntaje>=1 && $r->puntaje<=3.49){
-                    $r->letra="S";
-                    $r->palabra="Sensorial";
-                }else if($r->puntaje>=3.50 && $r->puntaje<=3.99){
-                    $r->letra="s";
-                    $r->palabra="sensorial";
-                }else if($r->puntaje>=4 && $r->puntaje<=4.49){
-                    $r->letra="n";
-                    $r->palabra="intuitivo";
-                }else if($r->puntaje>=4.5 && $r->puntaje<=7){
-                    $r->letra="N";
-                    $r->palabra="Intuitivo";
+            } else if ($r->area_id == 2) {
+                if ($r->puntaje >= 1 && $r->puntaje <= 3.49) {
+                    $r->letra = "S";
+                    $r->palabra = "Sensorial";
+                } else if ($r->puntaje >= 3.50 && $r->puntaje <= 3.99) {
+                    $r->letra = "s";
+                    $r->palabra = "sensorial";
+                } else if ($r->puntaje >= 4 && $r->puntaje <= 4.49) {
+                    $r->letra = "n";
+                    $r->palabra = "intuitivo";
+                } else if ($r->puntaje >= 4.5 && $r->puntaje <= 7) {
+                    $r->letra = "N";
+                    $r->palabra = "Intuitivo";
                 }
-            }else if($r->area_id==3){
-                if($r->puntaje>=1 && $r->puntaje<=3.49){
-                    $r->letra="M";
-                    $r->palabra="Emotivo";
-                }else if($r->puntaje>=3.50 && $r->puntaje<=3.99){
-                    $r->letra="m";
-                    $r->palabra="emotivo";
-                }else if($r->puntaje>=4 && $r->puntaje<=4.49){
-                    $r->letra="r";
-                    $r->palabra="racional";
-                }else if($r->puntaje>=4.5 && $r->puntaje<=7){
-                    $r->letra="R";
-                    $r->palabra="Racional";
+            } else if ($r->area_id == 3) {
+                if ($r->puntaje >= 1 && $r->puntaje <= 3.49) {
+                    $r->letra = "M";
+                    $r->palabra = "Emotivo";
+                } else if ($r->puntaje >= 3.50 && $r->puntaje <= 3.99) {
+                    $r->letra = "m";
+                    $r->palabra = "emotivo";
+                } else if ($r->puntaje >= 4 && $r->puntaje <= 4.49) {
+                    $r->letra = "r";
+                    $r->palabra = "racional";
+                } else if ($r->puntaje >= 4.5 && $r->puntaje <= 7) {
+                    $r->letra = "R";
+                    $r->palabra = "Racional";
                 }
-            }else if($r->area_id==4){
-                if($r->puntaje>=1 && $r->puntaje<=3.49){
-                    $r->letra="C";
-                    $r->palabra="Casual";
-                }else if($r->puntaje>=3.50 && $r->puntaje<=3.99){
-                    $r->letra="c";
-                    $r->palabra="casual";
-                }else if($r->puntaje>=4 && $r->puntaje<=4.49){
-                    $r->letra="o";
-                    $r->palabra="organizado";
-                }else if($r->puntaje>=4.5 && $r->puntaje<=7){
-                    $r->letra="O";
-                    $r->palabra="Organizado";
+            } else if ($r->area_id == 4) {
+                if ($r->puntaje >= 1 && $r->puntaje <= 3.49) {
+                    $r->letra = "C";
+                    $r->palabra = "Casual";
+                } else if ($r->puntaje >= 3.50 && $r->puntaje <= 3.99) {
+                    $r->letra = "c";
+                    $r->palabra = "casual";
+                } else if ($r->puntaje >= 4 && $r->puntaje <= 4.49) {
+                    $r->letra = "o";
+                    $r->palabra = "organizado";
+                } else if ($r->puntaje >= 4.5 && $r->puntaje <= 7) {
+                    $r->letra = "O";
+                    $r->palabra = "Organizado";
                 }
             }
 
@@ -405,7 +417,6 @@ class EncuestaPersonaController extends Controller
      */
     public function edit($id)
     {
-        
     }
 
     /**

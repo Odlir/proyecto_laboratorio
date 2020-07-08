@@ -1341,7 +1341,7 @@
             A partir de la Tabla 6, se observa que los campos profesionales de mayor preferencia en la muestra evaluada
             son:
             @foreach ($p_intereses as $i)
-            @if ($i->puntaje>=75)
+            @if ($i->puntaje>75)
             <b class="italic h3">{{$i->carrera2}}</b>&nbsp;({{$i->descripcion}});&nbsp;
             @endif
             @endforeach

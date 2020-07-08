@@ -64,7 +64,7 @@ export class TestInteresComponent implements OnInit {
 	}
 
 	async progress() {
-		let lenght = this.preguntas.length*3;
+		let lenght = this.preguntas.length * 3;
 		this.progreso = 0;
 		await Object.entries(this.formGroup.controls).every(a => {
 			if (a[1].value != "") {
@@ -72,7 +72,7 @@ export class TestInteresComponent implements OnInit {
 			}
 			return true;
 		});
-		this.porcentaje = parseFloat(((this.progreso / lenght)*100).toFixed(1));
+		this.porcentaje = parseFloat(((this.progreso / lenght) * 100).toFixed(1));
 	}
 
 	obtenerDatos() {
@@ -164,11 +164,11 @@ export class TestInteresComponent implements OnInit {
 
 	async guardar() {
 		let falta = "";
-		Object.entries(this.formGroup.controls).every(a=> {
+		Object.entries(this.formGroup.controls).every(a => {
 			if (a[1].value == '') {
 				let ids = a[0].split('-');
 				this.data = [];
-				falta = falta + (ids[0] +'-'+ids[1]) + ',';
+				falta = falta + (ids[0] + '-' + ids[1]) + ',';
 				this.save = false;
 			}
 			else {
@@ -181,7 +181,7 @@ export class TestInteresComponent implements OnInit {
 				this.data.push({ ...this.form });
 			}
 
-			if(falta==""){
+			if (falta == "") {
 				this.save = true;
 			}
 			return true;
@@ -194,7 +194,7 @@ export class TestInteresComponent implements OnInit {
 				icon: 'info',
 				timer: 5000
 			});
-			this.api.post('encuesta_persona', [this.encuesta,this.tipo_encuesta_id,this.data]).subscribe(
+			this.api.post('encuesta_persona', [this.encuesta, this.tipo_encuesta_id, this.data]).subscribe(
 				(data) => {
 					Swal.fire({
 						title: 'Test Enviado Correctamente.',
@@ -205,7 +205,7 @@ export class TestInteresComponent implements OnInit {
 					this.show = false;
 				}
 			);
-		}else {
+		} else {
 			Swal.fire({
 				title: 'El Test debe ser completado al 100%: ',
 				text: falta.substring(0, falta.length - 1),
