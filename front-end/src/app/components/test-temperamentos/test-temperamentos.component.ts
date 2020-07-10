@@ -138,6 +138,7 @@ export class TestTemperamentosComponent implements OnInit {
 
 	async guardar() {
 		let falta = "";
+		this.data = [];
 		Object.entries(this.formGroup.controls).every((a, index) => {
 			if (a[1].value == '') {
 				this.data = [];

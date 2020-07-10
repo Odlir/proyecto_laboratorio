@@ -164,6 +164,7 @@ export class TestInteresComponent implements OnInit {
 
 	async guardar() {
 		let falta = "";
+		this.data = [];
 		Object.entries(this.formGroup.controls).every(a => {
 			if (a[1].value == '') {
 				let ids = a[0].split('-');
