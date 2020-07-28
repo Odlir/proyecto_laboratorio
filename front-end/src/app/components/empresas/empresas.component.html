@@ -9,7 +9,7 @@
 <div class="mt-5">
 	<ngx-datatable class="bootstrap" [rows]="rows" [loadingIndicator]="loadingIndicator" [columnMode]="ColumnMode.force"
 		[headerHeight]="40" [summaryPosition]="'bottom'" [footerHeight]="40" [limit]="20" rowHeight="auto"
-		[reorderable]="reorderable">
+		[reorderable]="reorderable" (page)="nextPage($event)" [count]="total" [externalPaging]="true" [offset]="offset">
 
 		<ngx-datatable-column name="Id" [width]="1">
 			<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>

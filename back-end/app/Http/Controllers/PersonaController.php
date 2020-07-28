@@ -15,26 +15,29 @@ class PersonaController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->input('search') != null) {
-            $searchValue = $request->input('search');
+        $paginate = $request->input('paginate');
 
-            $data = Persona::where('rol_id', 2)
-                ->where('estado', '1')
-                ->where(function ($query) use ($searchValue) {
-                    $query->where("id", "LIKE", "%$searchValue%")
-                        ->orWhere('nombres', "LIKE", "%$searchValue%")
-                        ->orWhere('apellido_materno', "LIKE", "%$searchValue%")
-                        ->orWhere('apellido_paterno', "LIKE", "%$searchValue%")
-                        ->orWhere('sexo', "LIKE", "%$searchValue%")
-                        ->orWhere('email', "LIKE", "%$searchValue%");
-                })
-                ->orderBy('id', 'DESC')
-                ->get();
+        $offset = $request->input('offset') * $paginate;
+
+        $searchValue = $request->input('search');
+
+        $data = Persona::where('estado', '1')
+            ->where('rol_id', '2')->where(function ($query) use ($searchValue) {
+                $query->where("id", "LIKE", "%$searchValue%")
+                    ->orWhere('nombres', "LIKE", "%$searchValue%")
+                    ->orWhere('apellido_materno', "LIKE", "%$searchValue%")
+                    ->orWhere('apellido_paterno', "LIKE", "%$searchValue%")
+                    ->orWhere('sexo', "LIKE", "%$searchValue%")
+                    ->orWhere('email', "LIKE", "%$searchValue%");
+            });
+
+        if (!$paginate) {
+            $data = $data->count();
         } else {
-            $data = Persona::where('estado', '1')
-                ->where('rol_id', '2')
-                ->orderBy('id', 'DESC')
-                ->get();
+            $data = $data
+                ->skip($offset)
+                ->take($paginate)
+                ->orderBy('id', 'DESC')->get();
         }
 
         return response()->json($data, 200);

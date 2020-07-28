@@ -4,65 +4,75 @@ import { ColumnMode } from '@swimlane/ngx-datatable';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-personas',
-  templateUrl: './personas.component.html',
-  styleUrls: ['./personas.component.css']
+	selector: 'app-personas',
+	templateUrl: './personas.component.html',
+	styleUrls: ['./personas.component.css']
 })
 export class PersonasComponent implements OnInit {
-  rows = [];
-  loadingIndicator = true;
-  reorderable = true;
+	rows = [];
+	loadingIndicator = true;
+	reorderable = true;
 
-  ColumnMode = ColumnMode;
+	offset = 0;
+	paginate = 20;
 
-  ngOnInit(): void {
-    this.fetch();
-  }
+	total = 0;
 
-  constructor(private api: ApiBackRequestService) {
+	ColumnMode = ColumnMode;
 
-  }
+	search = '';
 
-  fetch() {
-    this.api.get('personas').subscribe(
-      (data) => {
-        this.handle(data)
-        }
-      );
-  }
+	ngOnInit(): void {
+		this.fetch();
+	}
 
-  handle(data) {
-    this.rows = data;
-  }
+	constructor(private api: ApiBackRequestService) {
 
-  eliminar(id) {
-    Swal.fire({
-      title: 'Desea eliminar el registro?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirmar'
-    }).then((result) => {
-      if (result.value) {
-        this.api.delete('personas', id).subscribe(
-          (data) => {
-            this.fetch()
-            }
-          );
-      }
-    })
-  }
+	}
 
-  updateFilter(event) {
-    const val = event.target.value;
+	fetch() {
+		this.api.get('personas?search=' + this.search + '&offset=' + this.offset + '&paginate=' + this.paginate).subscribe(
+			(data) => {
+				this.rows = data;
+			}
+		);
 
-    this.api.get('personas?search=' + val).subscribe(
-      (data) => {
-        this.handle(data)
-        }
-      );
-  }
+		this.api.get('personas?search=' + this.search).subscribe(
+			(data) => {
+				this.total = data;
+			}
+		);
+	}
+
+	eliminar(id) {
+		Swal.fire({
+			title: 'Desea eliminar el registro?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Confirmar'
+		}).then((result) => {
+			if (result.value) {
+				this.api.delete('personas', id).subscribe(
+					(data) => {
+						this.fetch();
+					}
+				);
+			}
+		});
+	}
+
+	updateFilter(event) {
+		this.offset = 0;
+		this.search = event.target.value;
+		this.fetch();
+	}
+
+	nextPage(event) {
+		this.offset = event.offset;
+		this.fetch();
+	}
 
 }
 

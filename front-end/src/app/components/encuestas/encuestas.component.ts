@@ -5,67 +5,73 @@ import { ApiBackRequestService } from './../../Services/api-back-request.service
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-encuestas',
-  templateUrl: './encuestas.component.html',
-  styleUrls: ['./encuestas.component.css']
+	selector: 'app-encuestas',
+	templateUrl: './encuestas.component.html',
+	styleUrls: ['./encuestas.component.css']
 })
 export class EncuestasComponent implements OnInit {
 
-  rows = [];
-  loadingIndicator = true;
-  reorderable = true;
+	rows = [];
+	loadingIndicator = true;
+	reorderable = true;
 
-  ColumnMode = ColumnMode;
+	offset = 0;
+	paginate = 20;
 
-  constructor(private api: ApiBackRequestService) { }
+	total = 0;
 
-  ngOnInit(): void {
-    this.fetch();
-  }
+	ColumnMode = ColumnMode;
 
-  fetch() {
-    this.api.get('encuestas').subscribe(
-      (data) => {
-        this.handle(data)
-      }
-    );
-  }
+	search = '';
 
-  handle(data) {
-    data.forEach(element => {
-      element.fecha_inicio = moment(element.fecha_inicio).format('DD/MM/YYYY')
-      element.fecha_fin = moment(element.fecha_fin).format('DD/MM/YYYY')
-    });
-    this.rows = data;
+	constructor(private api: ApiBackRequestService) { }
 
-  }
+	ngOnInit(): void {
+		this.fetch();
+	}
 
-  eliminar(id) {
-    Swal.fire({
-      title: 'Desea eliminar el registro?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirmar'
-    }).then((result) => {
-      if (result.value) {
-        this.api.delete('encuestas', id).subscribe(
-          (data) => {
-            this.fetch()
-          }
-        );
-      }
-    })
-  }
+	nextPage(event) {
+		this.offset = event.offset;
+		this.fetch();
+	}
 
-  updateFilter(event) {
-    const val = event.target.value;
+	fetch() {
+		this.api.get('encuestas?search=' + this.search + '&offset=' + this.offset + '&paginate=' + this.paginate).subscribe(
+			(data) => {
+				this.rows = data;
+			}
+		);
 
-    this.api.get('encuestas?search=' + val).subscribe(
-      (data) => {
-        this.handle(data)
-      }
-    );
-  }
+		this.api.get('encuestas?search=' + this.search).subscribe(
+			(data) => {
+				this.total = data;
+			}
+		);
+	}
+
+
+	eliminar(id) {
+		Swal.fire({
+			title: 'Desea eliminar el registro?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Confirmar'
+		}).then((result) => {
+			if (result.value) {
+				this.api.delete('encuestas', id).subscribe(
+					(data) => {
+						this.fetch()
+					}
+				);
+			}
+		})
+	}
+
+	updateFilter(event) {
+		this.offset = 0;
+		this.search = event.target.value;
+		this.fetch();
+	}
 }

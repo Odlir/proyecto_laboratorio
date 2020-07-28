@@ -16,32 +16,33 @@ class EncuestaController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->input('search') != null) // BUSCAR POR EMPRESA O POR TIPO
-        {
-            $searchValue = $request->input('search');
+        $paginate = $request->input('paginate');
 
-            $data = Encuesta::with('empresa')
-                ->with('tipo')
-                ->with('general')
-                ->where('estado', '1')
-                ->where(function ($query) use ($searchValue) {
-                    $query->where("id", "LIKE", "%$searchValue%")
-                        ->orwhereHas('empresa', function ($q) use ($searchValue) {
-                            $q->where("nombre", "LIKE", "%$searchValue%");
-                        })
-                        ->orWhereHas('tipo', function ($query) use ($searchValue) {
-                            $query->where("nombre", "LIKE", "%$searchValue%");
-                        });
-                })
-                ->orderBy('id', 'DESC')
-                ->get();
+        $offset = $request->input('offset') * $paginate;
+
+        $searchValue = $request->input('search');
+
+        $data = Encuesta::with('empresa')
+            ->with('tipo')
+            ->with('general')
+            ->where('estado', '1')
+            ->where(function ($query) use ($searchValue) {
+                $query->where("id", "LIKE", "%$searchValue%")
+                    ->orwhereHas('empresa', function ($q) use ($searchValue) {
+                        $q->where("nombre", "LIKE", "%$searchValue%");
+                    })
+                    ->orWhereHas('tipo', function ($query) use ($searchValue) {
+                        $query->where("nombre", "LIKE", "%$searchValue%");
+                    });
+            });
+
+        if (!$paginate) {
+            $data = $data->count();
         } else {
-            $data = Encuesta::where('estado', '1')
-                ->with('empresa')
-                ->with('tipo')
-                ->with('general')
-                ->orderBy('id', 'DESC')
-                ->get();
+            $data = $data
+                ->skip($offset)
+                ->take($paginate)
+                ->orderBy('id', 'DESC')->get();
         }
 
         return response()->json($data, 200);
@@ -69,7 +70,7 @@ class EncuestaController extends Controller
         $general = EncuestaGeneral::create($data);
 
         $data['encuesta_general_id'] = $general->id;
-        
+
         if ($request->todas) {
             $tipos = TipoEncuesta::where('estado', '1')
                 ->orderBy('id', 'DESC')

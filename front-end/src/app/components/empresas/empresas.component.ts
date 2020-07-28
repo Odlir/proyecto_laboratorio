@@ -14,7 +14,14 @@ export class EmpresasComponent implements OnInit {
   loadingIndicator = true;
   reorderable = true;
 
-  ColumnMode = ColumnMode;
+  offset = 0;
+	paginate = 20;
+
+	total = 0;
+
+	ColumnMode = ColumnMode;
+
+	search = '';
 
   ngOnInit(): void {
     this.fetch();
@@ -22,19 +29,27 @@ export class EmpresasComponent implements OnInit {
 
   constructor(private api: ApiBackRequestService) {
 
-  }
+	}
+
+
+	nextPage(event) {
+		this.offset = event.offset;
+		this.fetch();
+	}
 
   fetch() {
-    this.api.get('empresas').subscribe(
-      (data) => {
-        this.handle(data)
-      }
-    );
-  }
+		this.api.get('empresas?search=' + this.search + '&offset=' + this.offset + '&paginate=' + this.paginate).subscribe(
+			(data) => {
+				this.rows = data;
+			}
+		);
 
-  handle(data) {
-    this.rows = data;
-  }
+		this.api.get('empresas?search=' + this.search).subscribe(
+			(data) => {
+				this.total = data;
+			}
+		);
+	}
 
   eliminar(id) {
     Swal.fire({
@@ -55,13 +70,9 @@ export class EmpresasComponent implements OnInit {
     })
   }
 
-  updateFilter(event) {
-    const val = event.target.value;
-
-    this.api.get('empresas?search=' + val).subscribe(
-      (data) => {
-        this.handle(data)
-      }
-    );
-  }
+	updateFilter(event) {
+		this.offset = 0;
+		this.search = event.target.value;
+		this.fetch();
+	}
 }

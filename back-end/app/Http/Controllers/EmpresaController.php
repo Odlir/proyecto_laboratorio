@@ -15,22 +15,28 @@ class EmpresaController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->input('search') != null) {
-            $searchValue = $request->input('search');
-            $data = Empresa::where('estado', '1')
-                ->where(function ($query) use ($searchValue) {
-                    $query->where('id', "LIKE", "%$searchValue%")
-                        ->orWhere('razon_social', "LIKE", "%$searchValue%")
-                        ->orWhere('contacto', "LIKE", "%$searchValue%")
-                        ->orWhere('email', "LIKE", "%$searchValue%")
-                        ->orWhere('telefono', "LIKE", "%$searchValue%");
-                })
-                ->orderBy('id', 'DESC')
-                ->get();
+        $paginate = $request->input('paginate');
+
+        $offset = $request->input('offset') * $paginate;
+
+        $searchValue = $request->input('search');
+
+        $data = Empresa::where('estado', '1')
+            ->where(function ($query) use ($searchValue) {
+                $query->where('id', "LIKE", "%$searchValue%")
+                    ->orWhere('razon_social', "LIKE", "%$searchValue%")
+                    ->orWhere('contacto', "LIKE", "%$searchValue%")
+                    ->orWhere('email', "LIKE", "%$searchValue%")
+                    ->orWhere('telefono', "LIKE", "%$searchValue%");
+            });
+
+        if (!$paginate) {
+            $data = $data->count();
         } else {
-            $data = Empresa::where('estado', '1')
-                ->orderBy('id', 'DESC')
-                ->get();
+            $data = $data
+                ->skip($offset)
+                ->take($paginate)
+                ->orderBy('id', 'DESC')->get();
         }
 
         return response()->json($data, 200);
