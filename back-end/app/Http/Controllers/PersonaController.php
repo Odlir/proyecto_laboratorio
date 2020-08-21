@@ -24,11 +24,27 @@ class PersonaController extends Controller
         $data = Persona::where('estado', '1')
             ->where('rol_id', '2')->where(function ($query) use ($searchValue) {
                 $query->where("id", "LIKE", "%$searchValue%")
+                    ->orWhere('tipo_documento', "LIKE", "%$searchValue%")
+                    ->orWhere('nro_documento', "LIKE", "%$searchValue%")
                     ->orWhere('nombres', "LIKE", "%$searchValue%")
                     ->orWhere('apellido_materno', "LIKE", "%$searchValue%")
                     ->orWhere('apellido_paterno', "LIKE", "%$searchValue%")
+                    ->orWhere('fecha_nacimiento', "LIKE", "%$searchValue%")
+                    ->orWhere('edad', "LIKE", "%$searchValue%")
                     ->orWhere('sexo', "LIKE", "%$searchValue%")
-                    ->orWhere('email', "LIKE", "%$searchValue%");
+                    ->orWhere('nro_celular', "LIKE", "%$searchValue%")
+                    ->orWhere('email', "LIKE", "%$searchValue%")
+                    ->orWhere('grupo_sanguineo', "LIKE", "%$searchValue%")
+                    ->orWhere('direccion', "LIKE", "%$searchValue%")
+                    ->orWhere('latitud', "LIKE", "%$searchValue%")
+                    ->orWhere('longitud', "LIKE", "%$searchValue%")
+                    ->orWhere('departamento', "LIKE", "%$searchValue%")
+                    ->orWhere('provincia', "LIKE", "%$searchValue%")
+                    ->orWhere('referencias', "LIKE", "%$searchValue%")
+                    ->orWhere('tipo_paciente', "LIKE", "%$searchValue%")
+                    ->orWhere('observaciones1', "LIKE", "%$searchValue%")
+                    ->orWhere('observaciones2', "LIKE", "%$searchValue%")
+                    ->orWhere('estado', "LIKE", "%$searchValue%");
             });
 
         if (!$paginate) {

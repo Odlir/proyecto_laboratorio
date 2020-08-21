@@ -1,0 +1,78 @@
+<div *ngIf="encuesta_id;else other_content">
+	<app-header nombre="PROGRAMACIÓN DE ENCUESTAS" icono="edit"></app-header>
+</div>
+
+<ng-template #other_content>
+	<app-header nombre="MANTENIMIENTO DE DOCTORES" icono="user-friends"></app-header>
+</ng-template>
+
+<div class="widget clearfix mt-5">
+	<div class="whead clearfix">
+		<p>DETALLE DEL DOCTOR: {{ form.nombres }} {{ form.apellido_paterno }} {{ form.apellido_materno }}</p>
+	</div>
+	<div class="row data-crud">
+		<div class="col-7">
+			<div class="widget clearfix">
+				<div class="whead clearfix">
+					<div class="row">
+						<div class="col-6 border text-center">
+							<p>Campo</p>
+						</div>
+						<div class="col-6 border text-center">
+							<p>Dato</p>
+						</div>
+					</div>
+				</div>
+				<div class="row auditoria">
+					<div class="col-6 border px-0">
+						<div class="col-12 border-bottom py-3">
+							Id
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Apellido Paterno
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Apellido Materno
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Nombres
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Sexo
+						</div>
+						<div class="col-12 py-3" *ngIf="encuesta_id==null">
+							Correo Personal
+						</div>
+					</div>
+					<div class="col-6 border px-0">
+						<div class="col-12 border-bottom py-3">
+							{{form.id}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.apellido_paterno}}
+						</div>
+						<div class="col-12 border-bottom py-3 h-17">
+							{{form.apellido_materno}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.nombres}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.sexo}}
+						</div>
+						<div class="col-12 py-3 h-20" *ngIf="encuesta_id==null">
+							{{form.email}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-5 p-0 widget clearfix">
+			<app-auditoria [form]="form"></app-auditoria>
+		</div>
+	</div>
+</div>
+<div class="row mt-3">
+	<button class="btn btn-info text-white" (click)="return()">REGRESAR A LA LISTA</button>
+	<button class="btn btn-danger ml-5" (click)="eliminar(this.form.id)">ELIMINAR</button>
+</div>

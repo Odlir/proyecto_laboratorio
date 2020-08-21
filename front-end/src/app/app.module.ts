@@ -31,15 +31,15 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { PersonasComponent } from './components/personas/personas.component';
+import { PacientesComponent } from './components/pacientes/pacientes.component';
 import { EmpresasComponent } from './components/empresas/empresas.component';
-import { CrudPersonaComponent } from './components/personas/crud-persona/crud-persona.component';
+import { CrudPacienteComponent } from './components/pacientes/crud-paciente/crud-paciente.component';
 import { DetalleEmpresaComponent } from './components/empresas/detalle-empresa/detalle-empresa.component';
 import { CrudEmpresaComponent } from './components/empresas/crud-empresa/crud-empresa.component';
-import { DetallePersonaComponent } from './components/personas/detalle-persona/detalle-persona.component';
+import { DetallePacienteComponent } from './components/pacientes/detalle-paciente/detalle-paciente.component';
 import { CrudSucursalComponent } from './components/empresas/crud-sucursal/crud-sucursal.component';
 import { DetalleSucursalComponent } from './components/empresas/detalle-sucursal/detalle-sucursal.component';
-import { ImportarPersonaComponent } from './components/personas/importar-persona/importar-persona.component';
+import { ImportarPacienteComponent } from './components/pacientes/importar-paciente/importar-paciente.component';
 import { EncuestasComponent } from './components/encuestas/encuestas.component';
 import { CrudEncuestaComponent } from './components/encuestas/crud-encuesta/crud-encuesta.component';
 import { DetalleEncuestaComponent } from './components/encuestas/detalle-encuesta/detalle-encuesta.component';
@@ -59,6 +59,18 @@ import { MasDesarrolladosComponent } from './components/test-talentos/mas-desarr
 import { MenosDesarrolladosComponent } from './components/test-talentos/menos-desarrollados/menos-desarrollados.component';
 import { EspecificosComponent } from './components/test-talentos/especificos/especificos.component';
 import { EspecificosMenosComponent } from './components/test-talentos/especificos-menos/especificos-menos.component';
+import { CrudDoctorComponent } from './components/doctores/crud-doctor/crud-doctor/crud-doctor.component';
+import { DetalleDoctorComponent } from './components/doctores/detalle-doctor/detalle-doctor/detalle-doctor.component';
+import { DoctoresComponent } from './components/doctores/doctores.component';
+import { CrudMuestrasComponent } from './components/muestras/crud-muestras/crud-muestras/crud-muestras.component';
+import { DetalleMuestrasComponent } from './components/muestras/detalle-muestras/detalle-muestras/detalle-muestras.component';
+import { MuestrasComponent } from './components/muestras/muestras.component';
+import { CrudAnalisisComponent } from './components/analisis/crud-analisis/crud-analisis/crud-analisis.component';
+import { DetalleAnalisisComponent } from './components/analisis/detalle-analisis/detalle-analisis/detalle-analisis.component';
+import { AnalisisComponent } from './components/analisis/analisis.component';
+import { OrdenAtencionComponent } from './components/orden-atencion/orden-atencion.component';
+import { CrudOrdenAtencionComponent } from './components/orden-atencion/crud-orden-atencion/crud-orden-atencion/crud-orden-atencion.component';
+import { DetalleOrdenAtencionComponent } from './components/orden-atencion/detalle-orden-atencion/detalle-orden-atencion/detalle-orden-atencion.component';
 
 @NgModule({
 	declarations: [
@@ -67,16 +79,16 @@ import { EspecificosMenosComponent } from './components/test-talentos/especifico
 		LoginComponent,
 		SignupComponent,
 		DashboardComponent,
-		PersonasComponent,
+		PacientesComponent,
 		SidenavComponent,
 		EmpresasComponent,
-		CrudPersonaComponent,
+		CrudPacienteComponent,
 		DetalleEmpresaComponent,
 		CrudEmpresaComponent,
-		DetallePersonaComponent,
+		DetallePacienteComponent,
 		CrudSucursalComponent,
 		DetalleSucursalComponent,
-		ImportarPersonaComponent,
+		ImportarPacienteComponent,
 		EncuestasComponent,
 		CrudEncuestaComponent,
 		DetalleEncuestaComponent,
@@ -92,7 +104,19 @@ import { EspecificosMenosComponent } from './components/test-talentos/especifico
 		MasDesarrolladosComponent,
 		MenosDesarrolladosComponent,
 		EspecificosComponent,
-		EspecificosMenosComponent
+		EspecificosMenosComponent,
+		CrudDoctorComponent,
+		DetalleDoctorComponent,
+		DoctoresComponent,
+		CrudMuestrasComponent,
+		DetalleMuestrasComponent,
+		MuestrasComponent,
+		CrudAnalisisComponent,
+		DetalleAnalisisComponent,
+		AnalisisComponent,
+		OrdenAtencionComponent,
+		DetalleOrdenAtencionComponent,
+		CrudOrdenAtencionComponent
 	],
 	imports: [
 		BrowserModule,

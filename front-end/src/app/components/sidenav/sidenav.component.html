@@ -1,23 +1,45 @@
 <mat-nav-list *ngIf="showMenu" class="p-0 w-100">
 	<div class="logo_upc">
-		<img width="40%" height="40%" src="assets/images/logo_upc_red.png" alt="UPC">
-		<span>UPC </span><span *ngIf="isExpanded">Encuestas</span>
+		<img id="logo_lab" width="40%" height="40%" src="assets/images/logo_laboratorio.png" alt="logo_lab">
+		<span>UPC </span><span *ngIf="isExpanded">Laboratorio</span>
 	</div>
-	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="personas" [routerLinkActiveOptions]="{exact: true}">
+	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="pacientes" [routerLinkActiveOptions]="{exact: true}">
 		<fa-icon [icon]="['fas', 'user-friends']"></fa-icon>
-		<span class="full-width" *ngIf="isExpanded">Personas</span>
+		<span class="full-width" *ngIf="isExpanded">Pacientes</span>
 	</a>
+
+	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="doctores" [routerLinkActiveOptions]="{exact: true}">
+		<fa-icon [icon]="['fas', 'user-friends']"></fa-icon>
+		<span class="full-width" *ngIf="isExpanded">Doctores</span>
+	</a>
+
 	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="empresas">
 		<fa-icon [icon]="['fas', 'city']"></fa-icon>
 		<span class="full-width" *ngIf="isExpanded">Empresas</span>
 	</a>
-	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="encuestas">
+
+	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="muestras">
+		<fa-icon [icon]="['fas', 'city']"></fa-icon>
+		<span class="full-width" *ngIf="isExpanded">Muestras</span>
+	</a>
+
+	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="analisis">
+		<fa-icon [icon]="['fas', 'city']"></fa-icon>
+		<span class="full-width" *ngIf="isExpanded">Analisis</span>
+	</a>
+
+	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="orden-atencion">
+		<fa-icon [icon]="['fas', 'city']"></fa-icon>
+		<span class="full-width" *ngIf="isExpanded">Orden de Atención</span>
+	</a>
+
+<!-- <a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="encuestas">
 		<fa-icon [icon]="['fas', 'edit']"></fa-icon>
 		<span class="full-width" *ngIf="isExpanded">Programar Encuestas</span>
 	</a>
 	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="reportes">
 		<fa-icon [icon]="['fas', 'poll']"></fa-icon>
 		<span class="full-width" *ngIf="isExpanded">Reportes</span>
-	</a>
+	</a>-->
 </mat-nav-list>
 

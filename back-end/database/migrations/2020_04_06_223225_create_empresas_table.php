@@ -15,10 +15,30 @@ class CreateEmpresasTable extends Migration
     {
         Schema::create('empresas', function (Blueprint $table) {
             $table->id();
+            $table->integer('nro_ruc');
             $table->string('razon_social', 300);
-            $table->string('email')->nullable();
-            $table->string('contacto')->nullable();
-            $table->string('telefono')->nullable();
+            $table->string('pag_web')->nullable();
+            $table->string('latitud')->nullable();
+            $table->string('longitud')->nullable();
+            $table->string('direccion');
+            $table->string('departamento');
+            $table->string('provincia');
+            $table->string('distrito');
+            $table->integer('telf_fijo')->nullable();
+            $table->integer('nro_celular')->nullable();
+            $table->string('nombre_contacto1')->nullable();
+            $table->integer('telf_fijo1')->nullable();
+            $table->integer('nro_celular1')->nullable();
+            $table->string('email_contacto1')->nullable();
+            $table->string('nombre_contacto2')->nullable();
+            $table->integer('telf_fijo2')->nullable();
+            $table->integer('nro_celular2')->nullable();
+            $table->string('email_contacto2')->nullable();
+            $table->string('nombre_banco')->nullable();
+            $table->integer('nro_cta')->nullable();
+            $table->integer('nro_cta_interbancaria')->nullable();
+            $table->text('observaciones1')->nullable();
+            $table->text('observaciones2')->nullable();
             $table->char('estado', 1)->comment('0-Inactivo/1-Activo')->default(1);
 
             $table->unsignedBigInteger('insert_user_id')->comment('Usuario que hizo el registro');

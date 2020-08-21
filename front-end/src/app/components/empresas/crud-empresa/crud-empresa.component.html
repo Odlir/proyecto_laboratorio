@@ -6,47 +6,227 @@
 	<mat-step completed="false">
 		<ng-template matStepLabel>{{ titulo }} <span *ngIf="id">: {{ form.razon_social }}</span></ng-template>
 		<div class="row data-crud">
-			<div class="col-7">
+			<div class="col-12">
 				<form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
+					<div class="row">
+						<div class="col-6">
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Nro de Ruc <span
+										class="text-danger">*</span></label>
+								<div class="col-sm-8">
+									<input type="text" name="nroruc" class="form-control" [(ngModel)]="form.nro_ruc"
+										required>
+								</div>
+								<hr>
+							</div>
 
-					<div class="form-group row my-3">
-						<label class="col-sm-4 col-form-label w-100">Razón Social <span
-								class="text-danger">*</span></label>
-						<div class="col-sm-8">
-							<input type="text" name="razonsocial" class="form-control" [(ngModel)]="form.razon_social"
-								required>
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Razón Social <span
+										class="text-danger">*</span></label>
+								<div class="col-sm-8">
+									<input type="text" name="razonsocial" class="form-control" [(ngModel)]="form.razon_social"
+										required>
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Pagina Web</label>
+								<div class="col-sm-8">
+									<input type="text" name="pagweb" class="form-control" [(ngModel)]="form.pag_web">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Latitud</label>
+								<div class="col-sm-8">
+									<input type="text" name="latitud" class="form-control" [(ngModel)]="form.latitud">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Longitud</label>
+								<div class="col-sm-8">
+									<input type="text" name="longitud" class="form-control" [(ngModel)]="form.longitud">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Dirección <span
+									class="text-danger">*</span></label>
+								<div class="col-sm-8">
+									<input type="text" name="direccion" class="form-control" [(ngModel)]="form.direccion">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Departamento <span
+									class="text-danger">*</span></label>
+								<div class="col-sm-8">
+									<input type="text" name="depart" class="form-control" [(ngModel)]="form.departamento">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Provincia <span
+									class="text-danger">*</span></label>
+								<div class="col-sm-8">
+									<input type="text" name="prov" class="form-control" [(ngModel)]="form.provincia">
+								</div>
+								<hr>
+							</div>
+							
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Distrito <span
+									class="text-danger">*</span></label>
+								<div class="col-sm-8">
+									<input type="text" name="dist" class="form-control" [(ngModel)]="form.distrito">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Telefono Fijo</label>
+								<div class="col-sm-8">
+									<input type="number" name="telf" class="form-control" [(ngModel)]="form.telf_fijo">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Numero de Celular</label>
+								<div class="col-sm-8">
+									<input type="number" name="nrocel" class="form-control" [(ngModel)]="form.nro_celular">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Nombre de Contacto 1</label>
+								<div class="col-sm-8">
+									<input type="text" name="nomcont1" class="form-control" [(ngModel)]="form.nombre_contacto1">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Telefono Fijo 1</label>
+								<div class="col-sm-8">
+									<input type="number" name="telf1" class="form-control" [(ngModel)]="form.telf_fijo1">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Numero de Celular 1</label>
+								<div class="col-sm-8">
+									<input type="number" name="nrocel1" class="form-control" [(ngModel)]="form.nro_celular1">
+								</div>
+								<hr>
+							</div>
 						</div>
-						<hr>
-					</div>
 
-					<div class="form-group row my-3">
-						<label class="col-sm-4 col-form-label w-100">Contacto</label>
-						<div class="col-sm-8">
-							<input type="text" name="contacto" class="form-control" [(ngModel)]="form.contacto">
-						</div>
-						<hr>
-					</div>
+						<div class="col-6">
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Email de Contacto 1</label>
+								<div class="col-sm-8">
+									<input type="email" name="emailcont1" class="form-control" [(ngModel)]="form.email_contacto1">
+								</div>
+								<hr>
+							</div>
 
-					<div class="form-group row my-3">
-						<label class="col-sm-4 col-form-label w-100">Teléfono</label>
-						<div class="col-sm-8">
-							<input type="number" name="telefono" class="form-control" [(ngModel)]="form.telefono">
-						</div>
-						<hr>
-					</div>
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Nombre de Contacto 2</label>
+								<div class="col-sm-8">
+									<input type="text" name="nomcont2" class="form-control" [(ngModel)]="form.nombre_contacto2">
+								</div>
+								<hr>
+							</div>
 
-					<div class="form-group row my-3">
-						<label class="col-sm-4 col-form-label w-100">Correo Contacto</label>
-						<div class="col-sm-8">
-							<input type="email" name="correo" class="form-control" [(ngModel)]="form.email">
-						</div>
-						<hr>
-					</div>
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Telefono Fijo 2</label>
+								<div class="col-sm-8">
+									<input type="number" name="telf2" class="form-control" [(ngModel)]="form.telf_fijo2">
+								</div>
+								<hr>
+							</div>
 
-					<div class="form-group row mt-5">
-						<div class="col-12">
-							<button type="submit" class="btn btn-success">GUARDAR</button>
-							<a routerLink="/empresas" class="btn btn-info">REGRESAR A LA LISTA</a>
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Numero de Celular 2</label>
+								<div class="col-sm-8">
+									<input type="number" name="nrocel2" class="form-control" [(ngModel)]="form.nro_celular2">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Email de Contacto 2</label>
+								<div class="col-sm-8">
+									<input type="email" name="emailcont2" class="form-control" [(ngModel)]="form.email_contacto2">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Nombre de Banco</label>
+								<div class="col-sm-8">
+									<input type="text" name="nombanco" class="form-control" [(ngModel)]="form.nombre_banco">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Nro de Cuenta</label>
+								<div class="col-sm-8">
+									<input type="text" name="nrocta" class="form-control" [(ngModel)]="form.nro_cta">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Nro de Cuenta Interbancaria</label>
+								<div class="col-sm-8">
+									<input type="text" name="nroctainter" class="form-control" [(ngModel)]="form.nro_cta_interbancaria">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Observaciones 1</label>
+								<div class="col-sm-8">
+									<input type="text" name="obs1" class="form-control" [(ngModel)]="form.observaciones1">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Observaciones 2</label>
+								<div class="col-sm-8">
+									<input type="text" name="obs2" class="form-control" [(ngModel)]="form.observaciones2">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row my-3">
+								<label class="col-sm-4 col-form-label w-100">Estado <span
+									class="text-danger">*</span></label>
+								<div class="col-sm-8">
+									<input type="text" name="estado" class="form-control" [(ngModel)]="form.estado">
+								</div>
+								<hr>
+							</div>
+
+							<div class="form-group row mt-5">
+								<div class="col-12">
+									<button type="submit" class="btn btn-success">GUARDAR</button>
+									<a routerLink="/empresas" class="btn btn-info">REGRESAR A LA LISTA</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</form>
