@@ -22,7 +22,7 @@ class CreateDoctoresTable extends Migration
             $table->string('apellido_paterno');
             $table->string('especialidad');
             $table->integer('nro_colegiatura');
-            $table->date_date_set('fecha_nacimiento');
+            $table->date('fecha_nacimiento');
             $table->integer('edad');
             $table->string('sexo');
             $table->integer('nro_celular')->nullable();

@@ -19,7 +19,7 @@ class CreateMuestrasTable extends Migration
             $table->text('descripcion');
             $table->double('p_unitario', 10, 2);
             $table->text('observaciones')->nullable();
-            $table->date_default_timezone_get('fecha_hora_creacion');
+            $table->dateTime('fecha_hora_creacion');
 
             $table->unsignedBigInteger('rol_id');
             $table->foreign('rol_id')->references('id')->on('roles');

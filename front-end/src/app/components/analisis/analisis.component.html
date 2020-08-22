@@ -1,7 +1,7 @@
-<app-header nombre="MANTENIMIENTO DE ANALISIS" icono="user-friends"></app-header>
+<app-header nombre="MANTENIMIENTO DE ANÁLISIS" icono="user-friends"></app-header>
 
 <div class="col-12 text-right">
-  <button class="btn btn-warning" [routerLink]="['/crud-analisis']">CREAR ANALISIS</button>
+  <button class="btn btn-warning" [routerLink]="['/crud-analisis']">CREAR ANÁLISIS</button>
 </div>
 
 <input type="text" class="buscador" placeholder="Buscar por Id/Nombres/Apellidos/Sexo/Correo"
@@ -19,7 +19,7 @@
       </ng-template>
     </ngx-datatable-column>
 
-    <ngx-datatable-column name="Nro de Analisis">
+    <ngx-datatable-column name="Nro de Análisis">
       <ng-template let-column="column" ngx-datatable-header-template> {{ column.nro_analisis }} </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value }}
@@ -47,7 +47,7 @@
       </ng-template>
     </ngx-datatable-column>
 
-    <ngx-datatable-column name="Fecha y hora de Creación">
+    <ngx-datatable-column name="Fecha y Hora de Creación">
       <ng-template let-column="column" ngx-datatable-header-template> {{ column.fecha_hora_creacion }} </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value }}

@@ -3,12 +3,12 @@
 </div>
 
 <ng-template #other_content>
-	<app-header nombre="MANTENIMIENTO DE ANALISIS" icono="user-friends"></app-header>
+	<app-header nombre="MANTENIMIENTO DE ANÁLISIS" icono="user-friends"></app-header>
 </ng-template>
 
 <div class="widget clearfix mt-5">
 	<div class="whead clearfix">
-		<p><span *ngIf="id;else templateName">EDITAR </span>ANALISIS <span *ngIf="id">: {{ form.nro_analisis }}
+		<p><span *ngIf="id;else templateName">EDITAR </span>ANÁLISIS <span *ngIf="id">: {{ form.nro_analisis }}
 				{{ form.descripcion }} {{ form.fecha_hora_creacion }}</span></p>
 		<ng-template #templateName>
 			CREAR

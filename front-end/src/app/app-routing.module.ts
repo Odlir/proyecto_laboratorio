@@ -120,7 +120,7 @@ const routes: Routes = [
 	},
 
 	{
-		path: 'orden_analisis',
+		path: 'analisis',
 		component: AnalisisComponent,
 		canActivate: [AfterLoginService]
 	},

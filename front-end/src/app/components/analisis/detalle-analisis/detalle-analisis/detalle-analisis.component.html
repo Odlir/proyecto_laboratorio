@@ -1,80 +1,78 @@
-<app-header nombre="MANTENIMIENTO DE ANALISIS" icono="user-friends"></app-header>
-
-<div class="col-12 text-right">
-  <button class="btn btn-warning" [routerLink]="['/crud-analisis']">CREAR ANALISIS</button>
+<div *ngIf="encuesta_id;else other_content">
+	<app-header nombre="PROGRAMACIÓN DE ENCUESTAS" icono="edit"></app-header>
 </div>
 
-<input type="text" class="buscador" placeholder="Buscar por Id/Nombres/Apellidos/Sexo/Correo"
-  (keyup)="updateFilter($event)" />
+<ng-template #other_content>
+	<app-header nombre="MANTENIMIENTO DE ANÁLISIS" icono="user-friends"></app-header>
+</ng-template>
 
-<div class="mt-5">
-  <ngx-datatable class="bootstrap" [rows]="rows" [loadingIndicator]="loadingIndicator" [columnMode]="ColumnMode.force"
-    [headerHeight]="40" [summaryPosition]="'bottom'" [footerHeight]="40" [limit]="20" rowHeight="auto"
-    [reorderable]="reorderable" (page)="nextPage($event)" [count]="total" [externalPaging]="true" [offset]="offset">
-
-    <ngx-datatable-column name="Id" [width]="1">
-      <ng-template let-column="column" ngx-datatable-header-template>{{ column.name }}</ng-template>
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        <a [routerLink]="['/detalle-analisis/']" [queryParams]="{id:value}">{{ value }}</a>
-      </ng-template>
-    </ngx-datatable-column>
-
-    <ngx-datatable-column name="Nro de Analisis">
-      <ng-template let-column="column" ngx-datatable-header-template> {{ column.nro_analisis }} </ng-template>
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        {{ value }}
-      </ng-template>
-    </ngx-datatable-column>
-
-    <ngx-datatable-column name="Descripción">
-      <ng-template let-column="column" ngx-datatable-header-template> {{ column.descripcion }} </ng-template>
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        {{ value }}
-      </ng-template>
-    </ngx-datatable-column>
-
-    <ngx-datatable-column name="Precio Unitario">
-      <ng-template let-column="column" ngx-datatable-header-template> {{ column.p_unitario }} </ng-template>
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        {{ value }}
-      </ng-template>
-    </ngx-datatable-column>
-
-    <ngx-datatable-column name="Observaciones">
-      <ng-template let-column="column" ngx-datatable-header-template> {{ column.observaciones }} </ng-template>
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        {{ value }}
-      </ng-template>
-    </ngx-datatable-column>
-
-    <ngx-datatable-column name="Fecha y hora de Creación">
-      <ng-template let-column="column" ngx-datatable-header-template> {{ column.fecha_hora_creacion }} </ng-template>
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        {{ value }}
-      </ng-template>
-    </ngx-datatable-column>
-
-    <ngx-datatable-column name="Id">
-      <ng-template let-column="column" ngx-datatable-header-template> Acciones </ng-template>
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        <div class="row justify-content-center">
-          <div class="col-4">
-            <button class="btn" [routerLink]="['/detalle-analisis/']" [queryParams]="{id:value}">
-              <fa-icon class="icon_det" [icon]="['fas', 'eye']"></fa-icon>
-            </button>
-          </div>
-          <div class="col-4">
-            <button class="btn" [routerLink]="['/crud-analisis/']" [queryParams]="{id:value}">
-              <fa-icon class="icon_crud" [icon]="['fas', 'edit']"></fa-icon>
-            </button>
-          </div>
-          <div class="col-4">
-            <button class="btn" (clSick)="eliminar(value)">
-              <fa-icon class="icon_elim" [icon]="['fas', 'trash']"></fa-icon>
-            </button>
-          </div>
-        </div>
-      </ng-template>
-    </ngx-datatable-column>
-  </ngx-datatable>
+<div class="widget clearfix mt-5">
+	<div class="whead clearfix">
+		<p>DETALLE DEL ANÁLISIS: {{ form.nro_analisis }} {{ form.descripcion }} {{ form.fecha_hora_creacion }}</p>
+	</div>
+	<div class="row data-crud">
+		<div class="col-7">
+			<div class="widget clearfix">
+				<div class="whead clearfix">
+					<div class="row">
+						<div class="col-6 border text-center">
+							<p>Campo</p>
+						</div>
+						<div class="col-6 border text-center">
+							<p>Dato</p>
+						</div>
+					</div>
+				</div>
+				<div class="row auditoria">
+					<div class="col-6 border px-0">
+						<div class="col-12 border-bottom py-3">
+							Id
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Nro Análisis
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Descripción
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Precio Unitario
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Observaciones
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Fecha y hora de Creación
+						</div>
+					</div>
+					<div class="col-6 border px-0">
+						<div class="col-12 border-bottom py-3">
+							{{form.id}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.nro_analisis}}
+						</div>
+						<div class="col-12 border-bottom py-3 h-17">
+							{{form.descripcion}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.p_unitario}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.observaciones}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.fecha_hora_creacion}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-5 p-0 widget clearfix">
+			<app-auditoria [form]="form"></app-auditoria>
+		</div>
+	</div>
+</div>
+<div class="row mt-3">
+	<button class="btn btn-info text-white" (click)="return()">REGRESAR A LA LISTA</button>
+	<button class="btn btn-danger ml-5" (click)="eliminar(this.form.id)">ELIMINAR</button>
 </div>
