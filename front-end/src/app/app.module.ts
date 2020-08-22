@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
 
 /*FONT-AWESOME*/
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
@@ -133,7 +135,10 @@ import { DetalleOrdenAtencionComponent } from './components/orden-atencion/detal
 		TooltipModule.forRoot(),
 		NgProgressModule,
 		NgProgressHttpModule,
-		NgProgressRouterModule
+		NgProgressRouterModule,
+		BsDatepickerModule.forRoot(),
+		DlDateTimeDateModule, 
+		DlDateTimePickerModule,
 	],
 	providers: [ConstantsService, BsModalService],
 	bootstrap: [AppComponent]
