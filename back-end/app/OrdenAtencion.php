@@ -9,6 +9,8 @@ class OrdenAtencion extends Model
 {
     use MyTrait;
 
+    protected $table = 'orden_atencion';
+
     protected $fillable = [
         'nro_atencion',
         'fecha_atencion',
@@ -25,13 +27,13 @@ class OrdenAtencion extends Model
         parent::boot();
         static::saving(function ($model) {
 
-            $model->nro_analisis = $model->sinTilde('nro_analisis', $model->nro_analisis);
+            $model->nro_analisis = $model->sinTilde('nro_atencion', $model->nro_analisis);
             $model->fecha_atencion = $model->sinTilde('fecha_atencion', $model->fecha_atencion);
             $model->hora_atencion = $model->sinTilde('hora_atencion', $model->hora_atencion);
             $model->paciente = $model->sinTilde('paciente', $model->paciente);
             $model->analisis = $model->sinTilde('analisis', $model->analisis);
 
-            $model->nro_analisis = $model->setUpperCase('nro_analisis', $model->nro_analisis);
+            $model->nro_analisis = $model->setUpperCase('nro_atencion', $model->nro_analisis);
             $model->fecha_atencion = $model->setUpperCase('fecha_atencion', $model->fecha_atencion);
             $model->hora_atencion = $model->setUpperCase('hora_atencion', $model->hora_atencion);
             $model->paciente = $model->setUpperCase('paciente', $model->paciente);

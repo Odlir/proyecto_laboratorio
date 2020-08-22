@@ -15,6 +15,8 @@ class Doctores extends Model
         'nombres',
         'apellido_materno',
         'apellido_paterno',
+        'especialidad',
+        'nro_colegiatura',
         'fecha_nacimiento',
         'edad',
         'sexo',
