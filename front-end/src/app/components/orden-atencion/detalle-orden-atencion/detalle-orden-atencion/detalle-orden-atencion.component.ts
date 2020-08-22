@@ -19,7 +19,7 @@ export class DetalleOrdenAtencionComponent implements OnInit {
     hora_atencion: null,
     paciente: null,
     analisis: null,
-    
+
     insert_user_id: null,
     edit_user_id: null,
     insert: { name: null },
@@ -47,7 +47,7 @@ export class DetalleOrdenAtencionComponent implements OnInit {
   }
 
   cargar(id) {
-    this.api.get('orden-atencion', id).subscribe(
+    this.api.get('orden_atencion', id).subscribe(
       (data) => {
         this.form = data
       }
@@ -64,7 +64,7 @@ export class DetalleOrdenAtencionComponent implements OnInit {
       confirmButtonText: 'Confirmar'
     }).then((result) => {
       if (result.value) {
-        this.api.delete('orden-atencion', id).subscribe(
+        this.api.delete('orden_atencion', id).subscribe(
           (data) => {
             this.return();
           }

@@ -54,7 +54,7 @@ export class PacientesComponent implements OnInit {
 			confirmButtonText: 'Confirmar'
 		}).then((result) => {
 			if (result.value) {
-				this.api.delete('pacientes', id).subscribe(
+				this.api.delete('personas', id).subscribe(
 					(data) => {
 						this.fetch();
 					}

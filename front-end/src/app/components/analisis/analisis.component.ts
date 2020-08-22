@@ -15,11 +15,8 @@ export class AnalisisComponent implements OnInit {
 
 	offset = 0;
 	paginate = 20;
-
 	total = 0;
-
 	ColumnMode = ColumnMode;
-
 	search = '';
 
 	ngOnInit(): void {

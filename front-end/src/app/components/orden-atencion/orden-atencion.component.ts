@@ -31,13 +31,13 @@ export class OrdenAtencionComponent implements OnInit {
 	}
 
 	fetch() {
-		this.api.get('orden-atencion?search=' + this.search + '&offset=' + this.offset + '&paginate=' + this.paginate).subscribe(
+		this.api.get('orden_atencion?search=' + this.search + '&offset=' + this.offset + '&paginate=' + this.paginate).subscribe(
 			(data) => {
 				this.rows = data;
 			}
 		);
 
-		this.api.get('orden-atencion?search=' + this.search).subscribe(
+		this.api.get('orden_atencion?search=' + this.search).subscribe(
 			(data) => {
 				this.total = data;
 			}
@@ -54,7 +54,7 @@ export class OrdenAtencionComponent implements OnInit {
 			confirmButtonText: 'Confirmar'
 		}).then((result) => {
 			if (result.value) {
-				this.api.delete('orden-atencion', id).subscribe(
+				this.api.delete('orden_atencion', id).subscribe(
 					(data) => {
 						this.fetch();
 					}

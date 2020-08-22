@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,7 +8,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
 
 /*FONT-AWESOME*/
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
@@ -137,8 +135,6 @@ import { DetalleOrdenAtencionComponent } from './components/orden-atencion/detal
 		NgProgressHttpModule,
 		NgProgressRouterModule,
 		BsDatepickerModule.forRoot(),
-		DlDateTimeDateModule, 
-		DlDateTimePickerModule,
 	],
 	providers: [ConstantsService, BsModalService],
 	bootstrap: [AppComponent]

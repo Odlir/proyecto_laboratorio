@@ -35,7 +35,7 @@ export class DetallePacienteComponent implements OnInit {
     observaciones1: null,
     observaciones2: null,
     estado: null,
-    
+
     insert_user_id: null,
     edit_user_id: null,
     insert: { name: null },
@@ -63,7 +63,7 @@ export class DetallePacienteComponent implements OnInit {
   }
 
   cargar(id) {
-    this.api.get('pacientes', id).subscribe(
+    this.api.get('personas', id).subscribe(
       (data) => {
         this.form = data
       }
@@ -80,7 +80,7 @@ export class DetallePacienteComponent implements OnInit {
       confirmButtonText: 'Confirmar'
     }).then((result) => {
       if (result.value) {
-        this.api.delete('pacientes', id).subscribe(
+        this.api.delete('personas', id).subscribe(
           (data) => {
             this.return();
           }

@@ -36,6 +36,7 @@
     "moment": "^2.27.0",
     "ng-sidebarjs": "^6.0.1",
     "ng-simple-sidebar": "^4.1.0",
+    "ngx": "^2.4.0",
     "ngx-bootstrap": "^5.6.1",
     "ngx-progressbar": "^6.0.2",
     "open-iconic": "^1.1.1",

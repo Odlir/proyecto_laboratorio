@@ -54,7 +54,7 @@ export class CrudOrdenAtencionComponent implements OnInit {
   }
 
   cargarEditar() {
-    this.api.get('orden-atencion', this.id).subscribe(
+    this.api.get('orden_atencion', this.id).subscribe(
       (data) => {
         this.form = data
         }
@@ -71,7 +71,8 @@ export class CrudOrdenAtencionComponent implements OnInit {
   }
 
   registrar() {
-    this.api.post('orden-atencion', this.form).subscribe(
+	  /*console.log('formulario', this.form);*/
+    this.api.post('orden_atencion', this.form).subscribe(
       (data) => {
         this.return()
         }
@@ -81,7 +82,7 @@ export class CrudOrdenAtencionComponent implements OnInit {
   editar() {
     this.form.edit_user_id = this.user.me();
 
-    this.api.put('orden-atencion', this.id, this.form).subscribe(
+    this.api.put('orden_atencion', this.id, this.form).subscribe(
       (data) => {
         this.return()
         }

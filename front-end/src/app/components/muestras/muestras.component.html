@@ -20,35 +20,35 @@
     </ngx-datatable-column>
 
     <ngx-datatable-column name="Nro de Muestra">
-      <ng-template let-column="column" ngx-datatable-header-template> {{ column.nro_muestra }} </ng-template>
+      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value }}
       </ng-template>
     </ngx-datatable-column>
 
     <ngx-datatable-column name="Descripcion">
-      <ng-template let-column="column" ngx-datatable-header-template> {{ column.descripcion }} </ng-template>
+      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value }}
       </ng-template>
     </ngx-datatable-column>
 
     <ngx-datatable-column name="Precio Unitario">
-      <ng-template let-column="column" ngx-datatable-header-template> {{ column.p_unitario }} </ng-template>
+      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value }}
       </ng-template>
     </ngx-datatable-column>
 
     <ngx-datatable-column name="Observaciones">
-      <ng-template let-column="column" ngx-datatable-header-template> {{ column.observaciones }} </ng-template>
+      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value }}
       </ng-template>
     </ngx-datatable-column>
 
     <ngx-datatable-column name="Fecha y Hora de Creacion">
-      <ng-template let-column="column" ngx-datatable-header-template> {{ column.fecha_hora_creacion }} </ng-template>
+      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value }}
       </ng-template>
@@ -69,7 +69,7 @@
             </button>
           </div>
           <div class="col-4">
-            <button class="btn" (clSick)="eliminar(value)">
+            <button class="btn" (click)="eliminar(value)">
               <fa-icon class="icon_elim" [icon]="['fas', 'trash']"></fa-icon>
             </button>
           </div>

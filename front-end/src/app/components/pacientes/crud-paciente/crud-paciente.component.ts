@@ -34,7 +34,6 @@ export class CrudPacienteComponent implements OnInit {
     observaciones1: null,
     observaciones2: null,
     estado: null,
-
     insert_user_id: this.user.me(),
     edit_user_id: null,
     insert: { name: null },
@@ -80,14 +79,14 @@ export class CrudPacienteComponent implements OnInit {
   guardar() {
     if (this.id) {
       this.editar();
-    }
-    else {
+    } else {
       this.registrar();
     }
   }
 
   registrar() {
-    this.api.post('personas', this.form).subscribe(
+  	/*console.log('formulario', this.form);*/
+  	this.api.post('personas', this.form).subscribe(
       (data) => {
         this.return()
         }
