@@ -4,22 +4,24 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/Services/token/token.service';
 import { ApiBackRequestService } from 'src/app/Services/api-back-request.service';
 import { Component, OnInit} from '@angular/core';
-import * as moment from 'moment';
+
+export interface Ubigeo {
+  departamento: string,
+	id: number,
+}
 
 @Component({
-  selector: 'app-crud-muestras',
-  templateUrl: './crud-muestras.component.html',
-  styleUrls: ['./crud-muestras.component.css']
+  selector: 'app-crud-ubigeo',
+  templateUrl: './crud-ubigeo.component.html',
+  styleUrls: ['./crud-ubigeo.component.css']
 })
-export class CrudMuestrasComponent implements OnInit {
+export class CrudUbigeoComponent implements OnInit {
 
   public form = {
-    nro_muestra: null,
-    descripcion: null,
-    p_unitario: null,
-    observaciones: null,
-    fecha_hora_creacion: moment().format('YYYY-MM-DD HH:MM:SS'),
-    estado: null,
+    ubigeo: null,
+    distrito: null,
+    provincia: null,
+    departamento: null,
 
     insert_user_id: this.user.me(),
     edit_user_id: null,
@@ -28,6 +30,10 @@ export class CrudMuestrasComponent implements OnInit {
     created_at: null,
     updated_at: null
   };
+
+  ubigeo = { id: null, departamento: null };
+
+  public ubigeos: Ubigeo[] = [];
 
   public id: HttpParams;
 
@@ -56,7 +62,7 @@ export class CrudMuestrasComponent implements OnInit {
   }
 
   cargarEditar() {
-    this.api.get('muestras', this.id).subscribe(
+    this.api.get('ubigeo', this.id).subscribe(
       (data) => {
         this.form = data
         }
@@ -73,7 +79,7 @@ export class CrudMuestrasComponent implements OnInit {
   }
 
   registrar() {
-    this.api.post('muestras', this.form).subscribe(
+    this.api.post('ubigeo', this.form).subscribe(
       (data) => {
         this.return()
         }
@@ -83,7 +89,7 @@ export class CrudMuestrasComponent implements OnInit {
   editar() {
     this.form.edit_user_id = this.user.me();
 
-    this.api.put('muestras', this.id, this.form).subscribe(
+    this.api.put('ubigeo', this.id, this.form).subscribe(
       (data) => {
         this.return()
         }

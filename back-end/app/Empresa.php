@@ -63,7 +63,7 @@ class Empresa extends Model
             $model->nro_celular2 = $model->sinTilde('nro_celular2', $model->nro_celular2);
             $model->email_contacto2 = $model->sinTilde('email_contacto2', $model->email_contacto2);
             $model->nombre_banco = $model->sinTilde('nombre_banco', $model->nombre_banco);
-            $model->nro_cta = $model->sinTilde('nro_cta', $model->nro_cuenta);
+            $model->nro_cta = $model->sinTilde('nro_cta', $model->nro_cta);
             $model->nro_cta_interbancaria = $model->sinTilde('nro_cta_interbancaria', $model->nro_cta_interbancaria);
             $model->observaciones1 = $model->sinTilde('observaciones1', $model->observaciones1);
             $model->observaciones2 = $model->sinTilde('observaciones2', $model->observaciones2);
@@ -89,7 +89,7 @@ class Empresa extends Model
             $model->nro_celular2 = $model->setUpperCase('nro_celular2', $model->nro_celular2);
             $model->email_contacto2 = $model->setUpperCase('email_contacto2', $model->email_contacto2);
             $model->nombre_banco = $model->setUpperCase('nombre_banco', $model->nombre_banco);
-            $model->nro_cta = $model->setUpperCase('nro_cta', $model->nro_cuenta);
+            $model->nro_cta = $model->setUpperCase('nro_cta', $model->nro_cta);
             $model->nro_cta_interbancaria = $model->setUpperCase('nro_cta_interbancaria', $model->nro_cta_interbancaria);
             $model->observaciones1 = $model->setUpperCase('observaciones1', $model->observaciones1);
             $model->observaciones2 = $model->setUpperCase('observaciones2', $model->observaciones2);

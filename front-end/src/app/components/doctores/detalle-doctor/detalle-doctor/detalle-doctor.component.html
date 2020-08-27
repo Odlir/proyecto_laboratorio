@@ -3,7 +3,7 @@
 </div>
 
 <ng-template #other_content>
-	<app-header nombre="MANTENIMIENTO DE DOCTORES" icono="user-md"></app-header>
+	<app-header nombre="MANTENIMIENTO DE DOCTORES" icono="users"></app-header>
 </ng-template>
 
 <div class="widget clearfix mt-5">
@@ -38,10 +38,58 @@
 							Nombres
 						</div>
 						<div class="col-12 border-bottom py-3">
+							Firma
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Especialidad
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Nro de Colegiatura
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Fecha de Nacimiento
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Edad
+						</div>
+						<div class="col-12 border-bottom py-3">
 							Sexo
 						</div>
+						<div class="col-12 border-bottom py-3">
+							Nro de Celular
+						</div>
 						<div class="col-12 py-3" *ngIf="encuesta_id==null">
-							Correo Personal
+							Email
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Dirección
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Latitud
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Longitud
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Departamento
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Provincia
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Referencias
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Tipo de Paciente
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Observaciones 1
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Observaciones 2
+						</div>
+						<div class="col-12 border-bottom py-3">
+							Estado
 						</div>
 					</div>
 					<div class="col-6 border px-0">
@@ -51,17 +99,65 @@
 						<div class="col-12 border-bottom py-3">
 							{{form.apellido_paterno}}
 						</div>
-						<div class="col-12 border-bottom py-3 h-17">
+						<div class="col-12 border-bottom py-3">
 							{{form.apellido_materno}}
 						</div>
 						<div class="col-12 border-bottom py-3">
 							{{form.nombres}}
 						</div>
 						<div class="col-12 border-bottom py-3">
+							{{form.firma}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.especialidad}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.nro_colegiatura}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.fecha_nacimiento}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.edad}}
+						</div>
+						<div class="col-12 border-bottom py-3">
 							{{form.sexo}}
 						</div>
-						<div class="col-12 py-3 h-20" *ngIf="encuesta_id==null">
+						<div class="col-12 border-bottom py-3">
+							{{form.nro_celular}}
+						</div>
+						<div class="col-12 py-3" *ngIf="encuesta_id==null">
 							{{form.email}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.direccion}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.latitud}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.longitud}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.departamento}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.provincia}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.referencias}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.tipo_paciente}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.observaciones1}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.observaciones2}}
+						</div>
+						<div class="col-12 border-bottom py-3">
+							{{form.estado}}
 						</div>
 					</div>
 				</div>

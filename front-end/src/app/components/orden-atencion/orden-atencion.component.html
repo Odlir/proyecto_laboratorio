@@ -19,36 +19,36 @@
       </ng-template>
     </ngx-datatable-column>
 
-    <ngx-datatable-column name="Nro de Atención">
-      <ng-template let-column="column" ngx-datatable-header-template> {{ column.nro_atencion }} </ng-template>
+    <ngx-datatable-column name="Nro de Atención" prop="nro_atencion">
+      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value }}
       </ng-template>
     </ngx-datatable-column>
 
-    <ngx-datatable-column name="Fecha de Atención">
-      <ng-template let-column="column" ngx-datatable-header-template> {{ column.fecha_atencion }} </ng-template>
+    <ngx-datatable-column name="Fecha de Atención" prop="fecha_atencion">
+      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value }}
       </ng-template>
     </ngx-datatable-column>
 
-    <ngx-datatable-column name="Hora de Atención">
-      <ng-template let-column="column" ngx-datatable-header-template> {{ column.hora_atencion }} </ng-template>
+    <ngx-datatable-column name="Hora de Atención" prop="hora_atencion">
+      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value }}
       </ng-template>
     </ngx-datatable-column>
 
     <ngx-datatable-column name="Paciente">
-      <ng-template let-column="column" ngx-datatable-header-template> {{ column.paciente }} </ng-template>
+      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value }}
       </ng-template>
     </ngx-datatable-column>
 
-    <ngx-datatable-column name="Análisis">
-      <ng-template let-column="column" ngx-datatable-header-template> {{ column.analisis }} </ng-template>
+    <ngx-datatable-column name="Análisis" prop="analisis">
+      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value }}
       </ng-template>
@@ -69,7 +69,7 @@
             </button>
           </div>
           <div class="col-4">
-            <button class="btn" (clSick)="eliminar(value)">
+            <button class="btn" (click)="eliminar(value)">
               <fa-icon class="icon_elim" [icon]="['fas', 'trash']"></fa-icon>
             </button>
           </div>

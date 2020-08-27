@@ -19,6 +19,7 @@ export class DetalleMuestrasComponent implements OnInit {
     p_unitario: null,
     observaciones: null,
     fecha_hora_creacion: null,
+    estado: null,
     
     insert_user_id: null,
     edit_user_id: null,

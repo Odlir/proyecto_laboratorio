@@ -21,13 +21,15 @@ class OrdenAtencionController extends Controller
 
         $searchValue = $request->input('search');
 
-        $data = OrdenAtencion::where('rol_id', '2')->where(function ($query) use ($searchValue) {
+        $data = OrdenAtencion::where('estado', '1')
+        ->where('rol_id', '2')->where(function ($query) use ($searchValue) {
                 $query->where("id", "LIKE", "%$searchValue%")
                     ->orWhere('nro_atencion', "LIKE", "%$searchValue%")
                     ->orWhere('fecha_atencion', "LIKE", "%$searchValue%")
                     ->orWhere('hora_atencion', "LIKE", "%$searchValue%")
                     ->orWhere('paciente', "LIKE", "%$searchValue%")
-                    ->orWhere('analisis', "LIKE", "%$searchValue%");
+                    ->orWhere('analisis', "LIKE", "%$searchValue%")
+                    ->orWhere('estado', "LIKE", "%$searchValue%");
             });
 
         if (!$paginate) {

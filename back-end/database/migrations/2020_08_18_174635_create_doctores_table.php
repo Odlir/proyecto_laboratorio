@@ -20,6 +20,7 @@ class CreateDoctoresTable extends Migration
             $table->string('nombres');
             $table->string('apellido_materno')->nullable();
             $table->string('apellido_paterno');
+            $table->string('firma');
             $table->string('especialidad');
             $table->integer('nro_colegiatura');
             $table->date('fecha_nacimiento');
@@ -36,7 +37,7 @@ class CreateDoctoresTable extends Migration
             $table->char('tipo_paciente', 1)->comment('0-Nuevo/1-Antiguo')->default(1);
             $table->text('observaciones1')->nullable();
             $table->text('observaciones2')->nullable();
-            $table->char('estado', 1)->comment('0-Activo/1-Desactivo')->default(1);
+            $table->char('estado', 1)->comment('0-Desactivo/1-Activo')->default(1);
 
             $table->unsignedBigInteger('rol_id');
             $table->foreign('rol_id')->references('id')->on('roles');

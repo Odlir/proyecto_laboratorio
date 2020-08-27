@@ -21,13 +21,15 @@ class AnalisisController extends Controller
 
         $searchValue = $request->input('search');
 
-        $data = Analisis::where('rol_id', '2')->where(function ($query) use ($searchValue) {
+        $data = Analisis::where('estado', '1')
+        ->where('rol_id', '2')->where(function ($query) use ($searchValue) {
                 $query->where("id", "LIKE", "%$searchValue%")
                     ->orWhere('nro_analisis', "LIKE", "%$searchValue%")
                     ->orWhere('descripcion', "LIKE", "%$searchValue%")
                     ->orWhere('p_unitario', "LIKE", "%$searchValue%")
                     ->orWhere('observaciones', "LIKE", "%$searchValue%")
-                    ->orWhere('fecha_hora_creacion', "LIKE", "%$searchValue%");
+                    ->orWhere('fecha_hora_creacion', "LIKE", "%$searchValue%")
+                    ->orWhere('estado', "LIKE", "%$searchValue%");
             });
 
         if (!$paginate) {

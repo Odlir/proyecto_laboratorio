@@ -37,6 +37,8 @@ import { DetalleAnalisisComponent } from './components/analisis/detalle-analisis
 import { OrdenAtencionComponent } from './components/orden-atencion/orden-atencion.component';
 import { CrudOrdenAtencionComponent } from './components/orden-atencion/crud-orden-atencion/crud-orden-atencion/crud-orden-atencion.component';
 import { DetalleOrdenAtencionComponent } from './components/orden-atencion/detalle-orden-atencion/detalle-orden-atencion/detalle-orden-atencion.component';
+import { UbigeoComponent } from './components/ubigeo/ubigeo.component';
+import { CrudUbigeoComponent } from './components/ubigeo/crud-ubigeo/crud-ubigeo/crud-ubigeo.component';
 
 const routes: Routes = [
 	{
@@ -100,6 +102,17 @@ const routes: Routes = [
 	{
 		path: 'detalle-empresa',
 		component: DetalleEmpresaComponent,
+		canActivate: [AfterLoginService]
+	},
+
+	{
+		path: 'ubigeo',
+		component: UbigeoComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'crud-ubigeo',
+		component: CrudUbigeoComponent,
 		canActivate: [AfterLoginService]
 	},
 

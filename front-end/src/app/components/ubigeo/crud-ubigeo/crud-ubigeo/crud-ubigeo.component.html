@@ -3,13 +3,13 @@
 </div>
 
 <ng-template #other_content>
-	<app-header nombre="MANTENIMIENTO DE ANÁLISIS" icono="notes-medical"></app-header>
+	<app-header nombre="MANTENIMIENTO DE UBIGEO" icono="flask"></app-header>
 </ng-template>
 
 <div class="widget clearfix mt-5">
 	<div class="whead clearfix">
-		<p><span *ngIf="id;else templateName">EDITAR </span>ANÁLISIS <span *ngIf="id">: {{ form.nro_analisis }}
-				{{ form.descripcion }} {{ form.fecha_hora_creacion }}</span></p>
+		<p><span *ngIf="id;else templateName">EDITAR </span>UBIGEO <span *ngIf="id">: {{ form.ubigeo }}
+				{{ form.distrito }} {{ form.provincia }} {{ form.departamento }}</span></p>
 		<ng-template #templateName>
 			CREAR
 		</ng-template>
@@ -20,55 +20,48 @@
 				<div class="row">
 					<div class="col-6">	
 						<div class="form-group row my-3">
-							<label class="col-sm-4 col-form-label w-100">Nro Análisis <span
+							<label class="col-sm-4 col-form-label w-100">Ubigeo <span
 									class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="number" name="nroanalisis" class="form-control" [(ngModel)]="form.nro_analisis"
+								<input type="text" name="ubigeo" class="form-control" [(ngModel)]="form.ubigeo"
 									required/>
 							</div>
 							<hr>
 						</div>
 		
 						<div class="form-group row my-3">
-							<label class="col-sm-4 col-form-label w-100">Descripción <span class="text-danger">*</span></label>
+							<label class="col-sm-4 col-form-label w-100">Distrito <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="desc" class="form-control" [(ngModel)]="form.descripcion" required>
+								<input type="text" name="dist" class="form-control" [(ngModel)]="form.distrito" required>
 							</div>
 							<hr>
 						</div>
 		
 						<div class="form-group row my-3">
-							<label class="col-sm-4 col-form-label w-100">Precio Unitario <span
+							<label class="col-sm-4 col-form-label w-100">Provincia <span
 									class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="number" name="punit" class="form-control" [(ngModel)]="form.p_unitario"
+								<input type="text" name="prov" class="form-control" [(ngModel)]="form.provincia"
+									required/>
+							</div>
+							<hr>
+                        </div>
+                        
+                        <div class="form-group row my-3">
+							<label class="col-sm-4 col-form-label w-100">Departamento <span
+									class="text-danger">*</span></label>
+							<div class="col-sm-8">
+								<input type="text" name="depart" class="form-control" [(ngModel)]="form.departamento"
 									required/>
 							</div>
 							<hr>
 						</div>
 		
-						<div class="form-group row my-3">
-							<label class="col-sm-4 col-form-label w-100">Observaciones</label>
-							<div class="col-sm-8">
-								<input type="text" name="obs" class="form-control" [(ngModel)]="form.observaciones">
-							</div>
-							<hr>
-						</div>
-		
-						<div class="form-group row my-3">
-							<label class="col-sm-4 col-form-label w-100">Fecha y Hora de Creación</label>
-							<div class="col-sm-8">
-								<input type="datetime" name="fechahorcre" class="form-control" [(ngModel)]="form.fecha_hora_creacion" required>
-							</div>
-							<hr>
-						</div>
-
 						<div class="form-group row my-3">
 							<label class="col-sm-4 col-form-label w-100">Estado <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<select name="estado" id="" class="form-control" [(ngModel)]="form.estado" required>
-									<option value="0">DESACTIVO</option>
-									<option value="1">ACTIVO</option>
+								<select name="dep" id="" class="form-control" [(ngModel)]="form.departamento" required>
+									<option *ngFor="let ubigeos of ubigeo"> {{ ubigeo.departamento }} </option>
 								</select>
 							</div>
 							<hr>

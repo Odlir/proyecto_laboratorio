@@ -9,7 +9,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
 
 /*FONT-AWESOME*/
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
@@ -73,6 +72,8 @@ import { AnalisisComponent } from './components/analisis/analisis.component';
 import { OrdenAtencionComponent } from './components/orden-atencion/orden-atencion.component';
 import { CrudOrdenAtencionComponent } from './components/orden-atencion/crud-orden-atencion/crud-orden-atencion/crud-orden-atencion.component';
 import { DetalleOrdenAtencionComponent } from './components/orden-atencion/detalle-orden-atencion/detalle-orden-atencion/detalle-orden-atencion.component';
+import { UbigeoComponent } from './components/ubigeo/ubigeo.component';
+import { CrudUbigeoComponent } from './components/ubigeo/crud-ubigeo/crud-ubigeo/crud-ubigeo.component';
 
 @NgModule({
 	declarations: [
@@ -118,7 +119,9 @@ import { DetalleOrdenAtencionComponent } from './components/orden-atencion/detal
 		AnalisisComponent,
 		OrdenAtencionComponent,
 		DetalleOrdenAtencionComponent,
-		CrudOrdenAtencionComponent
+		CrudOrdenAtencionComponent,
+		UbigeoComponent,
+		CrudUbigeoComponent
 	],
 	imports: [
 		BrowserModule,
@@ -136,9 +139,7 @@ import { DetalleOrdenAtencionComponent } from './components/orden-atencion/detal
 		NgProgressModule,
 		NgProgressHttpModule,
 		NgProgressRouterModule,
-		BsDatepickerModule.forRoot(),
-		DlDateTimeDateModule, 
-		DlDateTimePickerModule,
+		BsDatepickerModule.forRoot()
 	],
 	providers: [ConstantsService, BsModalService],
 	bootstrap: [AppComponent]

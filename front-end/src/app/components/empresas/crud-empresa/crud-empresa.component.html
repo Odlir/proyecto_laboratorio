@@ -67,7 +67,9 @@
 								<label class="col-sm-4 col-form-label w-100">Departamento <span
 									class="text-danger">*</span></label>
 								<div class="col-sm-8">
-									<input type="text" name="depart" class="form-control" [(ngModel)]="form.departamento">
+									<select name="depart" id="" class="form-control" [(ngModel)]="form.departamento" required>
+										<option *ngFor="let departamento of ubigeo"> {{ departamento }} </option>
+									</select>
 								</div>
 								<hr>
 							</div>
@@ -216,7 +218,10 @@
 								<label class="col-sm-4 col-form-label w-100">Estado <span
 									class="text-danger">*</span></label>
 								<div class="col-sm-8">
-									<input type="text" name="estado" class="form-control" [(ngModel)]="form.estado">
+									<select name="estado" id="" class="form-control" [(ngModel)]="form.estado" required>
+										<option value="0">INACTIVO</option>
+										<option value="1">ACTIVO</option>
+									</select>
 								</div>
 								<hr>
 							</div>

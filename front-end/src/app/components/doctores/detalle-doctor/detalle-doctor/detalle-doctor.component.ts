@@ -19,6 +19,7 @@ export class DetalleDoctorComponent implements OnInit {
     nombres: null,
     apellido_materno: null,
     apellido_paterno: null,
+    firma: null,
     especialidad: null,
     nro_colegiatura: null,
     fecha_nacimiento: null,

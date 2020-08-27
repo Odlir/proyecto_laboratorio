@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\EncuestaMuestra;
+use App\EncuestaUbigeo;
 use Illuminate\Http\Request;
-use App\Muestras;
+use App\Ubigeo;
 
-class MuestraController extends Controller
+class UbigeoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,15 +21,12 @@ class MuestraController extends Controller
 
         $searchValue = $request->input('search');
 
-        $data = Muestras::where('estado', '1')
-        ->where('rol_id', '2')->where(function ($query) use ($searchValue) {
+        $data = Ubigeo::where(function ($query) use ($searchValue) {
                 $query->where("id", "LIKE", "%$searchValue%")
-                    ->orWhere('nro_muestra', "LIKE", "%$searchValue%")
-                    ->orWhere('descripcion', "LIKE", "%$searchValue%")
-                    ->orWhere('p_unitario', "LIKE", "%$searchValue%")
-                    ->orWhere('observaciones', "LIKE", "%$searchValue%")
-                    ->orWhere('fecha_hora_creacion', "LIKE", "%$searchValue%")
-                    ->orWhere('estado', "LIKE", "%$searchValue%");
+                    ->orWhere('ubigeo', "LIKE", "%$searchValue%")
+                    ->orWhere('distrito', "LIKE", "%$searchValue%")
+                    ->orWhere('provincia', "LIKE", "%$searchValue%")
+                    ->orWhere('departamento', "LIKE", "%$searchValue%");
             });
 
         if (!$paginate) {
@@ -64,9 +61,8 @@ class MuestraController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['rol_id'] = 2;
 
-        $registro = Muestras::create($data);
+        $registro = Ubigeo::create($data);
 
         return response()->json($registro, 200);
     }
@@ -79,9 +75,8 @@ class MuestraController extends Controller
      */
     public function show($id)
     {
-        $data = Muestras::with('insert')
+        $data = Ubigeo::with('insert')
             ->with('edit')
-            ->where('rol_id', '2')
             ->where('id', $id)
             ->first();
 
@@ -110,7 +105,7 @@ class MuestraController extends Controller
     {
         $data = $request->all();
 
-        $registro = Muestras::find($id);
+        $registro = Ubigeo::find($id);
         $registro->update($data);
         $registro->save();
 
@@ -125,11 +120,11 @@ class MuestraController extends Controller
      */
     public function destroy($id)
     {
-        $registro = Muestras::find($id);
+        $registro = Ubigeo::find($id);
         $registro->estado = '0';
         $registro->save();
 
-        $encuestas = EncuestaMuestra::where('muestra_id', $id)->get();
+        $encuestas = EncuestaUbigeo::where('ubigeo_id', $id)->get();
         foreach ($encuestas as $e) {
             $e->estado = '0';
             $e->save();

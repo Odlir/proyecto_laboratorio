@@ -31,5 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RuedaSeeder::class);
         $this->call(DescripcionTalentoSeeder::class);
         $this->call(PercentilSeeder::class);
+        $this->call(PacienteSeeder::class);
+        $this->call(UbigeoSeeder::class);
     }
 }

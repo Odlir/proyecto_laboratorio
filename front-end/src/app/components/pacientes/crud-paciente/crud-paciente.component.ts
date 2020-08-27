@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from '../../../Services/token/token.service';
 import { ApiBackRequestService } from '../../../Services/api-back-request.service';
 import { Component, OnInit} from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-crud-paciente',
@@ -18,7 +19,7 @@ export class CrudPacienteComponent implements OnInit {
     nombres: null,
     apellido_materno: null,
     apellido_paterno: null,
-    fecha_nacimiento: null,
+    fecha_nacimiento: moment().format('YYYY-MM-DD'),
     edad: null,
     sexo: null,
     nro_celular: null,

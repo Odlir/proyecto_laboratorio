@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/Services/token/token.service';
 import { ApiBackRequestService } from 'src/app/Services/api-back-request.service';
 import { Component, OnInit} from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-crud-orden-atencion',
@@ -14,10 +15,11 @@ export class CrudOrdenAtencionComponent implements OnInit {
 
   public form = {
     nro_atencion: null,
-    fecha_atencion: null,
-    hora_atencion: null,
+    fecha_atencion: moment().format('YYYY-MM-DD'),
+    hora_atencion: moment().format('HH:MM:SS'),
     paciente: null,
     analisis: null,
+    estado: null,
 
     insert_user_id: this.user.me(),
     edit_user_id: null,
@@ -54,7 +56,7 @@ export class CrudOrdenAtencionComponent implements OnInit {
   }
 
   cargarEditar() {
-    this.api.get('orden-atencion', this.id).subscribe(
+    this.api.get('orden_atencion', this.id).subscribe(
       (data) => {
         this.form = data
         }
@@ -71,7 +73,7 @@ export class CrudOrdenAtencionComponent implements OnInit {
   }
 
   registrar() {
-    this.api.post('orden-atencion', this.form).subscribe(
+    this.api.post('orden_atencion', this.form).subscribe(
       (data) => {
         this.return()
         }
@@ -81,7 +83,7 @@ export class CrudOrdenAtencionComponent implements OnInit {
   editar() {
     this.form.edit_user_id = this.user.me();
 
-    this.api.put('orden-atencion', this.id, this.form).subscribe(
+    this.api.put('orden_atencion', this.id, this.form).subscribe(
       (data) => {
         this.return()
         }

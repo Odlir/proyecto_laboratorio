@@ -1,15 +1,16 @@
-import { ApiBackRequestService } from '../../Services/api-back-request.service';
 import { Component, OnInit } from '@angular/core';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import Swal from 'sweetalert2';
+import { ApiBackRequestService } from 'src/app/Services/api-back-request.service';
 
 @Component({
-	selector: 'app-pacientes',
-	templateUrl: './pacientes.component.html',
-	styleUrls: ['./pacientes.component.css']
+  selector: 'app-ubigeo',
+  templateUrl: './ubigeo.component.html',
+  styleUrls: ['./ubigeo.component.css']
 })
-export class PacientesComponent implements OnInit {
-	rows = [];
+export class UbigeoComponent implements OnInit {
+
+  rows = [];
 	loadingIndicator = true;
 	reorderable = true;
 
@@ -22,27 +23,31 @@ export class PacientesComponent implements OnInit {
 
 	search = '';
 
+	constructor(private api: ApiBackRequestService) { }
+
 	ngOnInit(): void {
 		this.fetch();
 	}
 
-	constructor(private api: ApiBackRequestService) {
-
+	nextPage(event) {
+		this.offset = event.offset;
+		this.fetch();
 	}
 
 	fetch() {
-		this.api.get('personas?search=' + this.search + '&offset=' + this.offset + '&paginate=' + this.paginate).subscribe(
+		this.api.get('ubigeo?search=' + this.search + '&offset=' + this.offset + '&paginate=' + this.paginate).subscribe(
 			(data) => {
 				this.rows = data;
 			}
 		);
 
-		this.api.get('personas?search=' + this.search).subscribe(
+		this.api.get('ubigeo?search=' + this.search).subscribe(
 			(data) => {
 				this.total = data;
 			}
 		);
 	}
+
 
 	eliminar(id) {
 		Swal.fire({
@@ -54,13 +59,13 @@ export class PacientesComponent implements OnInit {
 			confirmButtonText: 'Confirmar'
 		}).then((result) => {
 			if (result.value) {
-				this.api.delete('personas', id).subscribe(
+				this.api.delete('ubigeo', id).subscribe(
 					(data) => {
-						this.fetch();
+						this.fetch()
 					}
 				);
 			}
-		});
+		})
 	}
 
 	updateFilter(event) {
@@ -68,11 +73,5 @@ export class PacientesComponent implements OnInit {
 		this.search = event.target.value;
 		this.fetch();
 	}
-
-	nextPage(event) {
-		this.offset = event.offset;
-		this.fetch();
-	}
-
 }
 

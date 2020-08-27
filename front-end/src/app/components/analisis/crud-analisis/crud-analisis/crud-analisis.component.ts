@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/Services/token/token.service';
 import { ApiBackRequestService } from 'src/app/Services/api-back-request.service';
 import { Component, OnInit} from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-crud-analisis',
@@ -17,7 +18,8 @@ export class CrudAnalisisComponent implements OnInit {
     descripcion: null,
     p_unitario: null,
     observaciones: null,
-    fecha_hora_creacion: null,
+    fecha_hora_creacion: moment().format('YYYY-MM-DD HH:MM:SS'),
+    estado: null,
 
     insert_user_id: this.user.me(),
     edit_user_id: null,

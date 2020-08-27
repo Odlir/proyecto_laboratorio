@@ -15,6 +15,7 @@ class Muestras extends Model
         'p_unitario',
         'observaciones',
         'fecha_hora_creacion',
+        'estado',
         'rol_id',
         'insert_user_id',
         'edit_user_id'
@@ -29,13 +30,15 @@ class Muestras extends Model
             $model->descripcion = $model->sinTilde('descripcion', $model->descripcion);
             $model->p_unitario = $model->sinTilde('p_unitario', $model->p_unitario);
             $model->observaciones = $model->sinTilde('observaciones', $model->observaciones);
-            $model->fecha_hora_atencion = $model->sinTilde('fecha_hora_atencion', $model->fecha_hora_atencion);
+            $model->fecha_hora_creacion = $model->sinTilde('fecha_hora_creacion', $model->fecha_hora_creacion);
+            $model->estado = $model->sinTilde('estado', $model->estado);
 
             $model->nro_muestra = $model->setUpperCase('nro_muestra', $model->nro_muestra);
             $model->descripcion = $model->setUpperCase('descripcion', $model->descripcion);
             $model->p_unitario = $model->setUpperCase('p_unitario', $model->p_unitario);
             $model->observaciones = $model->setUpperCase('observaciones', $model->observaciones);
-            $model->fecha_hora_atencion = $model->setUpperCase('fecha_hora_atencion', $model->fecha_hora_atencion);
+            $model->fecha_hora_creacion = $model->setUpperCase('fecha_hora_creacion', $model->fecha_hora_creacion);
+            $model->estado = $model->setUpperCase('estado', $model->estado);
         });
     }
 

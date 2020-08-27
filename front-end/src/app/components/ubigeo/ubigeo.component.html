@@ -1,6 +1,6 @@
-<app-header nombre="MANTENIMIENTO DE EMPRESAS" icono="city"></app-header>
+<app-header nombre="MANTENIMIENTO DE UBIGEO" icono="city"></app-header>
 <div class="col-12 text-right">
-	<button class="btn btn-warning" [routerLink]="['/crud-empresa']">CREAR EMPRESA</button>
+	<button class="btn btn-warning" [routerLink]="['/crud-ubigeo']">CREAR UBIGEO</button>
 </div>
 
 <input type="text" class="buscador" placeholder="Buscar por Id/Razón Social/Contacto/Correo/Teléfono"
@@ -14,34 +14,28 @@
 		<ngx-datatable-column name="Id" [width]="1">
 			<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 			<ng-template let-value="value" ngx-datatable-cell-template>
-				<a [routerLink]="['/detalle-empresa/']" [queryParams]="{id:value}">{{ value }}</a>
+				<a [routerLink]="['/detalle-ubigeo/']" [queryParams]="{id:value}">{{ value }}</a>
 			</ng-template>
 		</ngx-datatable-column>
-		<ngx-datatable-column name="Nro de Ruc" prop="nro_ruc">
+		<ngx-datatable-column name="Ubigeo" prop="ubigeo">
  			<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 			<ng-template let-value="value" ngx-datatable-cell-template>
 				{{ value }}
 			</ng-template>
 		</ngx-datatable-column>
-		<ngx-datatable-column name="Razón Social" prop="razon_social">
+		<ngx-datatable-column name="Distrito" prop="distrito">
 			<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 			<ng-template let-value="value" ngx-datatable-cell-template>
 				{{ value }}
 			</ng-template>
 		</ngx-datatable-column>
-		<ngx-datatable-column name="Dirección" prop="direccion">
+		<ngx-datatable-column name="Provincia" prop="provincia">
 			<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 			<ng-template let-value="value" ngx-datatable-cell-template>
 				{{ value }}
 			</ng-template>
 		</ngx-datatable-column>
-		<ngx-datatable-column name="Teléfono Fijo" prop="telf_fijo">
-			<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
-			<ng-template let-value="value" ngx-datatable-cell-template>
-				{{ value }}
-			</ng-template>
-		</ngx-datatable-column>
-		<ngx-datatable-column name="Nro de Celular" prop="nro_celular">
+		<ngx-datatable-column name="Departamento" prop="departamento">
 			<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 			<ng-template let-value="value" ngx-datatable-cell-template>
 				{{ value }}
@@ -52,12 +46,12 @@
 			<ng-template let-value="value" ngx-datatable-cell-template>
 				<div class="row justify-content-center">
 					<div class="col-4">
-						<button class="btn" [routerLink]="['/detalle-empresa/']" [queryParams]="{id:value}">
+						<button class="btn" [routerLink]="['/detalle-ubigeo/']" [queryParams]="{id:value}">
 						  <fa-icon class="icon_det" [icon]="['fas', 'eye']"></fa-icon>
 						</button>
 					  </div>
 					  <div class="col-4">
-						<button class="btn" [routerLink]="['/crud-empresa/']" [queryParams]="{id:value}">
+						<button class="btn" [routerLink]="['/crud-ubigeo/']" [queryParams]="{id:value}">
 						  <fa-icon class="icon_crud" [icon]="['fas', 'edit']"></fa-icon>
 						</button>
 					  </div>
