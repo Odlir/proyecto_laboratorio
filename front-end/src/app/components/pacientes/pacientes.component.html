@@ -4,7 +4,7 @@
   <button class="btn btn-warning" [routerLink]="['/crud-paciente']">CREAR PACIENTE</button>
 </div>
 
-<input type="text" class="buscador" placeholder="Buscar por Id/Nombres/Apellidos/Sexo/Correo"
+<input type="text" class="buscador" placeholder="Buscar por Id/Nombres/Apellidos/Celular/Correo"
   (keyup)="updateFilter($event)" />
 
 <div class="mt-5">
@@ -40,14 +40,14 @@
       </ng-template>
     </ngx-datatable-column>
 
-    <ngx-datatable-column name="Tipo de Paciente" prop="tipo_paciente">
+    <ngx-datatable-column name="Nro de Celular" prop="nro_celular">
       <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value }}
       </ng-template>
     </ngx-datatable-column>
 
-    <ngx-datatable-column name="Estado">
+    <ngx-datatable-column name="Correo Personal" prop="email">
       <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value }}

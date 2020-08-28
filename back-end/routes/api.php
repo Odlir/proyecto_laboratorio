@@ -35,6 +35,9 @@ Route::group([
     Route::resource('muestras','MuestraController');
     Route::resource('analisis','AnalisisController');
     Route::resource('orden_atencion','OrdenAtencionController');
+    Route::resource('orden_atencion_analisis','OrdenAtencionAnalisisController');
+    Route::resource('orden_atencion_tipo_analisis','OrdenAtencionAnalisisTipoAnalisisController');
+    Route::resource('orden_atencion_tipo_muestras','OrdenAtencionAnalisisTipoMuestrasController');
     Route::resource('ubigeo','UbigeoController');
 
     Route::resource('paises','PaisController');

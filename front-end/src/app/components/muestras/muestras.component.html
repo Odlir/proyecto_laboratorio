@@ -4,7 +4,7 @@
   <button class="btn btn-warning" [routerLink]="['/crud-muestras']">CREAR MUESTRAS</button>
 </div>
 
-<input type="text" class="buscador" placeholder="Buscar por Id/Nombres/Apellidos/Sexo/Correo"
+<input type="text" class="buscador" placeholder="Buscar por Id/Nro/Descripción/Precio/Observaciones"
   (keyup)="updateFilter($event)" />
 
 <div class="mt-5">
@@ -47,7 +47,7 @@
       </ng-template>
     </ngx-datatable-column>
 
-    <ngx-datatable-column name="Fecha y Hora de Creacion" prop="fecha_hora_creacion">
+    <ngx-datatable-column name="Fecha y Hora de Creación" prop="fecha_hora_creacion">
       <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value }}

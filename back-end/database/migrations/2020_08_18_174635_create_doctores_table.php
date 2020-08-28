@@ -25,7 +25,7 @@ class CreateDoctoresTable extends Migration
             $table->integer('nro_colegiatura');
             $table->date('fecha_nacimiento');
             $table->integer('edad');
-            $table->string('sexo');
+            $table->char('sexo', 1)->comment('0-Femenino/1-Masculino')->default(1);
             $table->integer('nro_celular')->nullable();
             $table->string('email')->nullable();
             $table->string('direccion');

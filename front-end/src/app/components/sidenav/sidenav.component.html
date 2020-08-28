@@ -34,6 +34,21 @@
 		<span class="full-width" *ngIf="isExpanded">Orden de Atención</span>
 	</a>
 
+	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="orden-atencion-analisis">
+		<fa-icon [icon]="['fas', 'notes-medical']"></fa-icon>
+		<span class="full-width" *ngIf="isExpanded">OA - Análisis</span>
+	</a>
+
+	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="orden-atencion-analisis-tipo-analisis">
+		<fa-icon [icon]="['fas', 'notes-medical']"></fa-icon>
+		<span class="full-width" *ngIf="isExpanded">OAA - Tipo de Análisis</span>
+	</a>
+
+	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="orden-atencion-analisis-tipo-muestras">
+		<fa-icon [icon]="['fas', 'flask']"></fa-icon>
+		<span class="full-width" *ngIf="isExpanded">OAA - Tipo de Muestras</span>
+	</a>
+
 <!-- 	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="ubigeo">
 		<fa-icon [icon]="['fas', 'file-medical']"></fa-icon>
 		<span class="full-width" *ngIf="isExpanded">Ubigeo</span>
@@ -47,5 +62,9 @@
 		<fa-icon [icon]="['fas', 'poll']"></fa-icon>
 		<span class="full-width" *ngIf="isExpanded">Reportes</span>
 	</a>-->
-</mat-nav-list>
+
+
+
+
+	
 

@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./orden-atencion.component.css']
 })
 export class OrdenAtencionComponent implements OnInit {
-  rows = [];
+    rows = [];
 	loadingIndicator = true;
 	reorderable = true;
 

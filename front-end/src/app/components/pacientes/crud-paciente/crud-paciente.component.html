@@ -23,8 +23,9 @@
 							<label class="col-sm-4 col-form-label w-100">Tipo Documento <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
 								<select name="tipodoc" id="" class="form-control" [(ngModel)]="form.tipo_documento" required>
+									<option [ngValue]="null" [disabled]="true" >Elige una opción</option>
 									<option value="0">DNI</option>
-									<option value="1">PASAPORTE</option>
+									<option value="1">RUC</option>
 								</select>
 							</div>
 							<hr>
@@ -59,15 +60,17 @@
 						</div>
 		
 						<div class="form-group row my-3">
-							<label class="col-sm-4 col-form-label w-100">Apellido Materno</label>
+							<label class="col-sm-4 col-form-label w-100">Apellido Materno <span
+								class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="apematerno" class="form-control" [(ngModel)]="form.apellido_materno">
+								<input type="text" name="apematerno" class="form-control" [(ngModel)]="form.apellido_materno" required>
 							</div>
 							<hr>
 						</div>
 		
 						<div class="form-group row my-3">
-							<label class="col-sm-4 col-form-label w-100">Fecha de Nacimiento</label>
+							<label class="col-sm-4 col-form-label w-100">Fecha de Nacimiento <span
+								class="text-danger">*</span></label>
 							<div class="col-sm-8">
 								<input type="date" name="fechanac" class="form-control" [(ngModel)]="form.fecha_nacimiento" required>
 							</div>
@@ -75,9 +78,10 @@
 						</div>
 						
 						<div class="form-group row my-3">
-							<label class="col-sm-4 col-form-label w-100">Edad</label>
+							<label class="col-sm-4 col-form-label w-100">Edad <span
+								class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="number" name="edad" class="form-control" [(ngModel)]="form.edad">
+								<input type="number" name="edad" class="form-control" [(ngModel)]="form.edad" required>
 							</div>
 							<hr>
 						</div>
@@ -86,25 +90,26 @@
 							<label class="col-sm-4 col-form-label w-100">Sexo <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
 								<select name="sexo" id="" class="form-control" [(ngModel)]="form.sexo" required>
-									<option value="FEMENINO">FEMENINO</option>
-									<option value="MASCULINO">MASCULINO</option>
+									<option [ngValue]="null" [disabled]="true" >Elige una opción</option>
+									<option value="0">FEMENINO</option>
+									<option value="1">MASCULINO</option>
 								</select>
 							</div>
 							<hr>
 						</div>
 
 						<div class="form-group row my-3">
-							<label class="col-sm-4 col-form-label w-100">Nro de Celular</label>
+							<label class="col-sm-4 col-form-label w-100">Nro de Celular <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="number" name="nrocel" class="form-control" [(ngModel)]="form.nro_celular">
+								<input type="number" name="nrocel" class="form-control" [(ngModel)]="form.nro_celular" required>
 							</div>
 							<hr>
 						</div>
 		
 						<div class="form-group row my-3" *ngIf="encuesta_id==null">
-							<label class="col-sm-4 col-form-label w-100">Correo Personal</label>
+							<label class="col-sm-4 col-form-label w-100">Correo Personal <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="email" name="email" class="form-control" [(ngModel)]="form.email">
+								<input type="email" name="email" class="form-control" [(ngModel)]="form.email" required>
 							</div>
 							<hr>
 						</div>
@@ -120,9 +125,9 @@
 
 					<div class="col-6">		
 						<div class="form-group row my-3" *ngIf="encuesta_id==null">
-							<label class="col-sm-4 col-form-label w-100">Dirección</label>
+							<label class="col-sm-4 col-form-label w-100">Dirección <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="direccion" class="form-control" [(ngModel)]="form.direccion">
+								<input type="text" name="direccion" class="form-control" [(ngModel)]="form.direccion" required>
 							</div>
 							<hr>
 						</div>
@@ -144,17 +149,17 @@
 						</div>
 		
 						<div class="form-group row my-3" *ngIf="encuesta_id==null">
-							<label class="col-sm-4 col-form-label w-100">Departamento</label>
+							<label class="col-sm-4 col-form-label w-100">Departamento <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="depart" class="form-control" [(ngModel)]="form.departamento">
+								<input type="text" name="depart" class="form-control" [(ngModel)]="form.departamento" required>
 							</div>
 							<hr>
 						</div>
 		
 						<div class="form-group row my-3" *ngIf="encuesta_id==null">
-							<label class="col-sm-4 col-form-label w-100">Provincia</label>
+							<label class="col-sm-4 col-form-label w-100">Provincia <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="prov" class="form-control" [(ngModel)]="form.provincia">
+								<input type="text" name="prov" class="form-control" [(ngModel)]="form.provincia" required>
 							</div>
 							<hr>
 						</div>
@@ -171,6 +176,7 @@
 							<label class="col-sm-4 col-form-label w-100">Tipo de Paciente <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
 								<select name="tipopac" id="" class="form-control" [(ngModel)]="form.tipo_paciente" required>
+									<option [ngValue]="null" [disabled]="true" >Elige una opción</option>
 									<option value="0">NUEVO</option>
 									<option value="1">ANTIGUO</option>
 								</select>
@@ -198,6 +204,7 @@
 							<label class="col-sm-4 col-form-label w-100">Estado <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
 								<select name="estado" id="" class="form-control" [(ngModel)]="form.estado" required>
+									<option [ngValue]="null" [disabled]="true" >Elige una opción</option>
 									<option value="0">DESACTIVO</option>
 									<option value="1">ACTIVO</option>
 								</select>

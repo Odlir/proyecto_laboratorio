@@ -39,6 +39,15 @@ import { CrudOrdenAtencionComponent } from './components/orden-atencion/crud-ord
 import { DetalleOrdenAtencionComponent } from './components/orden-atencion/detalle-orden-atencion/detalle-orden-atencion/detalle-orden-atencion.component';
 import { UbigeoComponent } from './components/ubigeo/ubigeo.component';
 import { CrudUbigeoComponent } from './components/ubigeo/crud-ubigeo/crud-ubigeo/crud-ubigeo.component';
+import { OrdenAtencionAnalisisComponent } from './components/orden-atencion/orden-atencion-analisis/orden-atencion-analisis.component';
+import { CrudOrdenAtencionAnalisisComponent } from './components/orden-atencion/orden-atencion-analisis/crud-orden-atencion-analisis/crud-orden-atencion-analisis.component';
+import { OrdenAtencionAnalisisTipoAnalisisComponent } from './components/orden-atencion/orden-atencion-analisis-tipo-analisis/orden-atencion-analisis-tipo-analisis.component';
+import { CrudOrdenAtencionAnalisisTipoAnalisisComponent } from './components/orden-atencion/orden-atencion-analisis-tipo-analisis/crud-orden-atencion-analisis-tipo-analisis/crud-orden-atencion-analisis-tipo-analisis.component';
+import { OrdenAtencionAnalisisTipoMuestrasComponent } from './components/orden-atencion/orden-atencion-analisis-tipo-muestras/orden-atencion-analisis-tipo-muestras.component';
+import { CrudOrdenAtencionAnalisisTipoMuestrasComponent } from './components/orden-atencion/orden-atencion-analisis-tipo-muestras/crud-orden-atencion-analisis-tipo-muestras/crud-orden-atencion-analisis-tipo-muestras.component';
+import { DetalleOrdenAtencionAnalisisComponent } from './components/orden-atencion/orden-atencion-analisis/detalle-orden-atencion-analisis/detalle-orden-atencion-analisis.component';
+import { DetalleOrdenAtencionAnalisisTipoAnalisisComponent } from './components/orden-atencion/orden-atencion-analisis-tipo-analisis/detalle-orden-atencion-analisis-tipo-analisis/detalle-orden-atencion-analisis-tipo-analisis.component';
+import { DetalleOrdenAtencionAnalisisTipoMuestrasComponent } from './components/orden-atencion/orden-atencion-analisis-tipo-muestras/detalle-orden-atencion-analisis-tipo-muestras/detalle-orden-atencion-analisis-tipo-muestras.component';
 
 const routes: Routes = [
 	{
@@ -163,6 +172,57 @@ const routes: Routes = [
 		component: DetalleOrdenAtencionComponent,
 		canActivate: [AfterLoginService]
 	},
+
+	{
+		path: 'orden-atencion-analisis',
+		component: OrdenAtencionAnalisisComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'crud-orden-atencion-analisis',
+		component: CrudOrdenAtencionAnalisisComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'detalle-orden-atencion-analisis',
+		component: DetalleOrdenAtencionAnalisisComponent,
+		canActivate: [AfterLoginService]
+	},
+
+
+	{
+		path: 'orden-atencion-analisis-tipo-analisis',
+		component: OrdenAtencionAnalisisTipoAnalisisComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'crud-orden-atencion-analisis-tipo-analisis',
+		component: CrudOrdenAtencionAnalisisTipoAnalisisComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'detalle-orden-atencion-analisis-tipo-analisis',
+		component: DetalleOrdenAtencionAnalisisTipoAnalisisComponent,
+		canActivate: [AfterLoginService]
+	},
+
+
+	{
+		path: 'orden-atencion-analisis-tipo-muestras',
+		component: OrdenAtencionAnalisisTipoMuestrasComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'crud-orden-atencion-analisis-tipo-muestras',
+		component: CrudOrdenAtencionAnalisisTipoMuestrasComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'detalle-orden-atencion-analisis-tipo-muestras',
+		component: DetalleOrdenAtencionAnalisisTipoMuestrasComponent,
+		canActivate: [AfterLoginService]
+	},
+	
 
 	{
 		path: 'crud-sucursal',
