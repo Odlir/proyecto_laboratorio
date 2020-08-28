@@ -49,6 +49,11 @@
 		<span class="full-width" *ngIf="isExpanded">OAA - Tipo de Muestras</span>
 	</a>
 
+	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="orden-atencion-analisis-tipo-muestras">
+		<fa-icon [icon]="['fas', 'flask']"></fa-icon>
+		<span class="full-width" *ngIf="isExpanded">OAA - Muestras</span>
+	</a>
+
 <!-- 	<a [class.expanded]="isExpanded" class="parent" mat-list-item routerLinkActive="list-item-active" routerLink="ubigeo">
 		<fa-icon [icon]="['fas', 'file-medical']"></fa-icon>
 		<span class="full-width" *ngIf="isExpanded">Ubigeo</span>
