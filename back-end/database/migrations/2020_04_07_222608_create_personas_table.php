@@ -15,14 +15,14 @@ class CreatePersonasTable extends Migration
     {
         Schema::create('personas', function (Blueprint $table) {
             $table->id();
-            $table->char('tipo_documento', 1)->comment('0-Dni/1-Pasaporte')->default(1);
+            $table->char('tipo_documento', 1)->comment('1-Dni/2-Pasaporte')->default(1);
             $table->integer('nro_documento');
             $table->string('nombres');
             $table->string('apellido_materno')->nullable();
             $table->string('apellido_paterno');
             $table->date('fecha_nacimiento');
             $table->integer('edad');
-            $table->char('sexo', 1)->comment('0-Femenino/1-Masculino')->default(1);
+            $table->char('sexo', 1)->comment('1-Femenino/2-Masculino')->default(1);
             $table->integer('nro_celular')->nullable();
             $table->string('email')->nullable();
             $table->string('grupo_sanguineo')->nullable();
@@ -32,7 +32,7 @@ class CreatePersonasTable extends Migration
             $table->string('departamento');
             $table->string('provincia');
             $table->text('referencias')->nullable();
-            $table->char('tipo_paciente', 1)->comment('0-Nuevo/1-Antiguo')->default(1);
+            $table->char('tipo_paciente', 1)->comment('1-Nuevo/2-Antiguo')->default(1);
             $table->text('observaciones1')->nullable();
             $table->text('observaciones2')->nullable();
             $table->char('estado', 1)->comment('0-Desactivo/1-Activo')->default(1);

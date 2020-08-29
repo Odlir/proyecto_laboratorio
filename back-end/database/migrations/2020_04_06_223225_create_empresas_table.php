@@ -41,9 +41,6 @@ class CreateEmpresasTable extends Migration
             $table->text('observaciones2')->nullable();
             $table->char('estado', 1)->comment('0-Inactivo/1-Activo')->default(1);
 
-            $table->unsignedBigInteger('ubigeo_id');
-            $table->foreign('ubigeo_id')->references('id')->on('ubigeo');
-
             $table->unsignedBigInteger('insert_user_id')->comment('Usuario que hizo el registro');
             $table->foreign('insert_user_id')->references('id')->on('users');
 

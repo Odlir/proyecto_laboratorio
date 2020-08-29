@@ -52,10 +52,10 @@
 							<div class="col-sm-8">
 								<select name="estado" id="" class="form-control" [(ngModel)]="form.forma_pago" required>
 									<option [ngValue]="null" [disabled]="true" >Elige una opción</option>
-									<option value="0">CONTADO</option>
-                                    <option value="1">TRANSFERENCIA</option>
-                                    <option value="2">YAPE</option>
-									<option value="3">TCRÉDITO</option>
+									<option value="1">CONTADO</option>
+                                    <option value="2">TRANSFERENCIA</option>
+                                    <option value="3">YAPE</option>
+									<option value="4">TCRÉDITO</option>
 								</select>
 							</div>
 							<hr>
@@ -74,12 +74,12 @@
 							<div class="col-sm-8">
 								<select name="estadoanalisis" id="" class="form-control" [(ngModel)]="form.estado_analisis" required>
 									<option [ngValue]="null" [disabled]="true" >Elige una opción</option>
-									<option value="0">PENDIENTE</option>
-                                    <option value="1">ATENDIDO</option>
-                                    <option value="2">PAGADO</option>
-                                    <option value="3">NO PAGADO</option>
-                                    <option value="4">TERMINADO</option>
-									<option value="5">ANULADO</option>
+									<option value="1">PENDIENTE</option>
+                                    <option value="2">ATENDIDO</option>
+                                    <option value="3">PAGADO</option>
+                                    <option value="4">NO PAGADO</option>
+                                    <option value="5">TERMINADO</option>
+									<option value="6">ANULADO</option>
 								</select>
 							</div>
 							<hr>

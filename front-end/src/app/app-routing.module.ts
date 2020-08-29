@@ -48,6 +48,9 @@ import { CrudOrdenAtencionAnalisisTipoMuestrasComponent } from './components/ord
 import { DetalleOrdenAtencionAnalisisComponent } from './components/orden-atencion/orden-atencion-analisis/detalle-orden-atencion-analisis/detalle-orden-atencion-analisis.component';
 import { DetalleOrdenAtencionAnalisisTipoAnalisisComponent } from './components/orden-atencion/orden-atencion-analisis-tipo-analisis/detalle-orden-atencion-analisis-tipo-analisis/detalle-orden-atencion-analisis-tipo-analisis.component';
 import { DetalleOrdenAtencionAnalisisTipoMuestrasComponent } from './components/orden-atencion/orden-atencion-analisis-tipo-muestras/detalle-orden-atencion-analisis-tipo-muestras/detalle-orden-atencion-analisis-tipo-muestras.component';
+import { OrdenAtencionEmpresaComponent } from './components/orden-atencion/orden-atencion-empresa/orden-atencion-empresa.component';
+import { CrudOrdenAtencionEmpresaComponent } from './components/orden-atencion/orden-atencion-empresa/crud-orden-atencion-empresa/crud-orden-atencion-empresa.component';
+import { DetalleOrdenAtencionEmpresaComponent } from './components/orden-atencion/orden-atencion-empresa/detalle-orden-atencion-empresa/detalle-orden-atencion-empresa.component';
 
 const routes: Routes = [
 	{
@@ -170,6 +173,22 @@ const routes: Routes = [
 	{
 		path: 'detalle-orden-atencion',
 		component: DetalleOrdenAtencionComponent,
+		canActivate: [AfterLoginService]
+	},
+
+	{
+		path: 'orden-atencion-empresa',
+		component: OrdenAtencionEmpresaComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'crud-orden-atencion-empresa',
+		component: CrudOrdenAtencionEmpresaComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'detalle-orden-atencion-empresa',
+		component: DetalleOrdenAtencionEmpresaComponent,
 		canActivate: [AfterLoginService]
 	},
 

@@ -39,6 +39,11 @@ Route::group([
     Route::resource('orden_atencion_tipo_analisis','OrdenAtencionAnalisisTipoAnalisisController');
     Route::resource('orden_atencion_tipo_muestras','OrdenAtencionAnalisisTipoMuestrasController');
     Route::resource('ubigeo','UbigeoController');
+    Route::resource('orden_atencion_empresa','OrdenAtencionEmpresaController');
+    Route::resource('orden_atencion_empresa_analisis','OrdenAtencionEmpresaAnalisisController');
+    Route::resource('orden_atencion_empresa_empleado','OrdenAtencionEmpresaEmpleadoController');
+    Route::resource('orden_atencion_detalle_empresa','OrdenDetalleEmpresaController');
+    Route::resource('orden_atencion_detalle_analisis','OrdenDetalleAnalisisController');
 
     Route::resource('paises','PaisController');
     Route::resource('ciudades','CiudadController');

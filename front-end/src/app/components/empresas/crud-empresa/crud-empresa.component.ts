@@ -6,13 +6,13 @@ import { ApiBackRequestService } from './../../../Services/api-back-request.serv
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-export interface Ubigeo {
+/*export interface Ubigeo {
     ubigeo: null,
     distrito: null,
     provincia: null,
     departamento: null,
 	id: number,
-}
+}*/
 
 @Component({
 	selector: 'app-crud-empresa',
@@ -54,7 +54,6 @@ export class CrudEmpresaComponent implements OnInit {
 		observaciones2: null,
 		estado: null,
 
-		ubigeo_id: null,
 		insert_user_id: this.user.me(),
 		edit_user_id: null,
 		insert: { name: null },
@@ -66,9 +65,9 @@ export class CrudEmpresaComponent implements OnInit {
 
 	public titulo = "CREAR EMPRESA";
 
-	ubigeo = { id: null, departamento: null };
+	/*ubigeo = { id: null, departamento: null };
 
-	public ubigeos: Ubigeo[] = [];
+	public ubigeos: Ubigeo[] = [];*/
 
 	public id: HttpParams;
 
