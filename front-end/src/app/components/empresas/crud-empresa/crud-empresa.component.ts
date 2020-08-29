@@ -70,8 +70,8 @@ export class CrudEmpresaComponent implements OnInit {
 	public ubigeos: Ubigeo[] = [];*/
 
 	public id: HttpParams;
-
 	public generarSucursal = false;
+	public ubigeo = [];
 
 	constructor(
 		private api: ApiBackRequestService,
@@ -79,7 +79,6 @@ export class CrudEmpresaComponent implements OnInit {
 		private activatedRoute: ActivatedRoute,
 		private router: Router
 	) {
-
 	}
 
 	ngOnInit(): void {
@@ -95,6 +94,7 @@ export class CrudEmpresaComponent implements OnInit {
 				}
 			}
 		});
+		this.cargarUbigeo();
 	}
 
 	cargarEditar(next?) {
@@ -106,6 +106,14 @@ export class CrudEmpresaComponent implements OnInit {
 				if (next) {
 					this.stepper.next();
 				}
+			}
+		);
+	}
+
+	cargarUbigeo() {
+		this.api.get('ubigeo?search=lim').subscribe(
+			data => {
+				this.ubigeo = data;
 			}
 		);
 	}
