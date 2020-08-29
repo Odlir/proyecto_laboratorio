@@ -30,9 +30,6 @@ class EmpresaController extends Controller
                     ->orWhere('latitud', "LIKE", "%$searchValue%")
                     ->orWhere('longitud', "LIKE", "%$searchValue%")
                     ->orWhere('direccion', "LIKE", "%$searchValue%")
-                    ->orWhere('departamento', "LIKE", "%$searchValue%")
-                    ->orWhere('provincia', "LIKE", "%$searchValue%")
-                    ->orWhere('distrito', "LIKE", "%$searchValue%")
                     ->orWhere('telf_fijo', "LIKE", "%$searchValue%")
                     ->orWhere('nro_celular', "LIKE", "%$searchValue%")
                     ->orWhere('nombre_contacto1', "LIKE", "%$searchValue%")
@@ -48,7 +45,8 @@ class EmpresaController extends Controller
                     ->orWhere('nro_cta_interbancaria', "LIKE", "%$searchValue%")
                     ->orWhere('observaciones1', "LIKE", "%$searchValue%")
                     ->orWhere('observaciones2', "LIKE", "%$searchValue%")
-                    ->orWhere('estado', "LIKE", "%$searchValue%");
+                    ->orWhere('estado', "LIKE", "%$searchValue%")
+                    ->orWhere('ubigeo_id', "LIKE", "%$searchValue%");
             });
 
         if (!$paginate) {

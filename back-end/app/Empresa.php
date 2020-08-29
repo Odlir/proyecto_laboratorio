@@ -34,7 +34,8 @@ class Empresa extends Model
         'nro_cta_interbancaria',
         'observaciones1',
         'observaciones2',
-        'estado',        
+        'estado',
+        'ubigeo_id',
         'insert_user_id',
         'edit_user_id'
     ];
@@ -68,7 +69,8 @@ class Empresa extends Model
             $model->observaciones1 = $model->sinTilde('observaciones1', $model->observaciones1);
             $model->observaciones2 = $model->sinTilde('observaciones2', $model->observaciones2);
             $model->estado = $model->sinTilde('estado', $model->estado);
-            
+            $model->ubigeo_id = $model->sinTilde('ubigeo_id', $model->ubigeo_id);
+
             $model->nro_ruc = $model->setUpperCase('nro_ruc', $model->nro_ruc);
             $model->razon_social = $model->setUpperCase('razon_social', $model->razon_social);
             $model->pag_web = $model->setUpperCase('pag_web', $model->pag_web);
@@ -94,6 +96,7 @@ class Empresa extends Model
             $model->observaciones1 = $model->setUpperCase('observaciones1', $model->observaciones1);
             $model->observaciones2 = $model->setUpperCase('observaciones2', $model->observaciones2);
             $model->estado = $model->setUpperCase('estado', $model->estado);
+            $model->ubigeo_id = $model->setUpperCase('ubigeo_id', $model->ubigeo_id);
         });
     }
 

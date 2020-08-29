@@ -31,10 +31,9 @@
 							</div>
 
 							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Página Web <span
-									class="text-danger">*</span></label>
+								<label class="col-sm-4 col-form-label w-100">Página Web </label>
 								<div class="col-sm-8">
-									<input type="text" name="pagweb" class="form-control" [(ngModel)]="form.pag_web" required>
+									<input type="text" name="pagweb" class="form-control" [(ngModel)]="form.pag_web">
 								</div>
 								<hr>
 							</div>
@@ -65,34 +64,18 @@
 							</div>
 
 							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Departamento <span
+								<label class="col-sm-4 col-form-label w-100">Ubigeo <span
 									class="text-danger">*</span></label>
 								<div class="col-sm-8">
-									<!--<select name="depart" id="" class="form-control" [(ngModel)]="form.departamento" required>
+									<select name="ubigeo" id="" class="form-control" [(ngModel)]="form.ubigeo_id" required>
 										<option *ngFor="let departamento of ubigeo"> {{ departamento }} </option>
-									</select>-->
-									<input type="text" name="departs" class="form-control" [(ngModel)]="form.departamento" required>
+									</select>
+									<!--<input type="text" name="departs" class="form-control" [(ngModel)]="form.ubigeo_id" required>-->
 								</div>
 								<hr>
 							</div>
 
-							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Provincia <span
-									class="text-danger">*</span></label>
-								<div class="col-sm-8">
-									<input type="text" name="prov" class="form-control" [(ngModel)]="form.provincia" required>
-								</div>
-								<hr>
-							</div>
-							
-							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Distrito <span
-									class="text-danger">*</span></label>
-								<div class="col-sm-8">
-									<input type="text" name="dist" class="form-control" [(ngModel)]="form.distrito" required>
-								</div>
-								<hr>
-							</div>
+
 
 							<div class="form-group row my-3">
 								<label class="col-sm-4 col-form-label w-100">Teléfono Fijo <span
@@ -225,18 +208,7 @@
 								<hr>
 							</div>
 
-							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Estado <span
-									class="text-danger">*</span></label>
-								<div class="col-sm-8">
-									<select name="estado" id="" class="form-control" [(ngModel)]="form.estado" required>
-										<option [ngValue]="null" [disabled]="true" >Elige una opción</option>
-										<option value="0">INACTIVO</option>
-										<option value="1">ACTIVO</option>
-									</select>
-								</div>
-								<hr>
-							</div>
+
 
 							<div class="form-group row mt-5">
 								<div class="col-12">
