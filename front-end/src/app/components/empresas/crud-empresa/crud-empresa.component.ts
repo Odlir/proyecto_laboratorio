@@ -4,15 +4,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from '../../../Services/token/token.service';
 import { ApiBackRequestService } from './../../../Services/api-back-request.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
+import {map, startWith} from "rxjs/operators";
 
-/*export interface Ubigeo {
-    ubigeo: null,
-    distrito: null,
-    provincia: null,
-    departamento: null,
+export interface Ubigeo {
+    ubigeo: string,
+    distrito: string,
+    provincia: string,
+    departamento: string,
 	id: number,
-}*/
+}
 
 @Component({
 	selector: 'app-crud-empresa',
@@ -24,6 +25,7 @@ export class CrudEmpresaComponent implements OnInit {
 
 	firstFormGroup: FormGroup;
 	secondFormGroup: FormGroup;
+	myControl = new FormControl();
 
 	@ViewChild('stepper') stepper: MatStepper;
 
@@ -34,9 +36,6 @@ export class CrudEmpresaComponent implements OnInit {
 		latitud: null,
 		longitud: null,
 		direccion: null,
-		departamento: null,
-		provincia: null,
-		distrito: null,
 		telf_fijo: null,
 		nro_celular: null,
 		nombre_contacto1: null,
@@ -54,6 +53,7 @@ export class CrudEmpresaComponent implements OnInit {
 		observaciones2: null,
 		estado: null,
 
+		ubigeo_id: null,
 		insert_user_id: this.user.me(),
 		edit_user_id: null,
 		insert: { name: null },
@@ -65,13 +65,23 @@ export class CrudEmpresaComponent implements OnInit {
 
 	public titulo = "CREAR EMPRESA";
 
-	/*ubigeo = { id: null, departamento: null };
+	public ubigeos: Ubigeo[] = [];
 
-	public ubigeos: Ubigeo[] = [];*/
+	public ubigeo = {
+	    id: null,
+		ubigeo: null,
+		distrito: null,
+		provincia: null,
+		departamento: null
+	}
+
+	filteredUbigeo: any;
+	public disabled: boolean = false;
+
+	public showProgress: boolean = false;
 
 	public id: HttpParams;
 	public generarSucursal = false;
-	public ubigeo = [];
 
 	constructor(
 		private api: ApiBackRequestService,
@@ -94,7 +104,7 @@ export class CrudEmpresaComponent implements OnInit {
 				}
 			}
 		});
-		this.cargarUbigeo();
+		this.fetch();
 	}
 
 	cargarEditar(next?) {
@@ -110,13 +120,57 @@ export class CrudEmpresaComponent implements OnInit {
 		);
 	}
 
-	cargarUbigeo() {
-		this.api.get('ubigeo?search=lim').subscribe(
+	cargarUbigeo(e) {
+		this.api.get('ubigeo?search=' + e).subscribe(
 			data => {
-				this.ubigeo = data;
+				this.ubigeos = data;
 			}
 		);
 	}
+
+	async fetch() {
+		await this.api.get('ubigeo').toPromise() //ESTO LO PUSE ASINCRONO PARA QUE EL AUTOCOMPLETAR FUNCIONE
+			.then(
+				(data) => { this.ubigeos = data }
+			);
+
+		this.filteredUbigeo = this.myControl.valueChanges.pipe(
+			startWith(null),
+			map(ubigeo => ubigeo && typeof ubigeo === 'object' ? ubigeo.departamento : ubigeo),
+			map(ubigeo => ubigeo && typeof ubigeo === 'object' ? ubigeo.provincia : ubigeo),
+			map(ubigeo => ubigeo && typeof ubigeo === 'object' ? ubigeo.distrito : ubigeo),
+			map(ubigeo => this.filterStates(ubigeo))
+		);
+	}
+
+	filterStates(val) {
+		return val ? this.ubigeos.filter(s => s.departamento.toLowerCase().indexOf(val.toLowerCase()) != -1)
+			: this.ubigeos;
+		return val ? this.ubigeos.filter(s => s.provincia.toLowerCase().indexOf(val.toLowerCase()) != -1)
+			: this.ubigeos;
+		return val ? this.ubigeos.filter(s => s.distrito.toLowerCase().indexOf(val.toLowerCase()) != -1)
+			: this.ubigeos;
+	}
+
+	displayFn(ubigeo): string {
+		return ubigeo ? ubigeo.departamento : ubigeo;
+		return ubigeo ? ubigeo.provincia : ubigeo;
+		return ubigeo ? ubigeo.distrito : ubigeo;
+	}
+
+	limpiar() {
+		this.form.ubigeo_id = null;
+		this.showProgress = false;
+	}
+
+	limpiarAutocomplete(e) {
+		console.log('kasumi', e.target.value);
+		if (e.target.value.length > 3) {
+			this.cargarUbigeo(e.target.value);
+		}
+	}
+
+
 
 	guardar() {
 		if (this.id) {

@@ -67,9 +67,15 @@
 								<label class="col-sm-4 col-form-label w-100">Ubigeo <span
 									class="text-danger">*</span></label>
 								<div class="col-sm-8">
-									<select name="ubigeo" id="" class="form-control" [(ngModel)]="form.ubigeo_id" required>
-										<option *ngFor="let departamento of ubigeo"> {{ departamento }} </option>
-									</select>
+									<mat-form-field class="example-full-width w-100">
+										<input type="text" [(ngModel)]="ubigeo" matInput name="ubigeo_id" class="form-control"
+											   [formControl]="myControl" [matAutocomplete]="auto" required (keyup)="limpiarAutocomplete($event)">
+										<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="cargarUbigeo()">
+											<mat-option *ngFor="let option of filteredUbigeo | async" [value]="option">
+												{{option.departamento}} {{option.provincia}} {{option.distrito}}
+											</mat-option>
+										</mat-autocomplete>
+									</mat-form-field>
 									<!--<input type="text" name="departs" class="form-control" [(ngModel)]="form.ubigeo_id" required>-->
 								</div>
 								<hr>
@@ -223,7 +229,7 @@
 			<div class="col-5" *ngIf="id==null">
 				<div class="form-check my-3">
 					<input type="checkbox" [(ngModel)]="generarSucursal" [ngModelOptions]="{standalone: true}">
-					<label class="form-check-label" for="exampleCheck1">Sedes</label>
+					<label class="form-check-label" for="exampleCheck">Sedes</label>
 				</div>
 			</div>
 			<div class="col-5 p-0 widget clearfix" *ngIf="id">

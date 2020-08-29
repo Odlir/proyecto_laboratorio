@@ -18,11 +18,9 @@ class UbigeoController extends Controller
         $searchValue = $request->input('search');
 
         $data = Ubigeo::where(function ($query) use ($searchValue) {
-                $query->where("id", "LIKE", "%$searchValue%")
-                    ->orWhere('ubigeo', "LIKE", "%$searchValue%")
-                    ->orWhere('distrito', "LIKE", "%$searchValue%")
+                $query->where("departamento", "LIKE", "%$searchValue%")
                     ->orWhere('provincia', "LIKE", "%$searchValue%")
-                    ->orWhere('departamento', "LIKE", "%$searchValue%");
+                    ->orWhere('distrito', "LIKE", "%$searchValue%");
             });
         $data = $data->orderBy('id', 'DESC')->get();
 
