@@ -6,13 +6,13 @@ import { ApiBackRequestService } from './../../../Services/api-back-request.serv
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-/*export interface Ubigeo {
+export interface Ubigeo {
     ubigeo: null,
     distrito: null,
     provincia: null,
     departamento: null,
 	id: number,
-}*/
+}
 
 @Component({
 	selector: 'app-crud-empresa',
@@ -34,9 +34,7 @@ export class CrudEmpresaComponent implements OnInit {
 		latitud: null,
 		longitud: null,
 		direccion: null,
-		departamento: null,
-		provincia: null,
-		distrito: null,
+
 		telf_fijo: null,
 		nro_celular: null,
 		nombre_contacto1: null,
@@ -52,8 +50,8 @@ export class CrudEmpresaComponent implements OnInit {
 		nro_cta_interbancaria: null,
 		observaciones1: null,
 		observaciones2: null,
-		estado: null,
 
+		ubigeo_id: null,
 		insert_user_id: this.user.me(),
 		edit_user_id: null,
 		insert: { name: null },
@@ -65,9 +63,9 @@ export class CrudEmpresaComponent implements OnInit {
 
 	public titulo = "CREAR EMPRESA";
 
-	/*ubigeo = { id: null, departamento: null };
+	ubigeo = { id: null, departamento: null };
 
-	public ubigeos: Ubigeo[] = [];*/
+	public ubigeos: Ubigeo[] = [];
 
 	public id: HttpParams;
 
@@ -99,6 +97,18 @@ export class CrudEmpresaComponent implements OnInit {
 
 	cargarEditar(next?) {
 		this.titulo = "EDITAR EMPRESA";
+		this.api.get('empresas', this.id).subscribe(
+			(data) => {
+				this.form = data;
+				this.stepper.selected.completed = true;
+				if (next) {
+					this.stepper.next();
+				}
+			}
+		);
+	}
+
+	cargarUbigeo() {
 		this.api.get('empresas', this.id).subscribe(
 			(data) => {
 				this.form = data;

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\EncuestaUbigeo;
 use Illuminate\Http\Request;
 use App\Ubigeo;
+use Illuminate\Support\Facades\DB;
 
 class UbigeoController extends Controller
 {
@@ -15,10 +16,6 @@ class UbigeoController extends Controller
      */
     public function index(Request $request)
     {
-        $paginate = $request->input('paginate');
-
-        $offset = $request->input('offset') * $paginate;
-
         $searchValue = $request->input('search');
 
         $data = Ubigeo::where(function ($query) use ($searchValue) {
@@ -28,15 +25,7 @@ class UbigeoController extends Controller
                     ->orWhere('provincia', "LIKE", "%$searchValue%")
                     ->orWhere('departamento', "LIKE", "%$searchValue%");
             });
-
-        if (!$paginate) {
-            $data = $data->count();
-        } else {
-            $data = $data
-                ->skip($offset)
-                ->take($paginate)
-                ->orderBy('id', 'DESC')->get();
-        }
+        $data = $data->orderBy("id","desc")->get();
 
         return response()->json($data, 200);
     }
