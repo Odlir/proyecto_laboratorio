@@ -1,6 +1,6 @@
 <app-header nombre="MANTENIMIENTO DE EMPRESAS" icono="city"></app-header>
 <div class="col-12 text-right">
-	<button class="btn btn-secondary" [routerLink]="['/crud-empresa']">CREAR EMPRESA</button>
+	<button class="btn btn-warning" [routerLink]="['/crud-empresa']">CREAR EMPRESA</button>
 </div>
 
 <input type="text" class="buscador" placeholder="Buscar por Id/Razón Social/Contacto/Correo/Teléfono"
@@ -17,25 +17,31 @@
 				<a [routerLink]="['/detalle-empresa/']" [queryParams]="{id:value}">{{ value }}</a>
 			</ng-template>
 		</ngx-datatable-column>
+		<ngx-datatable-column name="Nro de Ruc" prop="nro_ruc">
+ 			<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+			<ng-template let-value="value" ngx-datatable-cell-template>
+				{{ value }}
+			</ng-template>
+		</ngx-datatable-column>
 		<ngx-datatable-column name="Razón Social" prop="razon_social">
 			<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 			<ng-template let-value="value" ngx-datatable-cell-template>
 				{{ value }}
 			</ng-template>
 		</ngx-datatable-column>
-		<ngx-datatable-column name="Contacto">
+		<ngx-datatable-column name="Dirección" prop="direccion">
 			<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 			<ng-template let-value="value" ngx-datatable-cell-template>
 				{{ value }}
 			</ng-template>
 		</ngx-datatable-column>
-		<ngx-datatable-column name="Correo Personal" prop="email">
+		<ngx-datatable-column name="Teléfono Fijo" prop="telf_fijo">
 			<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 			<ng-template let-value="value" ngx-datatable-cell-template>
 				{{ value }}
 			</ng-template>
 		</ngx-datatable-column>
-		<ngx-datatable-column name="Teléfono" prop="telefono">
+		<ngx-datatable-column name="Nro de Celular" prop="nro_celular">
 			<ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
 			<ng-template let-value="value" ngx-datatable-cell-template>
 				{{ value }}
@@ -45,15 +51,21 @@
 			<ng-template let-column="column" ngx-datatable-header-template> Acciones </ng-template>
 			<ng-template let-value="value" ngx-datatable-cell-template>
 				<div class="row justify-content-center">
-					<button class="btn border" [routerLink]="['/detalle-empresa/']" [queryParams]="{id:value}">
-						<fa-icon [icon]="['fas', 'eye']"></fa-icon>
-					</button>
-					<button class="btn border" [routerLink]="['/crud-empresa/']" [queryParams]="{id:value}">
-						<fa-icon [icon]="['fas', 'edit']"></fa-icon>
-					</button>
-					<button class="btn border" (click)="eliminar(value)">
-						<fa-icon [icon]="['fas', 'trash']"></fa-icon>
-					</button>
+					<div class="col-4">
+						<button class="btn" [routerLink]="['/detalle-empresa/']" [queryParams]="{id:value}">
+						  <fa-icon class="icon_det" [icon]="['fas', 'eye']"></fa-icon>
+						</button>
+					  </div>
+					  <div class="col-4">
+						<button class="btn" [routerLink]="['/crud-empresa/']" [queryParams]="{id:value}">
+						  <fa-icon class="icon_crud" [icon]="['fas', 'edit']"></fa-icon>
+						</button>
+					  </div>
+					  <div class="col-4">
+						<button class="btn" (clSick)="eliminar(value)">
+						  <fa-icon class="icon_elim" [icon]="['fas', 'trash']"></fa-icon>
+						</button>
+					  </div>
 				</div>
 			</ng-template>
 		</ngx-datatable-column>

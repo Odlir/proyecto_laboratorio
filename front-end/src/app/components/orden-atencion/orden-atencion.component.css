@@ -1,0 +1,20 @@
+.example-container {
+  height: 400px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.icon_det {
+  color: #ffd740;
+}
+
+.icon_crud {
+  color: #23cce6;
+}
+
+.icon_elim {
+  color: #ff4040;
+}

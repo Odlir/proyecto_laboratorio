@@ -24,10 +24,31 @@ class EmpresaController extends Controller
         $data = Empresa::where('estado', '1')
             ->where(function ($query) use ($searchValue) {
                 $query->where('id', "LIKE", "%$searchValue%")
+                    ->orWhere('nro_ruc', "LIKE", "%$searchValue%")
                     ->orWhere('razon_social', "LIKE", "%$searchValue%")
-                    ->orWhere('contacto', "LIKE", "%$searchValue%")
-                    ->orWhere('email', "LIKE", "%$searchValue%")
-                    ->orWhere('telefono', "LIKE", "%$searchValue%");
+                    ->orWhere('pag_web', "LIKE", "%$searchValue%")
+                    ->orWhere('latitud', "LIKE", "%$searchValue%")
+                    ->orWhere('longitud', "LIKE", "%$searchValue%")
+                    ->orWhere('direccion', "LIKE", "%$searchValue%")
+                    ->orWhere('departamento', "LIKE", "%$searchValue%")
+                    ->orWhere('provincia', "LIKE", "%$searchValue%")
+                    ->orWhere('distrito', "LIKE", "%$searchValue%")
+                    ->orWhere('telf_fijo', "LIKE", "%$searchValue%")
+                    ->orWhere('nro_celular', "LIKE", "%$searchValue%")
+                    ->orWhere('nombre_contacto1', "LIKE", "%$searchValue%")
+                    ->orWhere('telf_fijo1', "LIKE", "%$searchValue%")
+                    ->orWhere('nro_celular1', "LIKE", "%$searchValue%")
+                    ->orWhere('email_contacto1', "LIKE", "%$searchValue%")
+                    ->orWhere('nombre_contacto2', "LIKE", "%$searchValue%")
+                    ->orWhere('telf_fijo2', "LIKE", "%$searchValue%")
+                    ->orWhere('nro_celular2', "LIKE", "%$searchValue%")
+                    ->orWhere('email_contacto2', "LIKE", "%$searchValue%")
+                    ->orWhere('nombre_banco', "LIKE", "%$searchValue%")
+                    ->orWhere('nro_cta', "LIKE", "%$searchValue%")
+                    ->orWhere('nro_cta_interbancaria', "LIKE", "%$searchValue%")
+                    ->orWhere('observaciones1', "LIKE", "%$searchValue%")
+                    ->orWhere('observaciones2', "LIKE", "%$searchValue%")
+                    ->orWhere('estado', "LIKE", "%$searchValue%");
             });
 
         if (!$paginate) {

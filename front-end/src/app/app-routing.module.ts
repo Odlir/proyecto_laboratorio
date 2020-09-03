@@ -3,15 +3,15 @@ import {TestInteresComponent} from './components/test-interes/test-interes.compo
 import {DetalleEncuestaComponent} from './components/encuestas/detalle-encuesta/detalle-encuesta.component';
 import {CrudEncuestaComponent} from './components/encuestas/crud-encuesta/crud-encuesta.component';
 import {EncuestasComponent} from './components/encuestas/encuestas.component';
-import {ImportarPersonaComponent} from './components/personas/importar-persona/importar-persona.component';
+import {ImportarPacienteComponent} from './components/pacientes/importar-paciente/importar-paciente.component';
 import {DetalleSucursalComponent} from './components/empresas/detalle-sucursal/detalle-sucursal.component';
 import {CrudSucursalComponent} from './components/empresas/crud-sucursal/crud-sucursal.component';
-import {DetallePersonaComponent} from './components/personas/detalle-persona/detalle-persona.component';
-import {CrudPersonaComponent} from './components/personas/crud-persona/crud-persona.component';
+import {DetallePacienteComponent} from './components/pacientes/detalle-paciente/detalle-paciente.component';
+import {CrudPacienteComponent} from './components/pacientes/crud-paciente/crud-paciente.component';
 import {DetalleEmpresaComponent} from './components/empresas/detalle-empresa/detalle-empresa.component';
 import {CrudEmpresaComponent} from './components/empresas/crud-empresa/crud-empresa.component';
 import {EmpresasComponent} from './components/empresas/empresas.component';
-import {PersonasComponent} from './components/personas/personas.component';
+import {PacientesComponent} from './components/pacientes/pacientes.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {AfterLoginService} from './Services/token/after-login.service';
 import {BeforeLoginService} from './Services/token/before-login.service';
@@ -25,6 +25,18 @@ import {MasDesarrolladosComponent} from './components/test-talentos/mas-desarrol
 import {MenosDesarrolladosComponent} from './components/test-talentos/menos-desarrollados/menos-desarrollados.component';
 import {EspecificosComponent} from './components/test-talentos/especificos/especificos.component';
 import {EspecificosMenosComponent} from './components/test-talentos/especificos-menos/especificos-menos.component';
+import { CrudDoctorComponent } from './components/doctores/crud-doctor/crud-doctor/crud-doctor.component';
+import { DetalleDoctorComponent } from './components/doctores/detalle-doctor/detalle-doctor/detalle-doctor.component';
+import { DoctoresComponent } from './components/doctores/doctores.component';
+import { MuestrasComponent } from './components/muestras/muestras.component';
+import { CrudMuestrasComponent } from './components/muestras/crud-muestras/crud-muestras/crud-muestras.component';
+import { DetalleMuestrasComponent } from './components/muestras/detalle-muestras/detalle-muestras/detalle-muestras.component';
+import { AnalisisComponent } from './components/analisis/analisis.component';
+import { CrudAnalisisComponent } from './components/analisis/crud-analisis/crud-analisis/crud-analisis.component';
+import { DetalleAnalisisComponent } from './components/analisis/detalle-analisis/detalle-analisis/detalle-analisis.component';
+import { OrdenAtencionComponent } from './components/orden-atencion/orden-atencion.component';
+import { CrudOrdenAtencionComponent } from './components/orden-atencion/crud-orden-atencion/crud-orden-atencion/crud-orden-atencion.component';
+import { DetalleOrdenAtencionComponent } from './components/orden-atencion/detalle-orden-atencion/detalle-orden-atencion/detalle-orden-atencion.component';
 
 const routes: Routes = [
 	{
@@ -43,20 +55,38 @@ const routes: Routes = [
 		redirectTo: 'encuestas'
 	},
 	{
-		path: 'personas',
-		component: PersonasComponent,
+		path: 'pacientes',
+		component: PacientesComponent,
 		canActivate: [AfterLoginService]
 	},
 	{
-		path: 'crud-persona',
-		component: CrudPersonaComponent,
+		path: 'crud-paciente',
+		component: CrudPacienteComponent,
 		canActivate: [AfterLoginService]
 	},
 	{
-		path: 'detalle-persona',
-		component: DetallePersonaComponent,
+		path: 'detalle-paciente',
+		component: DetallePacienteComponent,
 		canActivate: [AfterLoginService]
 	},
+
+	{
+		path: 'doctores',
+		component: DoctoresComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'crud-doctor',
+		component: CrudDoctorComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'detalle-doctor',
+		component: DetalleDoctorComponent,
+		canActivate: [AfterLoginService]
+	},
+
+
 	{
 		path: 'empresas',
 		component: EmpresasComponent,
@@ -72,6 +102,55 @@ const routes: Routes = [
 		component: DetalleEmpresaComponent,
 		canActivate: [AfterLoginService]
 	},
+
+	{
+		path: 'muestras',
+		component: MuestrasComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'crud-muestras',
+		component: CrudMuestrasComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'detalle-muestras',
+		component: DetalleMuestrasComponent,
+		canActivate: [AfterLoginService]
+	},
+
+	{
+		path: 'analisis',
+		component: AnalisisComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'crud-analisis',
+		component: CrudAnalisisComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'detalle-analisis',
+		component: DetalleAnalisisComponent,
+		canActivate: [AfterLoginService]
+	},
+
+	{
+		path: 'orden-atencion',
+		component: OrdenAtencionComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'crud-orden-atencion',
+		component: CrudOrdenAtencionComponent,
+		canActivate: [AfterLoginService]
+	},
+	{
+		path: 'detalle-orden-atencion',
+		component: DetalleOrdenAtencionComponent,
+		canActivate: [AfterLoginService]
+	},
+
 	{
 		path: 'crud-sucursal',
 		component: CrudSucursalComponent,
@@ -83,8 +162,8 @@ const routes: Routes = [
 		canActivate: [AfterLoginService]
 	},
 	{
-		path: 'importar-persona',
-		component: ImportarPersonaComponent,
+		path: 'importar-paciente',
+		component: ImportarPacienteComponent,
 		canActivate: [AfterLoginService]
 	},
 	{

@@ -1,0 +1,80 @@
+<app-header nombre="MANTENIMIENTO DE PACIENTES" icono="users"></app-header>
+
+<div class="col-12 text-right">
+  <button class="btn btn-warning" [routerLink]="['/crud-paciente']">CREAR PACIENTE</button>
+</div>
+
+<input type="text" class="buscador" placeholder="Buscar por Id/Nombres/Apellidos/Sexo/Correo"
+  (keyup)="updateFilter($event)" />
+
+<div class="mt-5">
+  <ngx-datatable class="bootstrap" [rows]="rows" [loadingIndicator]="loadingIndicator" [columnMode]="ColumnMode.force"
+    [headerHeight]="40" [summaryPosition]="'bottom'" [footerHeight]="40" [limit]="20" rowHeight="auto"
+    [reorderable]="reorderable" (page)="nextPage($event)" [count]="total" [externalPaging]="true" [offset]="offset">
+
+    <ngx-datatable-column name="Id" [width]="1">
+      <ng-template let-column="column" ngx-datatable-header-template>{{ column.name }}</ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <a [routerLink]="['/detalle-paciente/']" [queryParams]="{id:value}">{{ value }}</a>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Nro de Documento">
+      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Nombres">
+      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Apellidos">
+      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Tipo de Paciente">
+      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Estado">
+      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Id">
+      <ng-template let-column="column" ngx-datatable-header-template> Acciones </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <div class="row justify-content-center">
+          <div class="col-4">
+            <button class="btn" [routerLink]="['/detalle-paciente/']" [queryParams]="{id:value}">
+              <fa-icon class="icon_det" [icon]="['fas', 'eye']"></fa-icon>
+            </button>
+          </div>
+          <div class="col-4">
+            <button class="btn" [routerLink]="['/crud-paciente/']" [queryParams]="{id:value}">
+              <fa-icon class="icon_crud" [icon]="['fas', 'edit']"></fa-icon>
+            </button>
+          </div>
+          <div class="col-4">
+            <button class="btn" (click)="eliminar(value)">
+              <fa-icon class="icon_elim" [icon]="['fas', 'trash']"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>

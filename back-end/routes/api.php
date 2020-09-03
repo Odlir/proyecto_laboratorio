@@ -31,6 +31,11 @@ Route::group([
     Route::resource('roles','RolController');
     Route::resource('personas','PersonaController');
     Route::resource('empresas','EmpresaController');
+    Route::resource('doctores','DoctorController');
+    Route::resource('muestras','MuestraController');
+    Route::resource('analisis','AnalisisController');
+    Route::resource('orden_atencion','OrdenAtencionController');
+
     Route::resource('paises','PaisController');
     Route::resource('ciudades','CiudadController');
     Route::resource('empresa_sucursal','EmpresaSucursalController');

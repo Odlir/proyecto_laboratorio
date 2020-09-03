@@ -1,0 +1,80 @@
+<div *ngIf="encuesta_id;else other_content">
+	<app-header nombre="PROGRAMACIÓN DE ENCUESTAS" icono="edit"></app-header>
+</div>
+
+<ng-template #other_content>
+	<app-header nombre="MANTENIMIENTO DE ORDEN DE ATENCIÓN" icono="file-medical"></app-header>
+</ng-template>
+
+<div class="widget clearfix mt-5">
+	<div class="whead clearfix">
+		<p><span *ngIf="id;else templateName">EDITAR </span>ORDEN DE ATENCIÓN <span *ngIf="id">: {{ form.nro_atencion }}
+				{{ form.fecha_atencion }} {{ form.hora_atencion }}</span></p>
+		<ng-template #templateName>
+			CREAR
+		</ng-template>
+	</div>
+	<div class="row data-crud">
+		<div class="col-12">
+			<form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
+				<div class="row">
+					<div class="col-6">
+						<div class="form-group row my-3">
+							<label class="col-sm-4 col-form-label w-100">Nro Atención <span
+									class="text-danger">*</span></label>
+							<div class="col-sm-8">
+								<input type="number" name="nroaten" class="form-control" [(ngModel)]="form.nro_atencion"
+									required/>
+							</div>
+							<hr>
+						</div>
+
+						<div class="form-group row my-3">
+							<label class="col-sm-4 col-form-label w-100">Fecha de Atención <span class="text-danger">*</span></label>
+							<div class="col-sm-8">
+								<input type="text" name="fechaaten" placeholder="yyyy-mm-dd" class="form-control" [(ngModel)]="form.fecha_atencion" required>
+							</div>
+							<hr>
+						</div>
+
+						<div class="form-group row my-3">
+							<label class="col-sm-4 col-form-label w-100">Hora de Atención <span
+									class="text-danger">*</span></label>
+							<div class="col-sm-8">
+								<input type="number" name="horaaten" class="form-control" [(ngModel)]="form.hora_atencion"
+									required/>
+							</div>
+							<hr>
+						</div>
+
+						<div class="form-group row my-3">
+							<label class="col-sm-4 col-form-label w-100">Paciente</label>
+							<div class="col-sm-8">
+								<input type="text" name="paciente" class="form-control" [(ngModel)]="form.paciente">
+							</div>
+							<hr>
+						</div>
+
+						<div class="form-group row my-3">
+							<label class="col-sm-4 col-form-label w-100">Analisis</label>
+							<div class="col-sm-8">
+								<input type="text" name="analisis" class="form-control" [(ngModel)]="form.analisis">
+							</div>
+							<hr>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-12">
+						<button type="submit" class="btn btn-success">GUARDAR</button>
+						<a (click)="return()" class="btn btn-info text-white">REGRESAR A LA LISTA</a>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-5 p-0 widget clearfix" *ngIf="id">
+			<app-auditoria [form]="form"></app-auditoria>
+		</div>
+	</div>
+</div>
