@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\EncuestaOrdenAtencion;
+use App\EncuestaEspecialidad;
 use Illuminate\Http\Request;
-use App\OrdenAtencion;
+use App\Especialidad;
 
-class OrdenAtencionController extends Controller
+class EspecialidadController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,29 +15,13 @@ class OrdenAtencionController extends Controller
      */
     public function index(Request $request)
     {
-        $paginate = $request->input('paginate');
-
-        $offset = $request->input('offset') * $paginate;
-
         $searchValue = $request->input('search');
 
-        $data = OrdenAtencion::where('estado', '1')
-        ->where('rol_id', '2')->where(function ($query) use ($searchValue) {
-                $query->where("id", "LIKE", "%$searchValue%")
-                    ->orWhere('nro_atencion', "LIKE", "%$searchValue%")
-                    ->orWhere('paciente', "LIKE", "%$searchValue%")
-                    ->orWhere('analisis', "LIKE", "%$searchValue%")
-                    ->orWhere('estado', "LIKE", "%$searchValue%");
+        $data = Especialidad::where(function ($query) use ($searchValue) {
+                $query->where("codigo", "LIKE", "%$searchValue%")
+                    ->orWhere('nombre', "LIKE", "%$searchValue%");
             });
-
-        if (!$paginate) {
-            $data = $data->count();
-        } else {
-            $data = $data
-                ->skip($offset)
-                ->take($paginate)
-                ->orderBy('id', 'DESC')->get();
-        }
+        $data = $data->orderBy('id', 'DESC')->get();
 
         return response()->json($data, 200);
     }
@@ -62,9 +46,8 @@ class OrdenAtencionController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['rol_id'] = 2;
 
-        $registro = OrdenAtencion::create($data);
+        $registro = Especialidad::create($data);
 
         return response()->json($registro, 200);
     }
@@ -77,9 +60,8 @@ class OrdenAtencionController extends Controller
      */
     public function show($id)
     {
-        $data = OrdenAtencion::with('insert')
+        $data = Especialidad::with('insert')
             ->with('edit')
-            ->where('rol_id', '2')
             ->where('id', $id)
             ->first();
 
@@ -108,7 +90,7 @@ class OrdenAtencionController extends Controller
     {
         $data = $request->all();
 
-        $registro = OrdenAtencion::find($id);
+        $registro = Especialidad::find($id);
         $registro->update($data);
         $registro->save();
 
@@ -123,11 +105,11 @@ class OrdenAtencionController extends Controller
      */
     public function destroy($id)
     {
-        $registro = OrdenAtencion::find($id);
+        $registro = Especialidad::find($id);
         $registro->estado = '0';
         $registro->save();
 
-        $encuestas = EncuestaOrdenAtencion::where('orden_atencion_id', $id)->get();
+        $encuestas = EncuestaEspecialidad::where('especialidad_id', $id)->get();
         foreach ($encuestas as $e) {
             $e->estado = '0';
             $e->save();

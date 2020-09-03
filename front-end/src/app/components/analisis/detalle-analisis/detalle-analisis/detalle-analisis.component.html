@@ -8,7 +8,7 @@
 
 <div class="widget clearfix mt-5">
 	<div class="whead clearfix">
-		<p>DETALLE DEL ANÁLISIS: {{ form.nro_analisis }} {{ form.descripcion }} {{ form.fecha_hora_creacion }}</p>
+		<p>DETALLE DEL ANÁLISIS: {{ form.nro_analisis }} {{ form.descripcion }} {{ form.created_at | date: 'dd/MM/yyyy hh:mm:ss a' }}</p>
 	</div>
 	<div class="row data-crud">
 		<div class="col-7">
@@ -64,7 +64,7 @@
 							{{form.observaciones}}
 						</div>
 						<div class="col-12 border-bottom py-3">
-							{{form.fecha_hora_creacion}}
+							{{form.created_at | date: 'dd/MM/yyyy hh:mm:ss a'}}
 						</div>
 						<div class="col-12 border-bottom py-3">
 							{{form.estado}}

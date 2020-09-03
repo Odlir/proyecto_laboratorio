@@ -4,7 +4,7 @@
   <button class="btn btn-warning" [routerLink]="['/crud-orden-atencion']">CREAR ORDEN DE ATENCIÓN</button>
 </div>
 
-<input type="text" class="buscador" placeholder="Buscar por Id/Paciente/Nro/Análisis/Fecha"
+<input type="text" class="buscador" placeholder="Buscar por Id/Paciente/Nro/Análisis"
   (keyup)="updateFilter($event)" />
 
 <div class="mt-5">
@@ -26,17 +26,10 @@
       </ng-template>
     </ngx-datatable-column>
 
-    <ngx-datatable-column name="Fecha de Atención" prop="fecha_atencion">
+    <ngx-datatable-column name="Fecha y Hora de Atención" prop="created_at">
       <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
-        {{ value }}
-      </ng-template>
-    </ngx-datatable-column>
-
-    <ngx-datatable-column name="Hora de Atención" prop="hora_atencion">
-      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        {{ value }}
+        {{ value | date: 'dd/MM/yyyy hh:mm:ss a' }}
       </ng-template>
     </ngx-datatable-column>
 

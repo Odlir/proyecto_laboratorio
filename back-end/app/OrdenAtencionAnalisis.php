@@ -14,7 +14,6 @@ class OrdenAtencionAnalisis extends Model
     protected $fillable = [
         'analisis',
         'muestras',
-        'fecha_hora_atencion',
         'forma_pago',
         'factura_boleta',
         'estado_analisis',
@@ -31,7 +30,6 @@ class OrdenAtencionAnalisis extends Model
 
             $model->analisis = $model->sinTilde('analisis', $model->analisis);
             $model->muestras = $model->sinTilde('muestras', $model->muestras);
-            $model->fecha_hora_atencion = $model->sinTilde('fecha_hora_atencion', $model->fecha_hora_atencion);
             $model->forma_pago = $model->sinTilde('forma_pago', $model->forma_pago);
             $model->factura_boleta = $model->sinTilde('factura_boleta', $model->factura_boleta);
             $model->estado_analisis = $model->sinTilde('estado_analisis', $model->estado_analisis);
@@ -39,7 +37,6 @@ class OrdenAtencionAnalisis extends Model
 
             $model->analisis = $model->setUpperCase('analisis', $model->analisis);
             $model->muestras = $model->setUpperCase('muestras', $model->muestras);
-            $model->fecha_hora_atencion = $model->setUpperCase('fecha_hora_atencion', $model->fecha_hora_atencion);
             $model->forma_pago = $model->setUpperCase('forma_pago', $model->forma_pago);
             $model->factura_boleta = $model->setUpperCase('factura_boleta', $model->factura_boleta);
             $model->estado_analisis = $model->setUpperCase('estado_analisis', $model->estado_analisis);

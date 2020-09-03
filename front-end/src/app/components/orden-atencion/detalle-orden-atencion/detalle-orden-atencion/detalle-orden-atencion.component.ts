@@ -15,8 +15,6 @@ export class DetalleOrdenAtencionComponent implements OnInit {
   public form = {
     id: null,
     nro_atencion: null,
-    fecha_atencion: null,
-    hora_atencion: null,
     paciente: null,
     analisis: null,
     estado: null,

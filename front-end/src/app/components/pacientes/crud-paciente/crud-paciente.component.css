@@ -1,0 +1,36 @@
+  button {
+    cursor: pointer;
+    background: #f45c41;
+    border: 0;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+    height: 40px;
+    margin-bottom: 10px;
+    text-align: center;
+    min-width: 120px;
+  }
+
+  select {
+    border-radius: 10px;
+    box-shadow: 5px 5px 20px #cbcdd3;
+    color: #333;
+    font-size: 16px;
+    height: 40px;
+    text-align: center;
+  }
+  
+  input {
+    border-radius: 10px;
+    box-shadow: 5px 5px 20px #cbcdd3;
+    color: #333;
+    font-size: 16px;
+    height: 40px;
+    text-align: center;
+  }
+  
+  p {
+    color: #333;
+    font-size: 20px;
+    text-transform: uppercase;
+  }

@@ -37,8 +37,6 @@ import { DetalleAnalisisComponent } from './components/analisis/detalle-analisis
 import { OrdenAtencionComponent } from './components/orden-atencion/orden-atencion.component';
 import { CrudOrdenAtencionComponent } from './components/orden-atencion/crud-orden-atencion/crud-orden-atencion/crud-orden-atencion.component';
 import { DetalleOrdenAtencionComponent } from './components/orden-atencion/detalle-orden-atencion/detalle-orden-atencion/detalle-orden-atencion.component';
-import { UbigeoComponent } from './components/ubigeo/ubigeo.component';
-import { CrudUbigeoComponent } from './components/ubigeo/crud-ubigeo/crud-ubigeo/crud-ubigeo.component';
 import { OrdenAtencionAnalisisComponent } from './components/orden-atencion/orden-atencion-analisis/orden-atencion-analisis.component';
 import { CrudOrdenAtencionAnalisisComponent } from './components/orden-atencion/orden-atencion-analisis/crud-orden-atencion-analisis/crud-orden-atencion-analisis.component';
 import { OrdenAtencionAnalisisTipoAnalisisComponent } from './components/orden-atencion/orden-atencion-analisis-tipo-analisis/orden-atencion-analisis-tipo-analisis.component';
@@ -114,17 +112,6 @@ const routes: Routes = [
 	{
 		path: 'detalle-empresa',
 		component: DetalleEmpresaComponent,
-		canActivate: [AfterLoginService]
-	},
-
-	{
-		path: 'ubigeo',
-		component: UbigeoComponent,
-		canActivate: [AfterLoginService]
-	},
-	{
-		path: 'crud-ubigeo',
-		component: CrudUbigeoComponent,
 		canActivate: [AfterLoginService]
 	},
 

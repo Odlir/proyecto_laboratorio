@@ -44,6 +44,7 @@ Route::group([
     Route::resource('orden_atencion_empresa_empleado','OrdenAtencionEmpresaEmpleadoController');
     Route::resource('orden_atencion_detalle_empresa','OrdenDetalleEmpresaController');
     Route::resource('orden_atencion_detalle_analisis','OrdenDetalleAnalisisController');
+    Route::resource('especialidad','EspecialidadController');
 
     Route::resource('paises','PaisController');
     Route::resource('ciudades','CiudadController');

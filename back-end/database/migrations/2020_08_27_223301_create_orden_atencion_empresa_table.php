@@ -16,8 +16,6 @@ class CreateOrdenAtencionEmpresaTable extends Migration
         Schema::create('orden_atencion_empresa', function (Blueprint $table) {
             $table->id();
             $table->integer('nro_orden');
-            $table->date('fecha_registro');
-            $table->date('fecha_actualizacion');
             $table->char('estado', 1)->comment('0-Desactivo/1-Activo')->default(1);
 
             $table->unsignedBigInteger('rol_id');

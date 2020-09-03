@@ -16,15 +16,14 @@
 	</div>
 	<div class="row data-crud">
 		<div class="col-12">
-			<form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
+			<form (ngSubmit)="guardar()" class="px-4" [formGroup]="formPaciente" novalidate="" ngNativeValidate>
 				<div class="row">
 					<div class="col-6">
 						<div class="form-group row my-3">
 							<label class="col-sm-4 col-form-label w-100">Tipo Documento <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
 								<select name="tipodoc" id="" class="form-control" [(ngModel)]="form.tipo_documento" required>
-									<option [ngValue]="null" [disabled]="true" >Elige una opción</option>
-									<option value="1">DNI</option>
+									<option value="1" [ngValue]="null">DNI</option>
 									<option value="2">RUC</option>
 								</select>
 							</div>
@@ -35,8 +34,20 @@
 							<label class="col-sm-4 col-form-label w-100">Nro Documento <span
 									class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="number" name="nrodoc" class="form-control" [(ngModel)]="form.nro_documento"
+								<input type="text" name="nrodoc" class="form-control" formControlName="nrodoc" [ngClass]="{'is-invalid': !formPaciente.get('nrodoc').valid}" [(ngModel)]="form.nro_documento"
 									required/>
+								<div *ngIf="formPaciente.controls['nrodoc'].errors?.required" class="invalid-feedback">
+									El documento es necesario
+								</div>
+								<div *ngIf="formPaciente.controls['nrodoc'].errors?.minlength" class="invalid-feedback">
+									Por lo menos 8 caracteres
+								</div>
+								<div *ngIf="formPaciente.controls['nrodoc'].errors?.maxlength" class="invalid-feedback">
+									Por lo máximo 11 caracteres
+								</div>
+								<div *ngIf="formPaciente.controls['nrodoc'].errors?.pattern" class="invalid-feedback">
+									Escribir solo números
+								</div>
 							</div>
 							<hr>
 						</div>
@@ -44,17 +55,35 @@
 						<div class="form-group row my-3">
 							<label class="col-sm-4 col-form-label w-100">Nombres <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="nombres" class="form-control" [(ngModel)]="form.nombres" required>
+								<input type="text" name="nombres" class="form-control" formControlName="nombres" [ngClass]="{'is-invalid': !formPaciente.get('nombres').valid}" [(ngModel)]="form.nombres" required>
+								<div *ngIf="formPaciente.controls['nombres'].errors?.required" class="invalid-feedback">
+									El nombre es necesario
+								</div>
+								<div *ngIf="formPaciente.controls['nombres'].errors?.minlength" class="invalid-feedback">
+									Por lo menos 3 caracteres
+								</div>
+								<div *ngIf="formPaciente.controls['nombres'].errors?.pattern" class="invalid-feedback">
+									Escribir solo letras
+								</div>
 							</div>
 							<hr>
 						</div>
-		
+
 						<div class="form-group row my-3">
 							<label class="col-sm-4 col-form-label w-100">Apellido Paterno <span
 									class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="apepaterno" class="form-control" [(ngModel)]="form.apellido_paterno"
+								<input type="text" name="apepaterno" class="form-control" formControlName="apepaterno" [ngClass]="{'is-invalid': !formPaciente.get('apepaterno').valid}" [(ngModel)]="form.apellido_paterno"
 									required/>
+								<div *ngIf="formPaciente.controls['apepaterno'].errors?.required" class="invalid-feedback">
+									El apellido es necesario
+								</div>
+								<div *ngIf="formPaciente.controls['apepaterno'].errors?.minlength" class="invalid-feedback">
+									Por lo menos 3 caracteres
+								</div>
+								<div *ngIf="formPaciente.controls['apepaterno'].errors?.pattern" class="invalid-feedback">
+									Escribir solo letras
+								</div>
 							</div>
 							<hr>
 						</div>
@@ -63,7 +92,16 @@
 							<label class="col-sm-4 col-form-label w-100">Apellido Materno <span
 								class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="apematerno" class="form-control" [(ngModel)]="form.apellido_materno" required>
+								<input type="text" name="apematerno" class="form-control" formControlName="apematerno" [ngClass]="{'is-invalid': !formPaciente.get('apepaterno').valid}" [(ngModel)]="form.apellido_materno" required>
+								<div *ngIf="formPaciente.controls['apematerno'].errors?.required" class="invalid-feedback">
+									El apellido es necesario
+								</div>
+								<div *ngIf="formPaciente.controls['apematerno'].errors?.minlength" class="invalid-feedback">
+									Por lo menos 3 caracteres
+								</div>
+								<div *ngIf="formPaciente.controls['apematerno'].errors?.pattern" class="invalid-feedback">
+									Escribir solo letras
+								</div>
 							</div>
 							<hr>
 						</div>
@@ -72,7 +110,8 @@
 							<label class="col-sm-4 col-form-label w-100">Fecha de Nacimiento <span
 								class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="date" name="fechanac" class="form-control" [(ngModel)]="form.fecha_nacimiento" required>
+								<input type="date" name="fechanac" class="form-control" [(ngModel)]="form.fecha_nacimiento" onchange="ageCalculator()" required>
+								<button type="button" (click)="ageCalculator()"> Calcular </button>
 							</div>
 							<hr>
 						</div>
@@ -81,7 +120,7 @@
 							<label class="col-sm-4 col-form-label w-100">Edad <span
 								class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="number" name="edad" class="form-control" [(ngModel)]="form.edad" required>
+								<input type="text" name="edad" class="form-control" [(ngModel)]="form.edad" required>
 							</div>
 							<hr>
 						</div>
@@ -101,7 +140,19 @@
 						<div class="form-group row my-3">
 							<label class="col-sm-4 col-form-label w-100">Nro de Celular <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="number" name="nrocel" class="form-control" [(ngModel)]="form.nro_celular" required>
+								<input type="text" name="nrocel" class="form-control" formControlName="nrocel" [ngClass]="{'is-invalid': !formPaciente.get('nrocel').valid}" [(ngModel)]="form.nro_celular" required>
+								<div *ngIf="formPaciente.controls['nrocel'].errors?.required" class="invalid-feedback">
+									El número de celular es necesario
+								</div>
+								<div *ngIf="formPaciente.controls['nrocel'].errors?.minlength" class="invalid-feedback">
+									Por lo menos 9 caracteres
+								</div>
+								<div *ngIf="formPaciente.controls['nrocel'].errors?.maxlength" class="invalid-feedback">
+									Por lo máximo 9 caracteres
+								</div>
+								<div *ngIf="formPaciente.controls['nrocel'].errors?.pattern" class="invalid-feedback">
+									Escribir solo números
+								</div>
 							</div>
 							<hr>
 						</div>
@@ -109,7 +160,13 @@
 						<div class="form-group row my-3" *ngIf="encuesta_id==null">
 							<label class="col-sm-4 col-form-label w-100">Correo Personal <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="email" name="email" class="form-control" [(ngModel)]="form.email" required>
+								<input type="email" name="email" class="form-control" formControlName="email" [ngClass]="{'is-invalid': !formPaciente.get('email').valid}" [(ngModel)]="form.email" required>
+								<div *ngIf="formPaciente.controls['email'].errors?.required" class="invalid-feedback">
+									El correo es necesario
+								</div>
+								<div *ngIf="formPaciente.controls['email'].errors?.pattern" class="invalid-feedback">
+									Formato de correo no válido
+								</div>
 							</div>
 							<hr>
 						</div>
@@ -117,7 +174,13 @@
 						<div class="form-group row my-3" *ngIf="encuesta_id==null">
 							<label class="col-sm-4 col-form-label w-100">Grupo Sanguíneo</label>
 							<div class="col-sm-8">
-								<input type="text" name="gruposan" class="form-control" [(ngModel)]="form.grupo_sanguineo">
+								<input type="text" name="gruposan" class="form-control" formControlName="gruposan" [ngClass]="{'is-invalid': !formPaciente.get('gruposan').valid}" [(ngModel)]="form.grupo_sanguineo">
+								<div *ngIf="formPaciente.controls['gruposan'].errors?.maxlength" class="invalid-feedback">
+									Por lo máximo 4 caracteres
+								</div>
+								<div *ngIf="formPaciente.controls['gruposan'].errors?.pattern" class="invalid-feedback">
+									Escribir solo letras y signos
+								</div>
 							</div>
 							<hr>
 						</div>
@@ -125,41 +188,12 @@
 
 					<div class="col-6">		
 						<div class="form-group row my-3" *ngIf="encuesta_id==null">
-							<label class="col-sm-4 col-form-label w-100">Dirección <span class="text-danger">*</span></label>
+							<label class="col-sm-4 col-form-label w-100">Dirección</label>
 							<div class="col-sm-8">
-								<input type="text" name="direccion" class="form-control" [(ngModel)]="form.direccion" required>
-							</div>
-							<hr>
-						</div>
-		
-						<div class="form-group row my-3" *ngIf="encuesta_id==null">
-							<label class="col-sm-4 col-form-label w-100">Latitud</label>
-							<div class="col-sm-8">
-								<input type="text" name="latitud" class="form-control" [(ngModel)]="form.latitud">
-							</div>
-							<hr>
-						</div>
-		
-						<div class="form-group row my-3" *ngIf="encuesta_id==null">
-							<label class="col-sm-4 col-form-label w-100">Longitud</label>
-							<div class="col-sm-8">
-								<input type="text" name="longitud" class="form-control" [(ngModel)]="form.longitud">
-							</div>
-							<hr>
-						</div>
-		
-						<div class="form-group row my-3" *ngIf="encuesta_id==null">
-							<label class="col-sm-4 col-form-label w-100">Departamento <span class="text-danger">*</span></label>
-							<div class="col-sm-8">
-								<input type="text" name="depart" class="form-control" [(ngModel)]="form.departamento" required>
-							</div>
-							<hr>
-						</div>
-		
-						<div class="form-group row my-3" *ngIf="encuesta_id==null">
-							<label class="col-sm-4 col-form-label w-100">Provincia <span class="text-danger">*</span></label>
-							<div class="col-sm-8">
-								<input type="text" name="prov" class="form-control" [(ngModel)]="form.provincia" required>
+								<input type="text" name="direccion" class="form-control" formControlName="direccion" [ngClass]="{'is-invalid': !formPaciente.get('direccion').valid}" [(ngModel)]="form.direccion">
+								<div *ngIf="formPaciente.controls['direccion'].errors?.maxlength" class="invalid-feedback">
+									Por lo máximo 250 caracteres
+								</div>
 							</div>
 							<hr>
 						</div>
@@ -167,7 +201,10 @@
 						<div class="form-group row my-3" *ngIf="encuesta_id==null">
 							<label class="col-sm-4 col-form-label w-100">Referencias</label>
 							<div class="col-sm-8">
-								<input type="text" name="refer" class="form-control" [(ngModel)]="form.referencias">
+								<input type="text" name="refer" class="form-control" formControlName="refer" [ngClass]="{'is-invalid': !formPaciente.get('refer').valid}" [(ngModel)]="form.referencias">
+								<div *ngIf="formPaciente.controls['refer'].errors?.maxlength" class="invalid-feedback">
+									Por lo máximo 250 caracteres
+								</div>
 							</div>
 							<hr>
 						</div>
@@ -176,8 +213,7 @@
 							<label class="col-sm-4 col-form-label w-100">Tipo de Paciente <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
 								<select name="tipopac" id="" class="form-control" [(ngModel)]="form.tipo_paciente" required>
-									<option [ngValue]="null" [disabled]="true" >Elige una opción</option>
-									<option value="1">NUEVO</option>
+									<option value="1" [ngValue]="null">NUEVO</option>
 									<option value="2">ANTIGUO</option>
 								</select>
 							</div>
@@ -185,29 +221,29 @@
 						</div>
 		
 						<div class="form-group row my-3" *ngIf="encuesta_id==null">
-							<label class="col-sm-4 col-form-label w-100">Observaciones 1</label>
+							<label class="col-sm-4 col-form-label w-100">Observaciones</label>
 							<div class="col-sm-8">
-								<input type="text" name="obs1" class="form-control" [(ngModel)]="form.observaciones1">
+								<textarea type="text" name="obs" class="form-control" formControlName="obs" [ngClass]="{'is-invalid': !formPaciente.get('obs').valid}" [(ngModel)]="form.observaciones"></textarea>
+								<div *ngIf="formPaciente.controls['obs'].errors?.maxlength" class="invalid-feedback">
+									Por lo máximo 250 caracteres
+								</div>
 							</div>
 							<hr>
 						</div>
-		
-						<div class="form-group row my-3" *ngIf="encuesta_id==null">
-							<label class="col-sm-4 col-form-label w-100">Observaciones 2</label>
-							<div class="col-sm-8">
-								<input type="text" name="obs2" class="form-control" [(ngModel)]="form.observaciones2">
-							</div>
-							<hr>
-						</div>
-		
+						
 						<div class="form-group row my-3">
-							<label class="col-sm-4 col-form-label w-100">Estado <span class="text-danger">*</span></label>
+							<label class="col-sm-4 col-form-label w-100">Ubigeo <span
+								class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<select name="estado" id="" class="form-control" [(ngModel)]="form.estado" required>
-									<option [ngValue]="null" [disabled]="true" >Elige una opción</option>
-									<option value="0">DESACTIVO</option>
-									<option value="1">ACTIVO</option>
-								</select>
+								<mat-form-field class="example-full-width w-100">
+									<input type="text" [(ngModel)]="form.ubigeo_id" matInput name="ubigeo_id" class="form-control"
+										   [formControl]="myControl" [matAutocomplete]="auto" required (keyup)="limpiarAutocomplete($event)">
+									<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="cargarUbigeo()">
+										<mat-option *ngFor="let option of filteredUbigeo | async" [value]="option">
+											{{option.departamento}} {{option.provincia}} {{option.distrito}}
+										</mat-option>
+									</mat-autocomplete>
+								</mat-form-field>
 							</div>
 							<hr>
 						</div>

@@ -38,15 +38,12 @@ class DoctorController extends Controller
                     ->orWhere('nro_celular', "LIKE", "%$searchValue%")
                     ->orWhere('email', "LIKE", "%$searchValue%")
                     ->orWhere('direccion', "LIKE", "%$searchValue%")
-                    ->orWhere('latitud', "LIKE", "%$searchValue%")
-                    ->orWhere('longitud', "LIKE", "%$searchValue%")
-                    ->orWhere('departamento', "LIKE", "%$searchValue%")
-                    ->orWhere('provincia', "LIKE", "%$searchValue%")
                     ->orWhere('referencias', "LIKE", "%$searchValue%")
-                    ->orWhere('tipo_paciente', "LIKE", "%$searchValue%")
-                    ->orWhere('observaciones1', "LIKE", "%$searchValue%")
-                    ->orWhere('observaciones2', "LIKE", "%$searchValue%")
-                    ->orWhere('estado', "LIKE", "%$searchValue%");
+                    ->orWhere('tipo_doctor', "LIKE", "%$searchValue%")
+                    ->orWhere('observaciones', "LIKE", "%$searchValue%")
+                    ->orWhere('estado', "LIKE", "%$searchValue%")
+                    ->orWhere('especialidad_id', "LIKE", "%$searchValue%")
+                    ->orWhere('ubigeo_id', "LIKE", "%$searchValue%");
             });
 
         if (!$paginate) {

@@ -17,7 +17,6 @@ export class DetalleOrdenAtencionAnalisisComponent implements OnInit {
     id: null,
     analisis: null,
     muestras: null,
-    fecha_hora_atencion: moment().format('YYYY-MM-DD HH:MM:SS'),
     forma_pago: null,
     factura_boleta: null,
     estado_analisis: null,

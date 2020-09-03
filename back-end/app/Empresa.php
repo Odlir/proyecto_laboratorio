@@ -13,12 +13,7 @@ class Empresa extends Model
         'nro_ruc',
         'razon_social',
         'pag_web',
-        'latitud',
-        'longitud',
         'direccion',
-        'departamento',
-        'provincia',
-        'distrito',
         'telf_fijo',
         'nro_celular',
         'nombre_contacto1',
@@ -32,8 +27,7 @@ class Empresa extends Model
         'nombre_banco',
         'nro_cta',
         'nro_cta_interbancaria',
-        'observaciones1',
-        'observaciones2',
+        'observaciones',
         'estado',
         'ubigeo_id',
         'insert_user_id',
@@ -47,12 +41,7 @@ class Empresa extends Model
             $model->nro_ruc = $model->sinTilde('nro_ruc', $model->nro_ruc);
             $model->razon_social = $model->sinTilde('razon_social', $model->razon_social);
             $model->pag_web = $model->sinTilde('pag_web', $model->pag_web);
-            $model->latitud = $model->sinTilde('latitud', $model->latitud);
-            $model->longitud = $model->sinTilde('longitud', $model->longitud);
             $model->direccion = $model->sinTilde('direccion', $model->direccion);
-            $model->departamento = $model->sinTilde('departamento', $model->departamento);
-            $model->provincia = $model->sinTilde('provincia', $model->provincia);
-            $model->distrito = $model->sinTilde('distrito', $model->distrito);
             $model->telf_fijo = $model->sinTilde('telf_fijo', $model->telf_fijo);
             $model->nro_celular = $model->sinTilde('nro_celular', $model->nro_celular);
             $model->nombre_contacto1 = $model->sinTilde('nombre_contacto1', $model->nombre_contacto1);
@@ -66,20 +55,14 @@ class Empresa extends Model
             $model->nombre_banco = $model->sinTilde('nombre_banco', $model->nombre_banco);
             $model->nro_cta = $model->sinTilde('nro_cta', $model->nro_cta);
             $model->nro_cta_interbancaria = $model->sinTilde('nro_cta_interbancaria', $model->nro_cta_interbancaria);
-            $model->observaciones1 = $model->sinTilde('observaciones1', $model->observaciones1);
-            $model->observaciones2 = $model->sinTilde('observaciones2', $model->observaciones2);
+            $model->observaciones = $model->sinTilde('observaciones', $model->observaciones);
             $model->estado = $model->sinTilde('estado', $model->estado);
             $model->ubigeo_id = $model->sinTilde('ubigeo_id', $model->ubigeo_id);
 
             $model->nro_ruc = $model->setUpperCase('nro_ruc', $model->nro_ruc);
             $model->razon_social = $model->setUpperCase('razon_social', $model->razon_social);
             $model->pag_web = $model->setUpperCase('pag_web', $model->pag_web);
-            $model->latitud = $model->setUpperCase('latitud', $model->latitud);
-            $model->longitud = $model->setUpperCase('longitud', $model->longitud);
             $model->direccion = $model->setUpperCase('direccion', $model->direccion);
-            $model->departamento = $model->setUpperCase('departamento', $model->departamento);
-            $model->provincia = $model->setUpperCase('provincia', $model->provincia);
-            $model->distrito = $model->setUpperCase('distrito', $model->distrito);
             $model->telf_fijo = $model->setUpperCase('telf_fijo', $model->telf_fijo);
             $model->nro_celular = $model->setUpperCase('nro_celular', $model->nro_celular);
             $model->nombre_contacto1 = $model->setUpperCase('nombre_contacto1', $model->nombre_contacto1);
@@ -93,8 +76,7 @@ class Empresa extends Model
             $model->nombre_banco = $model->setUpperCase('nombre_banco', $model->nombre_banco);
             $model->nro_cta = $model->setUpperCase('nro_cta', $model->nro_cta);
             $model->nro_cta_interbancaria = $model->setUpperCase('nro_cta_interbancaria', $model->nro_cta_interbancaria);
-            $model->observaciones1 = $model->setUpperCase('observaciones1', $model->observaciones1);
-            $model->observaciones2 = $model->setUpperCase('observaciones2', $model->observaciones2);
+            $model->observaciones = $model->setUpperCase('observaciones', $model->observaciones);
             $model->estado = $model->setUpperCase('estado', $model->estado);
             $model->ubigeo_id = $model->setUpperCase('ubigeo_id', $model->ubigeo_id);
         });

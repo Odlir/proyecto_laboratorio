@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from '../../../Services/token/token.service';
 import { ApiBackRequestService } from './../../../Services/api-back-request.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {map, startWith} from "rxjs/operators";
 
 export interface Ubigeo {
@@ -33,8 +33,6 @@ export class CrudEmpresaComponent implements OnInit {
 		nro_ruc: null,
 		razon_social: null,
 		pag_web: null,
-		latitud: null,
-		longitud: null,
 		direccion: null,
 		telf_fijo: null,
 		nro_celular: null,
@@ -49,11 +47,10 @@ export class CrudEmpresaComponent implements OnInit {
 		nombre_banco: null,
 		nro_cta: null,
 		nro_cta_interbancaria: null,
-		observaciones1: null,
-		observaciones2: null,
-		estado: null,
-
+		observaciones: null,
+		estado: 1,
 		ubigeo_id: null,
+		
 		insert_user_id: this.user.me(),
 		edit_user_id: null,
 		insert: { name: null },
@@ -64,6 +61,8 @@ export class CrudEmpresaComponent implements OnInit {
 	};
 
 	public titulo = "CREAR EMPRESA";
+
+	formEmpresa: FormGroup;
 
 	public ubigeos: Ubigeo[] = [];
 
@@ -105,6 +104,94 @@ export class CrudEmpresaComponent implements OnInit {
 			}
 		});
 		this.fetch();
+		this.validarDatos();
+	}
+
+	validarDatos() {
+		this.formEmpresa = new FormGroup({
+		  'nroruc': new FormControl('', [
+			Validators.required,
+			Validators.minLength(11),
+			Validators.maxLength(11),
+			Validators.pattern('[0-9]{11,11}')
+		  ]),
+		  'razonsocial': new FormControl('', [
+			Validators.required,
+			Validators.minLength(3),
+			Validators.pattern('[a-zA-Z]{3,254}')
+		  ]),
+		  'pagweb': new FormControl('', [
+			Validators.required,
+			Validators.minLength(3),
+			Validators.pattern('[a-zA-Z]{3,254}')
+		  ]),
+		  'direccion': new FormControl('', [
+			Validators.maxLength(250)
+		  ]),
+		  'telf': new FormControl('', [
+			Validators.required,
+			Validators.minLength(7),
+			Validators.maxLength(7),
+			Validators.pattern('[0-9]{7,7}')
+		  ]),
+		  'nrocel': new FormControl('', [
+			Validators.required,
+			Validators.minLength(9),
+			Validators.maxLength(9),
+			Validators.pattern('[0-9]{9,9}')
+		  ]),
+		  'nomcont1': new FormControl('', [
+			Validators.minLength(3),
+			Validators.pattern('[a-zA-Z]{3,254}')
+		  ]),
+		  'telf1': new FormControl('', [
+			Validators.minLength(7),
+			Validators.maxLength(7),
+			Validators.pattern('[0-9]{7,7}')
+		  ]),
+		  'nrocel1': new FormControl('', [
+			Validators.minLength(9),
+			Validators.maxLength(9),
+			Validators.pattern('[0-9]{9,9}')
+		  ]),
+		  'emailcont1': new FormControl('', [
+			Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
+		  ]),
+		  'nomcont2': new FormControl('', [
+			Validators.minLength(3),
+			Validators.pattern('[a-zA-Z]{3,254}')
+		  ]),
+		  'telf2': new FormControl('', [
+			Validators.minLength(7),
+			Validators.maxLength(7),
+			Validators.pattern('[0-9]{7,7}')
+		  ]),
+		  'nrocel2': new FormControl('', [
+			Validators.minLength(9),
+			Validators.maxLength(9),
+			Validators.pattern('[0-9]{9,9}')
+		  ]),
+		  'emailcont2': new FormControl('', [
+			Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
+		  ]),
+		  'nombanco': new FormControl('', [
+			Validators.minLength(3),
+			Validators.pattern('[a-zA-Z]{3,254}')
+		  ]),
+		  'nrocta': new FormControl('', [
+			Validators.minLength(12),
+			Validators.maxLength(14),
+			Validators.pattern('[0-9]{12,14}')
+		  ]),
+		  'nroctainter': new FormControl('', [
+			Validators.minLength(20),
+			Validators.maxLength(20),
+			Validators.pattern('[0-9]{20,20}')
+		  ]),
+		  'obs': new FormControl('', [
+			Validators.maxLength(250)
+		  ])
+		});
 	}
 
 	cargarEditar(next?) {
@@ -170,8 +257,6 @@ export class CrudEmpresaComponent implements OnInit {
 		}
 	}
 
-
-
 	guardar() {
 		if (this.id) {
 			this.editar();
@@ -186,6 +271,8 @@ export class CrudEmpresaComponent implements OnInit {
 	}
 
 	registrar() {
+		this.form.ubigeo_id = this.ubigeo.id;
+		
 		this.api.post('empresas', this.form).subscribe(
 			(data) => {
 				this.handleRegistrar(data);
@@ -223,6 +310,8 @@ export class CrudEmpresaComponent implements OnInit {
 
 	editar() {
 		this.form.edit_user_id = this.user.me();
+		this.form.ubigeo_id = this.ubigeo.id;
+		
 		this.api.put('empresas', this.id, this.form).subscribe(
 			(data) => {
 				this.handleEditar(data);

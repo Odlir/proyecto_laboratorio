@@ -17,7 +17,6 @@ class CreateOrdenAtencionAnalisisTable extends Migration
             $table->id();
             $table->string('analisis');
             $table->string('muestras');
-            $table->dateTime('fecha_hora_atencion');
             $table->char('forma_pago', 1)->comment('1-Contado/2-Transferencia/3-Yape/4-TCredito')->default(1);
             $table->string('factura_boleta');
             $table->char('estado_analisis', 1)->comment('1-Pendiente/2-Atendido/3-Pagado/4-No_Pagado/5-Terminado/6-Anulado')->default(1);

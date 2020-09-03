@@ -18,7 +18,7 @@ export class CrudOrdenAtencionAnalisisTipoMuestrasComponent implements OnInit {
     cantidad: null,
     fecha_muestra: moment().format('YYYY-MM-DD'),
     fecha_entrega: moment().format('YYYY-MM-DD'),
-    estado: null,
+    estado: 1,
 
     insert_user_id: this.user.me(),
     edit_user_id: null,

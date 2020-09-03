@@ -25,8 +25,6 @@ class OrdenAtencionEmpresaController extends Controller
         ->where('rol_id', '2')->where(function ($query) use ($searchValue) {
                 $query->where("id", "LIKE", "%$searchValue%")
                     ->orWhere('nro_orden', "LIKE", "%$searchValue%")
-                    ->orWhere('fecha_registro', "LIKE", "%$searchValue%")
-                    ->orWhere('fecha_actualizacion', "LIKE", "%$searchValue%")
                     ->orWhere('estado', "LIKE", "%$searchValue%");
             });
 

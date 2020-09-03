@@ -7,15 +7,27 @@
 		<ng-template matStepLabel>{{ titulo }} <span *ngIf="id">: {{ form.razon_social }}</span></ng-template>
 		<div class="row data-crud">
 			<div class="col-12">
-				<form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
+				<form (ngSubmit)="guardar()" class="px-4" [formGroup]="formEmpresa" novalidate="" ngNativeValidate>
 					<div class="row">
 						<div class="col-6">
 							<div class="form-group row my-3">
 								<label class="col-sm-4 col-form-label w-100">Nro de Ruc <span
 										class="text-danger">*</span></label>
 								<div class="col-sm-8">
-									<input type="text" name="nroruc" class="form-control" [(ngModel)]="form.nro_ruc"
+									<input type="text" name="nroruc" class="form-control" formControlName="nroruc" [ngClass]="{'is-invalid': !formEmpresa.get('nroruc').valid}" [(ngModel)]="form.nro_ruc"
 										required>
+									<div *ngIf="formEmpresa.controls['nroruc'].errors?.required" class="invalid-feedback">
+										El número de ruc es necesario
+									</div>
+									<div *ngIf="formEmpresa.controls['nroruc'].errors?.minlength" class="invalid-feedback">
+										Por lo menos 11 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['nroruc'].errors?.maxlength" class="invalid-feedback">
+										Por lo máximo 11 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['nroruc'].errors?.pattern" class="invalid-feedback">
+										Escribir solo números
+									</div>
 								</div>
 								<hr>
 							</div>
@@ -24,8 +36,17 @@
 								<label class="col-sm-4 col-form-label w-100">Razón Social <span
 										class="text-danger">*</span></label>
 								<div class="col-sm-8">
-									<input type="text" name="razonsocial" class="form-control" [(ngModel)]="form.razon_social"
+									<input type="text" name="razonsocial" class="form-control" formControlName="razonsocial" [ngClass]="{'is-invalid': !formEmpresa.get('razonsocial').valid}" [(ngModel)]="form.razon_social"
 										required>
+									<div *ngIf="formEmpresa.controls['razonsocial'].errors?.required" class="invalid-feedback">
+										La razón social es necesario
+									</div>
+									<div *ngIf="formEmpresa.controls['razonsocial'].errors?.minlength" class="invalid-feedback">
+										Por lo menos 3 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['razonsocial'].errors?.pattern" class="invalid-feedback">
+										Escribir solo letras
+									</div>
 								</div>
 								<hr>
 							</div>
@@ -33,23 +54,10 @@
 							<div class="form-group row my-3">
 								<label class="col-sm-4 col-form-label w-100">Página Web </label>
 								<div class="col-sm-8">
-									<input type="text" name="pagweb" class="form-control" [(ngModel)]="form.pag_web">
+									<input type="text" name="pagweb" class="form-control" formControlName="pagweb" [ngClass]="{'is-invalid': !formEmpresa.get('pagweb').valid}" [(ngModel)]="form.pag_web">
+									<div *ngIf="formEmpresa.controls['pagweb'].errors?.pattern" class="invalid-feedback">
+										Formato de página web no válido
 								</div>
-								<hr>
-							</div>
-
-							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Latitud</label>
-								<div class="col-sm-8">
-									<input type="text" name="latitud" class="form-control" [(ngModel)]="form.latitud">
-								</div>
-								<hr>
-							</div>
-
-							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Longitud</label>
-								<div class="col-sm-8">
-									<input type="text" name="longitud" class="form-control" [(ngModel)]="form.longitud">
 								</div>
 								<hr>
 							</div>
@@ -58,7 +66,10 @@
 								<label class="col-sm-4 col-form-label w-100">Dirección <span
 									class="text-danger">*</span></label>
 								<div class="col-sm-8">
-									<input type="text" name="direccion" class="form-control" [(ngModel)]="form.direccion" required>
+									<input type="text" name="direccion" class="form-control" formControlName="direccion" [ngClass]="{'is-invalid': !formEmpresa.get('direccion').valid}" [(ngModel)]="form.direccion" required>
+									<div *ngIf="formEmpresa.controls['direccion'].errors?.maxlength" class="invalid-feedback">
+										Por lo máximo 250 caracteres
+									</div>
 								</div>
 								<hr>
 							</div>
@@ -68,7 +79,7 @@
 									class="text-danger">*</span></label>
 								<div class="col-sm-8">
 									<mat-form-field class="example-full-width w-100">
-										<input type="text" [(ngModel)]="ubigeo" matInput name="ubigeo_id" class="form-control"
+										<input type="text" [(ngModel)]="form.ubigeo_id" matInput name="ubigeo_id" class="form-control"
 											   [formControl]="myControl" [matAutocomplete]="auto" required (keyup)="limpiarAutocomplete($event)">
 										<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="cargarUbigeo()">
 											<mat-option *ngFor="let option of filteredUbigeo | async" [value]="option">
@@ -76,18 +87,23 @@
 											</mat-option>
 										</mat-autocomplete>
 									</mat-form-field>
-									<!--<input type="text" name="departs" class="form-control" [(ngModel)]="form.ubigeo_id" required>-->
 								</div>
 								<hr>
 							</div>
 
-
-
 							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Teléfono Fijo <span
-									class="text-danger">*</span></label>
+								<label class="col-sm-4 col-form-label w-100">Teléfono Fijo </label>
 								<div class="col-sm-8">
-									<input type="number" name="telf" class="form-control" [(ngModel)]="form.telf_fijo" required>
+									<input type="text" name="telf" class="form-control" formControlName="telf" [ngClass]="{'is-invalid': !formEmpresa.get('telf').valid}" [(ngModel)]="form.telf_fijo">
+									<div *ngIf="formEmpresa.controls['telf'].errors?.minlength" class="invalid-feedback">
+										Por lo menos 7 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['telf'].errors?.maxlength" class="invalid-feedback">
+										Por lo máximo 7 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['telf'].errors?.pattern" class="invalid-feedback">
+										Escribir solo números
+									</div>
 								</div>
 								<hr>
 							</div>
@@ -96,34 +112,67 @@
 								<label class="col-sm-4 col-form-label w-100">Nro de Celular <span
 									class="text-danger">*</span></label>
 								<div class="col-sm-8">
-									<input type="number" name="nrocel" class="form-control" [(ngModel)]="form.nro_celular" required>
+									<input type="text" name="nrocel" class="form-control" formControlName="nrocel" [ngClass]="{'is-invalid': !formEmpresa.get('nrocel').valid}" [(ngModel)]="form.nro_celular" required>
+									<div *ngIf="formEmpresa.controls['nrocel'].errors?.required" class="invalid-feedback">
+										El número de celular es necesario
+									</div>
+									<div *ngIf="formEmpresa.controls['nrocel'].errors?.minlength" class="invalid-feedback">
+										Por lo menos 9 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['nrocel'].errors?.maxlength" class="invalid-feedback">
+										Por lo máximo 9 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['nrocel'].errors?.pattern" class="invalid-feedback">
+										Escribir solo números
+									</div>
 								</div>
 								<hr>
 							</div>
 
 							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Nombre de Contacto 1 <span
-									class="text-danger">*</span></label>
+								<label class="col-sm-4 col-form-label w-100">Nombre de Contacto 1 </label>
 								<div class="col-sm-8">
-									<input type="text" name="nomcont1" class="form-control" [(ngModel)]="form.nombre_contacto1" required>
+									<input type="text" name="nomcont1" class="form-control" formControlName="nomcont1" [ngClass]="{'is-invalid': !formEmpresa.get('nomcont1').valid}" [(ngModel)]="form.nombre_contacto1">
+									<div *ngIf="formEmpresa.controls['nomcont1'].errors?.minlength" class="invalid-feedback">
+										Por lo menos 3 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['nomcont1'].errors?.pattern" class="invalid-feedback">
+										Escribir solo letras
+									</div>
 								</div>
 								<hr>
 							</div>
 
 							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Telefono Fijo 1 <span
-									class="text-danger">*</span></label>
+								<label class="col-sm-4 col-form-label w-100">Telefono Fijo 1 </label>
 								<div class="col-sm-8">
-									<input type="number" name="telf1" class="form-control" [(ngModel)]="form.telf_fijo1" required>
+									<input type="text" name="telf1" class="form-control" formControlName="telf1" [ngClass]="{'is-invalid': !formEmpresa.get('telf1').valid}" [(ngModel)]="form.telf_fijo1">
+									<div *ngIf="formEmpresa.controls['telf1'].errors?.minlength" class="invalid-feedback">
+										Por lo menos 7 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['telf1'].errors?.maxlength" class="invalid-feedback">
+										Por lo máximo 7 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['telf1'].errors?.pattern" class="invalid-feedback">
+										Escribir solo números
+									</div>
 								</div>
 								<hr>
 							</div>
 
 							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Nro de Celular 1 <span
-									class="text-danger">*</span></label>
+								<label class="col-sm-4 col-form-label w-100">Nro de Celular 1 </label>
 								<div class="col-sm-8">
-									<input type="number" name="nrocel1" class="form-control" [(ngModel)]="form.nro_celular1" required>
+									<input type="text" name="nrocel1" class="form-control" formControlName="nrocel1" [ngClass]="{'is-invalid': !formEmpresa.get('nrocel1').valid}" [(ngModel)]="form.nro_celular1">
+									<div *ngIf="formEmpresa.controls['nrocel1'].errors?.minlength" class="invalid-feedback">
+										Por lo menos 9 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['nrocel1'].errors?.maxlength" class="invalid-feedback">
+										Por lo máximo 9 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['nrocel1'].errors?.pattern" class="invalid-feedback">
+										Escribir solo números
+									</div>
 								</div>
 								<hr>
 							</div>
@@ -131,10 +180,12 @@
 
 						<div class="col-6">
 							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Correo de Contacto 1 <span
-									class="text-danger">*</span></label>
+								<label class="col-sm-4 col-form-label w-100">Correo de Contacto 1 </label>
 								<div class="col-sm-8">
-									<input type="email" name="emailcont1" class="form-control" [(ngModel)]="form.email_contacto1" required>
+									<input type="email" name="emailcont1" class="form-control" formControlName="emailcont1" [ngClass]="{'is-invalid': !formEmpresa.get('emailcont1').valid}" [(ngModel)]="form.email_contacto1">
+									<div *ngIf="formEmpresa.controls['emailcont1'].errors?.pattern" class="invalid-feedback">
+										Formato de correo no válido
+									</div>
 								</div>
 								<hr>
 							</div>
@@ -142,7 +193,13 @@
 							<div class="form-group row my-3">
 								<label class="col-sm-4 col-form-label w-100">Nombre de Contacto 2</label>
 								<div class="col-sm-8">
-									<input type="text" name="nomcont2" class="form-control" [(ngModel)]="form.nombre_contacto2">
+									<input type="text" name="nomcont2" class="form-control" formControlName="nomcont2" [ngClass]="{'is-invalid': !formEmpresa.get('nomcont2').valid}" [(ngModel)]="form.nombre_contacto2">
+									<div *ngIf="formEmpresa.controls['nomcont2'].errors?.minlength" class="invalid-feedback">
+										Por lo menos 3 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['nomcont2'].errors?.pattern" class="invalid-feedback">
+										Escribir solo letras
+									</div>
 								</div>
 								<hr>
 							</div>
@@ -150,7 +207,16 @@
 							<div class="form-group row my-3">
 								<label class="col-sm-4 col-form-label w-100">Teléfono Fijo 2</label>
 								<div class="col-sm-8">
-									<input type="number" name="telf2" class="form-control" [(ngModel)]="form.telf_fijo2">
+									<input type="text" name="telf2" class="form-control" formControlName="telf2" [ngClass]="{'is-invalid': !formEmpresa.get('telf2').valid}" [(ngModel)]="form.telf_fijo2">
+									<div *ngIf="formEmpresa.controls['telf2'].errors?.minlength" class="invalid-feedback">
+										Por lo menos 7 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['telf2'].errors?.maxlength" class="invalid-feedback">
+										Por lo máximo 7 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['telf2'].errors?.pattern" class="invalid-feedback">
+										Escribir solo números
+									</div>
 								</div>
 								<hr>
 							</div>
@@ -158,7 +224,16 @@
 							<div class="form-group row my-3">
 								<label class="col-sm-4 col-form-label w-100">Nro de Celular 2</label>
 								<div class="col-sm-8">
-									<input type="number" name="nrocel2" class="form-control" [(ngModel)]="form.nro_celular2">
+									<input type="text" name="nrocel2" class="form-control" formControlName="nrocel2" [ngClass]="{'is-invalid': !formEmpresa.get('nrocel2').valid}" [(ngModel)]="form.nro_celular2">
+									<div *ngIf="formEmpresa.controls['nrocel2'].errors?.minlength" class="invalid-feedback">
+										Por lo menos 9 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['nrocel2'].errors?.maxlength" class="invalid-feedback">
+										Por lo máximo 9 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['nrocel2'].errors?.pattern" class="invalid-feedback">
+										Escribir solo números
+									</div>
 								</div>
 								<hr>
 							</div>
@@ -166,55 +241,72 @@
 							<div class="form-group row my-3">
 								<label class="col-sm-4 col-form-label w-100">Correo de Contacto 2</label>
 								<div class="col-sm-8">
-									<input type="email" name="emailcont2" class="form-control" [(ngModel)]="form.email_contacto2">
+									<input type="email" name="emailcont2" class="form-control" formControlName="emailcont2" [ngClass]="{'is-invalid': !formEmpresa.get('emailcont2').valid}" [(ngModel)]="form.email_contacto2">
+									<div *ngIf="formEmpresa.controls['emailcont2'].errors?.pattern" class="invalid-feedback">
+										Formato de correo no válido
+									</div>
 								</div>
 								<hr>
 							</div>
 
 							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Nombre de Banco  <span
-									class="text-danger">*</span></label>
+								<label class="col-sm-4 col-form-label w-100">Nombre de Banco </label>
 								<div class="col-sm-8">
-									<input type="text" name="nombanco" class="form-control" [(ngModel)]="form.nombre_banco" required>
+									<input type="text" name="nombanco" class="form-control" formControlName="nombanco" [ngClass]="{'is-invalid': !formEmpresa.get('nombanco').valid}" [(ngModel)]="form.nombre_banco">
+									<div *ngIf="formEmpresa.controls['nombanco'].errors?.minlength" class="invalid-feedback">
+										Por lo menos 3 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['nombanco'].errors?.pattern" class="invalid-feedback">
+										Escribir solo letras
+									</div>
 								</div>
 								<hr>
 							</div>
 
 							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Nro de Cuenta  <span
-									class="text-danger">*</span></label>
+								<label class="col-sm-4 col-form-label w-100">Nro de Cuenta </label>
 								<div class="col-sm-8">
-									<input type="text" name="nrocta" class="form-control" [(ngModel)]="form.nro_cta" required>
+									<input type="text" name="nrocta" class="form-control" formControlName="nrocta" [ngClass]="{'is-invalid': !formEmpresa.get('nrocta').valid}" [(ngModel)]="form.nro_cta">
+									<div *ngIf="formEmpresa.controls['nrocta'].errors?.minlength" class="invalid-feedback">
+										Por lo menos 12 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['nrocta'].errors?.maxlength" class="invalid-feedback">
+										Por lo máximo 14 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['nrocta'].errors?.pattern" class="invalid-feedback">
+										Escribir solo números
+									</div>
 								</div>
 								<hr>
 							</div>
 
 							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Nro de Cuenta Interbancaria  <span
-									class="text-danger">*</span></label>
+								<label class="col-sm-4 col-form-label w-100">Nro de Cuenta Interbancaria </label>
 								<div class="col-sm-8">
-									<input type="text" name="nroctainter" class="form-control" [(ngModel)]="form.nro_cta_interbancaria" required>
+									<input type="text" name="nroctainter" class="form-control" formControlName="nroctainter" [ngClass]="{'is-invalid': !formEmpresa.get('nroctainter').valid}" [(ngModel)]="form.nro_cta_interbancaria">
+									<div *ngIf="formEmpresa.controls['nroctainter'].errors?.minlength" class="invalid-feedback">
+										Por lo menos 20 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['nroctainter'].errors?.maxlength" class="invalid-feedback">
+										Por lo máximo 20 caracteres
+									</div>
+									<div *ngIf="formEmpresa.controls['nroctainter'].errors?.pattern" class="invalid-feedback">
+										Escribir solo números
+									</div>
 								</div>
 								<hr>
 							</div>
 
 							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Observaciones 1</label>
+								<label class="col-sm-4 col-form-label w-100">Observaciones</label>
 								<div class="col-sm-8">
-									<input type="text" name="obs1" class="form-control" [(ngModel)]="form.observaciones1">
+									<textarea type="text" name="obs" class="form-control" formControlName="obs" [ngClass]="{'is-invalid': !formEmpresa.get('obs').valid}" [(ngModel)]="form.observaciones"></textarea>
+									<div *ngIf="formEmpresa.controls['obs'].errors?.maxlength" class="invalid-feedback">
+										Por lo máximo 250 caracteres
+									</div>
 								</div>
 								<hr>
 							</div>
-
-							<div class="form-group row my-3">
-								<label class="col-sm-4 col-form-label w-100">Observaciones 2</label>
-								<div class="col-sm-8">
-									<input type="text" name="obs2" class="form-control" [(ngModel)]="form.observaciones2">
-								</div>
-								<hr>
-							</div>
-
-
 
 							<div class="form-group row mt-5">
 								<div class="col-12">

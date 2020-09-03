@@ -14,7 +14,6 @@ class Muestras extends Model
         'descripcion',
         'p_unitario',
         'observaciones',
-        'fecha_hora_creacion',
         'estado',
         'rol_id',
         'insert_user_id',

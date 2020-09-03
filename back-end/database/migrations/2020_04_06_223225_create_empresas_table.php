@@ -16,10 +16,8 @@ class CreateEmpresasTable extends Migration
         Schema::create('empresas', function (Blueprint $table) {
             $table->id();
             $table->integer('nro_ruc');
-            $table->string('razon_social', 300);
+            $table->string('razon_social', 250);
             $table->string('pag_web')->nullable();
-            $table->string('latitud')->nullable();
-            $table->string('longitud')->nullable();
             $table->string('direccion');
             $table->integer('telf_fijo')->nullable();
             $table->integer('nro_celular')->nullable();
@@ -34,8 +32,7 @@ class CreateEmpresasTable extends Migration
             $table->string('nombre_banco')->nullable();
             $table->integer('nro_cta')->nullable();
             $table->integer('nro_cta_interbancaria')->nullable();
-            $table->text('observaciones1')->nullable();
-            $table->text('observaciones2')->nullable();
+            $table->text('observaciones')->nullable();
             $table->char('estado', 1)->comment('0-Inactivo/1-Activo')->default(1);
 
             $table->unsignedBigInteger('ubigeo_id');

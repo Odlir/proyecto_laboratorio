@@ -1,10 +1,22 @@
+import { MatStepper } from '@angular/material/stepper';
 import { RoutingStateService } from '../../../Services/routing/routing-state.service';
 import { HttpParams } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from '../../../Services/token/token.service';
 import { ApiBackRequestService } from '../../../Services/api-back-request.service';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
+import {ReactiveFormsModule} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {map, startWith} from "rxjs/operators";
+
+export interface Ubigeo {
+    ubigeo: string,
+    distrito: string,
+    provincia: string,
+    departamento: string,
+	  id: number,
+}
 
 @Component({
   selector: 'app-crud-paciente',
@@ -12,6 +24,12 @@ import * as moment from 'moment';
   styleUrls: ['./crud-paciente.component.css']
 })
 export class CrudPacienteComponent implements OnInit {
+  
+	firstFormGroup: FormGroup;
+	secondFormGroup: FormGroup;
+	myControl = new FormControl();
+
+	@ViewChild('stepper') stepper: MatStepper;
 
   public form = {
     tipo_documento: null,
@@ -26,15 +44,11 @@ export class CrudPacienteComponent implements OnInit {
     email: null,
     grupo_sanguineo: null,
     direccion: null,
-    latitud: null,
-    longitud: null,
-    departamento: null,
-    provincia: null,
     referencias: null,
     tipo_paciente: null,
-    observaciones1: null,
-    observaciones2: null,
-    estado: null,
+    observaciones: null,
+    estado: 1,
+    ubigeo_id: null,
 
     insert_user_id: this.user.me(),
     edit_user_id: null,
@@ -44,12 +58,28 @@ export class CrudPacienteComponent implements OnInit {
     updated_at: null
   };
 
+  formPaciente: FormGroup;
+
+  public ubigeos: Ubigeo[] = [];
+
+	public ubigeo = {
+	  id: null,
+		ubigeo: null,
+		distrito: null,
+		provincia: null,
+		departamento: null
+	}
+
+	filteredUbigeo: any;
+  public disabled: boolean = false;
+  
+  public showProgress: boolean = false;
+
   public id: HttpParams;
 
   public encuesta_id: HttpParams
 
   previousUrl: string;
-
 
   constructor(
     private api: ApiBackRequestService,
@@ -62,21 +92,140 @@ export class CrudPacienteComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(async params => {
       this.id = params.id;
       this.encuesta_id = params.encuesta_id;
-      if (this.id != null) {
-        this.cargarEditar();
-      }
+      let tab = params.tab;
+			if (this.id != null) {
+				if (tab != null) {
+					this.cargarEditar(1);
+				}
+				else {
+					this.cargarEditar();
+				}
+			}
     });
-
+    
     this.previousUrl = this.routingState.getPreviousUrl();
+    this.fetch();
+    this.validarDatos();
   }
 
-  cargarEditar() {
+  validarDatos() {
+    this.formPaciente = new FormGroup({
+      'nrodoc': new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(11),
+        Validators.pattern('[0-9]{8,11}')
+      ]),
+      'nombres': new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.pattern('[a-zA-Z]{3,254}')
+      ]),
+      'apepaterno': new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.pattern('[a-zA-Z]{3,254}')
+      ]),
+      'apematerno': new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.pattern('[a-zA-Z]{3,254}')
+      ]),
+      'nrocel': new FormControl('', [
+        Validators.required,
+        Validators.minLength(9),
+        Validators.maxLength(9),
+        Validators.pattern('[0-9]{9,9}')
+      ]),
+      'email': new FormControl('', [
+        Validators.required,
+        Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
+      ]),
+      'gruposan': new FormControl('', [
+        Validators.maxLength(4),
+        Validators.pattern('[a-zA-Z+-]')
+      ]),
+      'direccion': new FormControl('', [
+        Validators.maxLength(250)
+      ]),
+      'refer': new FormControl('', [
+        Validators.maxLength(250)
+      ]),
+      'obs': new FormControl('', [
+        Validators.maxLength(250)
+      ])
+    });
+  }
+
+  ageCalculator(){
+    if(this.form.fecha_nacimiento){
+      const convertAge = new Date(this.form.fecha_nacimiento);
+      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
+      this.form.edad = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
+    }  
+  }
+  
+  cargarEditar(next?) {
     this.api.get('personas', this.id).subscribe(
       (data) => {
-        this.form = data
+        this.form = data;
+        this.stepper.selected.completed = true;
+          if (next) {
+            this.stepper.next();
+          }
         }
       );
   }
+
+  cargarUbigeo(e) {
+		this.api.get('ubigeo?search=' + e).subscribe(
+			data => {
+				this.ubigeos = data;
+			}
+		);
+	}
+
+	async fetch() {
+		await this.api.get('ubigeo').toPromise() //ESTO LO PUSE ASINCRONO PARA QUE EL AUTOCOMPLETAR FUNCIONE
+			.then(
+				(data) => { this.ubigeos = data }
+			);
+
+		this.filteredUbigeo = this.myControl.valueChanges.pipe(
+			startWith(null),
+			map(ubigeo => ubigeo && typeof ubigeo === 'object' ? ubigeo.departamento : ubigeo),
+			map(ubigeo => ubigeo && typeof ubigeo === 'object' ? ubigeo.provincia : ubigeo),
+			map(ubigeo => ubigeo && typeof ubigeo === 'object' ? ubigeo.distrito : ubigeo),
+			map(ubigeo => this.filterStates(ubigeo))
+		);
+	}
+
+	filterStates(val) {
+		return val ? this.ubigeos.filter(s => s.departamento.toLowerCase().indexOf(val.toLowerCase()) != -1)
+			: this.ubigeos;
+		return val ? this.ubigeos.filter(s => s.provincia.toLowerCase().indexOf(val.toLowerCase()) != -1)
+			: this.ubigeos;
+		return val ? this.ubigeos.filter(s => s.distrito.toLowerCase().indexOf(val.toLowerCase()) != -1)
+			: this.ubigeos;
+	}
+
+	displayFn(ubigeo): string {
+		return ubigeo ? ubigeo.departamento : ubigeo;
+		return ubigeo ? ubigeo.provincia : ubigeo;
+		return ubigeo ? ubigeo.distrito : ubigeo;
+	}
+
+	limpiar() {
+		this.form.ubigeo_id = null;
+		this.showProgress = false;
+	}
+
+	limpiarAutocomplete(e) {
+		console.log('kasumi', e.target.value);
+		if (e.target.value.length > 3) {
+			this.cargarUbigeo(e.target.value);
+		}
+	}
 
   guardar() {
     if (this.id) {
@@ -88,6 +237,8 @@ export class CrudPacienteComponent implements OnInit {
   }
 
   registrar() {
+    this.form.ubigeo_id = this.ubigeo.id;
+    
     this.api.post('personas', this.form).subscribe(
       (data) => {
         this.return()
@@ -97,7 +248,8 @@ export class CrudPacienteComponent implements OnInit {
 
   editar() {
     this.form.edit_user_id = this.user.me();
-
+    this.form.ubigeo_id = this.ubigeo.id;
+    
     this.api.put('personas', this.id, this.form).subscribe(
       (data) => {
         this.return()

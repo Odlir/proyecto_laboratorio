@@ -72,8 +72,6 @@ import { AnalisisComponent } from './components/analisis/analisis.component';
 import { OrdenAtencionComponent } from './components/orden-atencion/orden-atencion.component';
 import { CrudOrdenAtencionComponent } from './components/orden-atencion/crud-orden-atencion/crud-orden-atencion/crud-orden-atencion.component';
 import { DetalleOrdenAtencionComponent } from './components/orden-atencion/detalle-orden-atencion/detalle-orden-atencion/detalle-orden-atencion.component';
-import { UbigeoComponent } from './components/ubigeo/ubigeo.component';
-import { CrudUbigeoComponent } from './components/ubigeo/crud-ubigeo/crud-ubigeo/crud-ubigeo.component';
 import { OrdenAtencionEmpresaComponent } from './components/orden-atencion/orden-atencion-empresa/orden-atencion-empresa.component';
 import { CrudOrdenAtencionEmpresaComponent } from './components/orden-atencion/orden-atencion-empresa/crud-orden-atencion-empresa/crud-orden-atencion-empresa.component';
 import { DetalleOrdenAtencionEmpresaComponent } from './components/orden-atencion/orden-atencion-empresa/detalle-orden-atencion-empresa/detalle-orden-atencion-empresa.component';
@@ -132,8 +130,6 @@ import { DetalleOrdenAtencionAnalisisTipoMuestrasComponent } from './components/
 		OrdenAtencionComponent,
 		DetalleOrdenAtencionComponent,
 		CrudOrdenAtencionComponent,
-		UbigeoComponent,
-		CrudUbigeoComponent,
 		CrudOrdenAtencionAnalisisComponent,
 		OrdenAtencionAnalisisComponent,
 		CrudOrdenAtencionAnalisisTipoAnalisisComponent,

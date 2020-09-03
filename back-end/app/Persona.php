@@ -22,15 +22,11 @@ class Persona extends Model
         'email',
         'grupo_sanguineo',
         'direccion',
-        'latitud',
-        'longitud',
-        'departamento',
-        'provincia',
         'referencias',
         'tipo_paciente',
-        'observaciones1',
-        'observaciones2',
+        'observaciones',
         'estado',
+        'ubigeo_id',
         'rol_id',
         'insert_user_id',
         'edit_user_id'
@@ -53,15 +49,11 @@ class Persona extends Model
             $model->email = $model->sinTilde('email', $model->email);
             $model->grupo_sanguineo = $model->sinTilde('grupo_sanguineo', $model->grupo_sanguineo);
             $model->direccion = $model->sinTilde('direccion', $model->direccion);
-            $model->latitud = $model->sinTilde('latitud', $model->latitud);
-            $model->longitud = $model->sinTilde('longitud', $model->longitud);
-            $model->departamento = $model->sinTilde('departamento', $model->departamento);
-            $model->provincia = $model->sinTilde('provincia', $model->provincia);
             $model->referencias = $model->sinTilde('referencias', $model->referencias);
             $model->tipo_paciente = $model->sinTilde('tipo_paciente', $model->tipo_paciente);
-            $model->observaciones1 = $model->sinTilde('observaciones1', $model->observaciones1);
-            $model->observaciones2 = $model->sinTilde('observaciones2', $model->observaciones2);
+            $model->observaciones = $model->sinTilde('observaciones', $model->observaciones);
             $model->estado = $model->sinTilde('estado', $model->estado);
+            $model->ubigeo_id = $model->sinTilde('ubigeo_id', $model->ubigeo_id);
 
             $model->tipo_documento = $model->setUpperCase('tipo_documento', $model->tipo_documento);
             $model->nro_documento = $model->setUpperCase('nro_documento', $model->nro_documento);
@@ -75,15 +67,11 @@ class Persona extends Model
             $model->email = $model->setUpperCase('email', $model->email);
             $model->grupo_sanguineo = $model->setUpperCase('grupo_sanguineo', $model->grupo_sanguineo);
             $model->direccion = $model->setUpperCase('direccion', $model->direccion);
-            $model->latitud = $model->setUpperCase('latitud', $model->latitud);
-            $model->longitud = $model->setUpperCase('longitud', $model->longitud);
-            $model->departamento = $model->setUpperCase('departamento', $model->departamento);
-            $model->provincia = $model->setUpperCase('provincia', $model->provincia);
             $model->referencias = $model->setUpperCase('referencias', $model->referencias);
             $model->tipo_paciente = $model->setUpperCase('tipo_paciente', $model->tipo_paciente);
-            $model->observaciones1 = $model->setUpperCase('observaciones1', $model->observaciones1);
-            $model->observaciones2 = $model->setUpperCase('observaciones2', $model->observaciones2);
+            $model->observaciones = $model->setUpperCase('observaciones', $model->observaciones);
             $model->estado = $model->setUpperCase('estado', $model->estado);
+            $model->ubigeo_id = $model->setUpperCase('ubigeo_id', $model->ubigeo_id);
         });
     }
 

@@ -9,7 +9,7 @@
 <div class="widget clearfix mt-5">
 	<div class="whead clearfix">
 		<p><span *ngIf="id;else templateName">EDITAR </span>ORDEN DE ATENCIÓN DE ANÁLISIS <span *ngIf="id">: {{ form.analisis }}
-                {{ form.muestras }} {{ form.fecha_hora_atencion }} {{ form.forma_pago }}</span></p>
+                {{ form.muestras }} {{ form.created_at }} {{ form.forma_pago }}</span></p>
 		<ng-template #templateName>
 			CREAR
 		</ng-template>
@@ -39,14 +39,6 @@
 							<hr>
 						</div>
 		
-						<div class="form-group row my-3">
-							<label class="col-sm-4 col-form-label w-100">Fecha y Hora de Atención <span class="text-danger">*</span></label>
-							<div class="col-sm-8">
-								<input type="datetime-local" name="fechahoraaten" class="form-control" [(ngModel)]="form.fecha_hora_atencion" required>
-							</div>
-							<hr>
-						</div>
-        
                         <div class="form-group row my-3">
 							<label class="col-sm-4 col-form-label w-100">Forma de Pago <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
@@ -80,18 +72,6 @@
                                     <option value="4">NO PAGADO</option>
                                     <option value="5">TERMINADO</option>
 									<option value="6">ANULADO</option>
-								</select>
-							</div>
-							<hr>
-						</div>
-
-						<div class="form-group row my-3">
-							<label class="col-sm-4 col-form-label w-100">Estado <span class="text-danger">*</span></label>
-							<div class="col-sm-8">
-								<select name="estado" id="" class="form-control" [(ngModel)]="form.estado" required>
-									<option [ngValue]="null" [disabled]="true" >Elige una opción</option>
-									<option value="0">DESACTIVO</option>
-									<option value="1">ACTIVO</option>
 								</select>
 							</div>
 							<hr>

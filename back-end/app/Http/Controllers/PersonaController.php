@@ -36,15 +36,11 @@ class PersonaController extends Controller
                     ->orWhere('email', "LIKE", "%$searchValue%")
                     ->orWhere('grupo_sanguineo', "LIKE", "%$searchValue%")
                     ->orWhere('direccion', "LIKE", "%$searchValue%")
-                    ->orWhere('latitud', "LIKE", "%$searchValue%")
-                    ->orWhere('longitud', "LIKE", "%$searchValue%")
-                    ->orWhere('departamento', "LIKE", "%$searchValue%")
-                    ->orWhere('provincia', "LIKE", "%$searchValue%")
                     ->orWhere('referencias', "LIKE", "%$searchValue%")
                     ->orWhere('tipo_paciente', "LIKE", "%$searchValue%")
-                    ->orWhere('observaciones1', "LIKE", "%$searchValue%")
-                    ->orWhere('observaciones2', "LIKE", "%$searchValue%")
-                    ->orWhere('estado', "LIKE", "%$searchValue%");
+                    ->orWhere('observaciones', "LIKE", "%$searchValue%")
+                    ->orWhere('estado', "LIKE", "%$searchValue%")
+                    ->orWhere('ubigeo_id', "LIKE", "%$searchValue%");
             });
 
         if (!$paginate) {

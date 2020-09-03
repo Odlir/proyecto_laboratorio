@@ -28,7 +28,6 @@ class MuestraController extends Controller
                     ->orWhere('descripcion', "LIKE", "%$searchValue%")
                     ->orWhere('p_unitario', "LIKE", "%$searchValue%")
                     ->orWhere('observaciones', "LIKE", "%$searchValue%")
-                    ->orWhere('fecha_hora_creacion', "LIKE", "%$searchValue%")
                     ->orWhere('estado', "LIKE", "%$searchValue%");
             });
 

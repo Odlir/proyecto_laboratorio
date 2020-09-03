@@ -16,11 +16,10 @@ export class CrudOrdenAtencionAnalisisComponent implements OnInit {
   public form = {
     analisis: null,
     muestras: null,
-    fecha_hora_atencion: moment().format('YYYY-MM-DD HH:MM:SS'),
     forma_pago: null,
     factura_boleta: null,
     estado_analisis: null,
-    estado: null,
+    estado: 1,
 
     insert_user_id: this.user.me(),
     edit_user_id: null,

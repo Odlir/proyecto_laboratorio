@@ -5,6 +5,7 @@ import { TokenService } from 'src/app/Services/token/token.service';
 import { ApiBackRequestService } from 'src/app/Services/api-back-request.service';
 import { Component, OnInit} from '@angular/core';
 import * as moment from 'moment';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-crud-analisis',
@@ -18,8 +19,7 @@ export class CrudAnalisisComponent implements OnInit {
     descripcion: null,
     p_unitario: null,
     observaciones: null,
-    fecha_hora_creacion: moment().format('YYYY-MM-DD HH:MM:SS'),
-    estado: null,
+    estado: 1,
 
     insert_user_id: this.user.me(),
     edit_user_id: null,
@@ -28,6 +28,8 @@ export class CrudAnalisisComponent implements OnInit {
     created_at: null,
     updated_at: null
   };
+
+  formAnalisis: FormGroup;
 
   public id: HttpParams;
 
@@ -53,6 +55,27 @@ export class CrudAnalisisComponent implements OnInit {
     });
 
     this.previousUrl = this.routingState.getPreviousUrl();
+    
+    this.validarDatos();
+  }
+
+  validarDatos() {
+    this.formAnalisis = new FormGroup({
+      'nroanalisis': new FormControl('', [
+        Validators.required,
+        Validators.pattern('[0-9]')
+      ]),
+      'desc': new FormControl('', [
+        Validators.maxLength(250)
+      ]),
+      'punit': new FormControl('', [
+        Validators.required,
+        Validators.pattern('[0-9]')
+      ]),
+      'obs': new FormControl('', [
+        Validators.maxLength(250)
+      ])
+    });
   }
 
   cargarEditar() {

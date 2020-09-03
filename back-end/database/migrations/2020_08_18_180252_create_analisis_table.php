@@ -19,7 +19,6 @@ class CreateAnalisisTable extends Migration
             $table->text('descripcion');
             $table->double('p_unitario', 10, 2);
             $table->text('observaciones')->nullable();
-            $table->dateTime('fecha_hora_creacion');
             $table->char('estado', 1)->comment('0-Desactivo/1-Activo')->default(1);
 
             $table->unsignedBigInteger('rol_id');

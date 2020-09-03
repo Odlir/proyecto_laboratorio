@@ -15,9 +15,7 @@ export class CrudOrdenAtencionEmpresaComponent implements OnInit {
 
   public form = {
     nro_orden: null,
-    fecha_registro: moment().format('YYYY-MM-DD'),
-    fecha_actualizacion: moment().format('YYYY-MM-DD'),
-    estado: null,
+    estado: 1,
 
     insert_user_id: this.user.me(),
     edit_user_id: null,

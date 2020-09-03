@@ -5,18 +5,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\MyTrait;
 
-class OrdenAtencionEmpresa extends Model
+class Especialidad extends Model
 {
     use MyTrait;
 
-    protected $table = 'orden_atencion_empresa';
-    
+    protected $table = 'especialidades';
+
     protected $fillable = [
-        'nro_orden',
-        'estado',
-        'rol_id',
-        'insert_user_id',
-        'edit_user_id'
+        'codigo',
+        'nombre'
     ];
 
     public static function boot()
@@ -24,11 +21,11 @@ class OrdenAtencionEmpresa extends Model
         parent::boot();
         static::saving(function ($model) {
 
-            $model->nro_orden = $model->sinTilde('nro_orden', $model->nro_orden);
-            $model->estado = $model->sinTilde('estado', $model->estado);
+            $model->codigo = $model->sinTilde('codigo', $model->codigo);
+            $model->nombre = $model->sinTilde('nombre', $model->nombre);
 
-            $model->nro_orden = $model->setUpperCase('nro_orden', $model->nro_orden);
-            $model->estado = $model->setUpperCase('estado', $model->estado);
+            $model->codigo = $model->setUpperCase('codigo', $model->codigo);
+            $model->nombre = $model->setUpperCase('nombre', $model->nombre);
         });
     }
 

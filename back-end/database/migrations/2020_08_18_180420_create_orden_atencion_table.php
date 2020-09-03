@@ -16,8 +16,6 @@ class CreateOrdenAtencionTable extends Migration
         Schema::create('orden_atencion', function (Blueprint $table) {
             $table->id();
             $table->integer('nro_atencion');
-            $table->date('fecha_atencion');
-            $table->time('hora_atencion');
             $table->string('paciente');
             $table->string('analisis');
             $table->char('estado', 1)->comment('0-Desactivo/1-Activo')->default(1);

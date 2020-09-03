@@ -26,7 +26,6 @@ class OrdenAtencionAnalisisController extends Controller
                 $query->where("id", "LIKE", "%$searchValue%")
                     ->orWhere('analisis', "LIKE", "%$searchValue%")
                     ->orWhere('muestras', "LIKE", "%$searchValue%")
-                    ->orWhere('fecha_hora_atencion', "LIKE", "%$searchValue%")
                     ->orWhere('forma_pago', "LIKE", "%$searchValue%")
                     ->orWhere('factura_boleta', "LIKE", "%$searchValue%")
                     ->orWhere('estado_analisis', "LIKE", "%$searchValue%")

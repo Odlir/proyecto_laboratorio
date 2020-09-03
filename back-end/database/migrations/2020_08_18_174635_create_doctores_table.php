@@ -15,13 +15,12 @@ class CreateDoctoresTable extends Migration
     {
         Schema::create('doctores', function (Blueprint $table) {
             $table->id();
-            $table->char('tipo_documento', 1)->comment('1-Dni/2-Pasaporte')->default(1);
+            $table->char('tipo_documento', 1)->comment('1-Dni/2-Ruc')->default(1);
             $table->integer('nro_documento');
             $table->string('nombres');
             $table->string('apellido_materno')->nullable();
             $table->string('apellido_paterno');
             $table->string('firma');
-            $table->string('especialidad');
             $table->integer('nro_colegiatura');
             $table->date('fecha_nacimiento');
             $table->integer('edad');
@@ -29,15 +28,16 @@ class CreateDoctoresTable extends Migration
             $table->integer('nro_celular')->nullable();
             $table->string('email')->nullable();
             $table->string('direccion');
-            $table->string('latitud')->nullable();
-            $table->string('longitud')->nullable();
-            $table->string('departamento');
-            $table->string('provincia');
             $table->text('referencias')->nullable();
-            $table->char('tipo_paciente', 1)->comment('1-Nuevo/2-Antiguo')->default(1);
-            $table->text('observaciones1')->nullable();
-            $table->text('observaciones2')->nullable();
+            $table->char('tipo_doctor', 1)->comment('1-Nuevo/2-Antiguo')->default(1);
+            $table->text('observaciones')->nullable();
             $table->char('estado', 1)->comment('0-Desactivo/1-Activo')->default(1);
+
+            $table->unsignedBigInteger('especialidad_id');
+            $table->foreign('especialidad_id')->references('id')->on('especialidades');
+
+            $table->unsignedBigInteger('ubigeo_id');
+            $table->foreign('ubigeo_id')->references('id')->on('ubigeo');
 
             $table->unsignedBigInteger('rol_id');
             $table->foreign('rol_id')->references('id')->on('roles');

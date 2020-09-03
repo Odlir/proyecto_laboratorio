@@ -17,7 +17,7 @@ export class CrudOrdenAtencionAnalisisTipoAnalisisComponent implements OnInit {
     cantidad: null,
     p_unitario: null,
     total: null,
-    estado: null,
+    estado: 1,
 
     insert_user_id: this.user.me(),
     edit_user_id: null,
