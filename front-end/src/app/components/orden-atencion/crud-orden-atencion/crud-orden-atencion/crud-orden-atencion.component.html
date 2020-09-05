@@ -16,15 +16,21 @@
 	</div>
 	<div class="row data-crud">
 		<div class="col-12">
-			<form (ngSubmit)="guardar()" class="px-4" ngNativeValidate>
+			<form (ngSubmit)="guardar()" class="px-4" [formGroup]="formOrdenAtencion" novalidate="">
 				<div class="row">
 					<div class="col-6">	
 						<div class="form-group row my-3">
 							<label class="col-sm-4 col-form-label w-100">Nro Atención <span
 									class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="nroaten" class="form-control" [(ngModel)]="form.nro_atencion"
+								<input type="text" name="nroaten" class="form-control" formControlName="nroaten" [ngClass]="{'is-invalid': !formOrdenAtencion.get('nroaten').valid}" [(ngModel)]="form.nro_atencion"
 									required/>
+								<div *ngIf="formOrdenAtencion.controls['nroaten'].errors?.required" class="invalid-feedback">
+									El número de orden de atención es necesario
+								</div>
+								<div *ngIf="formOrdenAtencion.controls['nroaten'].errors?.pattern" class="invalid-feedback">
+									Escribir solo números
+								</div>
 							</div>
 							<hr>
 						</div>
@@ -32,7 +38,10 @@
 						<div class="form-group row my-3">
 							<label class="col-sm-4 col-form-label w-100">Paciente <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="paciente" class="form-control" [(ngModel)]="form.paciente" required>
+								<input type="text" name="paciente" class="form-control" formControlName="paciente" [ngClass]="{'is-invalid': !formOrdenAtencion.get('paciente').valid}" [(ngModel)]="form.paciente" required>
+								<div *ngIf="formOrdenAtencion.controls['paciente'].errors?.required" class="invalid-feedback">
+									El paciente es necesario
+								</div>
 							</div>
 							<hr>
 						</div>
@@ -40,7 +49,10 @@
 						<div class="form-group row my-3">
 							<label class="col-sm-4 col-form-label w-100">Análisis <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="analisis" class="form-control" [(ngModel)]="form.analisis" required>
+								<input type="text" name="analisis" class="form-control" formControlName="analisis" [ngClass]="{'is-invalid': !formOrdenAtencion.get('analisis').valid}" [(ngModel)]="form.analisis" required>
+								<div *ngIf="formOrdenAtencion.controls['analisis'].errors?.required" class="invalid-feedback">
+									El análisis es necesario
+								</div>
 							</div>
 							<hr>
 						</div>
@@ -48,10 +60,13 @@
 						<div class="form-group row my-3">
 							<label class="col-sm-4 col-form-label w-100">Estado <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<select name="estadooa" id="" class="form-control" [(ngModel)]="form.estado_oa" required>
-									<option selected value="1">NUEVO</option>
+								<select name="estadooa" id="" class="form-control" formControlName="estadooa" [ngClass]="{'is-invalid': !formOrdenAtencion.get('estadooa').valid}" [(ngModel)]="form.estado_oa" required>
+									<option value="1" [selected]="true">NUEVO</option>
 									<option value="2">ANTIGUO</option>
 								</select>
+								<div *ngIf="formOrdenAtencion.controls['estadooa'].errors?.required" class="invalid-feedback">
+									El estado es necesario
+								</div>
 							</div>
 							<hr>
 						</div>

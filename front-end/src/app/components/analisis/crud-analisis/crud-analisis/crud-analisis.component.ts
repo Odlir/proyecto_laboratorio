@@ -4,8 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/Services/token/token.service';
 import { ApiBackRequestService } from 'src/app/Services/api-back-request.service';
 import { Component, OnInit} from '@angular/core';
-import * as moment from 'moment';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crud-analisis',
@@ -37,7 +37,6 @@ export class CrudAnalisisComponent implements OnInit {
 
   previousUrl: string;
 
-
   constructor(
     private api: ApiBackRequestService,
     private user: TokenService,
@@ -64,6 +63,8 @@ export class CrudAnalisisComponent implements OnInit {
         Validators.pattern('[0-9]{1,10}')
       ]),
       'desc': new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
         Validators.maxLength(250)
       ]),
       'punit': new FormControl('', [
@@ -71,6 +72,8 @@ export class CrudAnalisisComponent implements OnInit {
         Validators.pattern('[0-9]{1,10}')
       ]),
       'obs': new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
         Validators.maxLength(250)
       ])
     });
@@ -94,11 +97,23 @@ export class CrudAnalisisComponent implements OnInit {
   }
 
   registrar() {
-    this.api.post('analisis', this.form).subscribe(
-      (data) => {
-        this.return()
-        }
-      );
+      if (this.formAnalisis.valid) {
+        console.log(this.formAnalisis.value);
+        this.api.post('analisis', this.form).subscribe(
+          (data) => {
+            this.return()
+            }
+        );
+      }
+      else{
+        Swal.fire({
+          title: 'Complete los datos correctamente',
+          icon: 'warning',
+          showCancelButton: false,
+          cancelButtonColor: '#3085d6',
+          cancelButtonText: 'OK'
+        })
+      }
   }
 
   editar() {

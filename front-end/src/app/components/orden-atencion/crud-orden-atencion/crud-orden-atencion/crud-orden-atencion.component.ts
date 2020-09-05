@@ -4,7 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/Services/token/token.service';
 import { ApiBackRequestService } from 'src/app/Services/api-back-request.service';
 import { Component, OnInit} from '@angular/core';
-import * as moment from 'moment';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crud-orden-atencion',
@@ -28,6 +29,8 @@ export class CrudOrdenAtencionComponent implements OnInit {
     updated_at: null
   };
   
+  formOrdenAtencion: FormGroup;
+
   public id: HttpParams;
 
   public encuesta_id: HttpParams
@@ -50,8 +53,26 @@ export class CrudOrdenAtencionComponent implements OnInit {
         this.cargarEditar();
       }
     });
-
     this.previousUrl = this.routingState.getPreviousUrl();
+    this.validarDatos();
+  }
+
+  validarDatos() {
+    this.formOrdenAtencion = new FormGroup({
+      'nroaten': new FormControl('', [
+        Validators.required,
+        Validators.pattern('[0-9]{1,10}')
+      ]),
+      'paciente': new FormControl('', [
+        Validators.required
+      ]),
+      'analisis': new FormControl('', [
+        Validators.required
+      ]),
+      'estadooa': new FormControl('', [
+        Validators.required
+      ]),
+    });
   }
 
   cargarEditar() {
@@ -72,11 +93,23 @@ export class CrudOrdenAtencionComponent implements OnInit {
   }
 
   registrar() {
-    this.api.post('orden_atencion', this.form).subscribe(
-      (data) => {
-        this.return()
-        }
+    if (this.formOrdenAtencion.valid) {
+      console.log(this.formOrdenAtencion.value);
+      this.api.post('orden_atencion', this.form).subscribe(
+        (data) => {
+          this.return()
+          }
       );
+    }
+    else{
+      Swal.fire({
+        title: 'Complete los datos correctamente',
+        icon: 'warning',
+        showCancelButton: false,
+        cancelButtonColor: '#3085d6',
+        cancelButtonText: 'OK'
+      })
+    }
   }
 
   editar() {

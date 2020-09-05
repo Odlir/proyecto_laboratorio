@@ -8,6 +8,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {map, startWith} from "rxjs/operators";
+import Swal from 'sweetalert2';
 
 export interface Ubigeo {
   ubigeo: string,
@@ -119,17 +120,24 @@ export class CrudDoctorComponent implements OnInit {
     });
 
     this.previousUrl = this.routingState.getPreviousUrl();
+    this.validarDatos();
     this.fetch();
     this.fetch1();
   }
 
   validarDatos() {
     this.formDoctor = new FormGroup({
-      'nrodoc': new FormControl('', [
+      'nrodni': new FormControl('', [
         Validators.required,
         Validators.minLength(8),
+        Validators.maxLength(8),
+        Validators.pattern('[0-9]{11,11}')
+      ]),
+      'nroruc': new FormControl('', [
+        Validators.required,
+        Validators.minLength(11),
         Validators.maxLength(11),
-        Validators.pattern('[0-9]{8,11}')
+        Validators.pattern('[0-9]{11,11}')
       ]),
       'nombres': new FormControl('', [
         Validators.required,
@@ -293,14 +301,26 @@ export class CrudDoctorComponent implements OnInit {
   }
 
   registrar() {
-    this.form.ubigeo_id = this.ubigeo.id;
-    this.form.especialidad_id = this.especialidad.id;
-
-    this.api.post('doctores', this.form).subscribe(
-      (data) => {
-        this.return()
-        }
-      );
+    if (this.formDoctor.valid) {
+      console.log(this.formDoctor.value);
+      this.form.ubigeo_id = this.ubigeo.id;
+      this.form.especialidad_id = this.especialidad.id;
+  
+      this.api.post('doctores', this.form).subscribe(
+        (data) => {
+          this.return()
+          }
+        );
+    }
+    else{
+      Swal.fire({
+        title: 'Complete los datos correctamente',
+        icon: 'warning',
+        showCancelButton: false,
+        cancelButtonColor: '#3085d6',
+        cancelButtonText: 'OK'
+      })
+    }
   }
 
   editar() {

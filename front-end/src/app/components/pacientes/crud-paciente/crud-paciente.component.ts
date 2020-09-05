@@ -8,6 +8,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {map, startWith} from "rxjs/operators";
+import Swal from 'sweetalert2';
 
 export interface Ubigeo {
     ubigeo: string,
@@ -59,7 +60,7 @@ export class CrudPacienteComponent implements OnInit {
 	public ubigeos: Ubigeo[] = [];
 
 	public ubigeo = {
-	    id: null,
+	  id: null,
 		ubigeo: null,
 		distrito: null,
 		provincia: null,
@@ -67,6 +68,7 @@ export class CrudPacienteComponent implements OnInit {
 	}
 
   formPaciente: FormGroup;
+  showAge;
 
 	filteredUbigeo: any;
   public disabled: boolean = false;
@@ -84,9 +86,7 @@ export class CrudPacienteComponent implements OnInit {
       private user: TokenService,
       private router: Router,
       private activatedRoute: ActivatedRoute,
-      private routingState: RoutingStateService) {
-      this.validarDatos();
-    }
+      private routingState: RoutingStateService) { }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(async params => {
@@ -98,22 +98,30 @@ export class CrudPacienteComponent implements OnInit {
 					this.cargarEditar(1);
 				}
 				else {
-					this.cargarEditar(1);
+					this.cargarEditar();
 				}
 			}
     });
     
     this.previousUrl = this.routingState.getPreviousUrl();
+    this.validarDatos();
+    this.ageCalculator();
     this.fetch();
   }
 
   validarDatos() {
     this.formPaciente = new FormGroup({
-      'nrodoc': new FormControl('', [
+      'nrodni': new FormControl('', [
         Validators.required,
         Validators.minLength(8),
+        Validators.maxLength(8),
+        Validators.pattern('[0-9]{11,11}')
+      ]),
+      'nroruc': new FormControl('', [
+        Validators.required,
+        Validators.minLength(11),
         Validators.maxLength(11),
-        Validators.pattern('[0-9]{8,11}')
+        Validators.pattern('[0-9]{11,11}')
       ]),
       'nombres': new FormControl('', [
         Validators.required,
@@ -160,7 +168,7 @@ export class CrudPacienteComponent implements OnInit {
     if(this.form.fecha_nacimiento){
       const convertAge = new Date(this.form.fecha_nacimiento);
       const timeDiff = Math.abs(Date.now() - convertAge.getTime());
-      this.form.edad = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
+      this.showAge = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
     }  
   }
   
@@ -249,13 +257,24 @@ export class CrudPacienteComponent implements OnInit {
   }
 
   registrar() {
-    this.form.ubigeo_id = this.ubigeo.id;
-    
-    this.api.post('personas', this.form).subscribe(
-      (data) => {
-        this.return()
-        }
+    if (this.formPaciente.valid) {
+      console.log(this.formPaciente.value);
+      this.form.ubigeo_id = this.ubigeo.id;
+      this.api.post('personas', this.form).subscribe(
+        (data) => {
+          this.return()
+          }
       );
+    }
+    else{
+      Swal.fire({
+        title: 'Complete los datos correctamente',
+        icon: 'warning',
+        showCancelButton: false,
+        cancelButtonColor: '#3085d6',
+        cancelButtonText: 'OK'
+      })
+    }
   }
 
   editar() {

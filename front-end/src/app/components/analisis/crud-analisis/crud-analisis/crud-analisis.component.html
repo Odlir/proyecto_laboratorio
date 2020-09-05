@@ -39,6 +39,12 @@
 							<label class="col-sm-4 col-form-label w-100">Descripción <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
 								<input type="text" name="desc" class="form-control" formControlName="desc" [ngClass]="{'is-invalid': !formAnalisis.get('desc').valid}" [(ngModel)]="form.descripcion" required>
+								<div *ngIf="formAnalisis.controls['desc'].errors?.required" class="invalid-feedback">
+									La descripción es necesario
+								</div>
+								<div *ngIf="formAnalisis.controls['desc'].errors?.minlength" class="invalid-feedback">
+									Por lo menos 3 caracteres
+								</div>
 								<div *ngIf="formAnalisis.controls['desc'].errors?.maxlength" class="invalid-feedback">
 									Por lo máximo 250 caracteres
 								</div>
@@ -67,6 +73,12 @@
 								class="text-danger">*</span></label>
 							<div class="col-sm-8">
 								<textarea type="text" name="obs" class="form-control" formControlName="obs" [ngClass]="{'is-invalid': !formAnalisis.get('obs').valid}" [(ngModel)]="form.observaciones" required></textarea>
+								<div *ngIf="formAnalisis.controls['obs'].errors?.required" class="invalid-feedback">
+									Las observaciones es necesario
+								</div>
+								<div *ngIf="formAnalisis.controls['obs'].errors?.minlength" class="invalid-feedback">
+									Por lo menos 3 caracteres
+								</div>
 								<div *ngIf="formAnalisis.controls['obs'].errors?.maxlength" class="invalid-feedback">
 									Por lo máximo 250 caracteres
 								</div>

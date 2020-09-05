@@ -7,7 +7,7 @@
 		<ng-template matStepLabel>{{ titulo }} <span *ngIf="id">: {{ form.razon_social }}</span></ng-template>
 		<div class="row data-crud">
 			<div class="col-12">
-				<form (ngSubmit)="guardar()" class="px-4" [formGroup]="formEmpresa" novalidate="" ngNativeValidate>
+				<form (ngSubmit)="guardar()" class="px-4" [formGroup]="formEmpresa" novalidate="">
 					<div class="row">
 						<div class="col-6">
 							<div class="form-group row my-3">

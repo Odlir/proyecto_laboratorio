@@ -6,6 +6,7 @@ import { ApiBackRequestService } from './../../../Services/api-back-request.serv
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { map, startWith} from "rxjs/operators";
+import Swal from 'sweetalert2';
 
 export interface Ubigeo {
     ubigeo: string,
@@ -103,9 +104,8 @@ export class CrudEmpresaComponent implements OnInit {
 				}
 			}
 		});
-
+		this.validarDatos();
 		this.fetch();
-
 	}
 
 	validarDatos() {
@@ -280,13 +280,24 @@ export class CrudEmpresaComponent implements OnInit {
 	}
 
 	registrar() {
-		this.form.ubigeo_id = this.ubigeo.id;
-		
-		this.api.post('empresas', this.form).subscribe(
-			(data) => {
-				this.handleRegistrar(data);
-			}
-		);
+		if (this.formEmpresa.valid) {
+			console.log(this.formEmpresa.value);
+			this.form.ubigeo_id = this.ubigeo.id;
+			this.api.post('empresas', this.form).subscribe(
+				(data) => {
+					this.handleRegistrar(data);
+				}
+			);
+		  }
+		  else{
+			Swal.fire({
+			  title: 'Complete los datos correctamente',
+			  icon: 'warning',
+			  showCancelButton: false,
+			  cancelButtonColor: '#3085d6',
+			  cancelButtonText: 'OK'
+			})
+		  }
 	}
 
 
