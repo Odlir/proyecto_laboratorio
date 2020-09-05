@@ -29,9 +29,8 @@ parent div:hover {
 }
 
 .mat-nav-list .mat-list-item {
-	background: #ffd740;
+	background: #fff14a;
 }
-
 
 .list-item-active {
 	font-weight: bold;

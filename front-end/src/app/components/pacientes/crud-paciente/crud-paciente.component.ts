@@ -6,7 +6,6 @@ import { TokenService } from '../../../Services/token/token.service';
 import { ApiBackRequestService } from '../../../Services/api-back-request.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
-import {ReactiveFormsModule} from '@angular/forms';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {map, startWith} from "rxjs/operators";
 
@@ -23,10 +22,9 @@ export interface Ubigeo {
   templateUrl: './crud-paciente.component.html',
   styleUrls: ['./crud-paciente.component.css']
 })
+
 export class CrudPacienteComponent implements OnInit {
   
-	firstFormGroup: FormGroup;
-	secondFormGroup: FormGroup;
 	myControl = new FormControl();
 
 	@ViewChild('stepper') stepper: MatStepper;
@@ -58,17 +56,17 @@ export class CrudPacienteComponent implements OnInit {
     updated_at: null
   };
 
-  formPaciente: FormGroup;
-
-  public ubigeos: Ubigeo[] = [];
+	public ubigeos: Ubigeo[] = [];
 
 	public ubigeo = {
-	  id: null,
+	    id: null,
 		ubigeo: null,
 		distrito: null,
 		provincia: null,
 		departamento: null
 	}
+
+  formPaciente: FormGroup;
 
 	filteredUbigeo: any;
   public disabled: boolean = false;
@@ -82,11 +80,13 @@ export class CrudPacienteComponent implements OnInit {
   previousUrl: string;
 
   constructor(
-    private api: ApiBackRequestService,
-    private user: TokenService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private routingState: RoutingStateService) { }
+      private api: ApiBackRequestService,
+      private user: TokenService,
+      private router: Router,
+      private activatedRoute: ActivatedRoute,
+      private routingState: RoutingStateService) {
+      this.validarDatos();
+    }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(async params => {
@@ -98,14 +98,13 @@ export class CrudPacienteComponent implements OnInit {
 					this.cargarEditar(1);
 				}
 				else {
-					this.cargarEditar();
+					this.cargarEditar(1);
 				}
 			}
     });
     
     this.previousUrl = this.routingState.getPreviousUrl();
     this.fetch();
-    this.validarDatos();
   }
 
   validarDatos() {
@@ -165,8 +164,8 @@ export class CrudPacienteComponent implements OnInit {
     }  
   }
   
-  cargarEditar(next?) {
-    this.api.get('personas', this.id).subscribe(
+  async cargarEditar(next?) {
+    await this.api.get('personas', this.id).subscribe(
       (data) => {
         this.form = data;
         this.stepper.selected.completed = true;
@@ -175,6 +174,19 @@ export class CrudPacienteComponent implements OnInit {
           }
         }
       );
+
+      await this.api.get('ubigeo', this.form.ubigeo_id).subscribe(
+        (data) => {
+          this.ubigeo = data;
+        }
+      );
+  
+      this.stepper.selected.completed = true;
+  
+      if (next) {
+        this.stepper.next();
+      }
+
   }
 
   cargarUbigeo(e) {

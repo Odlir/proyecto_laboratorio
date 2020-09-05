@@ -5,7 +5,7 @@ import { TokenService } from '../../../Services/token/token.service';
 import { ApiBackRequestService } from './../../../Services/api-back-request.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import {map, startWith} from "rxjs/operators";
+import { map, startWith} from "rxjs/operators";
 
 export interface Ubigeo {
     ubigeo: string,
@@ -60,10 +60,6 @@ export class CrudEmpresaComponent implements OnInit {
 		sucursales: []
 	};
 
-	public titulo = "CREAR EMPRESA";
-
-	formEmpresa: FormGroup;
-
 	public ubigeos: Ubigeo[] = [];
 
 	public ubigeo = {
@@ -73,6 +69,10 @@ export class CrudEmpresaComponent implements OnInit {
 		provincia: null,
 		departamento: null
 	}
+
+	public titulo = "CREAR EMPRESA";
+
+	formEmpresa: FormGroup;
 
 	filteredUbigeo: any;
 	public disabled: boolean = false;
@@ -86,8 +86,8 @@ export class CrudEmpresaComponent implements OnInit {
 		private api: ApiBackRequestService,
 		private user: TokenService,
 		private activatedRoute: ActivatedRoute,
-		private router: Router
-	) {
+		private router: Router) {
+		this.validarDatos();
 	}
 
 	ngOnInit(): void {
@@ -103,8 +103,9 @@ export class CrudEmpresaComponent implements OnInit {
 				}
 			}
 		});
+
 		this.fetch();
-		this.validarDatos();
+
 	}
 
 	validarDatos() {
@@ -194,9 +195,9 @@ export class CrudEmpresaComponent implements OnInit {
 		});
 	}
 
-	cargarEditar(next?) {
+	async cargarEditar(next?) {
 		this.titulo = "EDITAR EMPRESA";
-		this.api.get('empresas', this.id).subscribe(
+		await this.api.get('empresas', this.id).subscribe(
 			(data) => {
 				this.form = data;
 				this.stepper.selected.completed = true;
@@ -205,6 +206,18 @@ export class CrudEmpresaComponent implements OnInit {
 				}
 			}
 		);
+
+		await this.api.get('ubigeo', this.form.ubigeo_id).subscribe(
+			(data) => {
+				this.ubigeo = data;
+			}
+		);
+
+		this.stepper.selected.completed = true;
+
+		if (next) {
+			this.stepper.next();
+		}
 	}
 
 	cargarUbigeo(e) {
@@ -223,9 +236,7 @@ export class CrudEmpresaComponent implements OnInit {
 
 		this.filteredUbigeo = this.myControl.valueChanges.pipe(
 			startWith(null),
-			map(ubigeo => ubigeo && typeof ubigeo === 'object' ? ubigeo.departamento : ubigeo),
-			map(ubigeo => ubigeo && typeof ubigeo === 'object' ? ubigeo.provincia : ubigeo),
-			map(ubigeo => ubigeo && typeof ubigeo === 'object' ? ubigeo.distrito : ubigeo),
+			map(ubigeo => ubigeo && typeof ubigeo === 'object' ? ubigeo.departamento : ubigeo ? ubigeo.provincia : ubigeo ? ubigeo.distrito : ubigeo),
 			map(ubigeo => this.filterStates(ubigeo))
 		);
 	}
@@ -240,22 +251,20 @@ export class CrudEmpresaComponent implements OnInit {
 	}
 
 	displayFn(ubigeo): string {
-		return ubigeo ? ubigeo.departamento : ubigeo;
-		return ubigeo ? ubigeo.provincia : ubigeo;
-		return ubigeo ? ubigeo.distrito : ubigeo;
+		return ubigeo ? ubigeo.departamento : ubigeo ? ubigeo.provincia : ubigeo ? ubigeo.distrito : ubigeo;
 	}
 
 	limpiar() {
 		this.form.ubigeo_id = null;
-		this.showProgress = false;
+		this.showProgress = true;
 	}
 
 	limpiarAutocomplete(e) {
 		console.log('kasumi', e.target.value);
 		if (e.target.value.length > 3) {
-			this.cargarUbigeo(e.target.value);
+      		this.cargarUbigeo(e.target.value);
 		}
-	}
+  	}
 
 	guardar() {
 		if (this.id) {
@@ -286,6 +295,7 @@ export class CrudEmpresaComponent implements OnInit {
 			const form = {
 				nombre: data.razon_social,
 				empresa_id: data.id,
+				ubigeo_id: data.id,
 				insert_user_id: this.user.me(),
 			}
 
@@ -315,6 +325,7 @@ export class CrudEmpresaComponent implements OnInit {
 		this.api.put('empresas', this.id, this.form).subscribe(
 			(data) => {
 				this.handleEditar(data);
+				this.cargarEditar();
 			}
 		);
 	}

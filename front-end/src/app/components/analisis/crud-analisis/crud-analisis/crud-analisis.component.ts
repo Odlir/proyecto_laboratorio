@@ -53,9 +53,7 @@ export class CrudAnalisisComponent implements OnInit {
         this.cargarEditar();
       }
     });
-
     this.previousUrl = this.routingState.getPreviousUrl();
-    
     this.validarDatos();
   }
 
@@ -63,14 +61,14 @@ export class CrudAnalisisComponent implements OnInit {
     this.formAnalisis = new FormGroup({
       'nroanalisis': new FormControl('', [
         Validators.required,
-        Validators.pattern('[0-9]')
+        Validators.pattern('[0-9]{1,10}')
       ]),
       'desc': new FormControl('', [
         Validators.maxLength(250)
       ]),
       'punit': new FormControl('', [
         Validators.required,
-        Validators.pattern('[0-9]')
+        Validators.pattern('[0-9]{1,10}')
       ]),
       'obs': new FormControl('', [
         Validators.maxLength(250)

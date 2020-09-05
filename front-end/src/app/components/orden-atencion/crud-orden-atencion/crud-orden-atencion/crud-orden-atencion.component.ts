@@ -17,6 +17,7 @@ export class CrudOrdenAtencionComponent implements OnInit {
     nro_atencion: null,
     paciente: null,
     analisis: null,
+    estado_oa: null,
     estado: 1,
 
     insert_user_id: this.user.me(),
@@ -26,7 +27,7 @@ export class CrudOrdenAtencionComponent implements OnInit {
     created_at: null,
     updated_at: null
   };
-
+  
   public id: HttpParams;
 
   public encuesta_id: HttpParams

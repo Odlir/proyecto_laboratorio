@@ -47,6 +47,13 @@
       </ng-template>
     </ngx-datatable-column>
 
+    <ngx-datatable-column name="Estado OA" prop="estado_oa">
+      <ng-template let-column="column" ngx-datatable-header-template> {{ column.name }} </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
     <ngx-datatable-column name="Id">
       <ng-template let-column="column" ngx-datatable-header-template> Acciones </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>

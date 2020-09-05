@@ -120,9 +120,9 @@
 								class="text-danger">*</span></label>
 							<div class="col-sm-8">
 								<mat-form-field class="example-full-width w-100">
-									<input type="text" [(ngModel)]="form.especialidad_id" matInput name="especialidad" class="form-control"
-										   [formControl]="myControl" [matAutocomplete]="auto" required (keyup)="limpiarAutocomplete($event)">
-									<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="cargarEspecialidad()">
+									<input type="text" [(ngModel)]="form.especialidad_id" matInput name="especialidad_id" class="form-control"
+										   [formControl]="myControl1" [matAutocomplete]="auto" required (keyup)="limpiarAutocomplete($event)">
+									<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn1" (optionSelected)="cargarEspecialidad($event)">
 										<mat-option *ngFor="let option of filteredEspecialidad | async" [value]="option">
 											{{option.nombre}}
 										</mat-option>
@@ -236,7 +236,7 @@
 								<mat-form-field class="example-full-width w-100">
 									<input type="text" [(ngModel)]="form.ubigeo_id" matInput name="ubigeo_id" class="form-control"
 										   [formControl]="myControl" [matAutocomplete]="auto" required (keyup)="limpiarAutocomplete($event)">
-									<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="cargarUbigeo()">
+									<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="cargarUbigeo($event)">
 										<mat-option *ngFor="let option of filteredUbigeo | async" [value]="option">
 											{{option.departamento}} {{option.provincia}} {{option.distrito}}
 										</mat-option>

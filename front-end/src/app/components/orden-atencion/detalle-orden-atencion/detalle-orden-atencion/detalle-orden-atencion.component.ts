@@ -17,6 +17,7 @@ export class DetalleOrdenAtencionComponent implements OnInit {
     nro_atencion: null,
     paciente: null,
     analisis: null,
+    estado_oa: null,
     estado: null,
     
     insert_user_id: null,

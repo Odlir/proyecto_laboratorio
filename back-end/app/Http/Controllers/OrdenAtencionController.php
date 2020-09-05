@@ -27,6 +27,7 @@ class OrdenAtencionController extends Controller
                     ->orWhere('nro_atencion', "LIKE", "%$searchValue%")
                     ->orWhere('paciente', "LIKE", "%$searchValue%")
                     ->orWhere('analisis', "LIKE", "%$searchValue%")
+                    ->orWhere('estado_oa', "LIKE", "%$searchValue%")
                     ->orWhere('estado', "LIKE", "%$searchValue%");
             });
 

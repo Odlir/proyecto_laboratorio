@@ -9,7 +9,7 @@
 <div class="widget clearfix mt-5">
 	<div class="whead clearfix">
 		<p><span *ngIf="id;else templateName">EDITAR </span>ORDEN DE ATENCIÓN DE EMPRESA <span *ngIf="id">: {{ form.nro_orden }}
-				{{ form.created_at }} {{ form.updated_at }}</span></p>
+			{{ form.created_at | date: 'dd/MM/yyyy hh:mm:ss a' }} {{ form.updated_at | date: 'dd/MM/yyyy hh:mm:ss a' }}</span></p>
 		<ng-template #templateName>
 			CREAR
 		</ng-template>

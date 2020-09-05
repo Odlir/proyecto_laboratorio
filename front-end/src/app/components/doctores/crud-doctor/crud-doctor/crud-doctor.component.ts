@@ -29,9 +29,8 @@ export interface Especialidad {
 })
 export class CrudDoctorComponent implements OnInit {
 
-  firstFormGroup: FormGroup;
-	secondFormGroup: FormGroup;
 	myControl = new FormControl();
+  myControl1 = new FormControl();
 
 	@ViewChild('stepper') stepper: MatStepper;
 
@@ -64,26 +63,27 @@ export class CrudDoctorComponent implements OnInit {
     updated_at: null
   };
 
-  formDoctor: FormGroup;
-
-  public ubigeos: Ubigeo[] = [];
-  public especialidades: Especialidad[] = [];
-
-	public ubigeo = {
+  ubigeo = {
 	  id: null,
 		ubigeo: null,
 		distrito: null,
 		provincia: null,
 		departamento: null
   }
-  
-  public especialidad = {
+
+  especialidad = {
 	  id: null,
 		nombre: null
 	}
 
+  formDoctor: FormGroup;
+
+  public ubigeos: Ubigeo[] = [];
+  public especialidades: Especialidad[] = [];
+
   filteredUbigeo: any;
   filteredEspecialidad: any;
+
   public disabled: boolean = false;
   
   public showProgress: boolean = false;
@@ -99,7 +99,9 @@ export class CrudDoctorComponent implements OnInit {
     private user: TokenService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private routingState: RoutingStateService) { }
+    private routingState: RoutingStateService) {
+      this.validarDatos();
+    }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(async params => {
@@ -119,7 +121,6 @@ export class CrudDoctorComponent implements OnInit {
     this.previousUrl = this.routingState.getPreviousUrl();
     this.fetch();
     this.fetch1();
-    this.validarDatos();
   }
 
   validarDatos() {
@@ -192,6 +193,8 @@ export class CrudDoctorComponent implements OnInit {
           }
         }
       );
+      this.cargarUbigeo(this.form.ubigeo_id);
+      this.cargarEspecialidad(this.form.especialidad_id);
   }
 
   cargarUbigeo(e) {
@@ -231,7 +234,7 @@ export class CrudDoctorComponent implements OnInit {
       (data) => { this.especialidades = data }
     );
 
-    this.filteredEspecialidad = this.myControl.valueChanges.pipe(
+    this.filteredEspecialidad = this.myControl1.valueChanges.pipe(
       startWith(null),
       map(especialidad => especialidad && typeof especialidad === 'object' ? especialidad.nombre : especialidad),
       map(especialidad => this.filterStates1(especialidad))
@@ -248,8 +251,8 @@ export class CrudDoctorComponent implements OnInit {
       : this.ubigeos;
   }
   
-  filterStates1(val) {
-    return val ? this.especialidades.filter(s => s.nombre.toLowerCase().indexOf(val.toLowerCase()) != -1)
+  filterStates1(val1) {
+    return val1 ? this.especialidades.filter(s => s.nombre.toLowerCase().indexOf(val1.toLowerCase()) != -1)
 			: this.especialidades;
 	}
 
@@ -274,6 +277,8 @@ export class CrudDoctorComponent implements OnInit {
 		console.log('kasumi', e.target.value);
 		if (e.target.value.length > 3) {
       this.cargarUbigeo(e.target.value);
+    }
+    if (e.target.value.length > 3) {
       this.cargarEspecialidad(e.target.value);
 		}
   }

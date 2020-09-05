@@ -81,7 +81,7 @@
 									<mat-form-field class="example-full-width w-100">
 										<input type="text" [(ngModel)]="form.ubigeo_id" matInput name="ubigeo_id" class="form-control"
 											   [formControl]="myControl" [matAutocomplete]="auto" required (keyup)="limpiarAutocomplete($event)">
-										<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="cargarUbigeo()">
+										<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="cargarUbigeo($event)">
 											<mat-option *ngFor="let option of filteredUbigeo | async" [value]="option">
 												{{option.departamento}} {{option.provincia}} {{option.distrito}}
 											</mat-option>

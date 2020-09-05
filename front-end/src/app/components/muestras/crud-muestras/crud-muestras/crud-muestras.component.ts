@@ -63,14 +63,14 @@ export class CrudMuestrasComponent implements OnInit {
     this.formMuestras = new FormGroup({
       'nromuestra': new FormControl('', [
         Validators.required,
-        Validators.pattern('[0-9]')
+        Validators.pattern('[0-9]{1,10}')
       ]),
       'desc': new FormControl('', [
         Validators.maxLength(250)
       ]),
       'punit': new FormControl('', [
         Validators.required,
-        Validators.pattern('[0-9]')
+        Validators.pattern('[0-9]{1,10}')
       ]),
       'obs': new FormControl('', [
         Validators.maxLength(250)

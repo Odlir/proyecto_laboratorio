@@ -18,6 +18,7 @@ class CreateOrdenAtencionTable extends Migration
             $table->integer('nro_atencion');
             $table->string('paciente');
             $table->string('analisis');
+            $table->char('estado_oa', 1)->comment('1-Nuevo/2-Antiguo')->default(1);
             $table->char('estado', 1)->comment('0-Desactivo/1-Activo')->default(1);
 
             $table->unsignedBigInteger('rol_id');

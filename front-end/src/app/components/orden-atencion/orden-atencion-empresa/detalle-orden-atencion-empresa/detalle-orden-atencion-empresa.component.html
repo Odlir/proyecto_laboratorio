@@ -8,7 +8,7 @@
 
 <div class="widget clearfix mt-5">
 	<div class="whead clearfix">
-		<p>DETALLE DE LA ORDEN DE ATENCIÓN DE EMPRESA: {{ form.nro_orden }} {{ form.created_at }} {{ form.updated_at }}</p>
+		<p>DETALLE DE LA ORDEN DE ATENCIÓN DE EMPRESA: {{ form.nro_orden }} {{ form.created_at | date: 'dd/MM/yyyy hh:mm:ss a' }} {{ form.updated_at | date: 'dd/MM/yyyy hh:mm:ss a' }}</p>
 	</div>
 	<div class="row data-crud">
 		<div class="col-7">
@@ -49,10 +49,10 @@
 							{{form.nro_orden}}
 						</div>
 						<div class="col-12 border-bottom py-3">
-							{{form.created_at}}
+							{{form.created_at | date: 'dd/MM/yyyy hh:mm:ss a'}}
 						</div>
 						<div class="col-12 border-bottom py-3">
-							{{form.updated_at}}
+							{{form.updated_at | date: 'dd/MM/yyyy hh:mm:ss a'}}
 						</div>
 						<div class="col-12 border-bottom py-3">
 							{{form.estado}}
