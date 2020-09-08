@@ -54,7 +54,8 @@ export class CrudPacienteComponent implements OnInit {
     insert: { name: null },
     edit: { name: '' },
     created_at: null,
-    updated_at: null
+    updated_at: null,
+    ubigeo: { distrito: null, provincia: null, departamento: null }
   };
 
 	public ubigeos: Ubigeo[] = [];
@@ -69,7 +70,7 @@ export class CrudPacienteComponent implements OnInit {
 
   formPaciente: FormGroup;
   showAge;
-
+ 
 	filteredUbigeo: any;
   public disabled: boolean = false;
   
@@ -115,7 +116,7 @@ export class CrudPacienteComponent implements OnInit {
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(8),
-        Validators.pattern('[0-9]{11,11}')
+        Validators.pattern('[0-9]{8,8}')
       ]),
       'nroruc': new FormControl('', [
         Validators.required,
@@ -150,7 +151,7 @@ export class CrudPacienteComponent implements OnInit {
       ]),
       'gruposan': new FormControl('', [
         Validators.maxLength(4),
-        Validators.pattern('[a-zA-Z+-]')
+        Validators.pattern('[a-zA-Z+-]{1,4}')
       ]),
       'direccion': new FormControl('', [
         Validators.maxLength(250)
@@ -163,15 +164,15 @@ export class CrudPacienteComponent implements OnInit {
       ])
     });
   }
-
+  
   ageCalculator(){
     if(this.form.fecha_nacimiento){
       const convertAge = new Date(this.form.fecha_nacimiento);
       const timeDiff = Math.abs(Date.now() - convertAge.getTime());
       this.showAge = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
-    }  
+    }
   }
-  
+
   async cargarEditar(next?) {
     await this.api.get('personas', this.id).subscribe(
       (data) => {
@@ -265,8 +266,7 @@ export class CrudPacienteComponent implements OnInit {
           this.return()
           }
       );
-    }
-    else{
+    } else{
       Swal.fire({
         title: 'Complete los datos correctamente',
         icon: 'warning',

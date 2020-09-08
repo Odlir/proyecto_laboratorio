@@ -71,7 +71,7 @@ export class CrudOrdenAtencionComponent implements OnInit {
       ]),
       'estadooa': new FormControl('', [
         Validators.required
-      ]),
+      ])
     });
   }
 

@@ -114,7 +114,7 @@
 							<label class="col-sm-4 col-form-label w-100">Apellido Materno <span
 								class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="apematerno" class="form-control" formControlName="apematerno" [ngClass]="{'is-invalid': !formDoctor.get('apepaterno').valid}" [(ngModel)]="form.apellido_materno" required>
+								<input type="text" name="apematerno" class="form-control" formControlName="apematerno" [ngClass]="{'is-invalid': !formDoctor.get('apematerno').valid}" [(ngModel)]="form.apellido_materno" required>
 								<div *ngIf="formDoctor.controls['apematerno'].errors?.required" class="invalid-feedback">
 									El apellido es necesario
 								</div>
@@ -256,10 +256,10 @@
 							<div class="col-sm-8">
 								<mat-form-field class="example-full-width w-100">
 									<input type="text" [(ngModel)]="form.ubigeo_id" matInput name="ubigeo_id" class="form-control"
-										   [formControl]="myControl" [matAutocomplete]="auto" required (keyup)="limpiarAutocomplete($event)">
-									<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="cargarUbigeo($event)">
+										   [formControl]="myControl" [matAutocomplete]="origin" required (keyup)="limpiarAutocomplete($event)">
+									<mat-autocomplete #origin="matAutocomplete" [displayWith]="displayFn" (optionSelected)="cargarUbigeo($event)">
 										<mat-option *ngFor="let option of filteredUbigeo | async" [value]="option">
-											{{option.departamento}} {{option.provincia}} {{option.distrito}}
+											{{option.departamento}} - {{option.provincia}} - {{option.distrito}}
 										</mat-option>
 									</mat-autocomplete>
 								</mat-form-field>

@@ -83,7 +83,7 @@
 											   [formControl]="myControl" [matAutocomplete]="auto" required (keyup)="limpiarAutocomplete($event)">
 										<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="cargarUbigeo($event)">
 											<mat-option *ngFor="let option of filteredUbigeo | async" [value]="option">
-												{{option.departamento}} {{option.provincia}} {{option.distrito}}
+												{{option.departamento}} - {{option.provincia}} - {{option.distrito}}
 											</mat-option>
 										</mat-autocomplete>
 									</mat-form-field>

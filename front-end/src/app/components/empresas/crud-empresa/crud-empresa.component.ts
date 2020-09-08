@@ -122,9 +122,7 @@ export class CrudEmpresaComponent implements OnInit {
 			Validators.pattern('[a-zA-Z]{3,254}')
 		  ]),
 		  'pagweb': new FormControl('', [
-			Validators.required,
-			Validators.minLength(3),
-			Validators.pattern('[a-zA-Z]{3,254}')
+			Validators.pattern('[a-z0-9._%+-]+\.[a-z0-9.-]+\.[a-z]{2,3}$')
 		  ]),
 		  'direccion': new FormControl('', [
 			Validators.maxLength(250)

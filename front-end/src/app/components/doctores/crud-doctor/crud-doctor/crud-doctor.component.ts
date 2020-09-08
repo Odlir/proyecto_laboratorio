@@ -131,7 +131,7 @@ export class CrudDoctorComponent implements OnInit {
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(8),
-        Validators.pattern('[0-9]{11,11}')
+        Validators.pattern('[0-9]{8,8}')
       ]),
       'nroruc': new FormControl('', [
         Validators.required,
@@ -154,13 +154,11 @@ export class CrudDoctorComponent implements OnInit {
         Validators.minLength(3),
         Validators.pattern('[a-zA-Z]{3,254}')
       ]),
-
       'nrocol': new FormControl('', [
         Validators.minLength(5),
         Validators.maxLength(5),
         Validators.pattern('[0-9]{5,5}')
       ]),
-
       'nrocel': new FormControl('', [
         Validators.required,
         Validators.minLength(9),
@@ -213,8 +211,8 @@ export class CrudDoctorComponent implements OnInit {
 		);
   }
 
-  cargarEspecialidad(e) {
-		this.api.get('especialidad?search=' + e).subscribe(
+  cargarEspecialidad(ev) {
+		this.api.get('especialidad?search=' + ev).subscribe(
 			data => {
 				this.especialidades = data;
 			}
