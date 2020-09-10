@@ -69,7 +69,6 @@ export class CrudPacienteComponent implements OnInit {
 	}
 
   formPaciente: FormGroup;
-  showAge;
  
 	filteredUbigeo: any;
   public disabled: boolean = false;
@@ -101,13 +100,22 @@ export class CrudPacienteComponent implements OnInit {
 				else {
 					this.cargarEditar();
 				}
+			} else {
+				this.obtenerEdad();
 			}
     });
     
     this.previousUrl = this.routingState.getPreviousUrl();
     this.validarDatos();
-    this.ageCalculator();
     this.fetch();
+  }
+
+  obtenerEdad() {
+    if(this.form.fecha_nacimiento){
+      const convertAge = new Date(this.form.fecha_nacimiento);
+      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
+      this.form.edad = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
+    } 
   }
 
   validarDatos() {
@@ -163,14 +171,6 @@ export class CrudPacienteComponent implements OnInit {
         Validators.maxLength(250)
       ])
     });
-  }
-  
-  ageCalculator(){
-    if(this.form.fecha_nacimiento){
-      const convertAge = new Date(this.form.fecha_nacimiento);
-      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
-      this.showAge = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
-    }
   }
 
   async cargarEditar(next?) {

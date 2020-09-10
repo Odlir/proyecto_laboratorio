@@ -33,7 +33,7 @@
 							<label class="col-sm-4 col-form-label w-100">Cantidad <span
 									class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="cantidad" class="form-control" [(ngModel)]="form.cantidad"
+								<input type="text" name="cantidad" class="form-control" [(ngModel)]="form.cantidad" (change)="obtenerTotal()" [ngModelOptions]="{standalone: true}"
 									required/>
 							</div>
 							<hr>
@@ -43,7 +43,7 @@
 							<label class="col-sm-4 col-form-label w-100">Precio Unitario <span
 									class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="punit" class="form-control" [(ngModel)]="form.p_unitario"
+								<input type="text" name="punit" class="form-control" [(ngModel)]="form.p_unitario" (change)="obtenerTotal()" [ngModelOptions]="{standalone: true}"
 									required/>
 							</div>
 							<hr>
@@ -53,7 +53,7 @@
 							<label class="col-sm-4 col-form-label w-100">Total <span
 									class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="total" class="form-control" [(ngModel)]="form.total"
+								<input type="text" name="total" class="form-control" [(ngModel)]="form.total" [ngModelOptions]="{standalone: true}" readonly
 									required/>
 							</div>
 							<hr>

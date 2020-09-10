@@ -87,9 +87,7 @@ export class CrudEmpresaComponent implements OnInit {
 		private api: ApiBackRequestService,
 		private user: TokenService,
 		private activatedRoute: ActivatedRoute,
-		private router: Router) {
-		this.validarDatos();
-	}
+		private router: Router) { }
 
 	ngOnInit(): void {
 		this.activatedRoute.queryParams.subscribe(async params => {

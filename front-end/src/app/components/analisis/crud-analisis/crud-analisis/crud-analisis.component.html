@@ -26,7 +26,7 @@
 								<input type="text" name="nroanalisis" class="form-control" formControlName="nroanalisis" [ngClass]="{'is-invalid': !formAnalisis.get('nroanalisis').valid}" [(ngModel)]="form.nro_analisis"
 									required/>
 								<div *ngIf="formAnalisis.controls['nroanalisis'].errors?.required" class="invalid-feedback">
-									El número de analisis es necesario
+									El número de análisis es necesario
 								</div>
 								<div *ngIf="formAnalisis.controls['nroanalisis'].errors?.pattern" class="invalid-feedback">
 									Escribir solo números

@@ -30,6 +30,7 @@ export interface Especialidad {
 })
 export class CrudDoctorComponent implements OnInit {
 
+  fileToUpload: File = null;
 	myControl = new FormControl();
   myControl1 = new FormControl();
 
@@ -100,9 +101,7 @@ export class CrudDoctorComponent implements OnInit {
     private user: TokenService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private routingState: RoutingStateService) {
-      this.validarDatos();
-    }
+    private routingState: RoutingStateService) { }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(async params => {
@@ -116,14 +115,27 @@ export class CrudDoctorComponent implements OnInit {
 				else {
 					this.cargarEditar();
 				}
+			} else {
+				this.obtenerEdad();
 			}
     });
-
     this.previousUrl = this.routingState.getPreviousUrl();
     this.validarDatos();
     this.fetch();
     this.fetch1();
   }
+
+  obtenerEdad() {
+    if(this.form.fecha_nacimiento){
+      const convertAge = new Date(this.form.fecha_nacimiento);
+      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
+      this.form.edad = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
+    } 
+  }
+  
+  handleFileInput(files: FileList) {
+		this.fileToUpload = files.item(0);
+	}
 
   validarDatos() {
     this.formDoctor = new FormGroup({
@@ -179,14 +191,6 @@ export class CrudDoctorComponent implements OnInit {
         Validators.maxLength(250)
       ])
     });
-  }
-
-  ageCalculator(){
-    if(this.form.fecha_nacimiento){
-      const convertAge = new Date(this.form.fecha_nacimiento);
-      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
-      this.form.edad = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
-    }  
   }
 
   async cargarEditar(next?) {
@@ -298,6 +302,36 @@ export class CrudDoctorComponent implements OnInit {
     }
   }
 
+  subirImg(firma, element) {
+		const formData: FormData = new FormData();
+		formData.append('file', this.fileToUpload);
+		formData.append('user_id', this.user.me());
+		formData.append('campo', 'doctor');
+		formData.append('firma', firma);
+
+		this.api.uploadFiles('subir', formData).subscribe(
+			(data) => {
+				if (element == 0) {
+					this.mensaje('Subida Exitosa', 3000, 'success');
+				}
+			},
+			(error) => {
+				if (element == 0) {
+					this.mensaje('Hubo errores en la subida', 3000, 'warning');
+				}
+			}
+		);
+  }
+  
+  mensaje(msj, time, ico) {
+		Swal.fire({
+			title: msj,
+			icon: ico,
+			timer: time
+		});
+		this.router.navigateByUrl('/doctores');
+  }
+  
   registrar() {
     if (this.formDoctor.valid) {
       console.log(this.formDoctor.value);
@@ -306,7 +340,11 @@ export class CrudDoctorComponent implements OnInit {
   
       this.api.post('doctores', this.form).subscribe(
         (data) => {
-          this.return()
+          if (this.fileToUpload != null) {
+						this.subirImg(data.firma, 0);
+					} else {
+              this.return()
+            }
           }
         );
     }

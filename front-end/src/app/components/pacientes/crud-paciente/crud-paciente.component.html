@@ -132,8 +132,7 @@
 							<label class="col-sm-4 col-form-label w-100">Fecha de Nacimiento <span
 								class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="date" name="fechanac" class="form-control" [(ngModel)]="form.fecha_nacimiento" (change)="ageCalculator()" required>
-								<button type="button" (click)="ageCalculator()"> Calcular </button>
+								<input type="date" name="fechanac" class="form-control" [(ngModel)]="form.fecha_nacimiento" (change)="obtenerEdad()" [ngModelOptions]="{standalone: true}" required>
 							</div>
 							<hr>
 						</div>
@@ -142,7 +141,7 @@
 							<label class="col-sm-4 col-form-label w-100">Edad <span
 								class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<input type="text" name="edad" class="form-control" [(ngModel)]="form.edad" value="{{ showAge }}" required>
+								<input type="text" name="edad" class="form-control" [(ngModel)]="form.edad" [ngModelOptions]="{standalone: true}" readonly required>
 							</div>
 							<hr>
 						</div>
@@ -150,10 +149,10 @@
 						<div class="form-group row my-3">
 							<label class="col-sm-4 col-form-label w-100">Sexo <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<select name="sexo" id="" class="form-control" [(ngModel)]="form.sexo" required>
-									<option [ngValue]="null" [disabled]="true" [selected]="true">Elige una opción</option>
-									<option value="1">FEMENINO</option>
-									<option value="2">MASCULINO</option>
+								<select name="sexo" id="" class="selectform form-control" [(ngModel)]="form.sexo" required>
+									<option class="selectform" [ngValue]="null" [disabled]="true" [selected]="true">Elige una opción</option>
+									<option class="selectform" value="1">FEMENINO</option>
+									<option class="selectform" value="2">MASCULINO</option>
 								</select>
 							</div>
 							<hr>
@@ -286,5 +285,3 @@
 		</div>
 	</div>
 </div>
-
-<!--<input type="date" name="fechanac" class="form-control" [(ngModel)]="form.fecha_nacimiento" required>-->

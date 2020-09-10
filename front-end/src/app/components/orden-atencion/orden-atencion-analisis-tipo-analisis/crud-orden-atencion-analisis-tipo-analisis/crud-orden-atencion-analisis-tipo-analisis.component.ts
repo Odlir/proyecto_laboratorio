@@ -53,6 +53,10 @@ export class CrudOrdenAtencionAnalisisTipoAnalisisComponent implements OnInit {
     this.previousUrl = this.routingState.getPreviousUrl();
   }
 
+  obtenerTotal() {
+    this.form.total =  this.form.cantidad * this.form.p_unitario; 
+  }
+
   cargarEditar() {
     this.api.get('orden_atencion_tipo_analisis', this.id).subscribe(
       (data) => {
