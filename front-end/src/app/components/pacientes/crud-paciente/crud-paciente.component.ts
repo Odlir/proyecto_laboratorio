@@ -258,28 +258,29 @@ export class CrudPacienteComponent implements OnInit {
   }
 
   registrar() {
-    if (this.formPaciente.valid) {
+ 
       console.log(this.formPaciente.value);
-      this.form.ubigeo_id = this.ubigeo.id;
+      this.form.ubigeo_id = this.form.ubigeo_id.id;
+
+      if(this.form.tipo_documento == null) {
+        this.form.tipo_documento = 1;
+      }
+
+      if(this.form.tipo_paciente == null) {
+        this.form.tipo_paciente = 1;
+      }
+      
       this.api.post('personas', this.form).subscribe(
         (data) => {
           this.return()
           }
       );
-    } else{
-      Swal.fire({
-        title: 'Complete los datos correctamente',
-        icon: 'warning',
-        showCancelButton: false,
-        cancelButtonColor: '#3085d6',
-        cancelButtonText: 'OK'
-      })
-    }
+   
   }
 
   editar() {
     this.form.edit_user_id = this.user.me();
-    this.form.ubigeo_id = this.ubigeo.id;
+    this.form.ubigeo_id = this.form.ubigeo_id.id;
     
     this.api.put('personas', this.id, this.form).subscribe(
       (data) => {

@@ -278,7 +278,7 @@ export class CrudEmpresaComponent implements OnInit {
 	registrar() {
 		if (this.formEmpresa.valid) {
 			console.log(this.formEmpresa.value);
-			this.form.ubigeo_id = this.ubigeo.id;
+			this.form.ubigeo_id = this.form.ubigeo_id.id;
 			this.api.post('empresas', this.form).subscribe(
 				(data) => {
 					this.handleRegistrar(data);
@@ -327,7 +327,7 @@ export class CrudEmpresaComponent implements OnInit {
 
 	editar() {
 		this.form.edit_user_id = this.user.me();
-		this.form.ubigeo_id = this.ubigeo.id;
+		this.form.ubigeo_id = this.form.ubigeo_id.id;
 		
 		this.api.put('empresas', this.id, this.form).subscribe(
 			(data) => {

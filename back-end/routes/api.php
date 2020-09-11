@@ -58,6 +58,7 @@ Route::group([
     Route::resource('respuestas','RespuestaController');
     Route::resource('links','LinkController');
     Route::resource('exportar','ExportController');
+    Route::resource('subir','SubirController');
     Route::get('exportar/intereses/{interes_id}/{persona_id}', 'ExportController@pdf_intereses');
     Route::get('exportar/temperamentos/{temperamento_id}/{persona_id}', 'ExportController@pdf_temperamentos');
     Route::get('exportar/consolidados/{interes_id}/{persona_id}', 'ExportController@pdf_consolidado');

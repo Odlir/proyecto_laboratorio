@@ -149,10 +149,10 @@
 						<div class="form-group row my-3">
 							<label class="col-sm-4 col-form-label w-100">Sexo <span class="text-danger">*</span></label>
 							<div class="col-sm-8">
-								<select name="sexo" id="" class="selectform form-control" [(ngModel)]="form.sexo" required>
-									<option class="selectform" [ngValue]="null" [disabled]="true" [selected]="true">Elige una opción</option>
-									<option class="selectform" value="1">FEMENINO</option>
-									<option class="selectform" value="2">MASCULINO</option>
+								<select name="sexo" id="sexo" class="form-control" [(ngModel)]="form.sexo" required>
+									<option [ngValue]="null" [disabled]="true" [selected]="true">Elige una opción</option>
+									<option value="1">FEMENINO</option>
+									<option value="2">MASCULINO</option>
 								</select>
 							</div>
 							<hr>

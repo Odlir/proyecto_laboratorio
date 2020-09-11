@@ -30,7 +30,6 @@ class DoctorController extends Controller
                     ->orWhere('apellido_materno', "LIKE", "%$searchValue%")
                     ->orWhere('apellido_paterno', "LIKE", "%$searchValue%")
                     ->orWhere('firma', "LIKE", "%$searchValue%")
-                    ->orWhere('especialidad', "LIKE", "%$searchValue%")
                     ->orWhere('nro_colegiatura', "LIKE", "%$searchValue%")
                     ->orWhere('fecha_nacimiento', "LIKE", "%$searchValue%")
                     ->orWhere('edad', "LIKE", "%$searchValue%")

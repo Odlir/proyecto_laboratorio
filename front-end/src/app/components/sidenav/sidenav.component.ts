@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { SharedVarService } from '../../Services/shared/shared-var.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { MediaObserver, MediaChange } from '@angular/flex-layout';
 
 @Component({
 	selector: 'app-sidenav',
@@ -16,12 +17,31 @@ export class SidenavComponent implements OnInit {
 	public isExpanded: boolean;
 	public showMenu: boolean;
 
-	constructor(private sharedService: SharedVarService,
+	opened = true;
+	over = 'side';
+	expandHeight = '42px';
+	collapseHeight = '42px';
+	displayMode = 'flat';
+	// overlap = false;
+  
+	watcher: Subscription;
+
+	constructor(private sharedService: SharedVarService,media: MediaObserver,
 		private token: TokenService,
 		private router: Router) {
 		this.login = this.sharedService.getShowMenu().subscribe(() => {
 			this.showMenu = this.show();
 		})
+
+		this.watcher = media.media$.subscribe((change: MediaChange) => {
+			if (change.mqAlias === 'sm' || change.mqAlias === 'xs') {
+			  this.opened = false;
+			  this.over = 'over';
+			} else {
+			  this.opened = true;
+			  this.over = 'side';
+			}
+		  });
 	}
 
 	ngOnInit(): void {

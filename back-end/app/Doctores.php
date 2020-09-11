@@ -16,7 +16,6 @@ class Doctores extends Model
         'apellido_materno',
         'apellido_paterno',
         'firma',
-        'especialidad',
         'nro_colegiatura',
         'fecha_nacimiento',
         'edad',
@@ -47,7 +46,6 @@ class Doctores extends Model
             $model->apellido_materno = $model->sinTilde('apellido_materno', $model->apellido_materno);
             $model->apellido_paterno = $model->sinTilde('apellido_paterno', $model->apellido_paterno);
             $model->firma = $model->sinTilde('firma', $model->firma);
-            $model->especialidad = $model->sinTilde('especialidad', $model->especialidad);
             $model->nro_colegiatura = $model->sinTilde('nro_colegiatura', $model->nro_colegiatura);
             $model->fecha_nacimiento = $model->sinTilde('fecha_nacimiento', $model->fecha_nacimiento);
             $model->edad = $model->sinTilde('edad', $model->edad);
@@ -68,7 +66,6 @@ class Doctores extends Model
             $model->apellido_materno = $model->setUpperCase('apellido_materno', $model->apellido_materno);
             $model->apellido_paterno = $model->setUpperCase('apellido_paterno', $model->apellido_paterno);
             $model->firma = $model->setUpperCase('firma', $model->firma);
-            $model->especialidad = $model->setUpperCase('especialidad', $model->especialidad);
             $model->nro_colegiatura = $model->setUpperCase('nro_colegiatura', $model->nro_colegiatura);
             $model->fecha_nacimiento = $model->setUpperCase('fecha_nacimiento', $model->fecha_nacimiento);
             $model->edad = $model->setUpperCase('edad', $model->edad);

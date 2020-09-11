@@ -9,6 +9,8 @@ import * as moment from 'moment';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {map, startWith} from "rxjs/operators";
 import Swal from 'sweetalert2';
+import { CommandName } from 'protractor';
+import { CLASS_NAME } from 'ngx-bootstrap/modal/modal-options.class';
 
 export interface Ubigeo {
   ubigeo: string,
@@ -19,6 +21,11 @@ export interface Ubigeo {
 }
 
 export interface Especialidad {
+  nombre: string,
+  id: number,
+}
+
+export interface fileToUpload {
   nombre: string,
   id: number,
 }
@@ -79,6 +86,7 @@ export class CrudDoctorComponent implements OnInit {
 	}
 
   formDoctor: FormGroup;
+  public lastPK: number;
 
   public ubigeos: Ubigeo[] = [];
   public especialidades: Especialidad[] = [];
@@ -132,10 +140,6 @@ export class CrudDoctorComponent implements OnInit {
       this.form.edad = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
     } 
   }
-  
-  handleFileInput(files: FileList) {
-		this.fileToUpload = files.item(0);
-	}
 
   validarDatos() {
     this.formDoctor = new FormGroup({
@@ -203,14 +207,14 @@ export class CrudDoctorComponent implements OnInit {
           }
         }
       );
-      this.cargarUbigeo(this.form.ubigeo_id);
-      this.cargarEspecialidad(this.form.especialidad_id);
+      this.cargarUbigeo(this.form.ubigeo_id.departamento);
+      this.cargarEspecialidad(this.form.especialidad_id.nombre);
   }
 
   cargarUbigeo(e) {
 		this.api.get('ubigeo?search=' + e).subscribe(
 			data => {
-				this.ubigeos = data;
+        this.ubigeos = data;
 			}
 		);
   }
@@ -301,13 +305,54 @@ export class CrudDoctorComponent implements OnInit {
       this.registrar();
     }
   }
+  
+  registrar() {
+   // if (this.formDoctor.valid) {
+      console.log(this.fileToUpload.name, 'hola' );
+      console.log(this.ubigeo.id, 'ubigeo');
+      //console.log(this.form.ubigeo_id.id, 'id' );
+      //console.log(this.form.especialidad_id.id, 'ubigeo' );
 
-  subirImg(firma, element) {
+      console.log(this.formDoctor.value);
+      this.form.ubigeo_id = this.form.ubigeo_id.id;
+      this.form.especialidad_id = this.form.especialidad_id.id;
+      this.form.firma = this.fileToUpload.name;
+
+      if(this.form.tipo_documento == null) {
+        this.form.tipo_documento = 1;
+      }
+
+      if(this.form.tipo_doctor == null) {
+        this.form.tipo_doctor = 1;
+      }
+
+        this.api.post('doctores', this.form).subscribe(
+          (data) => {
+            if (this.fileToUpload != null) {
+              this.subirImg(data.firma, 0);
+            } else {
+              this.return()
+              }
+            }
+          );
+  //  }
+  //  else{
+  //    Swal.fire({
+  //      title: 'Complete los datos correctamente',
+  //      icon: 'warning',
+  //      showCancelButton: false,
+  //      cancelButtonColor: '#3085d6',
+  //      cancelButtonText: 'OK'
+  //    })
+  //  }
+  }
+  
+  subirImg(encuesta_id, element) {
 		const formData: FormData = new FormData();
 		formData.append('file', this.fileToUpload);
 		formData.append('user_id', this.user.me());
 		formData.append('campo', 'doctor');
-		formData.append('firma', firma);
+		formData.append('encuesta_id', encuesta_id);
 
 		this.api.uploadFiles('subir', formData).subscribe(
 			(data) => {
@@ -329,44 +374,18 @@ export class CrudDoctorComponent implements OnInit {
 			icon: ico,
 			timer: time
 		});
-		this.router.navigateByUrl('/doctores');
+		this.return()
   }
   
-  registrar() {
-    if (this.formDoctor.valid) {
-      console.log(this.formDoctor.value);
-      this.form.ubigeo_id = this.ubigeo.id;
-      this.form.especialidad_id = this.especialidad.id;
-  
-      this.api.post('doctores', this.form).subscribe(
-        (data) => {
-          if (this.fileToUpload != null) {
-						this.subirImg(data.firma, 0);
-					} else {
-              this.return()
-            }
-          }
-        );
-    }
-    else{
-      Swal.fire({
-        title: 'Complete los datos correctamente',
-        icon: 'warning',
-        showCancelButton: false,
-        cancelButtonColor: '#3085d6',
-        cancelButtonText: 'OK'
-      })
-    }
-  }
-
   editar() {
     this.form.edit_user_id = this.user.me();
-    this.form.ubigeo_id = this.ubigeo.id;
-    this.form.especialidad_id = this.especialidad.id;
+    this.form.ubigeo_id = this.form.ubigeo_id.id;
+    this.form.especialidad_id = this.form.especialidad_id.id;
+    this.form.firma = this.fileToUpload.name;
 
     this.api.put('doctores', this.id, this.form).subscribe(
       (data) => {
-        this.return()
+        this.cargarEditar()
         }
       );
   }
@@ -384,6 +403,11 @@ export class CrudDoctorComponent implements OnInit {
       this.router.navigateByUrl(this.previousUrl);
     }
   }
+
+  handleFileInput(files: FileList) {
+		this.fileToUpload = files.item(0);
+	}
+
 
 }
 

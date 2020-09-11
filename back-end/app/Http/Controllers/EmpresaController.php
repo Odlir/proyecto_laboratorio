@@ -21,14 +21,9 @@ class EmpresaController extends Controller
 
         $searchValue = $request->input('search');
 
-        $data = Empresa::with('ubigeo')->where('estado', '1')
+        $data = Empresa::where('estado', '1')
             ->where(function ($query) use ($searchValue) {
                 $query->where('id', "LIKE", "%$searchValue%")
-                    ->orwhereHas('ubigeo', function ($q) use ($searchValue) {
-                        $q->where("departamento", "LIKE", "%$searchValue%");
-                        $q->where("provincia", "LIKE", "%$searchValue%");
-                        $q->where("distrito", "LIKE", "%$searchValue%");
-                    })
                     ->orWhere('nro_ruc', "LIKE", "%$searchValue%")
                     ->orWhere('razon_social', "LIKE", "%$searchValue%")
                     ->orWhere('pag_web', "LIKE", "%$searchValue%")

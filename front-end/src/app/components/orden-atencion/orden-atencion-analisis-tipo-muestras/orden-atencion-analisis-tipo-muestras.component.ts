@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./orden-atencion-analisis-tipo-muestras.component.css']
 })
 export class OrdenAtencionAnalisisTipoMuestrasComponent implements OnInit {
-  rows = [];
+  	rows = [];
 	loadingIndicator = true;
 	reorderable = true;
 
